@@ -279,8 +279,72 @@
       </a>
 
       <nav class="nav-links">
-        <a href="index.html" class="active" data-zh="Home" data-en="Home">Home</a>
-        <a href="disc-diffuser.html" data-zh="散氣盤" data-en="Disc Diffusers">散氣盤</a>
+
+        <a
+          href="index.html"
+          class="active"
+          data-zh="Home"
+          data-en="Home">
+
+          Home
+
+        </a>
+
+        <div class="nav-dropdown">
+
+          <button
+            class="dropdown-btn"
+            id="productDropdownBtn"
+            data-zh="產品 ▼"
+            data-en="Products ▼">
+
+            Products ▼
+
+          </button>
+
+          <div
+            class="dropdown-menu"
+            id="productDropdownMenu">
+
+            <a
+              href="disc-diffuser.html"
+              data-zh="散氣盤"
+              data-en="Disc Diffusers">
+
+              散氣盤
+
+            </a>
+
+            <a
+              href="tube-diffuser.html"
+              data-zh="散氣管"
+              data-en="Tube Diffusers">
+
+              散氣管
+
+            </a>
+
+          </div>
+
+        </div>
+
+        <a
+          href="about.html"
+          data-zh="關於我們"
+          data-en="About Us">
+
+          關於我
+
+        </a>
+
+        <a
+          href="download.html"
+          data-zh="資料下載"
+          data-en="Download">
+
+          資料下載
+
+        </a>
       </nav>
 
       <div class="nav-actions">
@@ -373,12 +437,10 @@
           </h2>
 
           <p
-            data-zh="首頁以公司介紹為主，讓客戶快速理解 EnviroValor 的定位、服務對象與供應能力。"
-            data-en="EnviroValor specializes in aeration products for wastewater treatment systems, with disc diffusers as our main product .
-            To support urgent project schedules and replacement needs, we maintain ready stock of standard disc diffusers ( 9-inch), allowing customers to receive products faster and reduce waiting time for project installation or maintenance.
-            Our disc diffusers are designed for stable aeration performance, easy installation, and reliable operation in municipal sewage treatment, industrial wastewater treatment, and other water treatment applications."
-          >
-            首頁以公司介紹為主，讓客戶快速理解 EnviroValor 的定位、服務對象與供應能力。
+              data-zh="首頁以公司介紹為主，讓客戶快速理解 EnviroValor 的定位、服務對象與供應能力。"
+              data-en="EnviroValor specializes in aeration products for wastewater treatment systems, with disc diffusers as our main product. To support urgent project schedules and replacement needs, we maintain ready stock of standard disc diffusers (9-inch), allowing customers to receive products faster and reduce waiting time for project installation or maintenance. Our disc diffusers are designed for stable aeration performance, easy installation, and reliable operation in municipal sewage treatment, industrial wastewater treatment, and other water treatment applications."
+            >
+              首頁以公司介紹為主，讓客戶快速理解 EnviroValor 的定位、服務對象與供應能力。
           </p>
         </div>
 
@@ -901,113 +963,6 @@
     </div>
   </footer>
 
-<script>
-
-  //中英切換  
-  const langBtn =
-  document.getElementById("langBtn");
-
-  const translatableElements =
-  document.querySelectorAll(
-  "[data-en][data-zh]"
-  );
-
-  let currentLang =
-  localStorage.getItem("language")
-  || "en";
-
-  function applyLanguage(lang){
-
-      translatableElements.forEach(
-      (el) => {
-
-          el.innerHTML =
-          el.dataset[lang];
-
-      });
-
-      document.documentElement.lang =
-      lang === "zh"
-      ? "zh-Hant"
-      : "en";
-
-      langBtn.textContent =
-      lang === "zh"
-      ? "EN"
-      : "中";
-  }
-
-  applyLanguage(currentLang);
-
-  langBtn.addEventListener(
-  "click",
-  () => {
-
-      currentLang =
-      currentLang === "zh"
-      ? "en"
-      : "zh";
-
-      localStorage.setItem(
-          "language",
-          currentLang
-      );
-
-      applyLanguage(currentLang);
-
-  });
-
-  // 彈跳視窗
-  const inquiryModal =
-  document.getElementById(
-  "inquiryModal"
-  );
-
-  const openInquiryModal =
-  document.getElementById(
-  "openInquiryModal"
-  );
-
-  const closeInquiryModal =
-  document.getElementById(
-  "closeInquiryModal"
-  );
-
-  const closeInquiryBtn =
-  document.getElementById(
-  "closeInquiryBtn"
-  );
-
-  openInquiryModal.addEventListener(
-  "click",
-  () => {
-
-      inquiryModal.classList.add(
-      "active"
-      );
-
-  });
-
-  closeInquiryModal.addEventListener(
-  "click",
-  () => {
-
-      inquiryModal.classList.remove(
-      "active"
-      );
-
-  });
-
-  closeInquiryBtn.addEventListener(
-  "click",
-  () => {
-
-      inquiryModal.classList.remove(
-      "active"
-      );
-
-  });
-
-</script>
+<script src="js/main.js"></script>
 </body>
 </html>

@@ -363,9 +363,7 @@ main section:not(.hero){
 </style>
 </head>
 
-<body>
-  <!-- Header -->
-  <header>
+<header>
     <div class="container navbar">
       <a class="logo" href="index.html">
         <img src="slogo.jpg" alt="EnviroValor Logo" />
@@ -375,6 +373,7 @@ main section:not(.hero){
 
         <a
           href="index.html"
+          class="active"
           data-zh="Home"
           data-en="Home">
 
@@ -400,7 +399,6 @@ main section:not(.hero){
 
             <a
               href="disc-diffuser.html"
-              class="active"
               data-zh="散氣盤"
               data-en="Disc Diffusers">
 
@@ -458,6 +456,38 @@ main section:not(.hero){
 
       </div>
     </div>
+  </header>
+  
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container navbar">
+      <a class="logo" href="index.html">
+        <img src="slogo.jpg" alt="EnviroValor Logo" />
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" data-zh="Home" data-en="Home">Home</a>
+        <a href="disc-diffuser.html" class="active" data-zh="散氣盤" data-en="Disc Diffusers">散氣盤</a>
+      </nav>
+
+      <div class="nav-actions">
+
+        <button class="lang-btn" id="langBtn">
+          EN
+        </button>
+
+        <button
+          class="quote-btn"
+          id="openInquiryModal"
+          data-zh="聯絡我們"
+          data-en="Contact Us">
+
+          聯絡我們
+
+        </button>
+
+      </div>
   </header>
 
   <main>
@@ -930,7 +960,7 @@ main section:not(.hero){
     </div>
   </footer>
 
-<script src="js/main.js"></script>
+
 </body>
 </html>
 
