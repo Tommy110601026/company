@@ -628,112 +628,142 @@
 
   <!-- Inquiry Modal -->
 
-<div class="inquiry-modal" id="inquiryModal">
+  <div class="inquiry-modal" id="inquiryModal">
 
-  <div class="inquiry-overlay" id="closeInquiryModal"></div>
+    <div class="inquiry-overlay" id="closeInquiryModal"></div>
 
-  <div class="inquiry-container">
+    <div class="inquiry-container">
 
-    <button
-      class="inquiry-close"
-      id="closeInquiryBtn">
+      <button
+        class="inquiry-close"
+        id="closeInquiryBtn">
 
-      ×
+        ×
 
-    </button>
+      </button>
 
-    <!-- Left -->
+      <!-- Left -->
 
-    <div class="inquiry-info">
+      <div class="inquiry-info">
 
-      <div class="inquiry-kicker">
-        EnviroValor
+        <div class="inquiry-kicker">
+          EnviroValor
+        </div>
+
+        <h2
+          data-zh="聯絡我們"
+          data-en="Contact Us">
+
+          Contact Us
+
+        </h2>
+
+        <p
+          data-zh="歡迎與我們聯繫產品詢價、樣品需求、型錄索取或 OEM 合作。"
+          data-en="Contact us for quotations, samples, catalogs, or OEM cooperation discussions.">
+
+          Contact us for quotations, samples, catalogs, or OEM cooperation discussions.
+
+        </p>
+
+        <ul class="inquiry-points">
+
+          <li>✓ Fast Response</li>
+          <li>✓ Sample Available</li>
+          <li>✓ OEM Discussion</li>
+          <li>✓ Taiwan Supplier</li>
+
+        </ul>
+
       </div>
 
-      <h2
-        data-zh="聯絡我們"
-        data-en="Contact Us">
+      <!-- Right -->
 
-        Contact Us
+      <div class="inquiry-form-wrap">
 
-      </h2>
-
-      <p
-        data-zh="歡迎與我們聯繫產品詢價、樣品需求、型錄索取或 OEM 合作。"
-        data-en="Contact us for quotations, samples, catalogs, or OEM cooperation discussions.">
-
-        Contact us for quotations, samples, catalogs, or OEM cooperation discussions.
-
-      </p>
-
-      <ul class="inquiry-points">
-
-        <li>✓ Fast Response</li>
-        <li>✓ Sample Available</li>
-        <li>✓ OEM Discussion</li>
-        <li>✓ Taiwan Supplier</li>
-
-      </ul>
-
-    </div>
-
-    <!-- Right -->
-
-    <div class="inquiry-form-wrap">
-
-      <form class="inquiry-form">
-
-        <div class="form-group">
-
-          <label
-            data-zh="詢問目的 *"
-            data-en="Inquiry Purpose *">
-
-            Inquiry Purpose *
-
-          </label>
-
-          <select>
-
-            <option>Request Quotation</option>
-            <option>Request Sample</option>
-            <option>Request Product Catalog</option>
-            <option>Discuss OEM / Distributor Cooperation</option>
-
-          </select>
-
-        </div>
-
-        <div class="form-group">
-
-          <label
-            data-zh="產品類型 *"
-            data-en="Product Type *">
-
-            Product Type *
-
-          </label>
-
-          <select>
-
-            <option>9-inch Fine Bubble Disc Diffuser</option>
-            <option>12-inch Fine Bubble Disc Diffuser</option>
-            <option>600 Tube Diffuser</option>
-            <option>Need Recommendation</option>
-
-          </select>
-
-        </div>
-
-        <div class="form-row">
+        <form class="inquiry-form">
 
           <div class="form-group">
 
             <label
-              data-zh="需求數量 *"
-              data-en="Quantity *">
+              data-zh="詢問目的 *"
+              data-en="Inquiry Purpose *">
 
-              Quantity *
+              Inquiry Purpose *
+
+            </label>
+
+            <select>
+
+              <option>Request Quotation</option>
+              <option>Request Sample</option>
+              <option>Request Product Catalog</option>
+              <option>Discuss OEM / Distributor Cooperation</option>
+
+            </select>
+
+          </div>
+
+          <div class="form-group">
+
+            <label
+              data-zh="產品類型 *"
+              data-en="Product Type *">
+
+              Product Type *
+
+            </label>
+
+            <select>
+
+              <option>9-inch Fine Bubble Disc Diffuser</option>
+              <option>12-inch Fine Bubble Disc Diffuser</option>
+              <option>600 Tube Diffuser</option>
+              <option>Need Recommendation</option>
+
+            </select>
+
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group">
+
+              <label
+                data-zh="需求數量 *"
+                data-en="Quantity *">
+
+                Quantity *
+
+              </label>
+
+              <input type="text">
+
+            </div>
+
+            <div class="form-group">
+
+              <label
+                data-zh="目的地國家 *"
+                data-en="Destination Country *">
+
+                Destination Country *
+
+              </label>
+
+              <input type="text">
+
+            </div>
+
+          </div>
+
+          <div class="form-group">
+
+            <label
+              data-zh="公司名稱 *"
+              data-en="Company Name *">
+
+              Company Name *
 
             </label>
 
@@ -744,10 +774,10 @@
           <div class="form-group">
 
             <label
-              data-zh="目的地國家 *"
-              data-en="Destination Country *">
+              data-zh="聯絡人 *"
+              data-en="Contact Person *">
 
-              Destination Country *
+              Contact Person *
 
             </label>
 
@@ -755,103 +785,73 @@
 
           </div>
 
-        </div>
+          <div class="form-group">
 
-        <div class="form-group">
+            <label>Email *</label>
 
-          <label
-            data-zh="公司名稱 *"
-            data-en="Company Name *">
+            <input type="email">
 
-            Company Name *
+          </div>
 
-          </label>
+          <div class="form-group">
 
-          <input type="text">
+            <label
+              data-zh="WhatsApp / 電話"
+              data-en="WhatsApp / Phone">
 
-        </div>
+              WhatsApp / Phone
 
-        <div class="form-group">
+            </label>
 
-          <label
-            data-zh="聯絡人 *"
-            data-en="Contact Person *">
+            <input type="text">
 
-            Contact Person *
+          </div>
 
-          </label>
+          <div class="form-group">
 
-          <input type="text">
+            <label
+              data-zh="公司網站"
+              data-en="Website">
 
-        </div>
+              Website
 
-        <div class="form-group">
+            </label>
 
-          <label>Email *</label>
+            <input type="text">
 
-          <input type="email">
+          </div>
 
-        </div>
+          <div class="form-group">
 
-        <div class="form-group">
+            <label
+              data-zh="備註／專案資訊"
+              data-en="Message / Project Information">
 
-          <label
-            data-zh="WhatsApp / 電話"
-            data-en="WhatsApp / Phone">
+              Message / Project Information
 
-            WhatsApp / Phone
+            </label>
 
-          </label>
+            <textarea rows="5"></textarea>
 
-          <input type="text">
+          </div>
 
-        </div>
+          <button
+            type="submit"
+            class="submit-btn"
+            data-zh="送出詢問"
+            data-en="Send Inquiry">
 
-        <div class="form-group">
+            Send Inquiry
 
-          <label
-            data-zh="公司網站"
-            data-en="Website">
+          </button>
 
-            Website
+        </form>
 
-          </label>
-
-          <input type="text">
-
-        </div>
-
-        <div class="form-group">
-
-          <label
-            data-zh="備註／專案資訊"
-            data-en="Message / Project Information">
-
-            Message / Project Information
-
-          </label>
-
-          <textarea rows="5"></textarea>
-
-        </div>
-
-        <button
-          type="submit"
-          class="submit-btn"
-          data-zh="送出詢問"
-          data-en="Send Inquiry">
-
-          Send Inquiry
-
-        </button>
-
-      </form>
+      </div>
 
     </div>
 
   </div>
-
-</div>
 
   <!-- Footer -->
   <footer>
@@ -897,6 +897,7 @@
 
 <script>
 
+  //中英切換  
   const langBtn =
   document.getElementById("langBtn");
 
@@ -950,59 +951,56 @@
 
   });
 
+  // 彈跳視窗
+  const inquiryModal =
+  document.getElementById(
+  "inquiryModal"
+  );
 
-</script>
-<script>
+  const openInquiryModal =
+  document.getElementById(
+  "openInquiryModal"
+  );
 
-const inquiryModal =
-document.getElementById(
-"inquiryModal"
-);
+  const closeInquiryModal =
+  document.getElementById(
+  "closeInquiryModal"
+  );
 
-const openInquiryModal =
-document.getElementById(
-"openInquiryModal"
-);
+  const closeInquiryBtn =
+  document.getElementById(
+  "closeInquiryBtn"
+  );
 
-const closeInquiryModal =
-document.getElementById(
-"closeInquiryModal"
-);
+  openInquiryModal.addEventListener(
+  "click",
+  () => {
 
-const closeInquiryBtn =
-document.getElementById(
-"closeInquiryBtn"
-);
+      inquiryModal.classList.add(
+      "active"
+      );
 
-openInquiryModal.addEventListener(
-"click",
-() => {
+  });
 
-    inquiryModal.classList.add(
-    "active"
-    );
+  closeInquiryModal.addEventListener(
+  "click",
+  () => {
 
-});
+      inquiryModal.classList.remove(
+      "active"
+      );
 
-closeInquiryModal.addEventListener(
-"click",
-() => {
+  });
 
-    inquiryModal.classList.remove(
-    "active"
-    );
+  closeInquiryBtn.addEventListener(
+  "click",
+  () => {
 
-});
+      inquiryModal.classList.remove(
+      "active"
+      );
 
-closeInquiryBtn.addEventListener(
-"click",
-() => {
-
-    inquiryModal.classList.remove(
-    "active"
-    );
-
-});
+  });
 
 </script>
 </body>
