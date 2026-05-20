@@ -487,21 +487,60 @@
   </footer>
 
   <script>
-    let currentLang = "zh";
 
-    const langBtn = document.getElementById("langBtn");
-    const translatableElements = document.querySelectorAll("[data-zh][data-en]");
+const langBtn =
+document.getElementById("langBtn");
 
-    langBtn.addEventListener("click", () => {
-      currentLang = currentLang === "zh" ? "en" : "zh";
+const translatableElements =
+document.querySelectorAll(
+"[data-zh][data-en]"
+);
 
-      translatableElements.forEach((el) => {
-        el.textContent = el.dataset[currentLang];
-      });
+let currentLang =
+localStorage.getItem("language")
+|| "zh";
 
-      document.documentElement.lang = currentLang === "zh" ? "zh-Hant" : "en";
-      langBtn.textContent = currentLang === "zh" ? "EN" : "中";
+function applyLanguage(lang){
+
+    translatableElements.forEach(
+    (el) => {
+
+        el.innerHTML =
+        el.dataset[lang];
+
     });
-  </script>
+
+    document.documentElement.lang =
+    lang === "zh"
+    ? "zh-Hant"
+    : "en";
+
+    langBtn.textContent =
+    lang === "zh"
+    ? "EN"
+    : "中";
+}
+
+applyLanguage(currentLang);
+
+langBtn.addEventListener(
+"click",
+() => {
+
+    currentLang =
+    currentLang === "zh"
+    ? "en"
+    : "zh";
+
+    localStorage.setItem(
+        "language",
+        currentLang
+    );
+
+    applyLanguage(currentLang);
+
+});
+
+</script>
 </body>
 </html>
