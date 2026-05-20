@@ -4,7 +4,7 @@ header{
     position:sticky;
     top:0;
     z-index:1000;
-
+    height:96px;
     background:rgba(7,48,71,.92);
 
     backdrop-filter:blur(14px);
@@ -16,22 +16,21 @@ header{
 /* Navbar */
 
 .navbar{
-    height:82px;
+
+    position:relative;
+
+    height:96px;
 
     display:flex;
     align-items:center;
     justify-content:space-between;
-
-    gap:32px;
 }
+
 
 /* Logo */
 
 .logo{
-    flex-shrink:0;
-
-    display:flex;
-    align-items:center;
+    justify-self:start;
 }
 
 .logo img{
@@ -44,24 +43,31 @@ header{
 /* Navigation */
 
 .nav-links{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+    translate(-50%, -50%);
+
     display:flex;
     align-items:center;
 
     gap:34px;
-
-    font-weight:800;
-
-    color:rgba(255,255,255,.88);
-
-    font-size:16px;
 }
 
 .nav-links a{
-    position:relative;
 
-    padding:8px 0;
+     position:relative;
 
-    transition:.2s;
+    color:
+    rgba(255,255,255,.88);
+
+    font-weight:800;
+
+    font-size:16px;
 }
 
 .nav-links a:hover,
@@ -75,7 +81,7 @@ header{
     position:absolute;
 
     left:0;
-    bottom:-10px;
+    bottom:-8px;
 
     width:100%;
     height:3px;
@@ -87,7 +93,11 @@ header{
 
 /* Right Buttons */
 
+
 .nav-actions{
+
+    justify-self:end;
+
     display:flex;
     align-items:center;
 
