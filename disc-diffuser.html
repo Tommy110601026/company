@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EnviroValor｜Disc Diffusers</title>
+
+<link rel="stylesheet" href="css/global.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/footer.css">
+
+<style>
+
+
+
+.eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    background:rgba(255,255,255,.1);
+
+    border:
+    1px solid rgba(255,255,255,.18);
+
+    border-radius:999px;
+
+    padding:7px 13px;
+
+    color:#baf7c4;
+
+    font-weight:900;
+    font-size:14px;
+
+    margin-bottom:22px;
+}
+
+
+/* Diffuser */
+
+.diffuser-visual{
+    min-height:360px;
+
+    border-radius:28px;
+
+    background:
+    radial-gradient(
+        circle at center,
+        rgba(53,179,74,.24),
+        transparent 42%
+    ),
+    linear-gradient(
+        180deg,
+        rgba(255,255,255,.18),
+        rgba(255,255,255,.06)
+    );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+}
+
+.disc{
+    width:230px;
+    height:230px;
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        #e8f0f4 0 18%,
+        transparent 19%
+    ),
+    repeating-radial-gradient(
+        circle,
+        #b9ced8 0 2px,
+        transparent 2px 15px
+    ),
+    #e9f0f3;
+
+    border:14px solid #fff;
+}
+
+/* Sections */
+
+main section:not(.hero){
+    padding:82px 0;
+}
+
+.section-head{
+    max-width:840px;
+    margin-bottom:38px;
+}
+
+.section-head.center{
+    text-align:center;
+    margin:0 auto 42px;
+}
+
+.section-head p{
+    color:var(--muted);
+    font-size:17px;
+}
+
+/* Cards */
+
+.cards-4{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.card{
+    background:var(--white);
+
+    border:
+    1px solid var(--line);
+
+    border-radius:var(--radius);
+
+    padding:28px;
+
+    box-shadow:
+    0 12px 32px rgba(7,48,71,.06);
+}
+
+.card h3{
+    color:var(--navy);
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.card p{
+    color:var(--muted);
+}
+
+/* Product */
+
+.product-section{
+    background:var(--white);
+}
+
+.grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:34px;
+    align-items:center;
+}
+
+.product-panel{
+    background:var(--bg);
+
+    border:
+    1px solid var(--line);
+
+    border-radius:32px;
+
+    padding:34px;
+
+    box-shadow:var(--shadow);
+}
+
+/* Table */
+
+.spec-table{
+    width:100%;
+    border-collapse:collapse;
+
+    background:var(--white);
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    border:
+    1px solid var(--line);
+
+    margin-top:20px;
+}
+
+.spec-table th,
+.spec-table td{
+    padding:15px 16px;
+
+    border-bottom:
+    1px solid var(--line);
+
+    text-align:left;
+}
+
+.spec-table th{
+    background:#edf5f7;
+    color:var(--navy);
+    width:34%;
+}
+
+/* Timeline */
+
+.timeline-box{
+    background:
+    linear-gradient(
+        135deg,
+        #082d43,
+        #0d405b
+    );
+
+    color:var(--white);
+
+    border-radius:34px;
+
+    padding:42px;
+}
+
+.timeline-line{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+
+.timeline-item{
+    padding:24px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.09);
+}
+
+.timeline-item strong{
+    display:block;
+    color:var(--green-light);
+    font-size:30px;
+}
+
+/* Application */
+
+.cards-3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.application-card{
+    background:var(--white);
+
+    border:
+    1px solid var(--line);
+
+    border-radius:22px;
+
+    padding:24px;
+}
+
+/* CTA */
+
+.cta{
+    padding:76px 0;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--navy),
+        var(--navy-light)
+    );
+
+    color:var(--white);
+    text-align:center;
+}
+
+.cta h2{
+    color:var(--white);
+}
+
+.cta p{
+    color:rgba(255,255,255,.78);
+
+    max-width:760px;
+
+    margin:
+    0 auto 26px;
+}
+
+.diffuser-visual{
+    min-height:420px;
+
+    border-radius:28px;
+
+    background:
+    radial-gradient(
+        circle at center,
+        rgba(53,179,74,.24),
+        transparent 42%
+    ),
+    linear-gradient(
+        180deg,
+        rgba(255,255,255,.18),
+        rgba(255,255,255,.06)
+    );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+}
+
+.disc{
+    width:230px;
+    height:230px;
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        #e8f0f4 0 18%,
+        transparent 19%
+    ),
+    repeating-radial-gradient(
+        circle,
+        #b9ced8 0 2px,
+        transparent 2px 15px
+    ),
+    #e9f0f3;
+
+    border:14px solid #fff;
+}
+
+/* Responsive */
+
+@media (max-width:980px){
+
+    .grid-2,
+    .cards-4,
+    .cards-3,
+    .timeline-line{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media (max-width:560px){
+
+   
+
+    .diffuser-visual{
+        min-height:260px;
+    }
+
+    .disc{
+        width:180px;
+        height:180px;
+    }
+
+    .product-panel,
+    .timeline-box{
+        padding:24px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container navbar">
+      <a class="logo" href="index.html">
+        <img src="logo.jpg" alt="EnviroValor Logo" />
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" data-zh="Home" data-en="Home">Home</a>
+        <a href="disc-diffuser.html" class="active" data-zh="散氣盤" data-en="Disc Diffusers">散氣盤</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="lang-btn" id="langBtn">EN</button>
+        <a class="quote-btn" href="#contact" data-zh="聯絡我們" data-en="Contact Us">聯絡我們</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div
+            class="eyebrow"
+            data-zh="Fine Bubble Disc Diffusers｜細氣泡散氣盤"
+            data-en="Fine Bubble Disc Diffusers"
+          >
+            Fine Bubble Disc Diffusers｜細氣泡散氣盤
+          </div>
+
+          <h1
+            data-zh="快速交貨的細氣泡散氣盤解決方案"
+            data-en="Fast-Delivery Fine Bubble Disc Diffuser Solutions"
+          >
+            快速交貨的細氣泡散氣盤解決方案
+          </h1>
+
+          <p
+            data-zh="EnviroValor 提供適用於污水處理與曝氣系統的細氣泡散氣盤，具備現貨供應、7–14 天交貨、台灣製造與穩定品質等優勢，協助工程與維修專案縮短等待時間。"
+            data-en="EnviroValor provides fine bubble disc diffusers for wastewater treatment and aeration systems, featuring ready stock, 7–14 day delivery, Made in Taiwan engineering, and stable product quality to help projects reduce waiting time."
+          >
+            EnviroValor 提供適用於污水處理與曝氣系統的細氣泡散氣盤，具備現貨供應、7–14 天交貨、台灣製造與穩定品質等優勢，協助工程與維修專案縮短等待時間。
+          </p>
+
+          <div class="hero-buttons">
+            <a class="btn-primary" href="#contact" data-zh="立即詢價" data-en="Request a Quote">立即詢價</a>
+            <a class="btn-outline" href="#specs" data-zh="查看規格" data-en="View Specs">查看規格</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="diffuser-visual">
+            <div class="disc"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose -->
+    <section>
+      <div class="container">
+        <div class="section-head center">
+          <div class="kicker" data-zh="Why Choose EnviroValor" data-en="Why Choose EnviroValor">
+            Why Choose EnviroValor
+          </div>
+          <h2
+            data-zh="我們提供的不只是產品，而是供應安全與速度"
+            data-en="We Offer Security and Speed, Not Just Products"
+          >
+            我們提供的不只是產品，而是供應安全與速度
+          </h2>
+          <p
+            data-zh="相較於傳統 60–90 天不確定交期，EnviroValor 以現貨與供應安排協助客戶降低專案延誤風險。"
+            data-en="Compared with traditional uncertain 60–90 day lead times, EnviroValor helps customers reduce project delay risks through ready stock and supply planning."
+          >
+            相較於傳統 60–90 天不確定交期，EnviroValor 以現貨與供應安排協助客戶降低專案延誤風險。
+          </p>
+        </div>
+
+        <div class="cards-4">
+          <div class="card">
+            <div class="icon">7</div>
+            <h3 data-zh="7–14 天交貨" data-en="7–14 Day Delivery">7–14 天交貨</h3>
+            <p
+              data-zh="標準產品可安排快速出貨，適合維修汰換與急件工程需求。"
+              data-en="Standard products can be arranged for fast shipment, suitable for replacement and urgent project needs."
+            >
+              標準產品可安排快速出貨，適合維修汰換與急件工程需求。
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">✓</div>
+            <h3 data-zh="現貨供應" data-en="Ready Stock">現貨供應</h3>
+            <p
+              data-zh="備有標準規格庫存，協助客戶繞過漫長的生產等待時間。"
+              data-en="Ready stock for standard specifications helps customers bypass long production waiting time."
+            >
+              備有標準規格庫存，協助客戶繞過漫長的生產等待時間。
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">TW</div>
+            <h3 data-zh="台灣製造" data-en="Made in Taiwan">台灣製造</h3>
+            <p
+              data-zh="以台灣製造工程與穩定供應能力，提供可靠的曝氣產品選擇。"
+              data-en="Made in Taiwan engineering and stable supply capability provide reliable aeration product options."
+            >
+              以台灣製造工程與穩定供應能力，提供可靠的曝氣產品選擇。
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">SGS</div>
+            <h3 data-zh="SGS 驗證一致性" data-en="SGS-Verified Consistency">SGS 驗證一致性</h3>
+            <p
+              data-zh="重視產品測試與品質一致性，降低維修與更換風險。"
+              data-en="Focused on product testing and quality consistency to reduce maintenance and replacement risks."
+            >
+              重視產品測試與品質一致性，降低維修與更換風險。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Design -->
+    <section class="product-section" id="specs">
+      <div class="container grid-2">
+        <div class="product-panel">
+          <div class="diffuser-visual">
+            <div class="disc"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="kicker" data-zh="Precision Engineering" data-en="Precision Engineering">
+            Precision Engineering
+          </div>
+          <h2
+            data-zh="為高效率曝氣而設計"
+            data-en="Engineered for Optimal Aeration"
+          >
+            為高效率曝氣而設計
+          </h2>
+
+          <p
+            data-zh="EnviroValor 細氣泡散氣盤採用高等級 EPDM 膜片與耐用 P.P. 底座設計，搭配內建逆止結構，協助降低回流風險並維持穩定曝氣表現。"
+            data-en="EnviroValor fine bubble disc diffusers use high-grade EPDM membranes and durable P.P. bases, with a built-in check valve design to help reduce backflow risk and maintain stable aeration performance."
+          >
+            EnviroValor 細氣泡散氣盤採用高等級 EPDM 膜片與耐用 P.P. 底座設計，搭配內建逆止結構，協助降低回流風險並維持穩定曝氣表現。
+          </p>
+
+          <table class="spec-table">
+            <tr>
+              <th data-zh="膜片材質" data-en="Membrane">膜片材質</th>
+              <td data-zh="高等級 EPDM 膜片，具高變形抗性。" data-en="High-grade EPDM membrane with high deformation resistance.">高等級 EPDM 膜片，具高變形抗性。</td>
+            </tr>
+            <tr>
+              <th data-zh="底座" data-en="Base">底座</th>
+              <td data-zh="耐用 P.P. 底座，適合嚴苛污水處理環境。" data-en="Durable P.P. base for harsh wastewater treatment environments.">耐用 P.P. 底座，適合嚴苛污水處理環境。</td>
+            </tr>
+            <tr>
+
+    <th
+    data-zh="逆止設計"
+    data-en="Check Valve">
+
+        逆止設計
+
+    </th>
+
+    <td
+    data-zh="內建逆止閥機構，可在停機時降低污水回流風險。"
+    data-en="Built-in check valve helps reduce wastewater backflow during shutdown.">
+
+        內建逆止閥機構，可在停機時降低污水回流風險。
+
+    </td>
+
+</tr>
+
+<tr>
+
+    <th
+    data-zh="應用領域"
+    data-en="Applications">
+
+        應用領域
+
+    </th>
+
+    <td
+    data-zh="污水處理廠、工業廢水系統、水產養殖曝氣。"
+    data-en="Wastewater treatment plants, industrial wastewater systems, aquaculture aeration.">
+
+        污水處理廠、工業廢水系統、水產養殖曝氣。
+
+    </td>
+
+</tr>
+
+</table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+<!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h4>EnviroValor</h4>
+        <p
+          data-zh="專注於水處理曝氣產品的台灣供應商。"
+          data-en="Taiwan-based supplier for wastewater aeration products."
+        >
+          專注於水處理曝氣產品的台灣供應商。
+        </p>
+      </div>
+
+      <div>
+        <h4 data-zh="聯絡資訊" data-en="Contact">聯絡資訊</h4>
+        <ul>
+          <li>Email: info@envirovalor.com</li>
+          <li data-zh="電話：待補" data-en="Tel: To be confirmed">電話：待補</li>
+          <li data-zh="營業時間：週一至週五 08:30–17:30" data-en="Business Hours: Mon–Fri 08:30–17:30">
+            營業時間：週一至週五 08:30–17:30
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 data-zh="臺北市中正區北平西路3號100臺灣" data-en="No. 3, Beiping W. Rd., Zhongzheng Dist., Taipei City 100, Taiwan">臺北市中正區北平西路3號100臺灣</h4>
+        <p data-zh="地址待補，確認後可嵌入 Google 地圖。" data-en="Address to be confirmed. Google Map can be embedded later."></p>
+
+        <!-- Google 地圖之後把 src 換成你的公司地址嵌入碼 -->
+        <iframe
+          class="map"
+          loading="lazy"
+          src="https://www.google.com/maps?q=臺北市中正區北平西路3號100臺灣&output=embed">
+        </iframe>
+      </div>
+    </div>
+
+    <div class="container copyright">
+      <span>© 2026 EnviroValor. All rights reserved.</span>
+      <span>Wastewater Aeration Products</span>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = "zh";
+
+    const langBtn = document.getElementById("langBtn");
+    const translatableElements = document.querySelectorAll("[data-zh][data-en]");
+
+    langBtn.addEventListener("click", () => {
+      currentLang = currentLang === "zh" ? "en" : "zh";
+
+      translatableElements.forEach((el) => {
+        el.textContent = el.dataset[currentLang];
+      });
+
+      document.documentElement.lang = currentLang === "zh" ? "zh-Hant" : "en";
+      langBtn.textContent = currentLang === "zh" ? "EN" : "中";
+    });
+  </script>
+</body>
+</html>
+
