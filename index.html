@@ -461,7 +461,7 @@
         <h4 data-zh="聯絡資訊" data-en="Contact">聯絡資訊</h4>
         <ul>
           <li>Email: info@envirovalor.com</li>
-          <li data-zh="電話：待補" data-en="Tel: To be confirmed">電話：待補</li>
+          <li data-zh="電話：（03）- 4031234" data-en="Tel: （03）-4031234">電話：（03）- 4031234</li>
           <li data-zh="營業時間：週一至週五 08:30–17:30" data-en="Business Hours: Mon–Fri 08:30–17:30">
             營業時間：週一至週五 08:30–17:30
           </li>
@@ -469,13 +469,13 @@
       </div>
 
       <div>
-        <h4 data-zh="臺北市中正區北平西路3號100臺灣" data-en="No. 3, Beiping W. Rd., Zhongzheng Dist., Taipei City 100, Taiwan">臺北市中正區北平西路3號100臺灣</h4>
-        <p data-zh="地址待補，確認後可嵌入 Google 地圖。" data-en="Address to be confirmed. Google Map can be embedded later."></p>
+        <h4 data-zh="桃園市平鎮區中豐路南勢二段460巷120-2號" data-en="No. 120-2, Ln. 460, Sec. 2, Nanshi Rd., Pingzhen Dist., Taoyuan City, Taiwan">桃園市平鎮區中豐路南勢二段460巷120-2號</h4>
+        
 
         <iframe
           class="map"
           loading="lazy"
-          src="https://www.google.com/maps?q=臺北市中正區北平西路3號100臺灣&output=embed">
+          src="https://www.google.com/maps?q=桃園市平鎮區中豐路南勢二段460巷120-2號&output=embed">
         </iframe>
       </div>
     </div>
@@ -486,60 +486,60 @@
     </div>
   </footer>
 
-  <script>
+<script>
 
-const langBtn =
-document.getElementById("langBtn");
+  const langBtn =
+  document.getElementById("langBtn");
 
-const translatableElements =
-document.querySelectorAll(
-"[data-zh][data-en]"
-);
+  const translatableElements =
+  document.querySelectorAll(
+  "[data-zh][data-en]"
+  );
 
-let currentLang =
-localStorage.getItem("language")
-|| "zh";
+  let currentLang =
+  localStorage.getItem("language")
+  || "zh";
 
-function applyLanguage(lang){
+  function applyLanguage(lang){
 
-    translatableElements.forEach(
-    (el) => {
+      translatableElements.forEach(
+      (el) => {
 
-        el.innerHTML =
-        el.dataset[lang];
+          el.innerHTML =
+          el.dataset[lang];
 
-    });
+      });
 
-    document.documentElement.lang =
-    lang === "zh"
-    ? "zh-Hant"
-    : "en";
+      document.documentElement.lang =
+      lang === "zh"
+      ? "zh-Hant"
+      : "en";
 
-    langBtn.textContent =
-    lang === "zh"
-    ? "EN"
-    : "中";
-}
+      langBtn.textContent =
+      lang === "zh"
+      ? "EN"
+      : "中";
+  }
 
-applyLanguage(currentLang);
+  applyLanguage(currentLang);
 
-langBtn.addEventListener(
-"click",
-() => {
+  langBtn.addEventListener(
+  "click",
+  () => {
 
-    currentLang =
-    currentLang === "zh"
-    ? "en"
-    : "zh";
+      currentLang =
+      currentLang === "zh"
+      ? "en"
+      : "zh";
 
-    localStorage.setItem(
-        "language",
-        currentLang
-    );
+      localStorage.setItem(
+          "language",
+          currentLang
+      );
 
-    applyLanguage(currentLang);
+      applyLanguage(currentLang);
 
-});
+  });
 
 </script>
 </body>
