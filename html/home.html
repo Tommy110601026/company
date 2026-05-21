@@ -9,12 +9,10 @@
 <link rel="stylesheet" href="../css/header.css">
 <link rel="stylesheet" href="../css/footer.css">
 <link rel="stylesheet" href="../css/contact.css">
+<link rel="stylesheet" href="../css/mobile-menu.css">
 
 <style>
 
-body{
-    visibility:hidden;
-}
 
 
 .eyebrow{
@@ -274,7 +272,129 @@ body{
 <body>
 
   <!-- Header -->
-  <div id="header"></div>
+  <header>
+
+      <div class="container navbar">
+
+          <a
+              class="logo"
+              href="../html/home.html">
+
+              <img
+                  src="../images/slogo.jpg"
+                  alt="EnviroValor Logo" />
+
+          </a>
+
+          <nav class="nav-links">
+
+              <a
+                  href="../html/home.html"
+                  class="nav-link"
+                  data-page="home"
+                  data-zh="Home"
+                  data-en="Home">
+
+                  Home
+
+              </a>
+
+              <div class="nav-dropdown">
+
+                  <button
+                      class="dropdown-btn"
+                      data-page="products"
+                      id="productDropdownBtn"
+                      data-zh="產品 ▼"
+                      data-en="Products ▼">
+
+                      Products ▼
+
+                  </button>
+
+                  <div
+                      class="dropdown-menu"
+                      id="productDropdownMenu">
+
+                      <a
+                          href="../html/disc-diffuser.html"
+                          data-zh="散氣盤"
+                          data-en="Disc Diffusers">
+
+                          Disc Diffusers
+
+                      </a>
+
+                      <a
+                          href="../html/tube-diffuser.html"
+                          data-zh="散氣管"
+                          data-en="Tube Diffusers">
+
+                          Tube Diffusers
+
+                      </a>
+
+                  </div>
+
+              </div>
+
+              <a
+                  href="../html/about.html"
+                  class="nav-link"
+                  data-page="about"
+                  data-zh="關於我們"
+                  data-en="About Us">
+
+                  About Us
+
+              </a>
+
+              <a
+                  href="../html/download.html"
+                  class="nav-link"
+                  data-page="download"
+                  data-zh="資料下載"
+                  data-en="Download">
+
+                  Download
+
+              </a>
+
+          </nav>
+
+          <div class="nav-actions">
+
+              <button
+                  class="lang-btn"
+                  id="langBtn">
+
+                  EN
+
+              </button>
+
+              <button
+                  class="quote-btn"
+                  id="openInquiryModal"
+                  data-zh="聯絡我們"
+                  data-en="Contact Us">
+
+                  Contact Us
+
+              </button>
+
+              <button
+                  class="mobile-menu-btn"
+                  id="mobileMenuBtn">
+
+                  ☰
+
+              </button>
+
+          </div>
+
+      </div>
+
+  </header>
 
   <!-- Mobile Menu -->
   <div id="mobile-menu"></div>
@@ -674,9 +794,7 @@ async function initComponents(){
     initActiveNav();
 }
 
-initComponents().then(() => {
-    document.body.style.visibility = "visible";
-});
+initComponents();
 
 </script>
 
