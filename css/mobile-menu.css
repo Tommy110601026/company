@@ -1,10 +1,122 @@
-.mobile-nav-link{
+/* =========================
+   Mobile Menu Overlay
+========================= */
 
-    position:relative;
+.mobile-menu{
+
+    position:fixed;
+
+    top:0;
+    right:-100%;
+
+    width:100%;
+    max-width:420px;
+
+    height:100vh;
+
+    background:#073047;
+
+    z-index:3000;
+
+    transition:.35s ease;
+
+    overflow-y:auto;
+}
+
+
+/* 開啟 */
+
+.mobile-menu.active{
+
+    right:0;
+}
+
+
+/* =========================
+   Inner
+========================= */
+
+.mobile-menu-inner{
+
+    padding:
+    40px
+    34px
+    80px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:34px;
+}
+
+
+/* =========================
+   Close Button
+========================= */
+
+.mobile-close-btn{
+
+    width:68px;
+    height:68px;
+
+    margin-left:auto;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:
+    rgba(255,255,255,.08);
+
+    color:#fff;
+
+    font-size:42px;
+
+    cursor:pointer;
 
     transition:.25s ease;
 }
 
+
+.mobile-close-btn:hover{
+
+    background:
+    rgba(255,255,255,.16);
+}
+
+
+/* =========================
+   Links
+========================= */
+
+.mobile-nav-link{
+
+    position:relative;
+
+    width:fit-content;
+
+    color:#ffffff;
+
+    text-decoration:none;
+
+    font-size:28px;
+
+    font-weight:800;
+
+    transition:.25s ease;
+}
+
+
+.mobile-nav-link:hover{
+
+    color:#7CFF7C;
+}
+
+
+/* =========================
+   Active
+========================= */
 
 .mobile-nav-link.active{
 
@@ -21,14 +133,56 @@
     left:0;
     bottom:-10px;
 
-    width:64px;
-    height:3px;
+    width:72px;
+    height:4px;
 
     border-radius:999px;
 
     background:#63d84e;
 
     box-shadow:
-    0 0 8px rgba(99,216,78,.9),
-    0 0 18px rgba(99,216,78,.7);
+    0 0 10px rgba(99,216,78,.9),
+    0 0 20px rgba(99,216,78,.7);
+}
+
+
+/* =========================
+   Product Group
+========================= */
+
+.mobile-product-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:24px;
+
+    padding-left:16px;
+}
+
+
+.mobile-product-title{
+
+    color:
+    rgba(255,255,255,.7);
+
+    font-size:18px;
+
+    letter-spacing:.12em;
+
+    text-transform:uppercase;
+}
+
+
+/* =========================
+   Mobile Only
+========================= */
+
+@media (min-width:992px){
+
+    .mobile-menu{
+
+        display:none;
+    }
 }

@@ -142,10 +142,10 @@ function initContact(){
     document.querySelector(".quote-btn");
 
     const modal =
-    document.querySelector(".inquiry-modal");
+        document.querySelector(".inquiry-modal");
 
-    const closeBtn =
-    document.querySelector(".inquiry-close");
+        const closeBtn =
+        document.querySelector(".inquiry-close");
 
     console.log(openBtn);
     console.log(modal);
@@ -206,23 +206,111 @@ function initMobileMenu(){
     const mobileMenu =
     document.querySelector(".mobile-menu");
 
+    const closeBtn =
+    document.querySelector(".mobile-close-btn");
+
+    const mobileLinks =
+    document.querySelectorAll(".mobile-nav-link");
+
     console.log(menuBtn);
     console.log(mobileMenu);
+    console.log(closeBtn);
 
     if(!menuBtn || !mobileMenu)
     return;
+
+
+    // =========================
+    // 開啟
+    // =========================
 
     menuBtn.addEventListener(
         "click",
         () => {
 
-            console.log("mobile clicked");
+            mobileMenu
+            .classList
+            .add("active");
+        }
+    );
+
+
+    // =========================
+    // 關閉
+    // =========================
+
+    closeBtn?.addEventListener(
+        "click",
+        () => {
+
+            console.log("close clicked");
 
             mobileMenu
             .classList
-            .toggle("active");
+            .remove("active");
         }
     );
+
+
+    // 點選連結後自動關閉
+
+    mobileLinks.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                mobileMenu
+                .classList
+                .remove("active");
+            }
+        );
+    });
+
+
+    // =========================
+    // Active 頁面判斷
+    // =========================
+
+    const path =
+    window.location.pathname;
+
+    console.log(path);
+
+    let currentPage = "home";
+
+
+    if(path.includes("about.html")){
+
+        currentPage = "about";
+    }
+
+    else if(path.includes("download.html")){
+
+        currentPage = "download";
+    }
+
+    else if(
+        path.includes("disc-diffuser.html")
+        ||
+        path.includes("tube-diffuser.html")
+    ){
+
+        currentPage = "products";
+    }
+
+
+    console.log(currentPage);
+
+
+    const activeLink =
+    document.querySelector(
+        `.mobile-nav-link[data-mobile-page="${currentPage}"]`
+    );
+
+    console.log(activeLink);
+
+    activeLink?.classList.add("active");
 }
 
 function initActiveNav(){
