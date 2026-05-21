@@ -1,196 +1,276 @@
 console.log("main.js loaded");
-// ========================
-// Language Switch
-// ========================
 
-const langBtn =
-document.getElementById(
-"langBtn"
-);
 
-const translatableElements =
-document.querySelectorAll(
-"[data-en][data-zh]"
-);
 
-let currentLang =
-localStorage.getItem(
-"language"
-) || "en";
+// =========================
+// 語系切換
+// =========================
 
-function applyLanguage(lang){
+function initLanguage() {
 
-    translatableElements.forEach(
-    (el) => {
+    console.log("initLanguage started");
 
-        el.textContent =
-        el.dataset[lang];
+    let currentLang = "en";
 
-    });
+    const langBtn =
+    document.querySelector(".lang-btn");
 
-    document.documentElement.lang =
-    lang === "zh"
-    ? "zh-Hant"
-    : "en";
+    console.log("langBtn =", langBtn);
 
-    langBtn.textContent =
-    lang === "zh"
-    ? "EN"
-    : "中";
+
+    function setLanguage(lang){
+
+        currentLang = lang;
+
+        document
+        .querySelectorAll("[data-en]")
+        .forEach(el => {
+
+            el.textContent =
+            lang === "en"
+            ? el.dataset.en
+            : el.dataset.zh;
+
+        });
+
+        // 語言按鈕文字
+        if(langBtn){
+
+            langBtn.textContent =
+            lang === "en"
+            ? "中文"
+            : "EN";
+        }
+    }
+
+
+    // 綁定點擊
+    if(langBtn){
+
+        console.log("binding lang click");
+
+        langBtn.addEventListener(
+            "click",
+            () => {
+
+                console.log("lang clicked");
+
+                const nextLang =
+                currentLang === "en"
+                ? "zh"
+                : "en";
+
+                setLanguage(nextLang);
+            }
+        );
+    }
+
+    // 預設英文
+    setLanguage("en");
 }
 
-applyLanguage(currentLang);
-
-langBtn.addEventListener(
-"click",
-() => {
-
-    currentLang =
-    currentLang === "zh"
-    ? "en"
-    : "zh";
-
-    localStorage.setItem(
-        "language",
-        currentLang
-    );
-
-    applyLanguage(currentLang);
-
-});
 
 
-// ========================
-// Inquiry Modal
-// ========================
 
-const inquiryModal =
-document.getElementById(
-"inquiryModal"
-);
 
-const openInquiryModal =
-document.getElementById(
-"openInquiryModal"
-);
+// =========================
+// Products Dropdown
+// =========================
 
-const closeInquiryModal =
-document.getElementById(
-"closeInquiryModal"
-);
+function initDropdown(){
 
-const closeInquiryBtn =
-document.getElementById(
-"closeInquiryBtn"
-);
+    console.log("initDropdown");
 
-openInquiryModal.addEventListener(
-"click",
-() => {
+    const dropdownBtn =
+    document.querySelector(".dropdown-btn");
 
-    inquiryModal.classList.add(
-    "active"
-    );
+    const dropdownMenu =
+    document.querySelector(".dropdown-menu");
 
-});
+    console.log(dropdownBtn);
+    console.log(dropdownMenu);
 
-closeInquiryModal.addEventListener(
-"click",
-() => {
+    if(!dropdownBtn || !dropdownMenu)
+    return;
 
-    inquiryModal.classList.remove(
-    "active"
-    );
+    dropdownBtn.addEventListener(
+        "click",
+        (e) => {
 
-});
+            e.stopPropagation();
 
-closeInquiryBtn.addEventListener(
-"click",
-() => {
+            console.log("dropdown clicked");
 
-    inquiryModal.classList.remove(
-    "active"
-    );
-
-});
-
-// ========================
-// Product Dropdown
-// ========================
-
-console.log("Dropdown script start");
-
-const productDropdownBtn =
-document.getElementById(
-"productDropdownBtn"
-);
-
-const productDropdownMenu =
-document.getElementById(
-"productDropdownMenu"
-);
-
-console.log(
-"Button:",
-productDropdownBtn
-);
-
-console.log(
-"Menu:",
-productDropdownMenu
-);
-
-if(
-    productDropdownBtn &&
-    productDropdownMenu
-){
-
-    console.log("Dropdown elements found");
-
-    productDropdownBtn.addEventListener(
-    "click",
-    (e) => {
-
-        console.log("BUTTON CLICKED");
-
-        e.stopPropagation();
-
-        productDropdownMenu.classList.toggle(
-        "active"
-        );
-
-        console.log(
-            "Menu class:",
-            productDropdownMenu.className
-        );
-
-    });
-
-    document.addEventListener(
-    "click",
-    (e) => {
-
-        console.log("DOCUMENT CLICK");
-
-        if(
-            !productDropdownBtn.contains(e.target) &&
-            !productDropdownMenu.contains(e.target)
-        ){
-
-            console.log("CLICK OUTSIDE");
-
-            productDropdownMenu.classList.remove(
-            "active"
-            );
-
+            dropdownMenu
+            .classList
+            .toggle("active");
         }
-
-    });
-
-}else{
-
-    console.log(
-    "Dropdown elements NOT found"
     );
 
+    // 點其他地方關閉
+    document.addEventListener(
+        "click",
+        (e) => {
+
+            if(
+                !dropdownBtn.contains(e.target)
+                &&
+                !dropdownMenu.contains(e.target)
+            ){
+
+                dropdownMenu
+                .classList
+                .remove("active");
+            }
+        }
+    );
+}
+
+
+
+
+
+// =========================
+// Contact Modal
+// =========================
+
+function initContact(){
+
+    console.log("initContact");
+
+    const openBtn =
+    document.querySelector(".quote-btn");
+
+    const modal =
+    document.querySelector(".inquiry-modal");
+
+    const closeBtn =
+    document.querySelector(".inquiry-close");
+
+    console.log(openBtn);
+    console.log(modal);
+    console.log(closeBtn);
+
+    if(
+        !openBtn ||
+        !modal ||
+        !closeBtn
+    ) return;
+
+    openBtn.addEventListener(
+        "click",
+        () => {
+
+            console.log("contact clicked");
+
+            modal.classList.add("active");
+        }
+    );
+
+    closeBtn.addEventListener(
+        "click",
+        () => {
+
+            modal.classList.remove("active");
+        }
+    );
+
+    // 點背景關閉
+    window.addEventListener(
+        "click",
+        (e) => {
+
+            if(e.target === modal){
+
+                modal.classList.remove("active");
+            }
+        }
+    );
+}
+
+
+
+
+
+// =========================
+// Mobile Menu
+// =========================
+
+function initMobileMenu(){
+
+    console.log("initMobileMenu");
+
+    const menuBtn =
+    document.querySelector(".mobile-menu-btn");
+
+    const mobileMenu =
+    document.querySelector(".mobile-menu");
+
+    console.log(menuBtn);
+    console.log(mobileMenu);
+
+    if(!menuBtn || !mobileMenu)
+    return;
+
+    menuBtn.addEventListener(
+        "click",
+        () => {
+
+            console.log("mobile clicked");
+
+            mobileMenu
+            .classList
+            .toggle("active");
+        }
+    );
+}
+
+function initActiveNav(){
+
+    console.log("initActiveNav started");
+console.log(window.location.pathname);
+
+    const path =
+    window.location.pathname;
+
+    console.log(path);
+
+    // Home
+    if(path.includes("home.html")){
+
+        const homeLink =
+        document.querySelector('[data-page="home"]');
+
+        console.log(homeLink);
+
+        homeLink?.classList.add("active");
+    }
+
+    // About
+    else if(path.includes("about.html")){
+
+        document
+        .querySelector('[data-page="about"]')
+        ?.classList.add("active");
+    }
+
+    // Download
+    else if(path.includes("download.html")){
+
+        document
+        .querySelector('[data-page="download"]')
+        ?.classList.add("active");
+    }
+
+    // Products
+    else if(
+        path.includes("disc-diffuser.html")
+        ||
+        path.includes("tube-diffuser.html")
+    ){
+
+        document
+        .querySelector('[data-page="products"]')
+        ?.classList.add("active");
+    }
 }

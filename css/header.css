@@ -70,26 +70,6 @@ header{
     font-size:16px;
 }
 
-.nav-links a:hover,
-.nav-links a.active{
-    color:var(--green-light);
-}
-
-.nav-links a.active::after{
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    bottom:-8px;
-
-    width:100%;
-    height:3px;
-
-    background:var(--green);
-
-    border-radius:999px;
-}
 
 /* Right Buttons */
 
@@ -257,6 +237,242 @@ pointer-events:none;
     color:#35b34a;
 }
 
+/* =========================
+   Active Navigation
+========================= */
+
+.nav-links a,
+.dropdown-btn{
+
+    position:relative;
+
+    transition:.25s ease;
+}
+
+
+/* Hover */
+
+.nav-links a:hover,
+.dropdown-btn:hover{
+
+    color:#7CFF7C;
+}
+
+
+/* Active */
+
+.nav-links a.active,
+.dropdown-btn.active{
+
+    color:#ffffff;
+}
+
+
+/* Glow Line */
+
+.nav-links a.active::after,
+.dropdown-btn.active::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+    bottom:-14px;
+
+    transform:translateX(-50%);
+
+    width:72%;
+    height:4px;
+
+    border-radius:999px;
+
+    background:#63d84e;
+
+    box-shadow:
+    0 0 10px rgba(99,216,78,.9),
+    0 0 20px rgba(99,216,78,.7),
+    0 0 34px rgba(99,216,78,.45);
+}
+
+
+/* =========================
+   Mobile Header
+========================= */
+
+.mobile-menu-btn{
+
+    display:none;
+}
+
+/* =========================
+   Mobile Menu
+========================= */
+
+.mobile-menu{
+
+    position:fixed;
+
+    top:0;
+    right:-100%;
+
+    width:320px;
+    height:100vh;
+
+    background:#073047;
+
+    z-index:5000;
+
+    transition:.35s ease;
+
+    padding:34px 28px;
+
+    box-shadow:
+    -10px 0 40px rgba(0,0,0,.18);
+}
+
+.mobile-menu.active{
+
+    right:0;
+}
+
+.mobile-menu-inner{
+
+    display:flex;
+    flex-direction:column;
+
+    gap:24px;
+
+    margin-top:60px;
+}
+
+.mobile-menu a{
+
+    color:#fff;
+
+    font-size:20px;
+
+    font-weight:700;
+}
+
+.mobile-product-group{
+
+    display:flex;
+    flex-direction:column;
+
+    gap:14px;
+
+    padding-left:12px;
+}
+
+.mobile-product-title{
+
+    color:#8fdcff;
+
+    font-size:15px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+.mobile-close-btn{
+
+    position:absolute;
+
+    top:24px;
+    right:24px;
+
+    width:54px;
+    height:54px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:
+    rgba(255,255,255,.08);
+
+    color:#fff;
+
+    font-size:34px;
+
+    cursor:pointer;
+}
+
+/* =========================
+   Mobile Layout
+========================= */
+
+@media (max-width:768px){
+
+    .navbar{
+
+        height:auto;
+
+        padding:18px 0;
+    }
+
+    .nav-links{
+
+        display:none;
+    }
+
+    .nav-actions{
+
+        display:flex;
+        align-items:center;
+
+        gap:12px;
+    }
+
+    .logo img{
+
+        height:46px;
+    }
+
+    .lang-btn{
+
+        width:50px;
+        height:50px;
+
+        font-size:15px;
+    }
+
+    .quote-btn{
+
+        padding:13px 18px;
+
+        font-size:15px;
+
+        border-radius:18px;
+    }
+
+    .mobile-menu-btn{
+
+        width:50px;
+        height:50px;
+
+        border:none;
+
+        border-radius:50%;
+
+        background:
+        rgba(255,255,255,.08);
+
+        color:#fff;
+
+        font-size:26px;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        cursor:pointer;
+    }
+
+}
+
 
 
 /* Responsive */
@@ -292,3 +508,4 @@ pointer-events:none;
     }
 
 }
+
