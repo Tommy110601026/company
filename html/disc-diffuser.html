@@ -366,6 +366,8 @@ main section:not(.hero){
 <body>
   <!-- Header -->
   <div id="header"></div>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu"></div>
 
   <main>
     <!-- Hero -->
@@ -377,7 +379,7 @@ main section:not(.hero){
             data-zh="Fine Bubble Disc Diffusers｜細氣泡散氣盤"
             data-en="Fine Bubble Disc Diffusers"
           >
-            Fine Bubble Disc Diffusers｜細氣泡散氣盤
+            Fine Bubble Disc Diffusers
           </div>
 
           <h1
@@ -633,7 +635,9 @@ async function initComponents(){
     initActiveNav();
 }
 
-initComponents();
+initComponents().then(() => {
+    document.body.style.visibility = "visible";
+});
 
 </script>
 </body>
