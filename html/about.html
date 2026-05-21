@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        About Us | EnviroValor
+    </title>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/contact.css">
+
+    <style>
+
+        /* =========================
+           Base
+        ========================= */
+
+        body{
+
+            margin:0;
+
+            background:#f5f7fa;
+
+            color:#1f2937;
+
+            line-height:1.8;
+        }
+
+        /* =========================
+           Hero
+        ========================= */
+
+        .about-hero{
+
+            background:
+            linear-gradient(
+                rgba(7,48,71,.75),
+                rgba(7,48,71,.75)
+            ),
+            url('../images/about-banner.jpg')
+            center/cover no-repeat;
+
+            color:#fff;
+
+            padding:150px 20px 110px;
+
+            text-align:center;
+        }
+
+        .about-hero h1{
+
+            font-size:58px;
+
+            font-weight:800;
+
+            margin-bottom:22px;
+        }
+
+        .about-hero p{
+
+            max-width:900px;
+
+            margin:auto;
+
+            font-size:20px;
+
+            color:rgba(255,255,255,.9);
+        }
+
+        /* =========================
+           Layout
+        ========================= */
+
+        .about-container{
+
+            width:min(1200px, 92%);
+
+            margin:auto;
+
+            padding:90px 0;
+        }
+
+        .about-section{
+
+            margin-bottom:90px;
+        }
+
+        .grid-2{
+
+            display:grid;
+
+            grid-template-columns:repeat(2, 1fr);
+
+            gap:40px;
+        }
+
+        /* =========================
+           Section Title
+        ========================= */
+
+        .about-section h2{
+
+            font-size:40px;
+
+            color:#073047;
+
+            margin-bottom:24px;
+
+            position:relative;
+        }
+
+        .about-section h2::after{
+
+            content:'';
+
+            width:80px;
+            height:4px;
+
+            background:#00a6c7;
+
+            display:block;
+
+            margin-top:12px;
+
+            border-radius:10px;
+        }
+
+        .about-section p{
+
+            font-size:17px;
+
+            color:#4b5563;
+
+            margin-bottom:18px;
+        }
+
+        /* =========================
+           Info Cards
+        ========================= */
+
+        .info-card{
+
+            background:#fff;
+
+            padding:36px;
+
+            border-radius:24px;
+
+            box-shadow:
+            0 10px 30px rgba(0,0,0,.06);
+        }
+
+        .info-card h3{
+
+            margin-top:0;
+
+            margin-bottom:18px;
+
+            color:#073047;
+
+            font-size:26px;
+        }
+
+        .info-card ul{
+
+            padding-left:20px;
+
+            margin:0;
+        }
+
+        .info-card li{
+
+            margin-bottom:12px;
+
+            color:#4b5563;
+        }
+
+        /* =========================
+           Vision Box
+        ========================= */
+
+        .vision-box{
+
+            background:#073047;
+
+            color:#fff;
+
+            padding:60px;
+
+            border-radius:32px;
+        }
+
+        .vision-box h2{
+
+            color:#fff;
+        }
+
+        .vision-box h2::after{
+
+            background:#00d2ff;
+        }
+
+        .vision-box p,
+        .vision-box li{
+
+            color:rgba(255,255,255,.9);
+        }
+
+        /* =========================
+           Benefit Grid
+        ========================= */
+
+        .benefit-grid{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit, minmax(280px,1fr));
+
+            gap:28px;
+
+            margin-top:40px;
+        }
+
+        .benefit-card{
+
+            background:#fff;
+
+            border-radius:24px;
+
+            padding:34px;
+
+            box-shadow:
+            0 10px 25px rgba(0,0,0,.05);
+
+            transition:.3s ease;
+        }
+
+        .benefit-card:hover{
+
+            transform:translateY(-6px);
+
+            box-shadow:
+            0 16px 36px rgba(0,0,0,.08);
+        }
+
+        .benefit-card h3{
+
+            margin-top:0;
+
+            margin-bottom:14px;
+
+            color:#073047;
+
+            font-size:24px;
+        }
+
+        .benefit-card p{
+
+            margin:0;
+
+            color:#4b5563;
+
+            font-size:16px;
+        }
+
+        /* =========================
+           Responsive
+        ========================= */
+
+        @media(max-width:900px){
+
+            .grid-2{
+
+                grid-template-columns:1fr;
+            }
+
+            .about-hero h1{
+
+                font-size:42px;
+            }
+
+            .about-hero p{
+
+                font-size:18px;
+            }
+
+            .about-section h2{
+
+                font-size:32px;
+            }
+
+            .vision-box{
+
+                padding:40px 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =========================
+         Header
+    ========================= -->
+
+    <header>
+
+        <div class="container navbar">
+
+            <a
+                class="logo"
+                href="../html/home.html">
+
+                <img
+                    src="../images/slogo.jpg"
+                    alt="EnviroValor Logo" />
+
+            </a>
+
+            <nav class="nav-links">
+
+                <a
+                    href="../html/home.html"
+                    data-zh="Home"
+                    data-en="Home">
+
+                    Home
+
+                </a>
+
+                <div class="nav-dropdown">
+
+                    <button
+                        class="dropdown-btn"
+                        id="productDropdownBtn"
+                        data-zh="產品 ▼"
+                        data-en="Products ▼">
+
+                        Products ▼
+
+                    </button>
+
+                    <div
+                        class="dropdown-menu"
+                        id="productDropdownMenu">
+
+                        <a
+                            href="../html/disc-diffuser.html"
+                            data-zh="散氣盤"
+                            data-en="Disc Diffusers">
+
+                            散氣盤
+
+                        </a>
+
+                        <a
+                            href="../html/tube-diffuser.html"
+                            data-zh="散氣管"
+                            data-en="Tube Diffusers">
+
+                            散氣管
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <a
+                    href="../html/about.html"
+                    class="active"
+                    data-zh="關於我們"
+                    data-en="About Us">
+
+                    關於我們
+
+                </a>
+
+                <a
+                    href="../html/download.html"
+                    data-zh="資料下載"
+                    data-en="Download">
+
+                    資料下載
+
+                </a>
+
+            </nav>
+
+            <div class="nav-actions">
+
+                <button
+                    class="lang-btn"
+                    id="langBtn">
+
+                    EN
+
+                </button>
+
+                <button
+                    class="quote-btn"
+                    id="openInquiryModal"
+                    data-zh="聯絡我們"
+                    data-en="Contact Us">
+
+                    聯絡我們
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- =========================
+         Hero
+    ========================= -->
+
+    <section class="about-hero">
+
+        <h1>
+            About EnviroValor
+        </h1>
+
+        <p>
+            Reliable aeration products for wastewater treatment systems,
+            with practical support, stable supply,
+            and long-term cooperation.
+        </p>
+
+    </section>
+
+    <!-- =========================
+         Main Content
+    ========================= -->
+
+    <main class="about-container">
+
+        <!-- =========================
+             Our Story
+        ========================= -->
+
+        <section class="about-section">
+
+            <h2>
+                Our Story
+            </h2>
+
+            <p>
+                EnviroValor was created with a simple goal:
+                to provide reliable wastewater aeration products
+                with faster and more flexible supply support.
+            </p>
+
+            <p>
+                In the wastewater treatment industry,
+                many buyers face long lead times,
+                uncertain delivery schedules,
+                and difficulty sourcing replacement parts quickly.
+            </p>
+
+            <p>
+                EnviroValor aims to solve these problems by focusing on commonly used aeration products,
+                stock availability,
+                and clear communication with customers.
+            </p>
+
+        </section>
+
+        <!-- =========================
+             Products + Scope
+        ========================= -->
+
+        <section class="about-section grid-2">
+
+            <div class="info-card">
+
+                <h3>
+                    Our Products
+                </h3>
+
+                <p>
+                    EnviroValor supplies aeration components
+                    for wastewater treatment systems,
+                    with a current focus on fine bubble disc diffusers.
+                </p>
+
+                <ul>
+
+                    <li>
+                        Fine bubble disc diffusers
+                    </li>
+
+                    <li>
+                        9-inch disc diffusers
+                    </li>
+
+                    <li>
+                        12-inch disc diffusers
+                    </li>
+
+                    <li>
+                        Fine bubble tube diffusers
+                    </li>
+
+                    <li>
+                        Related aeration components
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="info-card">
+
+                <h3>
+                    Our Scope of Work
+                </h3>
+
+                <p>
+                    EnviroValor supports customers in different stages of wastewater aeration product procurement.
+                </p>
+
+                <ul>
+
+                    <li>
+                        Environmental engineering contractors
+                    </li>
+
+                    <li>
+                        Wastewater treatment system integrators
+                    </li>
+
+                    <li>
+                        Equipment distributors
+                    </li>
+
+                    <li>
+                        OEM customers
+                    </li>
+
+                    <li>
+                        Municipal project buyers
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+        <!-- =========================
+             Vision
+        ========================= -->
+
+        <section class="about-section vision-box">
+
+            <h2>
+                Our Vision
+            </h2>
+
+            <p>
+                Our vision is to become a reliable aeration product supplier
+                for wastewater treatment projects in Asia and beyond.
+            </p>
+
+            <ul>
+
+                <li>
+                    Stable product quality
+                </li>
+
+                <li>
+                    Faster delivery
+                </li>
+
+                <li>
+                    Practical technical communication
+                </li>
+
+                <li>
+                    Competitive supply solutions
+                </li>
+
+                <li>
+                    Long-term business cooperation
+                </li>
+
+            </ul>
+
+        </section>
+
+        <!-- =========================
+             Benefits
+        ========================= -->
+
+        <section class="about-section">
+
+            <h2>
+                Benefits of Working With EnviroValor
+            </h2>
+
+            <div class="benefit-grid">
+
+                <div class="benefit-card">
+
+                    <h3>
+                        Stock Availability
+                    </h3>
+
+                    <p>
+                        We focus on standard diffuser models with inventory support,
+                        helping customers shorten procurement time.
+                    </p>
+
+                </div>
+
+                <div class="benefit-card">
+
+                    <h3>
+                        Fast Delivery
+                    </h3>
+
+                    <p>
+                        Faster delivery support for available stock items.
+                    </p>
+
+                </div>
+
+                <div class="benefit-card">
+
+                    <h3>
+                        Sample Support
+                    </h3>
+
+                    <p>
+                        Customers may request sample units before confirming bulk orders.
+                    </p>
+
+                </div>
+
+                <div class="benefit-card">
+
+                    <h3>
+                        Practical Product Focus
+                    </h3>
+
+                    <p>
+                        Practical aeration products designed for wastewater treatment applications.
+                    </p>
+
+                </div>
+
+                <div class="benefit-card">
+
+                    <h3>
+                        Clear Communication
+                    </h3>
+
+                    <p>
+                        Clear quotation terms and delivery schedules
+                        for efficient project coordination.
+                    </p>
+
+                </div>
+
+                <div class="benefit-card">
+
+                    <h3>
+                        Long-Term Cooperation
+                    </h3>
+
+                    <p>
+                        Stable long-term cooperation with contractors,
+                        distributors, and project buyers.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =========================
+         JS
+    ========================= -->
+
+    <script src="../js/main.js"></script>
+
+</body>
+
+</html>
