@@ -1,435 +1,558 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EnviroValor Tube Diffuser</title>
 
-<title>EnviroValor｜Disc Diffusers</title>
+    <style>
 
-<link rel="stylesheet" href="../css/global.css">
-<link rel="stylesheet" href="../css/header.css">
-<link rel="stylesheet" href="../css/footer.css">
-<link rel="stylesheet" href="../css/contact.css">
-<link rel="stylesheet" href="../css/mobile-menu.css">
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
 
-<style>
+        body{
+            font-family:
+            "Segoe UI",
+            "Noto Sans TC",
+            sans-serif;
 
-.eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
+            background:
+            #f4f8fb;
 
-    background:rgba(255,255,255,.1);
+            color:#163047;
 
-    border:1px solid rgba(255,255,255,.18);
+            line-height:1.8;
+        }
 
-    border-radius:999px;
+        a{
+            text-decoration:none;
+        }
 
-    padding:7px 13px;
+        .container{
+            width:min(1200px, 92%);
+            margin:auto;
+        }
 
-    color:#baf7c4;
+        /* Header */
 
-    font-weight:900;
-    font-size:14px;
+        header{
+            position:sticky;
+            top:0;
+            z-index:999;
 
-    margin-bottom:22px;
-}
+            background:
+            rgba(7,48,71,.94);
 
-main section:not(.hero){
-    padding:82px 0;
-}
+            backdrop-filter:blur(12px);
 
-.section-head{
-    max-width:840px;
-    margin-bottom:38px;
-}
+            border-bottom:
+            1px solid rgba(255,255,255,.08);
+        }
 
-.section-head.center{
-    text-align:center;
-    margin:0 auto 42px;
-}
+        .navbar{
 
-.section-head p{
-    color:var(--muted);
-    font-size:17px;
-}
+            height:88px;
 
-.icon{
-    width:54px;
-    height:54px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
 
-    border-radius:18px;
+        .logo{
 
-    background:rgba(53,179,74,.12);
+            color:#fff;
 
-    color:var(--green);
+            font-size:28px;
+            font-weight:800;
 
-    display:grid;
-    place-items:center;
+            letter-spacing:1px;
+        }
 
-    font-size:24px;
+        .lang-switch{
 
-    font-weight:900;
+            display:flex;
+            gap:12px;
+        }
 
-    margin-bottom:18px;
-}
+        .lang-btn{
 
-.cards-4{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
-}
+            border:none;
 
-.cards-3{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:22px;
-}
+            background:
+            rgba(255,255,255,.12);
 
-.card,
-.application-card{
-    background:var(--white);
+            color:#fff;
 
-    border:1px solid var(--line);
+            padding:
+            10px 18px;
 
-    border-radius:22px;
+            border-radius:999px;
 
-    padding:28px;
+            cursor:pointer;
 
-    box-shadow:0 12px 32px rgba(7,48,71,.06);
-}
+            font-weight:700;
 
-.card h3,
-.application-card h3{
-    color:var(--navy);
-    font-size:22px;
-    margin-bottom:8px;
-}
+            transition:.3s;
+        }
 
-.card p,
-.application-card p{
-    color:var(--muted);
-}
+        .lang-btn.active{
 
-.product-section{
-    background:var(--white);
-}
+            background:#1fc6b6;
+            color:#073047;
+        }
 
-.grid-2{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:34px;
-    align-items:center;
-}
+        /* Hero */
 
-.product-panel{
-    background:var(--bg);
+        .hero{
 
-    border:1px solid var(--line);
+            position:relative;
 
-    border-radius:32px;
+            padding:
+            120px 0 90px;
 
-    padding:34px;
-
-    box-shadow:var(--shadow);
-}
+            background:
+            linear-gradient(
+                135deg,
+                #073047 0%,
+                #0d5b72 100%
+            );
 
-.spec-table{
-    width:100%;
-    border-collapse:collapse;
+            overflow:hidden;
+        }
 
-    background:var(--white);
+        .hero::before{
 
-    border-radius:22px;
+            content:"";
 
-    overflow:hidden;
+            position:absolute;
 
-    border:1px solid var(--line);
+            width:520px;
+            height:520px;
 
-    margin-top:20px;
-}
+            border-radius:50%;
 
-.spec-table th,
-.spec-table td{
-    padding:15px 16px;
+            background:
+            rgba(255,255,255,.05);
 
-    border-bottom:1px solid var(--line);
+            top:-180px;
+            right:-120px;
+        }
 
-    text-align:left;
-}
+        .hero-grid{
 
-.spec-table th{
-    background:#edf5f7;
-    color:var(--navy);
-    width:34%;
-}
+            position:relative;
+            z-index:2;
 
-.cta{
-    padding:76px 0;
+            display:grid;
 
-    background:
-    linear-gradient(
-        135deg,
-        var(--navy),
-        var(--navy-light)
-    );
+            grid-template-columns:
+            repeat(2, 1fr);
 
-    color:var(--white);
-    text-align:center;
-}
+            gap:70px;
 
-.cta h2{
-    color:var(--white);
-}
+            align-items:center;
+        }
 
-.cta p{
-    color:rgba(255,255,255,.78);
+        .hero-text h1{
 
-    max-width:760px;
+            color:#fff;
 
-    margin:0 auto 26px;
-}
+            font-size:58px;
 
-.diffuser-visual{
-    min-height:420px;
+            line-height:1.15;
 
-    border-radius:28px;
+            margin-bottom:20px;
+        }
 
-    background:
-    radial-gradient(
-        circle at center,
-        rgba(53,179,74,.24),
-        transparent 42%
-    ),
-    linear-gradient(
-        180deg,
-        rgba(255,255,255,.18),
-        rgba(255,255,255,.06)
-    );
+        .hero-text p{
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+            color:
+            rgba(255,255,255,.82);
 
-    position:relative;
-}
+            font-size:18px;
 
-.disc{
-    width:230px;
-    height:230px;
-    border-radius:50%;
+            max-width:620px;
+        }
 
-    background:
-    radial-gradient(
-        circle,
-        #e8f0f4 0 18%,
-        transparent 19%
-    ),
-    repeating-radial-gradient(
-        circle,
-        #b9ced8 0 2px,
-        transparent 2px 15px
-    ),
-    #e9f0f3;
+        .hero-card{
 
-    border:14px solid #fff;
-}
+            background:
+            rgba(255,255,255,.08);
 
-/* =========================
-   Structural Design Only
-========================= */
+            border:
+            1px solid rgba(255,255,255,.12);
 
-.structure-grid{
+            border-radius:28px;
 
-display:grid;
+            padding:40px;
 
-grid-template-columns:
-repeat(6,1fr);
+            backdrop-filter:blur(10px);
+        }
 
-gap:22px;
-}
+        .hero-card h3{
 
-/* 上排三張 */
+            color:#fff;
 
-.structure-grid .card{
+            font-size:24px;
 
-grid-column:span 2;
-}
+            margin-bottom:20px;
+        }
 
-/* 下排兩張 */
+        .hero-list{
 
-.structure-grid .card:nth-child(4),
-.structure-grid .card:nth-child(5){
+            display:grid;
+            gap:16px;
+        }
 
-grid-column:span 3;
-}
+        .hero-item{
 
-/* 手機 */
+            padding:16px 18px;
 
-@media (max-width:980px){
+            border-radius:16px;
 
-.structure-grid{
+            background:
+            rgba(255,255,255,.06);
 
-    grid-template-columns:1fr;
-}
+            color:#fff;
+        }
 
-.structure-grid .card,
-.structure-grid .card:nth-child(4),
-.structure-grid .card:nth-child(5){
+        .hero-item strong{
 
-    grid-column:span 1;
-}
-}
+            display:block;
 
-@media (max-width:980px){
+            margin-bottom:4px;
 
-    .grid-2,
-    .cards-4,
-    .cards-3{
-        grid-template-columns:1fr;
-    }
+            color:#1fc6b6;
+        }
 
-}
+        /* Section */
 
-@media (max-width:560px){
+        section{
 
-    .diffuser-visual{
-        min-height:260px;
-    }
+            padding:
+            90px 0;
+        }
 
-    .disc{
-        width:180px;
-        height:180px;
-    }
+        .section-title{
 
-    .product-panel{
-        padding:24px;
-    }
+            text-align:center;
 
-}
+            margin-bottom:60px;
+        }
 
-</style>
+        .section-title h2{
+
+            font-size:42px;
+
+            margin-bottom:12px;
+        }
+
+        .section-title p{
+
+            color:#5b7185;
+
+            max-width:780px;
+
+            margin:auto;
+        }
+
+        /* Cards */
+
+        .cards{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(260px,1fr));
+
+            gap:28px;
+        }
+
+        .card{
+
+            background:#fff;
+
+            border-radius:24px;
+
+            padding:32px;
+
+            box-shadow:
+            0 10px 30px rgba(0,0,0,.06);
+
+            transition:.3s;
+        }
+
+        .card:hover{
+
+            transform:
+            translateY(-6px);
+        }
+
+        .card h3{
+
+            font-size:24px;
+
+            margin-bottom:16px;
+
+            color:#073047;
+        }
+
+        .card p{
+
+            color:#5d7283;
+        }
+
+        /* Spec */
+
+        .spec-wrap{
+
+            background:#fff;
+
+            border-radius:28px;
+
+            overflow:hidden;
+
+            box-shadow:
+            0 12px 30px rgba(0,0,0,.06);
+        }
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+        }
+
+        table tr:not(:last-child){
+
+            border-bottom:
+            1px solid #e8eef2;
+        }
+
+        table td{
+
+            padding:
+            20px 28px;
+
+            font-size:16px;
+        }
+
+        table td:first-child{
+
+            width:34%;
+
+            background:#f7fafc;
+
+            font-weight:700;
+
+            color:#073047;
+        }
+
+        /* Highlight */
+
+        .highlight{
+
+            background:
+            linear-gradient(
+                135deg,
+                #0b3f58 0%,
+                #116884 100%
+            );
+
+            border-radius:32px;
+
+            padding:60px;
+
+            color:#fff;
+        }
+
+        .highlight-grid{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(2,1fr);
+
+            gap:40px;
+        }
+
+        .highlight ul{
+
+            padding-left:22px;
+        }
+
+        .highlight li{
+
+            margin-bottom:12px;
+        }
+
+        /* Application */
+
+        .application-list{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(220px,1fr));
+
+            gap:20px;
+        }
+
+        .application-item{
+
+            background:#fff;
+
+            border-radius:20px;
+
+            padding:24px;
+
+            text-align:center;
+
+            box-shadow:
+            0 10px 25px rgba(0,0,0,.05);
+        }
+
+        .application-item h4{
+
+            margin-bottom:10px;
+
+            color:#073047;
+        }
+
+        /* CTA */
+
+        .cta{
+
+            text-align:center;
+
+            background:
+            linear-gradient(
+                135deg,
+                #073047,
+                #0f5f78
+            );
+
+            border-radius:32px;
+
+            padding:70px 40px;
+
+            color:#fff;
+        }
+
+        .cta h2{
+
+            font-size:42px;
+
+            margin-bottom:18px;
+        }
+
+        .cta p{
+
+            max-width:760px;
+
+            margin:auto;
+
+            color:
+            rgba(255,255,255,.82);
+        }
+
+        .cta-btn{
+
+            display:inline-block;
+
+            margin-top:30px;
+
+            background:#1fc6b6;
+
+            color:#073047;
+
+            padding:
+            16px 34px;
+
+            border-radius:999px;
+
+            font-weight:800;
+
+            transition:.3s;
+        }
+
+        .cta-btn:hover{
+
+            transform:
+            translateY(-4px);
+        }
+
+        footer{
+
+            padding:30px 0;
+
+            text-align:center;
+
+            color:#6c8191;
+        }
+
+        /* Language */
+
+        [data-lang]{
+            display:none;
+        }
+
+        [data-lang].active{
+            display:block;
+        }
+
+        /* Mobile */
+
+        @media(max-width:900px){
+
+            .hero-grid,
+            .highlight-grid{
+
+                grid-template-columns:1fr;
+            }
+
+            .hero-text h1{
+
+                font-size:42px;
+            }
+
+            .section-title h2{
+
+                font-size:34px;
+            }
+
+            .cta h2{
+
+                font-size:34px;
+            }
+        }
+
+    </style>
 </head>
 
 <body>
 
-    <!-- Header -->
     <header>
 
         <div class="container navbar">
 
-            <a
-                class="logo"
-                href="../html/home.html">
+            <div class="logo">
+                EnviroValor
+            </div>
 
-                <img
-                    src="../images/slogo.jpg"
-                    alt="EnviroValor Logo" />
+            <div class="lang-switch">
 
-            </a>
-
-            <nav class="nav-links">
-
-                <a
-                    href="../html/home.html"
-                    class="nav-link"
-                    data-page="home"
-                    data-zh="Home"
-                    data-en="Home">
-
-                    Home
-
-                </a>
-
-                <div class="nav-dropdown">
-
-                    <button
-                        class="dropdown-btn"
-                        data-page="products"
-                        id="productDropdownBtn"
-                        data-zh="產品 ▼"
-                        data-en="Products ▼">
-
-                        Products ▼
-
-                    </button>
-
-                    <div
-                        class="dropdown-menu"
-                        id="productDropdownMenu">
-
-                        <a
-                            href="../html/disc-diffuser.html"
-                            data-zh="散氣盤"
-                            data-en="Disc Diffusers">
-
-                            Disc Diffusers
-
-                        </a>
-
-                        <a
-                            href="../html/tube-diffuser.html"
-                            data-zh="散氣管"
-                            data-en="Tube Diffusers">
-
-                            Tube Diffusers
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-                <a
-                    href="../html/about.html"
-                    class="nav-link"
-                    data-page="about"
-                    data-zh="關於我們"
-                    data-en="About Us">
-
-                    About Us
-
-                </a>
-
-                <a
-                    href="../html/download.html"
-                    class="nav-link"
-                    data-page="download"
-                    data-zh="資料下載"
-                    data-en="Download">
-
-                    Download
-
-                </a>
-
-            </nav>
-
-            <div class="nav-actions">
-
-                <button
-                    class="lang-btn"
-                    id="langBtn">
-
+                <button class="lang-btn active"
+                onclick="switchLang('en', this)">
                     EN
-
                 </button>
 
-                <button
-                    class="quote-btn"
-                    id="openInquiryModal"
-                    data-zh="聯絡我們"
-                    data-en="Contact Us">
-
-                    Contact Us
-
-                </button>
-
-                <button
-                    class="mobile-menu-btn"
-                    id="mobileMenuBtn">
-
-                    ☰
-
+                <button class="lang-btn"
+                onclick="switchLang('zh', this)">
+                    中
                 </button>
 
             </div>
@@ -438,74 +561,105 @@ grid-column:span 3;
 
     </header>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu"></div>
-
-    <main>
-
     <!-- Hero -->
+
     <section class="hero">
 
         <div class="container hero-grid">
 
-            <div>
+            <div class="hero-text">
 
-                <div
-                    class="eyebrow"
-                    data-zh="細氣泡散氣盤"
-                    data-en="Fine Bubble Disc Diffusers">
+                <div data-lang="en" class="active">
 
-                    Fine Bubble Disc Diffusers
+                    <h1>
+                        Fine Bubble<br>
+                        Tube Diffuser
+                    </h1>
+
+                    <p>
+                        EnviroValor EVT-600 fine bubble tube diffuser is designed for wastewater aeration applications requiring stable air distribution, reliable sealing structure, and practical installation performance.
+                    </p>
 
                 </div>
 
-                <h1
-                    data-zh="穩定可靠的曝氣效能，支援快速供貨"
-                    data-en="Reliable Aeration Performance with Fast Supply Support">
+                <div data-lang="zh">
 
-                    Reliable Aeration Performance with Fast Supply Support
+                    <h1>
+                        細氣泡<br>
+                        散氣管
+                    </h1>
 
-                </h1>
+                    <p>
+                        EnviroValor EVT-600 細氣泡散氣管專為污水曝氣應用設計，具備穩定氣泡分布、可靠密封結構與實用安裝性能。
+                    </p>
 
-                <p
-                    data-zh="EnviroValor 提供細氣泡散氣盤，適用於市政污水與工業廢水處理系統。我們的 EV-270 細氣泡散氣盤專為曝氣池中的高效氧氣傳輸、穩定氣泡分布、低壓力損失與長期運轉而設計。"
-                    data-en="EnviroValor supplies fine bubble disc diffusers for municipal and industrial wastewater treatment systems. Our EV-270 fine bubble disc diffuser is designed for efficient oxygen transfer, stable bubble distribution, low pressure loss, and long-term operation in aeration tanks.">
-
-                    EnviroValor supplies fine bubble disc diffusers for municipal and industrial wastewater treatment systems.
-
-                </p>
-
-                <p
-                    data-zh="本產品採用 EPDM 膜片、耐用 P.P. 支撐本體，並具備自密封膜片結構。當停止供氣時，該結構有助於降低污水逆流進入散氣盤與管路系統的風險。"
-                    data-en="The diffuser uses an EPDM membrane, durable P.P. support body, and a self-sealing membrane structure that helps reduce wastewater backflow when air supply is stopped.">
-
-                    The diffuser uses an EPDM membrane, durable P.P. support body, and a self-sealing membrane structure.
-
-                </p>
-
-                <p
-                    data-zh="標準型號備有庫存，EnviroValor 可協助承包商、經銷商與系統整合商縮短採購時間，滿足設備汰換與工程需求。"
-                    data-en="With standard models available from stock, EnviroValor supports contractors, distributors, and system integrators with faster procurement and replacement needs.">
-
-                    With standard models available from stock, EnviroValor supports contractors and distributors.
-
-                </p>
-
-                <p
-                    data-zh="現貨供應。快速交貨。可依需求提供樣品。"
-                    data-en="Ready stock available. Fast delivery. Samples available upon request.">
-
-                    Ready stock available. Fast delivery. Samples available upon request.
-
-                </p>
+                </div>
 
             </div>
 
             <div class="hero-card">
 
-                <div class="diffuser-visual">
+                <div data-lang="en" class="active">
 
-                    <div class="disc"></div>
+                    <h3>
+                        Product Overview
+                    </h3>
+
+                    <div class="hero-list">
+
+                        <div class="hero-item">
+                            <strong>Model</strong>
+                            EVT-600
+                        </div>
+
+                        <div class="hero-item">
+                            <strong>Airflow Range</strong>
+                            1.8–12 CMH
+                        </div>
+
+                        <div class="hero-item">
+                            <strong>Membrane</strong>
+                            EPDM
+                        </div>
+
+                        <div class="hero-item">
+                            <strong>Connection</strong>
+                            Spin-Welded Structure
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div data-lang="zh">
+
+                    <h3>
+                        產品資訊
+                    </h3>
+
+                    <div class="hero-list">
+
+                        <div class="hero-item">
+                            <strong>型號</strong>
+                            EVT-600
+                        </div>
+
+                        <div class="hero-item">
+                            <strong>通氣量範圍</strong>
+                            1.8–12 CMH
+                        </div>
+
+                        <div class="hero-item">
+                            <strong>膜片材質</strong>
+                            EPDM
+                        </div>
+
+                        <div class="hero-item">
+                            <strong>接合方式</strong>
+                            旋熔式結構
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -515,546 +669,123 @@ grid-column:span 3;
 
     </section>
 
-    <!-- =========================
-        KEY PRODUCT FEATURES
-    ========================= -->
+    <!-- Features -->
 
     <section>
 
         <div class="container">
 
-            <div class="section-head center">
+            <div class="section-title">
 
-                <div
-                    class="kicker"
-                    data-zh="產品特色"
-                    data-en="Key Product Features">
+                <div data-lang="en" class="active">
 
-                    Key Product Features
-
-                </div>
-
-                <h2
-                    data-zh="專為實際污水曝氣應用而設計"
-                    data-en="Designed for Practical Wastewater Aeration Applications">
-
-                    Designed for Practical Wastewater Aeration Applications
-
-                </h2>
-
-                <p
-                    data-zh="EnviroValor 細氣泡散氣盤專為實際污水曝氣應用而設計，適合重視穩定效能、安裝便利與可靠供貨的客戶。"
-                    data-en="EnviroValor fine bubble disc diffusers are designed for practical wastewater aeration applications where stable performance, easy installation, and reliable supply are important.">
-
-                    EnviroValor fine bubble disc diffusers are designed for practical wastewater aeration applications.
-
-                </p>
-
-            </div>
-
-            <table class="spec-table">
-
-                <tr>
-
-                    <th
-                        data-zh="特色"
-                        data-en="Feature">
-
-                        Feature
-
-                    </th>
-
-                    <th
-                        data-zh="說明"
-                        data-en="Description">
-
-                        Description
-
-                    </th>
-
-                </tr>
-
-                <tr>
-
-                    <td
-                        data-zh="細氣泡產生"
-                        data-en="Fine bubble generation">
-
-                        Fine bubble generation
-
-                    </td>
-
-                    <td
-                        data-zh="產生細緻氣泡，增加氣液接觸面積"
-                        data-en="Produces fine bubbles to increase gas-liquid contact area">
-
-                        Produces fine bubbles to increase gas-liquid contact area
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td
-                        data-zh="氣泡大小"
-                        data-en="Bubble size">
-
-                        Bubble size
-
-                    </td>
-
-                    <td
-                        data-zh="約 1–3 mm"
-                        data-en="Approx. 1–3 mm">
-
-                        Approx. 1–3 mm
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td
-                        data-zh="膜片材質"
-                        data-en="Membrane material">
-
-                        Membrane material
-
-                    </td>
-
-                    <td
-                        data-zh="適用於污水曝氣環境的 EPDM 膜片"
-                        data-en="EPDM membrane for wastewater aeration applications">
-
-                        EPDM membrane for wastewater aeration applications
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td
-                        data-zh="支撐本體"
-                        data-en="Support body">
-
-                        Support body
-
-                    </td>
-
-                    <td
-                        data-zh="耐用 P.P. 基座結構"
-                        data-en="Durable P.P. base structure">
-
-                        Durable P.P. base structure
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td
-                        data-zh="防逆流設計"
-                        data-en="Backflow prevention">
-
-                        Backflow prevention
-
-                    </td>
-
-                    <td
-                        data-zh="自密封膜片結構有助於降低污水逆流"
-                        data-en="Self-sealing membrane design helps reduce wastewater backflow">
-
-                        Self-sealing membrane design helps reduce wastewater backflow
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td
-                        data-zh="節能效率"
-                        data-en="Energy efficiency">
-
-                        Energy efficiency
-
-                    </td>
-
-                    <td
-                        data-zh="低壓損設計有助於降低鼓風機阻力"
-                        data-en="Low headloss design helps reduce blower resistance">
-
-                        Low headloss design helps reduce blower resistance
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td
-                        data-zh="安裝應用"
-                        data-en="Installation">
-
-                        Installation
-
-                    </td>
-
-                    <td
-                        data-zh="適用於固定式曝氣管架與汰換工程"
-                        data-en="Suitable for fixed aeration grids and replacement projects">
-
-                        Suitable for fixed aeration grids and replacement projects
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td
-                        data-zh="供貨能力"
-                        data-en="Supply">
-
-                        Supply
-
-                    </td>
-
-                    <td
-                        data-zh="標準型號備有庫存"
-                        data-en="Standard models available from stock">
-
-                        Standard models available from stock
-
-                    </td>
-
-                </tr>
-
-            </table>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-        TECHNICAL PERFORMANCE
-    ========================= -->
-
-    <section class="product-section">
-
-        <div class="container">
-
-            <div class="section-head center">
-
-                <div
-                    class="kicker"
-                    data-zh="技術性能"
-                    data-en="Technical Performance">
-
-                    Technical Performance
-
-                </div>
-
-                <h2
-                    data-zh="氧氣傳輸性能"
-                    data-en="Oxygen Transfer Performance">
-
-                    Oxygen Transfer Performance
-
-                </h2>
-
-                <p
-                    data-zh="EV-270 細氣泡散氣盤可支援生物污水處理系統中的高效氧氣傳輸。細氣泡曝氣能增加空氣與水的接觸面積，有助於提升運轉時的氧氣傳輸效率。"
-                    data-en="The EV-270 fine bubble disc diffuser is designed to support efficient oxygen transfer in biological wastewater treatment systems. Fine bubble aeration increases the contact area between air and water, helping improve oxygen transfer efficiency during operation.">
-
-                    The EV-270 fine bubble disc diffuser is designed to support efficient oxygen transfer.
-
-                </p>
-
-            </div>
-
-            <table class="spec-table">
-
-                <tr>
-                    <th>Model</th>
-                    <td>EV-270</td>
-                </tr>
-
-                <tr>
-                    <th>Type</th>
-                    <td>Fine bubble disc diffuser</td>
-                </tr>
-
-                <tr>
-                    <th>Bubble size</th>
-                    <td>Approx. 1–3 mm</td>
-                </tr>
-
-                <tr>
-                    <th>Oxygen transfer efficiency</th>
-                    <td>25% at 4 m water depth with 2 CMH airflow</td>
-                </tr>
-
-                <tr>
-                    <th>Oxygen transfer rate</th>
-                    <td>9.96 kg-O₂/hr</td>
-                </tr>
-
-                <tr>
-                    <th>Design focus</th>
-                    <td>High oxygen transfer, low headloss, stable aeration</td>
-                </tr>
-
-            </table>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-        MEMBRANE MATERIAL
-    ========================= -->
-
-    <section>
-
-        <div class="container">
-
-            <div class="section-head center">
-
-                <div
-                    class="kicker"
-                    data-zh="膜片與材質資料"
-                    data-en="Membrane and Material Data">
-
-                    Membrane and Material Data
-
-                </div>
-
-                <h2
-                    data-zh="EPDM 膜片"
-                    data-en="EPDM Membrane">
-
-                    EPDM Membrane
-
-                </h2>
-
-                <p
-                    data-zh="EV-270 採用標準黑色 EPDM 膜片，適用於市政污水與一般污水曝氣環境。膜片具備良好彈性、抗變形能力，並能在反覆曝氣循環中維持穩定表現。"
-                    data-en="The EV-270 uses a standard black EPDM membrane designed for municipal wastewater and general wastewater aeration environments. The membrane provides flexibility, deformation resistance, and stable performance during repeated aeration cycles.">
-
-                    The EV-270 uses a standard black EPDM membrane.
-
-                </p>
-
-            </div>
-
-            <table class="spec-table">
-
-                <tr>
-                    <th>Material</th>
-                    <td>Standard black EPDM</td>
-                </tr>
-
-                <tr>
-                    <th>Application</th>
-                    <td>Municipal wastewater and general wastewater aeration</td>
-                </tr>
-
-                <tr>
-                    <th>Elongation</th>
-                    <td>588%</td>
-                </tr>
-
-                <tr>
-                    <th>Tensile strength</th>
-                    <td>1715 psi</td>
-                </tr>
-
-                <tr>
-                    <th>Hardness</th>
-                    <td>60 Shore A</td>
-                </tr>
-
-                <tr>
-                    <th>Thermal resilience</th>
-                    <td>Approx. +3% volume change after 70 hours in 100°C boiling water</td>
-                </tr>
-
-                <tr>
-                    <th>Heat aging resistance</th>
-                    <td>Up to 140°C</td>
-                </tr>
-
-            </table>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-        ANTI BACKFLOW
-    ========================= -->
-
-    <section class="product-section">
-
-        <div class="container">
-
-            <div class="section-head center">
-
-                <div
-                    class="kicker"
-                    data-zh="防逆流設計"
-                    data-en="Anti-Backflow Design">
-
-                    Anti-Backflow Design
-
-                </div>
-
-                <h2
-                    data-zh="自密封膜片結構"
-                    data-en="Self-Sealing Membrane Structure">
-
-                    Self-Sealing Membrane Structure
-
-                </h2>
-
-                <p
-                    data-zh="EV-270 不依靠額外外接逆止閥，而是透過膜片本身的結構設計，在供氣中斷時協助降低污水逆流。當供應空氣壓力時，膜片孔隙會打開並釋放細氣泡；當停止供氣時，具彈性的膜片會回到閉合狀態，貼合散氣盤本體，協助防止污水進入空氣管路系統。"
-                    data-en="The EV-270 does not rely on an additional external check valve. Instead, its membrane structure is designed to help reduce wastewater backflow when the air supply is interrupted.">
-
-                    The EV-270 does not rely on an additional external check valve.
-
-                </p>
-
-            </div>
-
-            <table class="spec-table">
-
-                <tr>
-
-                    <th>Function</th>
-                    <th>Description</th>
-
-                </tr>
-
-                <tr>
-
-                    <td>During aeration</td>
-                    <td>Air pressure opens the membrane pores and releases fine bubbles</td>
-
-                </tr>
-
-                <tr>
-
-                    <td>When air stops</td>
-                    <td>The elastic membrane returns to a closed position</td>
-
-                </tr>
-
-                <tr>
-
-                    <td>Benefit</td>
-                    <td>Helps reduce wastewater backflow into the diffuser and piping system</td>
-
-                </tr>
-
-                <tr>
-
-                    <td>Design advantage</td>
-                    <td>No additional check valve component required</td>
-
-                </tr>
-
-            </table>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-        STRUCTURAL DESIGN
-    ========================= -->
-
-    <section>
-
-        <div class="container">
-
-            <div class="section-head center">
-
-                <div
-                    class="kicker"
-                    data-zh="結構設計"
-                    data-en="Structural Design">
-
-                    Structural Design
-
-                </div>
-
-                <h2
-                    data-zh="結構重點"
-                    data-en="Structure Highlights">
-
-                    Structure Highlights
-
-                </h2>
-
-                <p
-                    data-zh="EV-270 結合具彈性的膜片與耐用的散氣盤本體，適合長期污水曝氣運轉。"
-                    data-en="The EV-270 combines flexible membrane performance with a durable diffuser body for long-term wastewater aeration operation.">
-
-                    The EV-270 combines flexible membrane performance with a durable diffuser body.
-
-                </p>
-
-            </div>
-
-            <div class="cards-4">
-
-                <div class="card">
-
-                    <h3>EPDM membrane</h3>
+                    <h2>
+                        Key Product Features
+                    </h2>
 
                     <p>
-                        Provides elasticity, tensile strength, and stable fine bubble release
+                        Designed for reliable wastewater aeration operation with practical engineering structure and stable air distribution performance.
                     </p>
+
+                </div>
+
+                <div data-lang="zh">
+
+                    <h2>
+                        產品特色
+                    </h2>
+
+                    <p>
+                        針對污水曝氣應用設計，具備實用工程結構與穩定空氣分布性能。
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <div data-lang="en" class="active">
+
+                        <h3>
+                            Spin-Welded Structure
+                        </h3>
+
+                        <p>
+                            Integrated air inlet with spin-welded connection helps improve sealing reliability and reduce side-leakage risk.
+                        </p>
+
+                    </div>
+
+                    <div data-lang="zh">
+
+                        <h3>
+                            旋熔式結構
+                        </h3>
+
+                        <p>
+                            一體成型進氣口搭配旋熔接合，有助於提升密封可靠性並降低側漏風險。
+                        </p>
+
+                    </div>
 
                 </div>
 
                 <div class="card">
 
-                    <h3>P.P. support body</h3>
+                    <div data-lang="en" class="active">
 
-                    <p>
-                        Offers durable support for wastewater environments
-                    </p>
+                        <h3>
+                            EPDM Membrane
+                        </h3>
+
+                        <p>
+                            EPDM engineering rubber membrane designed for long-term wastewater aeration environments.
+                        </p>
+
+                    </div>
+
+                    <div data-lang="zh">
+
+                        <h3>
+                            EPDM 膜片
+                        </h3>
+
+                        <p>
+                            採用 EPDM 工程橡膠膜片，適用於長時間污水曝氣環境。
+                        </p>
+
+                    </div>
 
                 </div>
 
                 <div class="card">
 
-                    <h3>Self-sealing membrane structure</h3>
+                    <div data-lang="en" class="active">
 
-                    <p>
-                        Helps reduce wastewater backflow when air supply stops
-                    </p>
+                        <h3>
+                            Leakage Testing
+                        </h3>
 
-                </div>
+                        <p>
+                            Each unit is tested before shipment to verify sealing performance and stable operation.
+                        </p>
 
-                <div class="card">
+                    </div>
 
-                    <h3>Low pressure loss design</h3>
+                    <div data-lang="zh">
 
-                    <p>
-                        Helps reduce blower load and operating energy demand
-                    </p>
+                        <h3>
+                            出貨前測漏
+                        </h3>
+
+                        <p>
+                            每支散氣管出貨前皆進行測漏檢測，確認密封性能與運轉穩定性。
+                        </p>
+
+                    </div>
 
                 </div>
 
@@ -1064,159 +795,87 @@ grid-column:span 3;
 
     </section>
 
-    <!-- =========================
-        STRUCTURAL DESIGN
-    ========================= -->
+    <!-- Specification -->
 
     <section>
 
         <div class="container">
 
-            <div class="section-head center">
+            <div class="section-title">
 
-                <div
-                    class="kicker"
-                    data-zh="結構設計"
-                    data-en="Structural Design">
+                <div data-lang="en" class="active">
 
-                    Structural Design
+                    <h2>
+                        Technical Specifications
+                    </h2>
 
                 </div>
 
-                <h2
-                    data-zh="EV-270 結構設計"
-                    data-en="EV-270 Structural Design">
+                <div data-lang="zh">
 
-                    EV-270 Structural Design
+                    <h2>
+                        技術規格
+                    </h2>
 
-                </h2>
-
-                <p
-                    data-zh="EV-270 結合具彈性的膜片與耐用的散氣盤本體，適合長期污水曝氣運轉。"
-                    data-en="The EV-270 combines flexible membrane performance with a durable diffuser body for long-term wastewater aeration operation.">
-
-                    The EV-270 combines flexible membrane performance with a durable diffuser body for long-term wastewater aeration operation.
-
-                </p>
+                </div>
 
             </div>
 
-            <div class="structure-grid">
+            <div class="spec-wrap">
 
-                <!-- Card 1 -->
-                <div class="card">
+                <table>
 
-                    <div class="icon">01</div>
+                    <tr>
+                        <td>Model / 型號</td>
+                        <td>EVT-600</td>
+                    </tr>
 
-                    <h3
-                        data-zh="EPDM 膜片"
-                        data-en="EPDM Membrane">
+                    <tr>
+                        <td>Product Type / 產品類型</td>
+                        <td>Fine Bubble Tube Diffuser / 細氣泡散氣管</td>
+                    </tr>
 
-                        EPDM Membrane
+                    <tr>
+                        <td>Size / 尺寸</td>
+                        <td>600 × 65 × 3/4" PT</td>
+                    </tr>
 
-                    </h3>
+                    <tr>
+                        <td>Total Length / 總長度</td>
+                        <td>Approx. 630 mm / 約 630 mm</td>
+                    </tr>
 
-                    <p
-                        data-zh="提供彈性、拉伸強度與穩定的細氣泡釋放"
-                        data-en="Provides elasticity, tensile strength, and stable fine bubble release">
+                    <tr>
+                        <td>Airflow Range / 通氣量範圍</td>
+                        <td>1.8–12 CMH</td>
+                    </tr>
 
-                        Provides elasticity, tensile strength, and stable fine bubble release
+                    <tr>
+                        <td>Membrane Material / 膜片材質</td>
+                        <td>EPDM</td>
+                    </tr>
 
-                    </p>
+                    <tr>
+                        <td>Support Body / 支撐本體</td>
+                        <td>ABS</td>
+                    </tr>
 
-                </div>
+                    <tr>
+                        <td>Clamp Material / 束環材質</td>
+                        <td>304 Stainless Steel</td>
+                    </tr>
 
-                <!-- Card 2 -->
-                <div class="card">
+                    <tr>
+                        <td>Opening Quantity / 開孔數</td>
+                        <td>Up to 13,500 openings</td>
+                    </tr>
 
-                    <div class="icon">02</div>
+                    <tr>
+                        <td>Opening Size / 孔徑大小</td>
+                        <td>Approx. 1–3 mm</td>
+                    </tr>
 
-                    <h3
-                        data-zh="P.P. 支撐本體"
-                        data-en="P.P. Support Body">
-
-                        P.P. Support Body
-
-                    </h3>
-
-                    <p
-                        data-zh="適用於污水環境，提供耐用支撐"
-                        data-en="Offers durable support for wastewater environments">
-
-                        Offers durable support for wastewater environments
-
-                    </p>
-
-                </div>
-
-                <!-- Card 3 -->
-                <div class="card">
-
-                    <div class="icon">03</div>
-
-                    <h3
-                        data-zh="自密封膜片結構"
-                        data-en="Self-Sealing Membrane Structure">
-
-                        Self-Sealing Membrane Structure
-
-                    </h3>
-
-                    <p
-                        data-zh="停止供氣時有助於降低污水逆流"
-                        data-en="Helps reduce wastewater backflow when air supply stops">
-
-                        Helps reduce wastewater backflow when air supply stops
-
-                    </p>
-
-                </div>
-
-                <!-- Card 4 -->
-                <div class="card">
-
-                    <div class="icon">04</div>
-
-                    <h3
-                        data-zh="細氣泡出氣設計"
-                        data-en="Fine Bubble Outlet Design">
-
-                        Fine Bubble Outlet Design
-
-                    </h3>
-
-                    <p
-                        data-zh="支援約 1–3 mm 的氣泡產生"
-                        data-en="Supports approx. 1–3 mm bubble generation">
-
-                        Supports approx. 1–3 mm bubble generation
-
-                    </p>
-
-                </div>
-
-                <!-- Card 5 -->
-                <div class="card">
-
-                    <div class="icon">05</div>
-
-                    <h3
-                        data-zh="低壓損設計"
-                        data-en="Low Pressure Loss Design">
-
-                        Low Pressure Loss Design
-
-                    </h3>
-
-                    <p
-                        data-zh="有助於降低鼓風機負載與運轉能耗"
-                        data-en="Helps reduce blower load and operating energy demand">
-
-                        Helps reduce blower load and operating energy demand
-
-                    </p>
-
-                </div>
+                </table>
 
             </div>
 
@@ -1224,274 +883,199 @@ grid-column:span 3;
 
     </section>
 
-    <!-- =========================
-        APPLICATIONS
-    ========================= -->
-
-    <section class="product-section">
-
-        <div class="container">
-
-            <div class="section-head center">
-
-                <div
-                    class="kicker"
-                    data-zh="應用範圍"
-                    data-en="Applications">
-
-                    Applications
-
-                </div>
-
-                <h2
-                    data-zh="典型應用"
-                    data-en="Typical Applications">
-
-                    Typical Applications
-
-                </h2>
-
-            </div>
-
-            <div class="cards-4">
-
-                <div class="card">
-                    <p>Municipal sewage treatment plants</p>
-                </div>
-
-                <div class="card">
-                    <p>Industrial wastewater treatment systems</p>
-                </div>
-
-                <div class="card">
-                    <p>Biological treatment tanks</p>
-                </div>
-
-                <div class="card">
-                    <p>Aeration tank replacement projects</p>
-                </div>
-
-                <div class="card">
-                    <p>SBR systems</p>
-                </div>
-
-                <div class="card">
-                    <p>MBBR and IFAS aeration support</p>
-                </div>
-
-                <div class="card">
-                    <p>OEM wastewater treatment equipment</p>
-                </div>
-
-                <div class="card">
-                    <p>Contractor and distributor stock supply</p>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-        AVAILABLE MODEL
-    ========================= -->
+    <!-- Advantages -->
 
     <section>
 
         <div class="container">
 
-            <div class="section-head center">
+            <div class="highlight">
 
-                <div
-                    class="kicker"
-                    data-zh="可供應型號"
-                    data-en="Available Model">
+                <div class="highlight-grid">
 
-                    Available Model
+                    <div>
+
+                        <div data-lang="en" class="active">
+
+                            <h2 style="margin-bottom:24px;">
+                                Performance Advantages
+                            </h2>
+
+                            <ul>
+                                <li>High oxygen transfer efficiency</li>
+                                <li>Uniform fine bubble distribution</li>
+                                <li>Low headloss</li>
+                                <li>Low power consumption</li>
+                                <li>Easy installation</li>
+                                <li>Suitable for SBR systems</li>
+                            </ul>
+
+                        </div>
+
+                        <div data-lang="zh">
+
+                            <h2 style="margin-bottom:24px;">
+                                性能優勢
+                            </h2>
+
+                            <ul>
+                                <li>高氧氣傳輸效率</li>
+                                <li>均勻細氣泡分布</li>
+                                <li>壓力損失低</li>
+                                <li>操作能耗低</li>
+                                <li>安裝容易</li>
+                                <li>適合 SBR 系統</li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <div data-lang="en" class="active">
+
+                            <h2 style="margin-bottom:24px;">
+                                Why Choose EnviroValor
+                            </h2>
+
+                            <ul>
+                                <li>Reliable spin-welded structure</li>
+                                <li>Leakage testing before shipment</li>
+                                <li>Clear 600 mm specification</li>
+                                <li>Suitable for replacement projects</li>
+                                <li>Stable membrane positioning</li>
+                                <li>Sample units available</li>
+                            </ul>
+
+                        </div>
+
+                        <div data-lang="zh">
+
+                            <h2 style="margin-bottom:24px;">
+                                為什麼選擇 EnviroValor
+                            </h2>
+
+                            <ul>
+                                <li>可靠旋熔式結構</li>
+                                <li>出貨前逐支測漏</li>
+                                <li>明確 600 mm 規格</li>
+                                <li>適合新建與汰換工程</li>
+                                <li>膜片固定穩定</li>
+                                <li>可提供樣品</li>
+                            </ul>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-                <h2>
-                    EV-270 Fine Bubble Disc Diffuser
-                </h2>
-
-                <p>
-                    The EV-270 is EnviroValor’s standard fine bubble disc diffuser model for common wastewater aeration applications.
-                </p>
-
             </div>
-
-            <table class="spec-table">
-
-                <tr>
-                    <th>Model</th>
-                    <td>EV-270</td>
-                </tr>
-
-                <tr>
-                    <th>Type</th>
-                    <td>Fine bubble disc diffuser</td>
-                </tr>
-
-                <tr>
-                    <th>Membrane material</th>
-                    <td>EPDM</td>
-                </tr>
-
-                <tr>
-                    <th>Body material</th>
-                    <td>P.P.</td>
-                </tr>
-
-                <tr>
-                    <th>Bubble size</th>
-                    <td>Approx. 1–3 mm</td>
-                </tr>
-
-                <tr>
-                    <th>Anti-backflow design</th>
-                    <td>Self-sealing membrane structure</td>
-                </tr>
-
-                <tr>
-                    <th>Application</th>
-                    <td>Municipal and industrial wastewater aeration</td>
-                </tr>
-
-                <tr>
-                    <th>Supply</th>
-                    <td>Ready stock available</td>
-                </tr>
-
-            </table>
 
         </div>
 
     </section>
 
+    <!-- Applications -->
 
-    <!-- =========================
-        SUPPLY ADVANTAGE
-    ========================= -->
-
-    <section class="product-section">
+    <section>
 
         <div class="container">
 
-            <div class="section-head center">
+            <div class="section-title">
 
-                <div
-                    class="kicker"
-                    data-zh="供貨優勢"
-                    data-en="Supply Advantage">
+                <div data-lang="en" class="active">
 
-                    Supply Advantage
+                    <h2>
+                        Applications
+                    </h2>
+
+                    <p>
+                        Suitable for various wastewater and water treatment applications.
+                    </p>
 
                 </div>
 
-                <h2
-                    data-zh="穩定供貨與快速支援"
-                    data-en="Reliable Supply and Fast Support">
+                <div data-lang="zh">
 
-                    Reliable Supply and Fast Support
+                    <h2>
+                        應用範圍
+                    </h2>
 
-                </h2>
+                    <p>
+                        適用於多種污水與水處理應用。
+                    </p>
+
+                </div>
 
             </div>
 
-            <div class="cards-4">
+            <div class="application-list">
 
-                <!-- Card 1 -->
-                <div class="card">
+                <div class="application-item">
+                    <h4>Municipal</h4>
+                    <p>都市污水處理</p>
+                </div>
 
-                    <div class="icon">✓</div>
+                <div class="application-item">
+                    <h4>Industrial</h4>
+                    <p>工業廢水處理</p>
+                </div>
 
-                    <h3
-                        data-zh="現貨供應"
-                        data-en="Ready Stock">
+                <div class="application-item">
+                    <h4>Aquaculture</h4>
+                    <p>養殖池曝氣</p>
+                </div>
 
-                        Ready Stock
+                <div class="application-item">
+                    <h4>Water Treatment</h4>
+                    <p>清淨水處理系統</p>
+                </div>
 
-                    </h3>
+            </div>
 
-                    <p
-                        data-zh="EnviroValor 聚焦於標準散氣盤型號並備有庫存，協助客戶縮短採購時間，快速因應工程需求。"
-                        data-en="EnviroValor focuses on standard diffuser models with inventory support, helping customers reduce procurement time and respond quickly to project needs.">
+        </div>
 
-                        EnviroValor focuses on standard diffuser models with inventory support, helping customers reduce procurement time and respond quickly to project needs.
+    </section>
 
+    <!-- CTA -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="cta">
+
+                <div data-lang="en" class="active">
+
+                    <h2>
+                        Request Product Information
+                    </h2>
+
+                    <p>
+                        Contact EnviroValor for tube diffuser specifications, project applications, and sample requests.
                     </p>
+
+                    <a href="#" class="cta-btn">
+                        Contact Us
+                    </a>
 
                 </div>
 
-                <!-- Card 2 -->
-                <div class="card">
+                <div data-lang="zh">
 
-                    <div class="icon">7</div>
+                    <h2>
+                        聯絡我們取得產品資訊
+                    </h2>
 
-                    <h3
-                        data-zh="快速交貨"
-                        data-en="Fast Delivery">
-
-                        Fast Delivery
-
-                    </h3>
-
-                    <p
-                        data-zh="針對現貨品項，相較於完全接單生產，交貨安排可更快速。這對於緊急汰換工程、承包商需求與經銷商備貨規劃特別有幫助。"
-                        data-en="For available stock items, delivery can be arranged faster than fully made-to-order production. This is especially helpful for urgent replacement projects, contractor demand, and distributor stock planning.">
-
-                        For available stock items, delivery can be arranged faster than fully made-to-order production.
-
+                    <p>
+                        歡迎聯絡 EnviroValor 取得散氣管規格資料、應用資訊與樣品申請。
                     </p>
 
-                </div>
-
-                <!-- Card 3 -->
-                <div class="card">
-
-                    <div class="icon">S</div>
-
-                    <h3
-                        data-zh="可提供樣品"
-                        data-en="Sample Available">
-
-                        Sample Available
-
-                    </h3>
-
-                    <p
-                        data-zh="客戶可在確認大量採購前申請樣品，以評估產品尺寸、膜片品質與安裝相容性。"
-                        data-en="Customers may request sample units before confirming bulk orders. This allows buyers to evaluate product dimensions, membrane quality, and installation compatibility before larger procurement.">
-
-                        Customers may request sample units before confirming bulk orders.
-
-                    </p>
-
-                </div>
-
-                <!-- Card 4 -->
-                <div class="card">
-
-                    <div class="icon">B2B</div>
-
-                    <h3
-                        data-zh="B2B 合作"
-                        data-en="B2B Cooperation">
-
-                        B2B Cooperation
-
-                    </h3>
-
-                    <p
-                        data-zh="EnviroValor 支援承包商、經銷商、系統整合商、OEM 客戶與貿易公司，並可提供清楚的報價條件、交期安排與產品資訊。"
-                        data-en="EnviroValor supports contractors, distributors, system integrators, OEM customers, and trading companies with clear quotation terms, delivery schedules, and product information.">
-
-                        EnviroValor supports contractors, distributors, system integrators, OEM customers, and trading companies.
-
-                    </p>
+                    <a href="#" class="cta-btn">
+                        聯絡我們
+                    </a>
 
                 </div>
 
@@ -1501,63 +1085,37 @@ grid-column:span 3;
 
     </section>
 
-    </main>
+    <footer>
 
-    <!-- Inquiry Modal -->
-    <div id="inquiry-modal"></div>
+        © 2026 EnviroValor. All Rights Reserved.
 
-    <!-- Footer -->
-    <div id="footer"></div>
-
-    <script src="../js/main.js"></script>
+    </footer>
 
     <script>
 
-    async function loadComponent(id, file){
+        function switchLang(lang, btn){
 
-        const target =
-        document.getElementById(id);
+            document
+            .querySelectorAll("[data-lang]")
+            .forEach(el => {
 
-        if(!target) return;
+                el.classList.remove("active");
 
-        const response =
-        await fetch(file);
+                if(el.dataset.lang === lang){
 
-        const data =
-        await response.text();
+                    el.classList.add("active");
+                }
+            });
 
-        target.innerHTML = data;
-    }
+            document
+            .querySelectorAll(".lang-btn")
+            .forEach(button => {
 
-    async function initComponents(){
+                button.classList.remove("active");
+            });
 
-        await loadComponent(
-            "mobile-menu",
-            "../components/mobile-menu.html"
-        );
-
-        await loadComponent(
-            "inquiry-modal",
-            "../components/inquiry-modal.html"
-        );
-
-        await loadComponent(
-            "footer",
-            "../components/footer.html"
-        );
-
-        initLanguage();
-
-        initDropdown();
-
-        initContact();
-
-        initMobileMenu();
-
-        initActiveNav();
-    }
-
-    initComponents();
+            btn.classList.add("active");
+        }
 
     </script>
 
