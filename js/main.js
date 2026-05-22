@@ -279,6 +279,15 @@ function initMobileMenu(){
 
     let currentPage = "home";
 
+    if(
+        path === "/"
+        ||
+        path.includes("index.html")
+    ){
+    
+        currentPage = "home";
+    }
+
 
     if(path.includes("about.html")){
 
@@ -323,16 +332,23 @@ console.log(window.location.pathname);
 
     console.log(path);
 
-    // Home
-    if(path.includes("home.html")){
+// Home
+if(
 
-        const homeLink =
-        document.querySelector('[data-page="home"]');
+    path === "/"
+    ||
 
-        console.log(homeLink);
+    path.includes("index.html")
 
-        homeLink?.classList.add("active");
-    }
+){
+
+    const homeLink =
+    document.querySelector('[data-page="home"]');
+
+    console.log(homeLink);
+
+    homeLink?.classList.add("active");
+}
 
     // About
     else if(path.includes("about.html")){
