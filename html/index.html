@@ -9,8 +9,10 @@
 <link rel="stylesheet" href="../css/header.css">
 <link rel="stylesheet" href="../css/footer.css">
 <link rel="stylesheet" href="../css/contact.css">
+<link rel="stylesheet" href="../css/mobile-menu.css">
 
 <style>
+
 
 
 .eyebrow{
@@ -268,104 +270,134 @@
 </head>
 
 <body>
-  <!-- Top Bar -->
-  
 
   <!-- Header -->
   <header>
-    <div class="container navbar">
-      <a class="logo" href="home.html">
-        <img src="slogo.jpg" alt="EnviroValor Logo" />
-      </a>
 
-      <nav class="nav-links">
+      <div class="container navbar">
 
-        <a
-          href="home.html"
-          class="active"
-          data-zh="Home"
-          data-en="Home">
+          <a
+              class="logo"
+              href="../html/home.html">
 
-          Home
+              <img
+                  src="../images/slogo.jpg"
+                  alt="EnviroValor Logo" />
 
-        </a>
+          </a>
 
-        <div class="nav-dropdown">
+          <nav class="nav-links">
 
-          <button
-            class="dropdown-btn"
-            id="productDropdownBtn"
-            data-zh="產品 ▼"
-            data-en="Products ▼">
+              <a
+                  href="../html/home.html"
+                  class="nav-link"
+                  data-page="home"
+                  data-zh="Home"
+                  data-en="Home">
 
-            Products ▼
+                  Home
 
-          </button>
+              </a>
 
-          <div
-            class="dropdown-menu"
-            id="productDropdownMenu">
+              <div class="nav-dropdown">
 
-            <a
-              href="disc-diffuser.html"
-              data-zh="散氣盤"
-              data-en="Disc Diffusers">
+                  <button
+                      class="dropdown-btn"
+                      data-page="products"
+                      id="productDropdownBtn"
+                      data-zh="產品 ▼"
+                      data-en="Products ▼">
 
-              散氣盤
+                      Products ▼
 
-            </a>
+                  </button>
 
-            <a
-              href="tube-diffuser.html"
-              data-zh="散氣管"
-              data-en="Tube Diffusers">
+                  <div
+                      class="dropdown-menu"
+                      id="productDropdownMenu">
 
-              散氣管
+                      <a
+                          href="../html/disc-diffuser.html"
+                          data-zh="散氣盤"
+                          data-en="Disc Diffusers">
 
-            </a>
+                          Disc Diffusers
+
+                      </a>
+
+                      <a
+                          href="../html/tube-diffuser.html"
+                          data-zh="散氣管"
+                          data-en="Tube Diffusers">
+
+                          Tube Diffusers
+
+                      </a>
+
+                  </div>
+
+              </div>
+
+              <a
+                  href="../html/about.html"
+                  class="nav-link"
+                  data-page="about"
+                  data-zh="關於我們"
+                  data-en="About Us">
+
+                  About Us
+
+              </a>
+
+              <a
+                  href="../html/download.html"
+                  class="nav-link"
+                  data-page="download"
+                  data-zh="資料下載"
+                  data-en="Download">
+
+                  Download
+
+              </a>
+
+          </nav>
+
+          <div class="nav-actions">
+
+              <button
+                  class="lang-btn"
+                  id="langBtn">
+
+                  EN
+
+              </button>
+
+              <button
+                  class="quote-btn"
+                  id="openInquiryModal"
+                  data-zh="聯絡我們"
+                  data-en="Contact Us">
+
+                  Contact Us
+
+              </button>
+
+              <button
+                  class="mobile-menu-btn"
+                  id="mobileMenuBtn">
+
+                  ☰
+
+              </button>
 
           </div>
 
-        </div>
-
-        <a
-          href="about.html"
-          data-zh="關於我們"
-          data-en="About Us">
-
-          關於我
-
-        </a>
-
-        <a
-          href="download.html"
-          data-zh="資料下載"
-          data-en="Download">
-
-          資料下載
-
-        </a>
-      </nav>
-
-      <div class="nav-actions">
-
-        <button class="lang-btn" id="langBtn">
-          EN
-        </button>
-
-        <button
-          class="quote-btn"
-          id="openInquiryModal"
-          data-zh="聯絡我們"
-          data-en="Contact Us">
-
-          聯絡我們
-
-        </button>
-
       </div>
-    </div>
+
   </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu"></div>
 
   <!-- Home Hero -->
   <main>
@@ -377,21 +409,21 @@
             data-zh="EnviroValor｜雄威"
             data-en="EnviroValor"
           >
-            EnviroValor｜雄威
+            EnviroValor
           </div>
 
           <h1
             data-zh="專注於水處理曝氣產品的台灣供應商"
             data-en="Fine Bubble Disc Diffusers in Stock — Fast Delivery from Taiwan"
           >
-            專注於水處理曝氣產品的台灣供應商
+            Fine Bubble Disc Diffusers in Stock — Fast Delivery from Taiwan
           </h1>
 
           <p
             data-zh="EnviroValor 雄威專注於污水處理與曝氣系統相關產品，致力於提供穩定、實用且適合工程應用的曝氣產品供應服務。"
             data-en="EnviroValor focuses on supplying reliable fine bubble disc diffusers for wastewater treatment and aeration systems. With ready stock and flexible supply arrangements, we help customers reduce lead time and respond quickly to project needs."
           >
-            EnviroValor 雄威專注於污水處理與曝氣系統相關產品，致力於提供穩定、實用且適合工程應用的曝氣產品供應服務。
+            EnviroValor focuses on supplying reliable fine bubble disc diffusers for wastewater treatment and aeration systems. With ready stock and flexible supply arrangements, we help customers reduce lead time and respond quickly to project needs.
           </p>
 
           <div class="hero-buttons">
@@ -402,14 +434,14 @@
               data-zh="查看散氣盤"
               data-en="Disc Diffusers"
             >
-              查看散氣盤
+              Disc Diffusers
             </a>
           </div>
         </div>
 
         <div class="hero-card">
           <div class="hero-logo-box">
-            <img src="logo.jpg" alt="EnviroValor Logo" />
+            <img src="../images/logo.jpg" alt="EnviroValor Logo" />
           </div>
         </div>
       </div>
@@ -433,35 +465,39 @@
             data-zh="以穩定品質與可靠供應，成為客戶長期合作夥伴"
             data-en="Disc Diffusers in Stock for Fast Delivery"
           >
-            以穩定品質與可靠供應，成為客戶長期合作夥伴
+            Disc Diffusers in Stock for Fast Delivery
           </h2>
 
           <p
               data-zh="首頁以公司介紹為主，讓客戶快速理解 EnviroValor 的定位、服務對象與供應能力。"
-              data-en="EnviroValor specializes in aeration products for wastewater treatment systems, with disc diffusers as our main product. To support urgent project schedules and replacement needs, we maintain ready stock of standard disc diffusers (9-inch), allowing customers to receive products faster and reduce waiting time for project installation or maintenance. Our disc diffusers are designed for stable aeration performance, easy installation, and reliable operation in municipal sewage treatment, industrial wastewater treatment, and other water treatment applications."
+              data-en="EnviroValor specializes in aeration products for wastewater treatment systems, with disc diffusers as our main product. To support urgent project schedules and replacement needs, 
+              we maintain ready stock of standard disc diffusers (9-inch), allowing customers to receive products faster and reduce waiting time for project installation or maintenance. 
+              Our disc diffusers are designed for stable aeration performance, easy installation, and reliable operation in municipal sewage treatment, industrial wastewater treatment, and other water treatment applications."
             >
-              首頁以公司介紹為主，讓客戶快速理解 EnviroValor 的定位、服務對象與供應能力。
+              EnviroValor specializes in aeration products for wastewater treatment systems, with disc diffusers as our main product. To support urgent project schedules and replacement needs, 
+              we maintain ready stock of standard disc diffusers (9-inch), allowing customers to receive products faster and reduce waiting time for project installation or maintenance. 
+              Our disc diffusers are designed for stable aeration performance, easy installation, and reliable operation in municipal sewage treatment, industrial wastewater treatment, and other water treatment applications.
           </p>
         </div>
 
         <div class="intro-grid">
           <div class="intro-card">
             <h3 data-zh="關於 EnviroValor" data-en="About EnviroValor">
-              關於 EnviroValor
+              About EnviroValor
             </h3>
 
             <p
               data-zh="EnviroValor 雄威以污水處理曝氣產品為核心，服務工程公司、系統整合商、設備商、經銷商及相關產業客戶。"
               data-en="EnviroValor focuses on wastewater treatment and aeration-related products, serving engineering companies, system integrators, equipment suppliers, distributors, and industrial customers."
             >
-              EnviroValor 雄威以污水處理曝氣產品為核心，服務工程公司、系統整合商、設備商、經銷商及相關產業客戶。
+              EnviroValor focuses on wastewater treatment and aeration-related products, serving engineering companies, system integrators, equipment suppliers, distributors, and industrial customers.
             </p>
 
             <p
               data-zh="我們重視產品品質、供應穩定性與交期安排，期望以可靠的產品與務實的服務，成為客戶在曝氣系統產品採購上的長期合作夥伴。"
               data-en="We value stable product quality, reliable supply, and practical delivery arrangements, aiming to become a long-term partner for customers in aeration product procurement."
             >
-              我們重視產品品質、供應穩定性與交期安排，期望以可靠的產品與務實的服務，成為客戶在曝氣系統產品採購上的長期合作夥伴。
+              We value stable product quality, reliable supply, and practical delivery arrangements, aiming to become a long-term partner for customers in aeration product procurement.
             </p>
           </div>
 
@@ -474,14 +510,14 @@
               data-zh="目前雄威品牌以細氣泡散氣盤作為主要產品，並可依客戶需求提供相關曝氣產品的供應評估。"
               data-en="Our current main branded product is the fine bubble disc diffuser. We can also evaluate the supply of related aeration products based on customer requirements."
             >
-              目前雄威品牌以細氣泡散氣盤作為主要產品，並可依客戶需求提供相關曝氣產品的供應評估。
+              Our current main branded product is the fine bubble disc diffuser. We can also evaluate the supply of related aeration products based on customer requirements.
             </p>
 
             <p
               data-zh="我們以台灣為供應基礎，面向台灣、東南亞及國際市場，持續建立更穩定、更具彈性的水處理產品供應能力。"
               data-en="Based in Taiwan, EnviroValor serves local, Southeast Asian, and international markets while continuously developing a more stable and flexible supply capability for water treatment products."
             >
-              我們以台灣為供應基礎，面向台灣、東南亞及國際市場，持續建立更穩定、更具彈性的水處理產品供應能力。
+              Based in Taiwan, EnviroValor serves local, Southeast Asian, and international markets while continuously developing a more stable and flexible supply capability for water treatment products.
             </p>
           </div>
         </div>
@@ -690,279 +726,73 @@
 
   <!-- Inquiry Modal -->
 
-  <div class="inquiry-modal" id="inquiryModal">
-
-    <div class="inquiry-overlay" id="closeInquiryModal"></div>
-
-    <div class="inquiry-container">
-
-      <button
-        class="inquiry-close"
-        id="closeInquiryBtn">
-
-        ×
-
-      </button>
-
-      <!-- Left -->
-
-      <div class="inquiry-info">
-
-        <div class="inquiry-kicker">
-          EnviroValor
-        </div>
-
-        <h2
-          data-zh="聯絡我們"
-          data-en="Contact Us">
-
-          Contact Us
-
-        </h2>
-
-        <p
-          data-zh="歡迎與我們聯繫產品詢價、樣品需求、型錄索取或 OEM 合作。"
-          data-en="Contact us for quotations, samples, catalogs, or OEM cooperation discussions.">
-
-          Contact us for quotations, samples, catalogs, or OEM cooperation discussions.
-
-        </p>
-
-        <ul class="inquiry-points">
-
-          <li>✓ Fast Response</li>
-          <li>✓ Sample Available</li>
-          <li>✓ OEM Discussion</li>
-          <li>✓ Taiwan Supplier</li>
-
-        </ul>
-
-      </div>
-
-      <!-- Right -->
-
-      <div class="inquiry-form-wrap">
-
-        <form class="inquiry-form">
-
-          <div class="form-group">
-
-            <label
-              data-zh="詢問目的 *"
-              data-en="Inquiry Purpose *">
-
-              Inquiry Purpose *
-
-            </label>
-
-            <select>
-
-              <option>Request Quotation</option>
-              <option>Request Sample</option>
-              <option>Request Product Catalog</option>
-              <option>Discuss OEM / Distributor Cooperation</option>
-
-            </select>
-
-          </div>
-
-          <div class="form-group">
-
-            <label
-              data-zh="產品類型 *"
-              data-en="Product Type *">
-
-              Product Type *
-
-            </label>
-
-            <select>
-
-              <option>9-inch Fine Bubble Disc Diffuser</option>
-              <option>12-inch Fine Bubble Disc Diffuser</option>
-              <option>600 Tube Diffuser</option>
-              <option>Need Recommendation</option>
-
-            </select>
-
-          </div>
-
-          <div class="form-row">
-
-            <div class="form-group">
-
-              <label
-                data-zh="需求數量 *"
-                data-en="Quantity *">
-
-                Quantity *
-
-              </label>
-
-              <input type="text">
-
-            </div>
-
-            <div class="form-group">
-
-              <label
-                data-zh="目的地國家 *"
-                data-en="Destination Country *">
-
-                Destination Country *
-
-              </label>
-
-              <input type="text">
-
-            </div>
-
-          </div>
-
-          <div class="form-group">
-
-            <label
-              data-zh="公司名稱 *"
-              data-en="Company Name *">
-
-              Company Name *
-
-            </label>
-
-            <input type="text">
-
-          </div>
-
-          <div class="form-group">
-
-            <label
-              data-zh="聯絡人 *"
-              data-en="Contact Person *">
-
-              Contact Person *
-
-            </label>
-
-            <input type="text">
-
-          </div>
-
-          <div class="form-group">
-
-            <label>Email *</label>
-
-            <input type="email">
-
-          </div>
-
-          <div class="form-group">
-
-            <label
-              data-zh="WhatsApp / 電話"
-              data-en="WhatsApp / Phone">
-
-              WhatsApp / Phone
-
-            </label>
-
-            <input type="text">
-
-          </div>
-
-          <div class="form-group">
-
-            <label
-              data-zh="公司網站"
-              data-en="Website">
-
-              Website
-
-            </label>
-
-            <input type="text">
-
-          </div>
-
-          <div class="form-group">
-
-            <label
-              data-zh="備註／專案資訊"
-              data-en="Message / Project Information">
-
-              Message / Project Information
-
-            </label>
-
-            <textarea rows="5"></textarea>
-
-          </div>
-
-          <button
-            type="submit"
-            class="submit-btn"
-            data-zh="送出詢問"
-            data-en="Send Inquiry">
-
-            Send Inquiry
-
-          </button>
-
-        </form>
-
-      </div>
-
-    </div>
-
-  </div>
+  <div id="inquiry-modal"></div>
 
   <!-- Footer -->
-  <footer>
-    <div class="container footer-grid">
-      <div class="footer-brand">
+  <div id="footer"></div>
 
-        <h4>EnviroValor</h4>
-        <p
-          data-zh="專注於水處理曝氣產品的台灣供應商。"
-          data-en="Taiwan-based supplier for wastewater aeration products."
-        >
-          專注於水處理曝氣產品的台灣供應商。
-        </p>
-
-        <img
-          class="footer-logo"
-          src="logo.jpg"
-          alt="EnviroValor Logo">
-
-      </div>
-      <div>
-        <h4 data-zh="聯絡資訊" data-en="Contact">聯絡資訊</h4>
-        <ul>
-          <li>Email: info@envirovalor.com</li>
-          <li data-zh="電話：（03）-403-1234" data-en="Tel: （03）-403-1234">電話：（03）- 403-1234</li>
-          <li data-zh="營業時間：週一至週五 08:30–17:30" data-en="Business Hours: Mon–Fri 08:30–17:30">
-            營業時間：週一至週五 08:30–17:30
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 data-zh="桃園市平鎮區中豐路南勢二段460巷120-2號" data-en="No. 120-2, Ln. 460, Sec. 2, Nanshi Rd., Pingzhen Dist., Taoyuan City, Taiwan">桃園市平鎮區中豐路南勢二段460巷120-2號</h4>
-        
-
-        <iframe
-          class="map"
-          loading="lazy"
-          src="https://www.google.com/maps?q=桃園市平鎮區中豐路南勢二段460巷120-2號&output=embed">
-        </iframe>
-      </div>
-    </div>
-
-    <div class="container copyright">
-      <span>© 2026 EnviroValor. All rights reserved.</span>
-      <span>Wastewater Aeration Products</span>
-    </div>
-  </footer>
+<!-- =========================
+     Main JS
+========================= -->
 
 <script src="../js/main.js"></script>
+
+<!-- =========================
+     Components Loader
+========================= -->
+
+<script>
+
+async function loadComponent(id, file){
+
+    const target =
+    document.getElementById(id);
+
+    if(!target) return;
+
+    const response =
+    await fetch(file);
+
+    const data =
+    await response.text();
+
+    target.innerHTML = data;
+}
+
+async function initComponents(){
+
+    await loadComponent(
+        "mobile-menu",
+        "../components/mobile-menu.html"
+    );
+
+    await loadComponent(
+        "inquiry-modal",
+        "../components/inquiry-modal.html"
+    );
+
+    await loadComponent(
+        "footer",
+        "../components/footer.html"
+    );
+
+    // 載入完成後初始化功能
+
+    initLanguage();
+
+    initDropdown();
+
+    initContact();
+
+    initMobileMenu();
+
+    initActiveNav();
+}
+
+initComponents();
+
+</script>
+
+
 </body>
 </html>
