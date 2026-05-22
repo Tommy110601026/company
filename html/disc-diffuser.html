@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EnviroValor｜Disc Diffusers</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>EnviroValor｜Disc Diffusers</title>
 
 <link rel="stylesheet" href="../css/global.css">
 <link rel="stylesheet" href="../css/header.css">
@@ -20,8 +21,7 @@
 
     background:rgba(255,255,255,.1);
 
-    border:
-    1px solid rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.18);
 
     border-radius:999px;
 
@@ -34,56 +34,6 @@
 
     margin-bottom:22px;
 }
-
-
-/* Diffuser */
-
-.diffuser-visual{
-    min-height:360px;
-
-    border-radius:28px;
-
-    background:
-    radial-gradient(
-        circle at center,
-        rgba(53,179,74,.24),
-        transparent 42%
-    ),
-    linear-gradient(
-        180deg,
-        rgba(255,255,255,.18),
-        rgba(255,255,255,.06)
-    );
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    position:relative;
-}
-
-.disc{
-    width:230px;
-    height:230px;
-    border-radius:50%;
-
-    background:
-    radial-gradient(
-        circle,
-        #e8f0f4 0 18%,
-        transparent 19%
-    ),
-    repeating-radial-gradient(
-        circle,
-        #b9ced8 0 2px,
-        transparent 2px 15px
-    ),
-    #e9f0f3;
-
-    border:14px solid #fff;
-}
-
-/* Sections */
 
 main section:not(.hero){
     padding:82px 0;
@@ -103,15 +53,14 @@ main section:not(.hero){
     color:var(--muted);
     font-size:17px;
 }
-.icon{
 
+.icon{
     width:54px;
     height:54px;
 
     border-radius:18px;
 
-    background:
-    rgba(53,179,74,.12);
+    background:rgba(53,179,74,.12);
 
     color:var(--green);
 
@@ -124,7 +73,6 @@ main section:not(.hero){
 
     margin-bottom:18px;
 }
-/* Cards */
 
 .cards-4{
     display:grid;
@@ -132,31 +80,36 @@ main section:not(.hero){
     gap:20px;
 }
 
-.card{
+.cards-3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.card,
+.application-card{
     background:var(--white);
 
-    border:
-    1px solid var(--line);
+    border:1px solid var(--line);
 
-    border-radius:var(--radius);
+    border-radius:22px;
 
     padding:28px;
 
-    box-shadow:
-    0 12px 32px rgba(7,48,71,.06);
+    box-shadow:0 12px 32px rgba(7,48,71,.06);
 }
 
-.card h3{
+.card h3,
+.application-card h3{
     color:var(--navy);
     font-size:22px;
     margin-bottom:8px;
 }
 
-.card p{
+.card p,
+.application-card p{
     color:var(--muted);
 }
-
-/* Product */
 
 .product-section{
     background:var(--white);
@@ -172,8 +125,7 @@ main section:not(.hero){
 .product-panel{
     background:var(--bg);
 
-    border:
-    1px solid var(--line);
+    border:1px solid var(--line);
 
     border-radius:32px;
 
@@ -181,8 +133,6 @@ main section:not(.hero){
 
     box-shadow:var(--shadow);
 }
-
-/* Table */
 
 .spec-table{
     width:100%;
@@ -194,8 +144,7 @@ main section:not(.hero){
 
     overflow:hidden;
 
-    border:
-    1px solid var(--line);
+    border:1px solid var(--line);
 
     margin-top:20px;
 }
@@ -204,8 +153,7 @@ main section:not(.hero){
 .spec-table td{
     padding:15px 16px;
 
-    border-bottom:
-    1px solid var(--line);
+    border-bottom:1px solid var(--line);
 
     text-align:left;
 }
@@ -215,64 +163,6 @@ main section:not(.hero){
     color:var(--navy);
     width:34%;
 }
-
-/* Timeline */
-
-.timeline-box{
-    background:
-    linear-gradient(
-        135deg,
-        #082d43,
-        #0d405b
-    );
-
-    color:var(--white);
-
-    border-radius:34px;
-
-    padding:42px;
-}
-
-.timeline-line{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:16px;
-}
-
-.timeline-item{
-    padding:24px;
-
-    border-radius:22px;
-
-    background:rgba(255,255,255,.09);
-}
-
-.timeline-item strong{
-    display:block;
-    color:var(--green-light);
-    font-size:30px;
-}
-
-/* Application */
-
-.cards-3{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:22px;
-}
-
-.application-card{
-    background:var(--white);
-
-    border:
-    1px solid var(--line);
-
-    border-radius:22px;
-
-    padding:24px;
-}
-
-/* CTA */
 
 .cta{
     padding:76px 0;
@@ -297,8 +187,7 @@ main section:not(.hero){
 
     max-width:760px;
 
-    margin:
-    0 auto 26px;
+    margin:0 auto 26px;
 }
 
 .diffuser-visual{
@@ -346,22 +235,17 @@ main section:not(.hero){
     border:14px solid #fff;
 }
 
-/* Responsive */
-
 @media (max-width:980px){
 
     .grid-2,
     .cards-4,
-    .cards-3,
-    .timeline-line{
+    .cards-3{
         grid-template-columns:1fr;
     }
 
 }
 
 @media (max-width:560px){
-
-   
 
     .diffuser-visual{
         min-height:260px;
@@ -372,8 +256,7 @@ main section:not(.hero){
         height:180px;
     }
 
-    .product-panel,
-    .timeline-box{
+    .product-panel{
         padding:24px;
     }
 
@@ -383,612 +266,547 @@ main section:not(.hero){
 </head>
 
 <body>
-  <!-- Header -->
-  <header>
 
-      <div class="container navbar">
+<!-- Header -->
+<header>
 
-          <a
-              class="logo"
-              href="../html/home.html">
+    <div class="container navbar">
 
-              <img
-                  src="../images/slogo.jpg"
-                  alt="EnviroValor Logo" />
+        <a
+            class="logo"
+            href="../html/home.html">
 
-          </a>
+            <img
+                src="../images/slogo.jpg"
+                alt="EnviroValor Logo" />
 
-          <nav class="nav-links">
+        </a>
 
-              <a
-                  href="../html/home.html"
-                  class="nav-link"
-                  data-page="home"
-                  data-zh="Home"
-                  data-en="Home">
+        <nav class="nav-links">
 
-                  Home
+            <a
+                href="../html/home.html"
+                class="nav-link"
+                data-page="home"
+                data-zh="Home"
+                data-en="Home">
 
-              </a>
+                Home
 
-              <div class="nav-dropdown">
+            </a>
 
-                  <button
-                      class="dropdown-btn"
-                      data-page="products"
-                      id="productDropdownBtn"
-                      data-zh="產品 ▼"
-                      data-en="Products ▼">
+            <div class="nav-dropdown">
 
-                      Products ▼
+                <button
+                    class="dropdown-btn"
+                    data-page="products"
+                    id="productDropdownBtn"
+                    data-zh="產品 ▼"
+                    data-en="Products ▼">
 
-                  </button>
+                    Products ▼
 
-                  <div
-                      class="dropdown-menu"
-                      id="productDropdownMenu">
+                </button>
 
-                      <a
-                          href="../html/disc-diffuser.html"
-                          data-zh="散氣盤"
-                          data-en="Disc Diffusers">
+                <div
+                    class="dropdown-menu"
+                    id="productDropdownMenu">
 
-                          Disc Diffusers
+                    <a
+                        href="../html/disc-diffuser.html"
+                        data-zh="散氣盤"
+                        data-en="Disc Diffusers">
 
-                      </a>
+                        Disc Diffusers
 
-                      <a
-                          href="../html/tube-diffuser.html"
-                          data-zh="散氣管"
-                          data-en="Tube Diffusers">
+                    </a>
 
-                          Tube Diffusers
+                    <a
+                        href="../html/tube-diffuser.html"
+                        data-zh="散氣管"
+                        data-en="Tube Diffusers">
 
-                      </a>
+                        Tube Diffusers
 
-                  </div>
+                    </a>
 
-              </div>
+                </div>
 
-              <a
-                  href="../html/about.html"
-                  class="nav-link"
-                  data-page="about"
-                  data-zh="關於我們"
-                  data-en="About Us">
+            </div>
 
-                  About Us
+            <a
+                href="../html/about.html"
+                class="nav-link"
+                data-page="about"
+                data-zh="關於我們"
+                data-en="About Us">
 
-              </a>
+                About Us
 
-              <a
-                  href="../html/download.html"
-                  class="nav-link"
-                  data-page="download"
-                  data-zh="資料下載"
-                  data-en="Download">
+            </a>
 
-                  Download
+            <a
+                href="../html/download.html"
+                class="nav-link"
+                data-page="download"
+                data-zh="資料下載"
+                data-en="Download">
 
-              </a>
+                Download
 
-          </nav>
+            </a>
 
-          <div class="nav-actions">
+        </nav>
 
-              <button
-                  class="lang-btn"
-                  id="langBtn">
+        <div class="nav-actions">
 
-                  EN
+            <button
+                class="lang-btn"
+                id="langBtn">
 
-              </button>
+                EN
 
-              <button
-                  class="quote-btn"
-                  id="openInquiryModal"
-                  data-zh="聯絡我們"
-                  data-en="Contact Us">
+            </button>
 
-                  Contact Us
+            <button
+                class="quote-btn"
+                id="openInquiryModal"
+                data-zh="聯絡我們"
+                data-en="Contact Us">
 
-              </button>
+                Contact Us
 
-              <button
-                  class="mobile-menu-btn"
-                  id="mobileMenuBtn">
+            </button>
 
-                  ☰
+            <button
+                class="mobile-menu-btn"
+                id="mobileMenuBtn">
 
-              </button>
+                ☰
 
-          </div>
+            </button>
 
-      </div>
+        </div>
 
-  </header>
+    </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu"></div>
+</header>
 
-  <main>
-    <!-- Hero -->
-    <section class="hero">
-      <div class="container hero-grid">
+<!-- Mobile Menu -->
+<div id="mobile-menu"></div>
+
+<main>
+
+<!-- Hero -->
+<section class="hero">
+
+    <div class="container hero-grid">
+
         <div>
 
-          <div
-            class="eyebrow"
-            data-zh="薄膜式散氣盤｜污水曝氣系統"
-            data-en="Fine Bubble Disc Diffusers"
-          >
-            Fine Bubble Disc Diffusers
-          </div>
+            <div
+                class="eyebrow"
+                data-zh="薄膜式散氣盤｜污水曝氣系統"
+                data-en="Fine Bubble Disc Diffusers">
 
-          <h1
-            data-zh="散氣盤 現貨供應 快速交貨 技術資料完整"
-            data-en="Ready Stock, Fast Delivery, Complete Technical Support"
-          >
-            Ready Stock, Fast Delivery, Complete Technical Support
-          </h1>
+                Fine Bubble Disc Diffusers
 
-          <p
-            data-zh="雄威有限公司提供適用於污水處理與工業廢水處理系統之薄膜式散氣盤，協助客戶提升曝氣效率、穩定供氧表現，並降低長期操作與維護成本。
-            我們理解工程案場對交期與產品穩定性的要求，因此針對常用規格建立庫存，提供快速出貨服務，協助工程公司、設備商與系統整合商縮短採購等待時間，提升工程執行效率。
-            除產品供應外，我們亦提供清楚的技術資料，方便客戶進行初步規格評估、設備選型與工程規劃。
-            "
-            data-en="EnviroValor supplies membrane disc diffusers for municipal and industrial wastewater treatment systems, helping improve aeration efficiency, stable oxygen transfer performance, and long-term operational reliability."
-          >
-            EnviroValor supplies membrane disc diffusers for municipal and industrial wastewater treatment systems, helping improve aeration efficiency, stable oxygen transfer performance, and long-term operational reliability.
-          </p>
+            </div>
 
-          <div class="hero-buttons">
-            <a
-              class="btn-primary"
-              href="#contact"
-              data-zh="立即詢價"
-              data-en="Request a Quote"
-            >
-              Request a Quote
-            </a>
+            <h1
+                data-zh="散氣盤 現貨供應 快速交貨 技術資料完整"
+                data-en="Ready Stock, Fast Delivery, Complete Technical Support">
 
-            <a
-              class="btn-outline"
-              href="#specs"
-              data-zh="查看規格"
-              data-en="View Specifications"
-            >
-              View Specifications
-            </a>
-          </div>
+                Ready Stock, Fast Delivery, Complete Technical Support
+
+            </h1>
+
+            <p
+                data-zh="雄威有限公司提供適用於污水處理與工業廢水處理系統之薄膜式散氣盤，協助客戶提升曝氣效率、穩定供氧表現，並降低長期操作與維護成本。我們理解工程案場對交期與產品穩定性的要求，因此針對常用規格建立庫存，提供快速出貨服務，協助工程公司、設備商與系統整合商縮短採購等待時間，提升工程執行效率。除產品供應外，我們亦提供清楚的技術資料，方便客戶進行初步規格評估、設備選型與工程規劃。"
+                data-en="EnviroValor supplies membrane disc diffusers for municipal and industrial wastewater treatment systems, helping improve aeration efficiency, stable oxygen transfer performance, and long-term operational reliability.">
+
+                EnviroValor supplies membrane disc diffusers for municipal and industrial wastewater treatment systems.
+
+            </p>
 
         </div>
 
         <div class="hero-card">
-          <div class="diffuser-visual">
-            <div class="disc"></div>
-          </div>
+
+            <div class="diffuser-visual">
+
+                <div class="disc"></div>
+
+            </div>
+
         </div>
 
-      </div>
-    </section>
+    </div>
 
+</section>
 
-    <!-- Why Choose -->
-    <section>
-      <div class="container">
+<!-- Why Choose -->
+<section>
+
+    <div class="container">
 
         <div class="section-head center">
 
-          <div
-            class="kicker"
-            data-zh="Why Choose Us"
-            data-en="Why Choose Us"
-          >
-            Why Choose Us
-          </div>
+            <div
+                class="kicker"
+                data-zh="Why Choose Us"
+                data-en="Why Choose Us">
 
-          <h2
-            data-zh="我們提供的不只是產品，而是穩定供應與工程支援"
-            data-en="More Than Products — Stable Supply and Engineering Support"
-          >
-            More Than Products — Stable Supply and Engineering Support
-          </h2>
+                Why Choose Us
 
-          <p
-            data-zh="雄威有限公司重視交期穩定、快速溝通與產品品質，協助工程公司、設備商與系統整合商降低採購與工程風險。"
-            data-en="EnviroValor focuses on stable lead time, fast communication, and reliable product quality to support contractors, equipment suppliers, and system integrators."
-          >
-            EnviroValor focuses on stable lead time, fast communication, and reliable product quality to support contractors, equipment suppliers, and system integrators.
-          </p>
+            </div>
+
+            <h2
+                data-zh="我們提供的不只是產品，而是穩定供應與工程支援"
+                data-en="More Than Products — Stable Supply and Engineering Support">
+
+                More Than Products — Stable Supply and Engineering Support
+
+            </h2>
 
         </div>
 
         <div class="cards-4">
 
-          <!-- Card 1 -->
-          <div class="card">
+            <div class="card">
 
-            <div class="icon">✓</div>
+                <div class="icon">✓</div>
 
-            <h3
-              data-zh="現貨供應"
-              data-en="Ready Stock"
-            >
-              Ready Stock
-            </h3>
+                <h3
+                    data-zh="現貨供應"
+                    data-en="Ready Stock">
 
-            <p
-              data-zh="針對標準規格建立庫存，協助客戶快速取得產品並縮短等待時間。"
-              data-en="Standard diffuser models are available from stock to reduce procurement waiting time."
-            >
-              Standard diffuser models are available from stock to reduce procurement waiting time.
-            </p>
+                    Ready Stock
 
-          </div>
+                </h3>
 
-          <!-- Card 2 -->
-          <div class="card">
+                <p
+                    data-zh="EnviroValor 聚焦於標準散氣盤型號並備有庫存，協助客戶縮短採購時間，快速因應工程需求。"
+                    data-en="EnviroValor focuses on standard diffuser models with inventory support, helping customers reduce procurement time and respond quickly to project needs.">
 
-            <div class="icon">7</div>
+                    EnviroValor focuses on standard diffuser models with inventory support.
 
-            <h3
-              data-zh="快速交貨"
-              data-en="Fast Delivery"
-            >
-              Fast Delivery
-            </h3>
+                </p>
 
-            <p
-              data-zh="適合工程急件、維修更換、設備補料與批量採購需求。"
-              data-en="Supports urgent replacement projects, contractor demand, and distributor stock planning."
-            >
-              Supports urgent replacement projects, contractor demand, and distributor stock planning.
-            </p>
+            </div>
 
-          </div>
+            <div class="card">
 
-          <!-- Card 3 -->
-          <div class="card">
+                <div class="icon">7</div>
 
-            <div class="icon">PDM</div>
+                <h3
+                    data-zh="快速交貨"
+                    data-en="Fast Delivery">
 
-            <h3
-              data-zh="耐用膜片材質"
-              data-en="Durable EPDM Membrane"
-            >
-              Durable EPDM Membrane
-            </h3>
+                    Fast Delivery
 
-            <p
-              data-zh="EPDM 膜片具備耐酸鹼、耐腐蝕與長時間曝氣使用特性。"
-              data-en="EPDM membrane material provides durability for wastewater aeration environments."
-            >
-              EPDM membrane material provides durability for wastewater aeration environments.
-            </p>
+                </h3>
 
-          </div>
+                <p
+                    data-zh="針對現貨品項，相較於完全接單生產，交貨安排可更快速。"
+                    data-en="For available stock items, delivery can be arranged faster than fully made-to-order production.">
 
-          <!-- Card 4 -->
-          <div class="card">
+                    For available stock items, delivery can be arranged faster.
 
-            <div class="icon">QC</div>
+                </p>
 
-            <h3
-              data-zh="品質檢測"
-              data-en="Quality Inspection"
-            >
-              Quality Inspection
-            </h3>
+            </div>
 
-            <p
-              data-zh="產品出貨前皆進行檢測，降低漏氣、側漏與安裝後異常風險。"
-              data-en="Products are inspected before shipment to reduce leakage and installation risks."
-            >
-              Products are inspected before shipment to reduce leakage and installation risks.
-            </p>
+            <div class="card">
 
-          </div>
+                <div class="icon">QC</div>
+
+                <h3
+                    data-zh="品質檢測"
+                    data-en="Quality Inspection">
+
+                    Quality Inspection
+
+                </h3>
+
+                <p
+                    data-zh="產品出貨前皆進行檢測，降低漏氣、側漏與安裝後異常風險。"
+                    data-en="Products are inspected before shipment to reduce leakage and installation risks.">
+
+                    Products are inspected before shipment.
+
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="icon">B2B</div>
+
+                <h3
+                    data-zh="B2B 合作"
+                    data-en="B2B Cooperation">
+
+                    B2B Cooperation
+
+                </h3>
+
+                <p
+                    data-zh="EnviroValor 支援承包商、經銷商、系統整合商、OEM 客戶與貿易公司。"
+                    data-en="EnviroValor supports contractors, distributors, system integrators, OEM customers, and trading companies.">
+
+                    EnviroValor supports contractors and distributors.
+
+                </p>
+
+            </div>
 
         </div>
 
-      </div>
-    </section>
+    </div>
 
-    <!-- Product Design -->
-    <section class="product-section" id="specs">
+</section>
 
-      <div class="container grid-2">
+<!-- Technical Features -->
+<section class="product-section" id="specs">
+
+    <div class="container grid-2">
 
         <div class="product-panel">
 
-          <div class="diffuser-visual">
-            <div class="disc"></div>
-          </div>
+            <div class="diffuser-visual">
+
+                <div class="disc"></div>
+
+            </div>
 
         </div>
 
         <div>
 
-          <div
-            class="kicker"
-            data-zh="Technical Features"
-            data-en="Technical Features"
-          >
-            Technical Features
-          </div>
+            <div
+                class="kicker"
+                data-zh="Technical Features"
+                data-en="Technical Features">
 
-          <h2
-            data-zh="為穩定曝氣效能而設計"
-            data-en="Engineered for Reliable Aeration Performance"
-          >
-            Engineered for Reliable Aeration Performance
-          </h2>
+                Technical Features
 
-          <p
-            data-zh="薄膜式散氣盤可形成細緻氣泡，增加氧氣與水體接觸面積，協助提升氧氣傳輸效率並降低長期操作能耗。"
-            data-en="Fine bubble diffuser design increases gas-liquid contact area to support efficient oxygen transfer and lower operating energy demand."
-          >
-            Fine bubble diffuser design increases gas-liquid contact area to support efficient oxygen transfer and lower operating energy demand.
-          </p>
+            </div>
 
-          <table class="spec-table">
+            <h2
+                data-zh="為穩定曝氣效能而設計"
+                data-en="Engineered for Reliable Aeration Performance">
 
-            <tr>
-              <th data-zh="產品名稱" data-en="Product">
-                Product
-              </th>
+                Engineered for Reliable Aeration Performance
 
-              <td
-                data-zh="薄膜式散氣盤"
-                data-en="Fine Bubble Disc Diffuser"
-              >
-                Fine Bubble Disc Diffuser
-              </td>
-            </tr>
+            </h2>
 
-            <tr>
-              <th data-zh="常用尺寸" data-en="Size">
-                Size
-              </th>
+            <table class="spec-table">
 
-              <td
-                data-zh="9 inch / 12 inch"
-                data-en="9 inch / 12 inch"
-              >
-                9 inch / 12 inch
-              </td>
-            </tr>
+                <tr>
+                    <th>Product</th>
+                    <td>EV-270</td>
+                </tr>
 
-            <tr>
-              <th data-zh="膜片材質" data-en="Membrane Material">
-                Membrane Material
-              </th>
+                <tr>
+                    <th>Material</th>
+                    <td>Standard black EPDM</td>
+                </tr>
 
-              <td
-                data-zh="EPDM"
-                data-en="EPDM"
-              >
-                EPDM
-              </td>
-            </tr>
+                <tr>
+                    <th>Application</th>
+                    <td>Municipal wastewater and general wastewater aeration</td>
+                </tr>
 
-            <tr>
-              <th data-zh="主要特色" data-en="Key Features">
-                Key Features
-              </th>
+                <tr>
+                    <th>Elongation</th>
+                    <td>588%</td>
+                </tr>
 
-              <td
-                data-zh="高效率曝氣、低壓損、防逆流、安裝便利"
-                data-en="High oxygen transfer, low headloss, anti-backflow design, easy installation"
-              >
-                High oxygen transfer, low headloss, anti-backflow design, easy installation
-              </td>
-            </tr>
+                <tr>
+                    <th>Tensile strength</th>
+                    <td>1715 psi</td>
+                </tr>
 
-            <tr>
-              <th data-zh="適用系統" data-en="Applications">
-                Applications
-              </th>
+                <tr>
+                    <th>Hardness</th>
+                    <td>60 Shore A</td>
+                </tr>
 
-              <td
-                data-zh="污水處理、工業廢水、生物處理曝氣系統"
-                data-en="Municipal wastewater, industrial wastewater, biological aeration systems"
-              >
-                Municipal wastewater, industrial wastewater, biological aeration systems
-              </td>
-            </tr>
+                <tr>
+                    <th>Heat aging resistance</th>
+                    <td>Up to 140°C</td>
+                </tr>
 
-            <tr>
-              <th data-zh="供貨方式" data-en="Supply">
-                Supply
-              </th>
-
-              <td
-                data-zh="標準規格備有庫存"
-                data-en="Ready stock available"
-              >
-                Ready stock available
-              </td>
-            </tr>
-
-            <tr>
-              <th data-zh="交貨優勢" data-en="Delivery Advantage">
-                Delivery Advantage
-              </th>
-
-              <td
-                data-zh="快速交貨，適合工程急件與批量採購"
-                data-en="Fast delivery for urgent projects and bulk procurement"
-              >
-                Fast delivery for urgent projects and bulk procurement
-              </td>
-            </tr>
-
-            <tr>
-              <th data-zh="技術支援" data-en="Technical Support">
-                Technical Support
-              </th>
-
-              <td
-                data-zh="可提供產品型錄與技術資料"
-                data-en="Technical documents and catalogs available"
-              >
-                Technical documents and catalogs available
-              </td>
-            </tr>
-
-          </table>
+            </table>
 
         </div>
 
-      </div>
+    </div>
 
-    </section>
+</section>
 
-    <!-- Applications -->
-    <section>
+<!-- Anti Backflow -->
+<section>
 
-      <div class="container">
+    <div class="container">
 
         <div class="section-head center">
 
-          <div
-            class="kicker"
-            data-zh="Applications"
-            data-en="Applications"
-          >
-            Applications
-          </div>
+            <div
+                class="kicker"
+                data-zh="Anti-Backflow Design"
+                data-en="Anti-Backflow Design">
 
-          <h2
-            data-zh="適用於多種曝氣與水處理系統"
-            data-en="Suitable for Various Aeration Systems"
-          >
-            Suitable for Various Aeration Systems
-          </h2>
+                Anti-Backflow Design
 
-          <p
-            data-zh="雄威牌散氣盤可應用於都市污水、工業廢水與多種生物曝氣系統。"
-            data-en="EnviroValor disc diffusers are suitable for municipal wastewater, industrial wastewater, and biological aeration systems."
-          >
-            EnviroValor disc diffusers are suitable for municipal wastewater, industrial wastewater, and biological aeration systems.
-          </p>
+            </div>
+
+            <h2
+                data-zh="自密封膜片結構"
+                data-en="Self-Sealing Membrane Structure">
+
+                Self-Sealing Membrane Structure
+
+            </h2>
+
+        </div>
+
+        <table class="spec-table">
+
+            <tr>
+
+                <th>Function</th>
+                <th>Description</th>
+
+            </tr>
+
+            <tr>
+
+                <td>During aeration</td>
+                <td>Air pressure opens the membrane pores and releases fine bubbles</td>
+
+            </tr>
+
+            <tr>
+
+                <td>When air stops</td>
+                <td>The elastic membrane returns to a closed position</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Benefit</td>
+                <td>Helps reduce wastewater backflow into the diffuser and piping system</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Design advantage</td>
+                <td>No additional check valve component required</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- Applications -->
+<section>
+
+    <div class="container">
+
+        <div class="section-head center">
+
+            <div
+                class="kicker"
+                data-zh="Applications"
+                data-en="Applications">
+
+                Applications
+
+            </div>
+
+            <h2
+                data-zh="適用於多種曝氣與水處理系統"
+                data-en="Suitable for Various Aeration Systems">
+
+                Suitable for Various Aeration Systems
+
+            </h2>
 
         </div>
 
         <div class="cards-3">
 
-          <div class="application-card">
+            <div class="application-card">
 
-            <h3
-              data-zh="都市污水處理"
-              data-en="Municipal Wastewater"
-            >
-              Municipal Wastewater
-            </h3>
+                <h3>Municipal Wastewater</h3>
 
-            <p
-              data-zh="都市污水處理廠、生物曝氣池與污泥穩定化系統。"
-              data-en="Municipal sewage treatment plants and biological aeration systems."
-            >
-              Municipal sewage treatment plants and biological aeration systems.
-            </p>
+                <p>Municipal sewage treatment plants and biological aeration systems.</p>
 
-          </div>
+            </div>
 
-          <div class="application-card">
+            <div class="application-card">
 
-            <h3
-              data-zh="工業廢水處理"
-              data-en="Industrial Wastewater"
-            >
-              Industrial Wastewater
-            </h3>
+                <h3>Industrial Wastewater</h3>
 
-            <p
-              data-zh="適用於工業廢水、生產廢水與設備曝氣需求。"
-              data-en="Suitable for industrial wastewater and factory aeration applications."
-            >
-              Suitable for industrial wastewater and factory aeration applications.
-            </p>
+                <p>Suitable for industrial wastewater and factory aeration applications.</p>
 
-          </div>
+            </div>
 
-          <div class="application-card">
+            <div class="application-card">
 
-            <h3
-              data-zh="特殊曝氣應用"
-              data-en="Special Applications"
-            >
-              Special Applications
-            </h3>
+                <h3>Special Applications</h3>
 
-            <p
-              data-zh="適用於 SBR、MBR、水產養殖與景觀水體曝氣。"
-              data-en="Supports SBR, MBR, aquaculture, and landscape water aeration systems."
-            >
-              Supports SBR, MBR, aquaculture, and landscape water aeration systems.
-            </p>
+                <p>Supports SBR, MBR, aquaculture, and landscape water aeration systems.</p>
 
-          </div>
+            </div>
 
         </div>
 
-      </div>
+    </div>
 
-    </section>
+</section>
 
-    <!-- CTA -->
-    <section class="cta">
+<!-- CTA -->
+<section class="cta">
 
-      <div class="container">
+    <div class="container">
 
         <h2
-          data-zh="需要產品規格或詢價？"
-          data-en="Need Product Information or Quotation?"
-        >
-          Need Product Information or Quotation?
+            data-zh="需要產品規格或詢價？"
+            data-en="Need Product Information or Quotation?">
+
+            Need Product Information or Quotation?
+
         </h2>
 
         <p
-          data-zh="雄威有限公司可提供產品規格、技術資料與工程應用建議，歡迎聯絡我們取得更多資訊。"
-          data-en="EnviroValor provides technical specifications, engineering support, and quotation services for wastewater aeration projects."
-        >
-          EnviroValor provides technical specifications, engineering support, and quotation services for wastewater aeration projects.
+            data-zh="雄威有限公司可提供產品規格、技術資料與工程應用建議，歡迎聯絡我們取得更多資訊。"
+            data-en="EnviroValor provides technical specifications, engineering support, and quotation services for wastewater aeration projects.">
+
+            EnviroValor provides technical specifications and engineering support.
+
         </p>
 
-        <a
-          class="btn-primary"
-          href="#contact"
-          data-zh="聯絡我們"
-          data-en="Contact Us"
-        >
-          Contact Us
-        </a>
+    </div>
 
-      </div>
+</section>
 
-    </section>
+</main>
 
-  </main>
+<!-- Inquiry Modal -->
+<div id="inquiry-modal"></div>
 
-  <!-- Inquiry Modal -->
-
-  <div id="inquiry-modal"></div>
-
-  <!-- Footer -->
-  <div id="footer"></div>
-
-<!-- =========================
-     Main JS
-========================= -->
+<!-- Footer -->
+<div id="footer"></div>
 
 <script src="../js/main.js"></script>
-
-<!-- =========================
-     Components Loader
-========================= -->
 
 <script>
 
@@ -1025,8 +843,6 @@ async function initComponents(){
         "../components/footer.html"
     );
 
-    // 載入完成後初始化功能
-
     initLanguage();
 
     initDropdown();
@@ -1041,6 +857,6 @@ async function initComponents(){
 initComponents();
 
 </script>
+
 </body>
 </html>
-
