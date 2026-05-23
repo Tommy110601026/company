@@ -146,6 +146,13 @@ function initContact(){
             try{
 
                 const response =
+
+                console.log({
+                    company,
+                    email,
+                    message
+                });
+                
                 await fetch('/api/contact',{
 
                     method:'POST',
