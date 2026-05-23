@@ -167,7 +167,7 @@ function initContact(){
                 // API 測試（之後部署到 Vercel 再打開）
                 // =========================
             
-                /*
+                
                 const response =
                 await fetch('/api/contact',{
             
@@ -203,7 +203,7 @@ function initContact(){
             
                     alert("送出失敗");
                 }
-                */
+              
             
             }
             catch(error){
