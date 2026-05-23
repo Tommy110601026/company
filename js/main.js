@@ -114,10 +114,81 @@ function initContact(){
             }
         }
     );
+
+    // 表單送出
+
+    const form =
+    document.querySelector(".inquiry-form");
+
+    if(!form) return;
+
+    form.addEventListener(
+        "submit",
+        async (e) => {
+
+            e.preventDefault();
+
+            const company =
+            form.querySelector(
+                'input[type="text"]'
+            ).value;
+
+            const email =
+            form.querySelector(
+                'input[type="email"]'
+            ).value;
+
+            const message =
+            form.querySelector(
+                'textarea'
+            ).value;
+
+            try{
+
+                const response =
+                await fetch('/api/contact',{
+
+                    method:'POST',
+
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+
+                    body:JSON.stringify({
+
+                        company,
+                        email,
+                        message
+                    })
+                });
+
+                const result =
+                await response.json();
+
+                if(result.success){
+
+                    alert("送出成功！");
+
+                    form.reset();
+
+                    modal.classList.remove("active");
+                }
+
+                else{
+
+                    alert("送出失敗");
+                }
+            }
+
+            catch(error){
+
+                console.error(error);
+
+                alert("系統錯誤");
+            }
+        }
+    );
 }
-
-
-
 
 
 // =========================
