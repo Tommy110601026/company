@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>EnviroValor｜Disc Diffusers</title>
+
+<link rel="stylesheet" href="../../css/global.css">
+<link rel="stylesheet" href="../../css/header.css">
+<link rel="stylesheet" href="../../css/footer.css">
+<link rel="stylesheet" href="../../css/contact.css">
+<link rel="stylesheet" href="../../css/mobile-menu.css">
+
+<style>
+
+.eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    background:rgba(255,255,255,.1);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    border-radius:999px;
+
+    padding:7px 13px;
+
+    color:#baf7c4;
+
+    font-weight:900;
+    font-size:14px;
+
+    margin-bottom:22px;
+}
+
+main section:not(.hero){
+    padding:82px 0;
+}
+
+.section-head{
+    max-width:840px;
+    margin-bottom:38px;
+}
+
+.section-head.center{
+    text-align:center;
+    margin:0 auto 42px;
+}
+
+.section-head p{
+    color:var(--muted);
+    font-size:17px;
+}
+
+.icon{
+    width:54px;
+    height:54px;
+
+    border-radius:18px;
+
+    background:rgba(53,179,74,.12);
+
+    color:var(--green);
+
+    display:grid;
+    place-items:center;
+
+    font-size:24px;
+
+    font-weight:900;
+
+    margin-bottom:18px;
+}
+
+.cards-4{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.cards-3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.card,
+.application-card{
+    background:var(--white);
+
+    border:1px solid var(--line);
+
+    border-radius:22px;
+
+    padding:28px;
+
+    box-shadow:0 12px 32px rgba(7,48,71,.06);
+}
+
+.card h3,
+.application-card h3{
+    color:var(--navy);
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.card p,
+.application-card p{
+    color:var(--muted);
+}
+
+.product-section{
+    background:var(--white);
+}
+
+.grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:34px;
+    align-items:center;
+}
+
+.product-panel{
+    background:var(--bg);
+
+    border:1px solid var(--line);
+
+    border-radius:32px;
+
+    padding:34px;
+
+    box-shadow:var(--shadow);
+}
+
+.spec-table{
+    width:100%;
+    border-collapse:collapse;
+
+    background:var(--white);
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    border:1px solid var(--line);
+
+    margin-top:20px;
+}
+
+.spec-table th,
+.spec-table td{
+    padding:15px 16px;
+
+    border-bottom:1px solid var(--line);
+
+    text-align:left;
+}
+
+.spec-table th{
+    background:#edf5f7;
+    color:var(--navy);
+    width:34%;
+}
+
+.cta{
+    padding:76px 0;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--navy),
+        var(--navy-light)
+    );
+
+    color:var(--white);
+    text-align:center;
+}
+
+.cta h2{
+    color:var(--white);
+}
+
+.cta p{
+    color:rgba(255,255,255,.78);
+
+    max-width:760px;
+
+    margin:0 auto 26px;
+}
+
+.diffuser-visual{
+    min-height:420px;
+
+    border-radius:28px;
+
+    background:
+    radial-gradient(
+        circle at center,
+        rgba(53,179,74,.24),
+        transparent 42%
+    ),
+    linear-gradient(
+        180deg,
+        rgba(255,255,255,.18),
+        rgba(255,255,255,.06)
+    );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+}
+
+.disc{
+    width:230px;
+    height:230px;
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        #e8f0f4 0 18%,
+        transparent 19%
+    ),
+    repeating-radial-gradient(
+        circle,
+        #b9ced8 0 2px,
+        transparent 2px 15px
+    ),
+    #e9f0f3;
+
+    border:14px solid #fff;
+}
+
+/* =========================
+   Structural Design Only
+========================= */
+
+.structure-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(6,1fr);
+
+gap:22px;
+}
+
+/* 上排三張 */
+
+.structure-grid .card{
+
+grid-column:span 2;
+}
+
+/* 下排兩張 */
+
+.structure-grid .card:nth-child(4),
+.structure-grid .card:nth-child(5){
+
+grid-column:span 3;
+}
+
+/* 手機 */
+
+@media (max-width:980px){
+
+.structure-grid{
+
+    grid-template-columns:1fr;
+}
+
+.structure-grid .card,
+.structure-grid .card:nth-child(4),
+.structure-grid .card:nth-child(5){
+
+    grid-column:span 1;
+}
+}
+
+@media (max-width:980px){
+
+    .grid-2,
+    .cards-4,
+    .cards-3{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media (max-width:560px){
+
+    .diffuser-visual{
+        min-height:260px;
+    }
+
+    .disc{
+        width:180px;
+        height:180px;
+    }
+
+    .product-panel{
+        padding:24px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container navbar">
+    
+            <a class="logo" href="index.html">
+                <img src="../../images/slogo.jpg" alt="EnviroValor Logo" />
+            </a>
+    
+            <nav class="nav-links">
+    
+                <a href="index.html" class="nav-link" data-page="home">Home</a>
+    
+                <div class="nav-dropdown">
+                    <button class="dropdown-btn" data-page="products" id="productDropdownBtn">
+                        Products ▼
+                    </button>
+    
+                    <div class="dropdown-menu" id="productDropdownMenu">
+                        <a href="disc-diffuser.html">Disc Diffusers</a>
+                        <a href="tube-diffuser.html">Tube Diffusers</a>
+                    </div>
+                </div>
+    
+                <a href="about.html" class="nav-link" data-page="about">About Us</a>
+                <a href="download.html" class="nav-link" data-page="download">Download</a>
+    
+            </nav>
+    
+            <div class="nav-actions">
+    
+                <a class="lang-btn" href="../zh/index.html">
+                    中文
+                </a>
+    
+                <button class="quote-btn" id="openInquiryModal">
+                    Contact Us
+                </button>
+    
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    ☰
+                </button>
+    
+            </div>
+    
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"></div>
+
+    <main>
+
+    <!-- Hero -->
+    <section class="hero">
+
+        <div class="container hero-grid">
+
+            <div>
+
+                <div class="eyebrow">
+                    Fine Bubble Disc Diffusers
+                </div>
+
+                <h1>
+                    Reliable Aeration Performance with Fast Supply Support
+                </h1>
+
+                <p>
+                    EnviroValor supplies fine bubble disc diffusers for municipal and industrial wastewater treatment systems. Our EV-270 fine bubble disc diffuser is designed for efficient oxygen transfer, stable bubble distribution, low pressure loss, and long-term operation in aeration tanks.
+                </p>
+
+                <p>
+                    The diffuser uses an EPDM membrane, durable P.P. support body, and a self-sealing membrane structure that helps reduce wastewater backflow when air supply is stopped.
+                </p>
+
+                <p>
+                    With standard models available from stock, EnviroValor supports contractors, distributors, and system integrators with faster procurement and replacement needs.
+                </p>
+
+                <p>
+                    Ready stock available. Fast delivery. Samples available upon request.
+                </p>
+
+            </div>
+
+            <div class="hero-card">
+
+                <div class="diffuser-visual">
+
+                    <div class="disc"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- KEY PRODUCT FEATURES -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-head center">
+
+                <div class="kicker">
+                    Key Product Features
+                </div>
+
+                <h2>
+                    Designed for Practical Wastewater Aeration Applications
+                </h2>
+
+                <p>
+                    EnviroValor fine bubble disc diffusers are designed for practical wastewater aeration applications where stable performance, easy installation, and reliable supply are important.
+                </p>
+
+            </div>
+
+            <table class="spec-table">
+
+                <tr>
+
+                    <th>
+                        Feature
+                    </th>
+
+                    <th>
+                        Description
+                    </th>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Fine bubble generation
+                    </td>
+
+                    <td>
+                        Produces fine bubbles to increase gas-liquid contact area
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Bubble size
+                    </td>
+
+                    <td>
+                        Approx. 1–3 mm
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Membrane material
+                    </td>
+
+                    <td>
+                        EPDM membrane for wastewater aeration applications
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Support body
+                    </td>
+
+                    <td>
+                        Durable P.P. base structure
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Backflow prevention
+                    </td>
+
+                    <td>
+                        Self-sealing membrane design helps reduce wastewater backflow
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Energy efficiency
+                    </td>
+
+                    <td>
+                        Low headloss design helps reduce blower resistance
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Installation
+                    </td>
+
+                    <td>
+                        Suitable for fixed aeration grids and replacement projects
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Supply
+                    </td>
+
+                    <td>
+                        Standard models available from stock
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+<!-- TECHNICAL PERFORMANCE -->
+
+<section class="product-section">
+
+    <div class="container">
+
+        <div class="section-head center">
+
+            <div class="kicker">
+                Technical Performance
+            </div>
+
+            <h2>
+                Oxygen Transfer Performance
+            </h2>
+
+            <p>
+                The EV-270 fine bubble disc diffuser is designed to support efficient oxygen transfer in biological wastewater treatment systems. 
+                Fine bubble aeration increases the contact area between air and water, helping improve oxygen transfer efficiency during operation.
+            </p>
+
+        </div>
+
+        <table class="spec-table">
+
+            <tr>
+
+                <th>
+                    Model
+                </th>
+
+                <td>
+                    EV-270
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Type
+                </th>
+
+                <td>
+                    Fine bubble disc diffuser
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Bubble size
+                </th>
+
+                <td>
+                    Approx. 1–3 mm
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Oxygen transfer efficiency
+                </th>
+
+                <td>
+                    25% at 4 m water depth with 2 CMH airflow
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Oxygen transfer rate
+                </th>
+
+                <td>
+                    9.96 kg-O₂/hr
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Design focus
+                </th>
+
+                <td>
+                    High oxygen transfer, low headloss, stable aeration
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- MEMBRANE MATERIAL -->
+
+<section>
+
+    <div class="container">
+
+        <div class="section-head center">
+
+            <div class="kicker">
+                Membrane and Material Data
+            </div>
+
+            <h2>
+                EPDM Membrane
+            </h2>
+
+            <p>
+                The EV-270 uses a standard black EPDM membrane designed for municipal wastewater and general wastewater aeration environments. 
+                The membrane provides flexibility, deformation resistance, and stable performance during repeated aeration cycles.
+            </p>
+
+        </div>
+
+        <table class="spec-table">
+
+            <tr>
+
+                <th>
+                    Material
+                </th>
+
+                <td>
+                    Standard black EPDM
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Application
+                </th>
+
+                <td>
+                    Municipal wastewater and general wastewater aeration
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Elongation
+                </th>
+
+                <td>
+                    588%
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Tensile strength
+                </th>
+
+                <td>
+                    1715 psi
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Hardness
+                </th>
+
+                <td>
+                    60 Shore A
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Thermal resilience
+                </th>
+
+                <td>
+                    Approx. +3% volume change after 70 hours in 100°C boiling water
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Heat aging resistance
+                </th>
+
+                <td>
+                    Up to 140°C
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- ANTI BACKFLOW -->
+
+<section class="product-section">
+
+    <div class="container">
+
+        <div class="section-head center">
+
+            <div class="kicker">
+                Anti-Backflow Design
+            </div>
+
+            <h2>
+                Self-Sealing Membrane Structure
+            </h2>
+
+            <p>
+                The EV-270 does not rely on an additional external check valve. Instead, its membrane structure is designed to help reduce wastewater backflow when the air supply is interrupted.
+            </p>
+
+        </div>
+
+        <table class="spec-table">
+
+            <tr>
+
+                <th>
+                    Function
+                </th>
+
+                <th>
+                    Description
+                </th>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    During aeration
+                </td>
+
+                <td>
+                    Air pressure opens the membrane pores and releases fine bubbles
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    When air stops
+                </td>
+
+                <td>
+                    The elastic membrane returns to a closed position
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    Benefit
+                </td>
+
+                <td>
+                    Helps reduce wastewater backflow into the diffuser and piping system
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    Design advantage
+                </td>
+
+                <td>
+                    No additional check valve component required
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- STRUCTURAL DESIGN -->
+
+<section>
+
+    <div class="container">
+
+        <div class="section-head center">
+
+            <div class="kicker">
+                Structural Design
+            </div>
+
+            <h2>
+                EV-270 Structural Design
+            </h2>
+
+            <p>
+                The EV-270 combines flexible membrane performance with a durable diffuser body for long-term wastewater aeration operation.
+            </p>
+
+        </div>
+
+        <div class="structure-grid">
+
+            <div class="card">
+
+                <div class="icon">
+                    01
+                </div>
+
+                <h3>
+                    EPDM Membrane
+                </h3>
+
+                <p>
+                    Provides elasticity, tensile strength, and stable fine bubble release
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="icon">
+                    02
+                </div>
+
+                <h3>
+                    P.P. Support Body
+                </h3>
+
+                <p>
+                    Offers durable support for wastewater environments
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="icon">
+                    03
+                </div>
+
+                <h3>
+                    Self-Sealing Membrane Structure
+                </h3>
+
+                <p>
+                    Helps reduce wastewater backflow when air supply stops
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="icon">
+                    04
+                </div>
+
+                <h3>
+                    Fine Bubble Outlet Design
+                </h3>
+
+                <p>
+                    Supports approx. 1–3 mm bubble generation
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="icon">
+                    05
+                </div>
+
+                <h3>
+                    Low Pressure Loss Design
+                </h3>
+
+                <p>
+                    Helps reduce blower load and operating energy demand
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- APPLICATIONS -->
+
+<section class="product-section">
+
+    <div class="container">
+
+        <div class="section-head center">
+
+            <div class="kicker">
+                Applications
+            </div>
+
+            <h2>
+                Typical Applications
+            </h2>
+
+        </div>
+
+        <div class="cards-4">
+
+            <div class="card">
+                <p>Municipal sewage treatment plants</p>
+            </div>
+
+            <div class="card">
+                <p>Industrial wastewater treatment systems</p>
+            </div>
+
+            <div class="card">
+                <p>Biological treatment tanks</p>
+            </div>
+
+            <div class="card">
+                <p>Aeration tank replacement projects</p>
+            </div>
+
+            <div class="card">
+                <p>SBR systems</p>
+            </div>
+
+            <div class="card">
+                <p>MBBR and IFAS aeration support</p>
+            </div>
+
+            <div class="card">
+                <p>OEM wastewater treatment equipment</p>
+            </div>
+
+            <div class="card">
+                <p>Contractor and distributor stock supply</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- AVAILABLE MODEL -->
+
+<section>
+
+    <div class="container">
+
+        <div class="section-head center">
+
+            <div class="kicker">
+                Available Model
+            </div>
+
+            <h2>
+                EV-270 Fine Bubble Disc Diffuser
+            </h2>
+
+            <p>
+                The EV-270 is EnviroValor’s standard fine bubble disc diffuser model for common wastewater aeration applications.
+            </p>
+
+        </div>
+
+        <table class="spec-table">
+
+            <tr>
+
+                <th>
+                    Model
+                </th>
+
+                <td>
+                    EV-270
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Type
+                </th>
+
+                <td>
+                    Fine bubble disc diffuser
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Membrane material
+                </th>
+
+                <td>
+                    EPDM
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Body material
+                </th>
+
+                <td>
+                    P.P.
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Bubble size
+                </th>
+
+                <td>
+                    Approx. 1–3 mm
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Anti-backflow design
+                </th>
+
+                <td>
+                    Self-sealing membrane structure
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Application
+                </th>
+
+                <td>
+                    Municipal and industrial wastewater aeration
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>
+                    Supply
+                </th>
+
+                <td>
+                    Ready stock available
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- SUPPLY ADVANTAGE -->
+
+<section class="product-section">
+
+    <div class="container">
+
+        <div class="section-head center">
+
+            <div class="kicker">
+                Supply Advantage
+            </div>
+
+            <h2>
+                Reliable Supply and Fast Support
+            </h2>
+
+        </div>
+
+        <div class="cards-4">
+
+            <div class="card">
+
+                <div class="icon">
+                    ✓
+                </div>
+
+                <h3>
+                    Ready Stock
+                </h3>
+
+                <p>
+                    EnviroValor focuses on standard diffuser models with inventory support, helping customers reduce procurement time and respond quickly to project needs.
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="icon">
+                    7
+                </div>
+
+                <h3>
+                    Fast Delivery
+                </h3>
+
+                <p>
+                    For available stock items, delivery can be arranged faster than fully made-to-order production.
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="icon">
+                    S
+                </div>
+
+                <h3>
+                    Sample Available
+                </h3>
+
+                <p>
+                    Customers may request sample units before confirming bulk orders.
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="icon">
+                    B2B
+                </div>
+
+                <h3>
+                    B2B Cooperation
+                </h3>
+
+                <p>
+                    EnviroValor supports contractors, distributors, system integrators, OEM customers, and trading companies.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+    </main>
+
+    <!-- Inquiry Modal -->
+    <div id="inquiry-modal"></div>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <script src="../../js/main.js"></script>
+
+    <script>
+    async function loadComponent(id, file){
+    
+        const target = document.getElementById(id);
+    
+        if(!target){
+            console.error("找不到容器：", id);
+            return;
+        }
+    
+        const response = await fetch(file);
+    
+        if(!response.ok){
+            console.error("載入失敗：", file, response.status);
+            return;
+        }
+    
+        const data = await response.text();
+    
+        target.innerHTML = data;
+    
+        console.log("載入成功：", file);
+    }
+    
+    async function initComponents(){
+    
+        await loadComponent(
+            "mobile-menu",
+            "../components/en/mobile-menu.html"
+        );
+    
+        await loadComponent(
+            "inquiry-modal",
+            "../components/en/inquiry-modal.html"
+        );
+    
+        await loadComponent(
+            "footer",
+            "../components/en/footer.html"
+        );
+    
+        console.log("準備初始化功能");
+    
+        initDropdown();
+        initContact();
+        initMobileMenu();
+        initActiveNav();
+    
+        console.log("初始化完成");
+    }
+    
+    initComponents();
+    </script>
+
+</body>
+</html>

@@ -1,78 +1,6 @@
 console.log("main.js loaded");
 
 
-
-// =========================
-// 語系切換
-// =========================
-
-function initLanguage() {
-
-    console.log("initLanguage started");
-
-    let currentLang = "en";
-
-    const langBtn =
-    document.querySelector(".lang-btn");
-
-    console.log("langBtn =", langBtn);
-
-
-    function setLanguage(lang){
-
-        currentLang = lang;
-
-        document
-        .querySelectorAll("[data-en]")
-        .forEach(el => {
-
-            el.textContent =
-            lang === "en"
-            ? el.dataset.en
-            : el.dataset.zh;
-
-        });
-
-        // 語言按鈕文字
-        if(langBtn){
-
-            langBtn.textContent =
-            lang === "en"
-            ? "中文"
-            : "EN";
-        }
-    }
-
-
-    // 綁定點擊
-    if(langBtn){
-
-        console.log("binding lang click");
-
-        langBtn.addEventListener(
-            "click",
-            () => {
-
-                console.log("lang clicked");
-
-                const nextLang =
-                currentLang === "en"
-                ? "zh"
-                : "en";
-
-                setLanguage(nextLang);
-            }
-        );
-    }
-
-    // 預設英文
-    setLanguage("en");
-}
-
-
-
-
-
 // =========================
 // Products Dropdown
 // =========================
@@ -378,3 +306,4 @@ if(
         ?.classList.add("active");
     }
 }
+

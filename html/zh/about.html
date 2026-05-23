@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        關於我們 | EnviroValor
+    </title>
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/header.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/contact.css">
+    <link rel="stylesheet" href="../../css/mobile-menu.css">
+
+    <style>
+
+    body{
+        margin:0;
+        background:#f5f7fa;
+        color:#1f2937;
+        line-height:1.8;
+    }
+
+    .about-hero{
+        background:
+        linear-gradient(
+            rgba(7,48,71,.82),
+            rgba(7,48,71,.82)
+        ),
+        url('../images/about-banner.jpg')
+        center/cover no-repeat;
+
+        color:#fff;
+        padding:120px 20px 90px;
+        text-align:center;
+    }
+
+    .about-hero h1{
+        font-size:48px;
+        font-weight:800;
+        margin-bottom:22px;
+    }
+
+    .about-hero p{
+        max-width:920px;
+        margin:auto;
+        font-size:20px;
+        color:rgba(255,255,255,.9);
+    }
+
+    .about-container{
+        width:min(1200px, 92%);
+        margin:auto;
+        padding:90px 0;
+    }
+
+    .about-section{
+        margin-bottom:72px;
+    }
+
+    .grid-2{
+        display:grid;
+        grid-template-columns:repeat(2, 1fr);
+        gap:40px;
+    }
+
+    .about-section h2{
+        font-size:40px;
+        color:#073047;
+        margin-bottom:24px;
+        position:relative;
+    }
+
+    .about-section h2::after{
+        content:'';
+        width:80px;
+        height:4px;
+        background:#00a6c7;
+        display:block;
+        margin-top:12px;
+        border-radius:10px;
+    }
+
+    .about-section p{
+        font-size:17px;
+        color:#4b5563;
+        margin-bottom:18px;
+    }
+
+    .info-card{
+        background:#fff;
+        padding:36px;
+        border-radius:24px;
+        box-shadow:0 10px 30px rgba(0,0,0,.06);
+    }
+
+    .info-card h3{
+        margin-top:0;
+        margin-bottom:18px;
+        color:#073047;
+        font-size:26px;
+    }
+
+    .info-card ul{
+        padding-left:20px;
+        margin:0;
+    }
+
+    .info-card li{
+        margin-bottom:12px;
+        color:#4b5563;
+    }
+
+    @media(max-width:900px){
+
+        .grid-2{
+            grid-template-columns:1fr;
+        }
+
+        .about-hero h1{
+            font-size:38px;
+        }
+
+        .about-hero p{
+            font-size:18px;
+        }
+
+        .about-section h2{
+            font-size:32px;
+        }
+
+    }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <div class="container navbar">
+        
+        <a class="logo" href="./">
+        <img alt="EnviroValor Logo" src="../../images/slogo.jpg"/>
+        </a>
+        
+        <nav class="nav-links">
+        
+        <a class="nav-link" data-page="home" href="./">
+        首頁
+        </a>
+        
+        <div class="nav-dropdown">
+        
+        <button class="dropdown-btn" data-page="products" id="productDropdownBtn">
+        產品 ▼
+        </button>
+        
+        <div class="dropdown-menu" id="productDropdownMenu">
+        
+        <a href="disc-diffuser.html">
+        散氣盤
+        </a>
+        
+        <a href="tube-diffuser.html">
+        散氣管
+        </a>
+        
+        </div>
+        </div>
+        
+        <a class="nav-link" data-page="about" href="about.html">
+        關於我們
+        </a>
+        
+        <a class="nav-link" data-page="download" href="download.html">
+        資料下載
+        </a>
+        
+        </nav>
+        
+        <div class="nav-actions">
+        
+        <a class="lang-btn" href="../en/index.html" id="langBtn">
+        EN
+        </a>
+        
+        <button class="quote-btn" id="openInquiryModal">
+        聯絡我們
+        </button>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+        ☰
+        </button>
+        
+        </div>
+        </div>
+    </header>
+
+    <div id="mobile-menu"></div>
+
+    <section class="about-hero">
+
+        <h1>
+            關於 EnviroValor
+        </h1>
+
+        <p>
+            EnviroValor 是來自台灣的污水曝氣產品供應商，專注於細氣泡散氣盤與相關曝氣產品，應用於市政污水與工業廢水處理系統。我們專注於實用的產品選擇、穩定供貨，以及即時清楚的溝通，協助工程公司、經銷商、系統整合商與工程採購客戶順利推進專案。
+        </p>
+
+    </section>
+
+    <main class="about-container">
+
+        <section class="about-section">
+
+            <h2>
+                關於 EnviroValor
+            </h2>
+
+            <p>
+                EnviroValor 是來自台灣的污水曝氣產品供應商，專注於細氣泡散氣盤與相關曝氣產品，應用於市政污水與工業廢水處理系統。
+            </p>
+
+            <p>
+                我們了解，可靠的曝氣設備對於污水處理系統的穩定運轉至關重要。因此，EnviroValor 專注於實用的產品選擇、穩定供貨，以及即時清楚的溝通，協助環工承包商、經銷商、系統整合商與工程採購客戶順利推進專案。
+            </p>
+
+            <p>
+                透過標準散氣產品庫存供應，EnviroValor 協助客戶縮短採購時間，支援緊急汰換需求，並讓污水處理工程能夠順利推進。
+            </p>
+
+        </section>
+
+        <section class="about-section">
+
+            <h2>
+                我們的故事
+            </h2>
+
+            <p>
+                EnviroValor 的成立目標很簡單：提供可靠的污水曝氣產品，並以更快速、更彈性的供貨能力支援客戶。
+            </p>
+
+            <p>
+                在污水處理產業中，許多採購客戶經常面臨交期過長、交貨時程不確定，以及汰換零件難以及時取得的問題。EnviroValor 希望透過聚焦常用曝氣產品、建立庫存供應，並與客戶保持清楚溝通，協助解決這些實務上的痛點。
+            </p>
+
+            <p>
+                我們從細氣泡散氣盤開始，逐步建立適用於台灣與國際市場污水處理工程的實用產品線。
+            </p>
+
+        </section>
+
+        <section class="about-section grid-2">
+
+            <div class="info-card">
+
+                <h3>
+                    我們的產品
+                </h3>
+
+                <p>
+                    EnviroValor 提供污水處理系統所需的曝氣零組件，目前以細氣泡散氣盤為主要產品。
+                </p>
+
+                <p>
+                    我們的產品範圍包括：
+                </p>
+
+                <ul>
+
+                    <li>細氣泡散氣盤</li>
+                    <li>9 吋散氣盤</li>
+                    <li>12 吋散氣盤</li>
+                    <li>細氣泡散氣管</li>
+                    <li>污水曝氣應用相關零組件</li>
+
+                </ul>
+
+                <p>
+                    我們的產品適用於市政污水處理、工業廢水處理、既有設備汰換工程，以及污水處理系統整合。
+                </p>
+
+                <p>
+                    EnviroValor 專注於實用、易於安裝，並適合長期污水處理運轉的產品。
+                </p>
+
+            </div>
+
+            <div class="info-card">
+
+                <h3>
+                    我們的服務範圍
+                </h3>
+
+                <p>
+                    EnviroValor 支援客戶在污水曝氣產品採購流程中的各個階段，包括產品選型、報價、樣品評估、訂單安排與交貨協調。
+                </p>
+
+                <p>
+                    我們合作的客戶包括：
+                </p>
+
+                <ul>
+
+                    <li>環境工程承包商</li>
+                    <li>污水處理系統整合商</li>
+                    <li>設備經銷商</li>
+                    <li>貿易公司</li>
+                    <li>OEM 客戶</li>
+                    <li>市政與工業污水處理工程採購單位</li>
+
+                </ul>
+
+                <p>
+                    無論客戶需要的是新建工程產品、既有設備汰換、經銷商備貨，或樣品測試，EnviroValor 都能提供彈性的供應支援與清楚的溝通。
+                </p>
+
+            </div>
+
+            <div class="info-card">
+
+                <h3>
+                    我們的願景
+                </h3>
+
+                <p>
+                    我們的願景是成為亞洲及國際市場中值得信賴的污水曝氣產品供應商。
+                </p>
+
+                <p>
+                    我們希望為客戶提供：
+                </p>
+
+                <ul>
+
+                    <li>穩定的產品品質</li>
+                    <li>更快速的交貨能力</li>
+                    <li>實用的技術溝通</li>
+                    <li>具競爭力的供貨方案</li>
+                    <li>長期穩定的商業合作</li>
+
+                </ul>
+
+                <p>
+                    在 EnviroValor，我們相信潔淨水資源始於可靠的處理設備。透過供應穩定可靠的曝氣產品，我們希望支持更完善的污水處理系統，並為更永續的環境盡一份心力。
+                </p>
+
+            </div>
+
+            <div class="info-card">
+
+                <h3>
+                    我們的服務範圍
+                </h3>
+
+                <p>
+                    EnviroValor 支援客戶在污水曝氣產品採購流程中的各個階段，包括產品選型、報價、樣品評估、訂單安排與交貨協調。
+                </p>
+
+                <p>
+                    我們合作的客戶包括：
+                </p>
+
+                <ul>
+
+                    <li>環境工程承包商</li>
+                    <li>污水處理系統整合商</li>
+                    <li>設備經銷商</li>
+                    <li>貿易公司</li>
+                    <li>OEM 客戶</li>
+                    <li>市政與工業污水處理工程採購單位</li>
+
+                </ul>
+
+                <p>
+                    無論客戶需要的是新建工程產品、既有設備汰換、經銷商備貨，或樣品測試，EnviroValor 都能提供彈性的供應支援與清楚的溝通。
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <div id="inquiry-modal"></div>
+
+    <div id="footer"></div>
+
+    <script src="../../js/main.js"></script>
+
+    <script>
+        async function loadComponent(id, file){
+        
+            const target =
+            document.getElementById(id);
+        
+            if(!target) return;
+        
+            try{
+        
+                const response =
+                await fetch(file);
+        
+                if(!response.ok){
+        
+                    throw new Error(
+                        `Failed to load: ${file}`
+                    );
+                }
+        
+                const data =
+                await response.text();
+        
+                target.innerHTML = data;
+        
+                console.log(`Loaded: ${file}`);
+            }
+        
+            catch(error){
+        
+                console.error(error);
+            }
+        }
+        
+        async function initComponents(){
+        
+            // 載入 Components
+        
+            await loadComponent(
+                "mobile-menu",
+                "../components/zh/mobile-menu.html"
+            );
+        
+            await loadComponent(
+                "inquiry-modal",
+                "../components/zh/inquiry-modal.html"
+            );
+        
+            await loadComponent(
+                "footer",
+                "../components/zh/footer.html"
+            );
+        
+        
+        
+            // 等 DOM 插入完成後再初始化
+        
+            initDropdown();
+        
+            initContact();
+        
+            initMobileMenu();
+        
+            initActiveNav();
+        
+            console.log("All initialized");
+        }
+        
+        document.addEventListener(
+            "DOMContentLoaded",
+            initComponents
+        );
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+<meta charset="UTF-8" />
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0" />
+
+<title>
+EnviroValor｜Tube Diffusers
+</title>
+
+
+<link rel="stylesheet" href="../../css/global.css">
+<link rel="stylesheet" href="../../css/header.css">
+<link rel="stylesheet" href="../../css/footer.css">
+<link rel="stylesheet" href="../../css/contact.css">
+<link rel="stylesheet" href="../../css/mobile-menu.css">
+
+<style>
+        
+    /* Eyebrow */
+
+    .eyebrow{
+
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+
+        background:rgba(255,255,255,.1);
+
+        border:
+        1px solid rgba(255,255,255,.18);
+
+        border-radius:999px;
+
+        padding:7px 13px;
+
+        color:#baf7c4;
+
+        font-weight:900;
+        font-size:14px;
+
+        margin-bottom:22px;
+    }
+
+    /* Sections */
+
+    main section:not(.hero){
+
+        padding:82px 0;
+    }
+
+    .section-head{
+
+        max-width:840px;
+        margin-bottom:38px;
+    }
+
+    .section-head.center{
+
+        text-align:center;
+        margin:0 auto 42px;
+    }
+
+    .section-head p{
+
+        color:var(--muted);
+        font-size:17px;
+    }
+
+    /* Cards */
+
+    .cards-4{
+
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+
+        gap:20px;
+    }
+
+    .card{
+
+        background:var(--white);
+
+        border:
+        1px solid var(--line);
+
+        border-radius:var(--radius);
+
+        padding:28px;
+
+        box-shadow:
+        0 12px 32px rgba(7,48,71,.06);
+    }
+
+    .card h3{
+
+        color:var(--navy);
+        font-size:22px;
+
+        margin-bottom:8px;
+    }
+
+    .card p{
+
+        color:var(--muted);
+    }
+
+    .icon{
+
+        width:54px;
+        height:54px;
+
+        border-radius:18px;
+
+        background:
+        rgba(53,179,74,.12);
+
+        color:var(--green);
+
+        display:grid;
+        place-items:center;
+
+        font-size:24px;
+
+        font-weight:900;
+
+        margin-bottom:18px;
+    }
+
+    .icon-group{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:26px;
+    }
+
+    .icon-group .icon{
+
+    margin-bottom:0;
+    }
+
+    /* Tube Visual */
+
+    .tube-visual{
+
+        min-height:420px;
+
+        border-radius:28px;
+
+        background:
+        radial-gradient(
+            circle at center,
+            rgba(53,179,74,.18),
+            transparent 45%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.18),
+            rgba(255,255,255,.06)
+        );
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        position:relative;
+    }
+
+    .tube-body{
+
+        display:flex;
+        align-items:center;
+    }
+
+    .tube-main{
+
+        width:340px;
+        height:72px;
+
+        border-radius:999px;
+
+        background:
+        repeating-linear-gradient(
+            90deg,
+            #d7e4ea 0 4px,
+            #edf4f7 4px 10px
+        );
+
+        border:
+        10px solid #ffffff;
+
+        box-shadow:
+        0 12px 28px rgba(0,0,0,.08);
+    }
+
+    .tube-cap{
+
+        width:34px;
+        height:92px;
+
+        background:#d8e3e8;
+    }
+
+    .tube-cap.left{
+
+        border-radius:
+        20px 0 0 20px;
+    }
+
+    .tube-cap.right{
+
+        border-radius:
+        0 20px 20px 0;
+    }
+
+    /* Product */
+
+    .product-section{
+
+        background:var(--white);
+    }
+
+    .grid-2{
+
+        display:grid;
+        grid-template-columns:1fr 1fr;
+
+        gap:34px;
+
+        align-items:center;
+    }
+
+    .product-panel{
+
+        background:var(--bg);
+
+        border:
+        1px solid var(--line);
+
+        border-radius:32px;
+
+        padding:34px;
+
+        box-shadow:var(--shadow);
+    }
+
+    /* Spec Table */
+
+    .spec-table{
+
+        width:100%;
+
+        border-collapse:collapse;
+
+        background:var(--white);
+
+        border-radius:22px;
+
+        overflow:hidden;
+
+        border:
+        1px solid var(--line);
+
+        margin-top:20px;
+    }
+
+    .spec-table th,
+    .spec-table td{
+
+        padding:15px 16px;
+
+        border-bottom:
+        1px solid var(--line);
+
+        text-align:left;
+    }
+
+    .spec-table th{
+
+        background:#edf5f7;
+
+        color:var(--navy);
+
+        width:34%;
+    }
+
+    /* Application */
+
+    .cards-3{
+
+        display:grid;
+
+        grid-template-columns:
+        repeat(3,1fr);
+
+        gap:28px;
+    }
+
+    .application-card{
+
+        background:var(--white);
+
+        border:
+        1px solid var(--line);
+
+        border-radius:22px;
+
+        padding:24px;
+
+        box-shadow:
+        0 12px 32px rgba(7,48,71,.05);
+    }
+
+    .application-card h3{
+
+        color:var(--navy);
+
+        margin-bottom:10px;
+    }
+
+    /* CTA */
+
+    .cta{
+
+        padding:76px 0;
+
+        background:
+        linear-gradient(
+            135deg,
+            var(--navy),
+            var(--navy-light)
+        );
+
+        color:var(--white);
+
+        text-align:center;
+    }
+
+    .cta h2{
+
+        color:var(--white);
+    }
+
+    .cta p{
+
+        color:rgba(255,255,255,.78);
+
+        max-width:760px;
+
+        margin:
+        0 auto 26px;
+    }
+
+    .feature-detail{
+
+    padding:90px 0;
+    scroll-margin-top:80px;
+    border-top:
+    1px solid #e5edf3;
+    }
+
+    .detail-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    380px 1fr;
+
+    gap:60px;
+
+    align-items:start;
+    }
+
+    .detail-kicker{
+
+    color:#00a7a0;
+
+    font-weight:700;
+
+    margin-bottom:18px;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+    }
+
+    .detail-left h2{
+
+    font-size:42px;
+
+    line-height:1.2;
+
+    color:#073047;
+    }
+
+    .detail-right p{
+
+    margin-bottom:24px;
+
+    color:#536879;
+
+    font-size:17px;
+
+    line-height:1.9;
+    }
+
+    .detail-right ul{
+
+    padding-left:22px;
+    }
+
+    .detail-right li{
+
+    margin-bottom:14px;
+
+    color:#073047;
+
+    font-weight:600;
+    }
+
+    .feature-summary{
+
+    padding:100px 0;
+    }
+
+    .summary-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:36px;
+    }
+
+    .summary-block{
+
+    background:var(--white);
+
+    border:
+    1px solid var(--line);
+
+    border-radius:32px;
+
+    padding:42px;
+
+    box-shadow:
+    0 12px 32px rgba(7,48,71,.05);
+    }
+
+    .summary-block h2{
+
+    margin:
+    12px 0 18px;
+
+    font-size:42px;
+
+    line-height:1.2;
+
+    color:var(--navy);
+    }
+
+    .summary-block p{
+
+    color:var(--muted);
+
+    line-height:1.9;
+
+    margin-bottom:30px;
+    }
+
+    .tag-group{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:14px;
+    }
+
+    .feature-tag{
+
+    padding:
+    12px 18px;
+
+    border-radius:999px;
+
+    background:
+    rgba(53,179,74,.08);
+
+    border:
+    1px solid rgba(53,179,74,.16);
+
+    color:var(--navy);
+
+    font-weight:700;
+
+    font-size:15px;
+    }
+
+    /* Why EnviroValor */
+
+    .why-envirovalor{
+
+    padding:110px 0;
+    }
+
+    .why-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:26px;
+
+    margin-top:60px;
+    }
+
+    .why-card{
+
+    position:relative;
+
+    background:var(--white);
+
+    border:
+    1px solid var(--line);
+
+    border-radius:30px;
+
+    padding:38px;
+
+    transition:.35s;
+
+    overflow:hidden;
+    }
+
+    .why-card:hover{
+
+    transform:
+    translateY(-8px);
+
+    box-shadow:
+    0 24px 48px rgba(7,48,71,.08);
+    }
+
+    .why-number{
+
+    font-size:64px;
+
+    font-weight:800;
+
+    line-height:1;
+
+    color:rgba(49 188 72 / 58%);
+
+    margin-bottom:22px;
+    }
+
+    .why-card h3{
+
+    font-size:24px;
+
+    line-height:1.3;
+
+    margin-bottom:16px;
+
+    color:var(--navy);
+    }
+
+    .why-card p{
+
+    color:var(--muted);
+
+    line-height:1.9;
+    }
+
+    .feature-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
+
+    gap:24px;
+
+    margin-top:40px;
+    }
+
+    .spec-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
+
+    gap:24px;
+
+    margin-top:40px;
+    }
+
+    .spec-card{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:28px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.08);
+
+    transition:.3s ease;
+    }
+
+    .spec-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 16px 40px rgba(0,0,0,.12);
+    }
+
+    .spec-card h3{
+
+    font-size:18px;
+
+    font-weight:700;
+
+    margin-bottom:14px;
+
+    color:#0B5E55;
+
+    line-height:1.4;
+    }
+
+    .spec-card p{
+
+    color:#555;
+
+    line-height:1.8;
+
+    font-size:15px;
+
+    margin:0;
+    }
+
+
+    
+    /* =========================
+       Product Specs Section
+    ========================= */
+    
+    .product-section{
+    
+        padding:120px 0;
+    
+        background:#f7faf9;
+    }
+    
+    .section-heading.center{
+    
+        max-width:780px;
+    
+        margin:0 auto 70px;
+    
+        text-align:center;
+    }
+    
+    .spec-layout{
+    
+        display:grid;
+    
+        grid-template-columns:
+        420px 1fr;
+    
+        gap:60px;
+    
+        align-items:start;
+    }
+    
+    /* =========================
+       Product Visual
+    ========================= */
+    
+    .product-visual-panel{
+    
+        position:sticky;
+    
+        top:120px;
+    }
+    
+    .tube-visual{
+    
+        background:#fff;
+    
+        border-radius:28px;
+    
+        padding:70px 40px;
+    
+        box-shadow:
+        0 12px 40px rgba(0,0,0,.06);
+    
+        border:
+        1px solid rgba(0,0,0,.05);
+    }
+    
+    .tube-body{
+    
+        position:relative;
+    
+        width:100%;
+    
+        height:70px;
+    
+        display:flex;
+    
+        align-items:center;
+    }
+    
+    .tube-main{
+    
+        flex:1;
+    
+        height:44px;
+    
+        border-radius:999px;
+    
+        background:
+        linear-gradient(
+            90deg,
+            #d7e4dd 0%,
+            #ffffff 50%,
+            #c8d8cf 100%
+        );
+    
+        box-shadow:
+        inset 0 2px 4px rgba(255,255,255,.7),
+        inset 0 -4px 8px rgba(0,0,0,.08);
+    }
+    
+    .tube-cap{
+    
+        width:44px;
+    
+        height:44px;
+    
+        border-radius:50%;
+    
+        background:#7BAE8C;
+    }
+    
+    .tube-cap.left{
+    
+        margin-right:-8px;
+    }
+    
+    .tube-cap.right{
+    
+        margin-left:-8px;
+    }
+    
+    .visual-badge{
+    
+        margin-top:22px;
+    
+        display:flex;
+    
+        justify-content:center;
+    }
+    
+    .visual-badge span{
+    
+        background:#0d8b63;
+    
+        color:#fff;
+    
+        font-size:14px;
+    
+        font-weight:700;
+    
+        padding:10px 18px;
+    
+        border-radius:999px;
+    }
+    
+    /* =========================
+       Specs Grid
+    ========================= */
+    
+    .spec-grid.compact{
+    
+        display:grid;
+    
+        grid-template-columns:
+        repeat(2, 1fr);
+    
+        gap:18px;
+    }
+    
+    .spec-card{
+    
+        background:#fff;
+    
+        border-radius:20px;
+    
+        padding:22px 22px;
+    
+        border:
+        1px solid rgba(0,0,0,.06);
+    
+        transition:.25s ease;
+    }
+    
+    .spec-card:hover{
+    
+        transform:translateY(-3px);
+    
+        box-shadow:
+        0 10px 24px rgba(0,0,0,.06);
+    }
+    
+    .spec-card.full{
+    
+        grid-column:1 / -1;
+    }
+    
+    .spec-label{
+    
+        display:block;
+    
+        font-size:13px;
+    
+        font-weight:700;
+    
+        letter-spacing:.04em;
+    
+        color:#0d8b63;
+    
+        margin-bottom:8px;
+    
+        text-transform:uppercase;
+    }
+    
+    .spec-card strong{
+    
+        display:block;
+    
+        color:#1f2937;
+    
+        line-height:1.6;
+    
+        font-size:15px;
+    
+        font-weight:700;
+    }
+    
+    /* =========================
+       Responsive
+    ========================= */
+    
+    @media (max-width:991px){
+    
+        .spec-layout{
+    
+            grid-template-columns:1fr;
+    
+            gap:40px;
+        }
+    
+        .product-visual-panel{
+    
+            position:relative;
+    
+            top:auto;
+        }
+    }
+    
+    @media (max-width:640px){
+    
+        .product-section{
+    
+            padding:80px 0;
+        }
+    
+        .spec-grid.compact{
+    
+            grid-template-columns:1fr;
+        }
+    
+        .tube-visual{
+    
+            padding:50px 24px;
+        }
+    }
+    
+
+    @media(max-width:980px){
+
+    .why-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .why-card{
+
+        padding:32px;
+    }
+    }
+
+    @media(max-width:980px){
+
+    .summary-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .summary-block h2{
+
+        font-size:34px;
+    }
+    }
+
+    @media(max-width:900px){
+
+    .detail-grid{
+
+        grid-template-columns:1fr;
+
+        gap:30px;
+    }
+
+    .cards-3{
+
+    grid-template-columns:1fr;
+    }
+
+    .detail-left h2{
+
+        font-size:32px;
+    }
+    }
+
+    /* Responsive */
+
+    @media (max-width:980px){
+
+        .grid-2,
+        .cards-4,
+        .cards-3{
+
+            grid-template-columns:1fr;
+        }
+
+    }
+
+    @media (max-width:560px){
+
+        .tube-main{
+
+            width:220px;
+            height:56px;
+        }
+
+        .tube-cap{
+
+            height:72px;
+            width:26px;
+        }
+
+        .tube-visual{
+
+            min-height:260px;
+        }
+
+    }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container navbar">
+        
+        <a class="logo" href="./">
+        <img alt="EnviroValor Logo" src="../../images/slogo.jpg"/>
+        </a>
+        
+        <nav class="nav-links">
+        
+        <a class="nav-link" data-page="home" href="./">
+        首頁
+        </a>
+        
+        <div class="nav-dropdown">
+        
+        <button class="dropdown-btn" data-page="products" id="productDropdownBtn">
+        產品 ▼
+        </button>
+        
+        <div class="dropdown-menu" id="productDropdownMenu">
+        
+        <a href="disc-diffuser.html">
+        散氣盤
+        </a>
+        
+        <a href="tube-diffuser.html">
+        散氣管
+        </a>
+        
+        </div>
+        </div>
+        
+        <a class="nav-link" data-page="about" href="about.html">
+        關於我們
+        </a>
+        
+        <a class="nav-link" data-page="download" href="download.html">
+        資料下載
+        </a>
+        
+        </nav>
+        
+        <div class="nav-actions">
+        
+        <a class="lang-btn" href="../en/index.html" id="langBtn">
+        EN
+        </a>
+        
+        <button class="quote-btn" id="openInquiryModal">
+        聯絡我們
+        </button>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+        ☰
+        </button>
+        
+        </div>
+        </div>
+    </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu"></div>
+
+  <main>
+
+    <!-- Hero -->
+
+    <section class="hero">
+
+        <div class="container hero-grid">
+
+            <div>
+
+                <div class="eyebrow">
+                    細氣泡散氣管
+                </div>
+
+                <h1>
+                    600 mm 細氣泡散氣管解決方案
+                </h1>
+
+                <p>
+                    EnviroValor 提供適用於污水處理與工業廢水曝氣系統之 600 mm 散氣管，適合安裝於曝氣池底部，協助系統達到穩定供氣、均勻曝氣與提升氧氣傳輸效率之目的。本產品適用於都市污水處理、工業廢水處理、生物處理曝氣池及其他水處理曝氣應用。
+                </p>
+
+                <p>
+                    透過細緻且均勻的氣孔設計，散氣管能使空氣有效分散於水體中，提升氧氣與水體接觸面積，協助系統維持穩定處理效果。
+                </p>
+
+                <div class="hero-buttons">
+
+                    <button
+                    class="btn-primary"
+                    id="openInquiryModalHero">
+
+                    立即詢價
+
+                    </button>
+
+                    <a
+                    class="btn-outline"
+                    href="#specs">
+
+                    查看規格
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="hero-card">
+
+                <div class="tube-visual">
+
+                    <div class="tube-body">
+
+                        <div class="tube-cap left"></div>
+
+                        <div class="tube-main"></div>
+
+                        <div class="tube-cap right"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Why Choose -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-head center">
+
+                <div class="kicker">
+                    為什麼選擇 EnviroValor
+                </div>
+
+                <h2>
+                    高效率曝氣與穩定供應
+                </h2>
+
+                <p>
+                    EnviroValor 以穩定品質、快速交貨與台灣供應能力，協助客戶降低工程與維修等待時間。
+                </p>
+
+            </div>
+
+            <!-- Feature Cards -->
+
+            <div class="cards-3">
+
+                <!-- Card 1 -->
+
+                <a href="#spin-welded"
+                class="card jump-card">
+
+                    <div class="icon">✓</div>
+
+                    <h3>
+                        旋熔式進氣結構
+                    </h3>
+
+                    <p>
+                        旋熔接合設計可提升密封可靠性並降低側漏風險。
+                    </p>
+
+                </a>
+
+                <!-- Card 2 -->
+
+                <a href="#epdm"
+                class="card jump-card">
+
+                    <div class="icon">↗</div>
+
+                    <h3>
+                        EPDM 膜片
+                    </h3>
+
+                    <p>
+                        EPDM 工程橡膠膜片適合長期污水曝氣應用。
+                    </p>
+
+                </a>
+
+                <!-- Card 3 -->
+
+                <a href="#abs-304"
+                class="card jump-card">
+
+                    <div class="icon-group">
+
+                        <span class="icon">ABS</span>
+
+                        <span class="icon">304</span>
+
+                    </div>
+
+                    <h3>
+                        ABS 支撐本體與 304 束環
+                    </h3>
+
+                    <p>
+                        ABS 支撐結構搭配 304 不鏽鋼束環，可提升穩定性並維持膜片固定效果。
+                    </p>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Detail Section 1 -->
+
+    <section class="feature-detail" id="spin-welded">
+
+        <div class="container">
+
+            <div class="detail-grid">
+
+                <div class="detail-left">
+
+                    <div class="detail-kicker">
+                        產品特色
+                    </div>
+
+                    <h2>
+                        旋熔式進氣結構，並逐支測漏
+                    </h2>
+
+                </div>
+
+                <div class="detail-right">
+
+                    <p>
+                        進氣口採一體成型設計，並以旋熔方式與支撐管件接合。此結構可提升密封可靠性，並降低側漏風險。
+                    </p>
+
+                    <p>
+                        與膠合式設計相比，旋熔接合具有更佳的結構完整性，能在污水曝氣環境中提供更穩定的長期可靠性。
+                    </p>
+
+                    <p>
+                        出貨前，每一支散氣管皆會以專業測漏設備進行檢測，確認密封性能，協助確保安裝後的穩定運轉。
+                    </p>
+
+                    <ul>
+
+                        <li>
+                            一體成型進氣結構
+                        </li>
+
+                        <li>
+                            旋熔接合，非膠水黏合
+                        </li>
+
+                        <li>
+                            提升密封可靠性
+                        </li>
+
+                        <li>
+                            降低側漏風險
+                        </li>
+
+                        <li>
+                            每支出貨前皆經檢測
+                        </li>
+
+                        <li>
+                            運轉時空氣分布穩定
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Detail Section 2 -->
+
+    <section class="feature-detail gray-bg" id="epdm">
+
+        <div class="container">
+
+            <div class="detail-grid">
+
+                <div class="detail-left">
+
+                    <div class="detail-kicker">
+                        膜片設計
+                    </div>
+
+                    <h2>
+                        模壓成型 EPDM 膜片
+                    </h2>
+
+                </div>
+
+                <div class="detail-right">
+
+                    <p>
+                        本產品使用 EPDM 工程橡膠膜片，適合長期污水曝氣環境。膜片具備抗 UV、耐酸鹼與耐腐蝕特性，可應用於較嚴苛的水處理環境。
+                    </p>
+
+                    <p>
+                        膜片開孔數最高可達 13,500 孔，孔徑約 1–3 mm。模壓成型結構有助於均勻曝氣與細氣泡釋放，並不同於市面上常見的連續擠壓成型膜片。
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Detail Section 3 -->
+
+    <section class="feature-detail" id="abs-304">
+
+        <div class="container">
+
+            <div class="detail-grid">
+
+                <div class="detail-left">
+
+                    <div class="detail-kicker">
+                        產品結構
+                    </div>
+
+                    <h2>
+                        ABS 支撐本體與 304 不鏽鋼束環
+                    </h2>
+
+                </div>
+
+                <div class="detail-right">
+
+                    <p>
+                        散氣管本體採用 ABS 支撐結構，提供良好的機械強度與穩定支撐效果。中空設計有助於降低浮力，減少管路系統承受的浮力負荷。
+                    </p>
+
+                    <p>
+                        EPDM 膜片與散氣管本體使用 304 不鏽鋼束環固定，可避免膜片在運轉過程中自管體鬆脫。
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Product -->
+
+    <section class="product-section" id="specs">
+
+        <div class="container">
+
+            <!-- Section Header -->
+
+            <div class="section-heading center">
+
+                <div class="kicker">
+                    產品規格
+                </div>
+
+                <h2>
+                    散氣管產品規格
+                </h2>
+
+                <p>
+                    EnviroValor 散氣管適用於各類污水處理與曝氣系統，具備穩定供氣、均勻曝氣與提升氧氣傳輸效率等特性。
+                </p>
+
+            </div>
+
+            <!-- Product Layout -->
+
+            <div class="spec-layout">
+
+                <!-- Left Product -->
+
+                <div class="product-visual-panel">
+
+                    <div class="tube-visual">
+
+                        <div class="tube-body">
+
+                            <div class="tube-cap left"></div>
+
+                            <div class="tube-main"></div>
+
+                            <div class="tube-cap right"></div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="visual-badge">
+
+                        <span>
+                            600 mm 標準規格
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- Right Specs -->
+
+                <div class="specs-panel">
+
+                    <div class="spec-grid compact">
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                產品型號
+                            </span>
+
+                            <strong>EVT-600</strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                產品類型
+                            </span>
+
+                            <strong>
+                                細氣泡散氣管
+                            </strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                尺寸
+                            </span>
+
+                            <strong>600 × 65 × 3/4" PT</strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                通氣量
+                            </span>
+
+                            <strong>1.8–12 CMH</strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                膜片材質
+                            </span>
+
+                            <strong>EPDM</strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                支撐本體
+                            </span>
+
+                            <strong>ABS</strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                束環材質
+                            </span>
+
+                            <strong>
+                                304 不鏽鋼
+                            </strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                重量
+                            </span>
+
+                            <strong>
+                                約 0.9 kg
+                            </strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                膜片開孔數
+                            </span>
+
+                            <strong>
+                                最高約 13,500 孔
+                            </strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                孔徑大小
+                            </span>
+
+                            <strong>
+                                約 1–3 mm
+                            </strong>
+
+                        </div>
+
+                        <div class="spec-card full">
+
+                            <span class="spec-label">
+                                進氣結構
+                            </span>
+
+                            <strong>
+                                一體成型進氣口，旋熔接合
+                            </strong>
+
+                        </div>
+
+                        <div class="spec-card full">
+
+                            <span class="spec-label">
+                                漏氣控制
+                            </span>
+
+                            <strong>
+                                每支出貨前皆經測漏檢測
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Performance & Applications Summary -->
+
+<section class="feature-summary">
+
+    <div class="container">
+
+        <div class="summary-grid">
+
+            <!-- Performance -->
+
+            <div class="summary-block">
+
+                <div class="kicker">
+                    性能優勢
+                </div>
+
+                <h2>
+                    高效率曝氣性能
+                </h2>
+
+                <p>
+                    600 mm 細氣泡散氣管適用於重視氧氣傳輸效率、低阻力與密封可靠性的實際污水曝氣應用。
+                </p>
+
+                <div class="tag-group">
+
+                    <div class="feature-tag">
+                        高氧氣傳輸效率
+                    </div>
+
+                    <div class="feature-tag">
+                        均勻細氣泡分布
+                    </div>
+
+                    <div class="feature-tag">
+                        壓力損失低
+                    </div>
+
+                    <div class="feature-tag">
+                        操作能耗低
+                    </div>
+
+                    <div class="feature-tag">
+                        安裝容易
+                    </div>
+
+                    <div class="feature-tag">
+                        廣泛曝氣範圍
+                    </div>
+
+                    <div class="feature-tag">
+                        SBR 系統適用
+                    </div>
+
+                    <div class="feature-tag">
+                        自清潔設計
+                    </div>
+
+                    <div class="feature-tag">
+                        降低側漏風險
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Applications -->
+
+            <div class="summary-block">
+
+                <div class="kicker">
+                    應用領域
+                </div>
+
+                <h2>
+                    多元水處理應用
+                </h2>
+
+                <p>
+                    適用於市政污水、工業廢水與多種曝氣系統應用。
+                </p>
+
+                <div class="tag-group">
+
+                    <div class="feature-tag">
+                        市政污水處理
+                    </div>
+
+                    <div class="feature-tag">
+                        工業廢水處理
+                    </div>
+
+                    <div class="feature-tag">
+                        水處理系統
+                    </div>
+
+                    <div class="feature-tag">
+                        臭氧曝氣
+                    </div>
+
+                    <div class="feature-tag">
+                        污泥穩定化
+                    </div>
+
+                    <div class="feature-tag">
+                        養殖池曝氣
+                    </div>
+
+                    <div class="feature-tag">
+                        河川湖泊曝氣
+                    </div>
+
+                    <div class="feature-tag">
+                        SBR 系統
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Why Choose EnviroValor -->
+
+<section class="why-envirovalor">
+
+    <div class="container">
+
+        <div class="section-head center">
+
+            <div class="kicker">
+                為什麼選擇 EnviroValor
+            </div>
+
+            <h2>
+                為什麼選擇 EnviroValor 散氣管？
+            </h2>
+
+            <p>
+                專注於穩定曝氣性能、可靠結構與實用工程應用。
+            </p>
+
+        </div>
+
+        <div class="why-grid">
+
+            <!-- 01 -->
+
+            <div class="why-card">
+
+                <div class="why-number">
+                    01
+                </div>
+
+                <h3>
+                    可靠的旋熔結構
+                </h3>
+
+                <p>
+                    一體成型進氣口與旋熔接合設計，可提供更佳的密封可靠性。
+                </p>
+
+            </div>
+
+            <!-- 02 -->
+
+            <div class="why-card">
+
+                <div class="why-number">
+                    02
+                </div>
+
+                <h3>
+                    出貨前逐支測漏
+                </h3>
+
+                <p>
+                    每支散氣管皆經專業測漏設備檢測，以降低側漏風險。
+                </p>
+
+            </div>
+
+            <!-- 03 -->
+
+            <div class="why-card">
+
+                <div class="why-number">
+                    03
+                </div>
+
+                <h3>
+                    明確的 600 mm 規格
+                </h3>
+
+                <p>
+                    聚焦於實用且常見的 600 mm 散氣管尺寸。
+                </p>
+
+            </div>
+
+            <!-- 04 -->
+
+            <div class="why-card">
+
+                <div class="why-number">
+                    04
+                </div>
+
+                <h3>
+                    清楚實用的技術資料
+                </h3>
+
+                <p>
+                    包含通氣量、EPDM 膜片、ABS 本體與 304 束環等完整資訊。
+                </p>
+
+            </div>
+
+            <!-- 05 -->
+
+            <div class="why-card">
+
+                <div class="why-number">
+                    05
+                </div>
+
+                <h3>
+                    適合新建與汰換工程
+                </h3>
+
+                <p>
+                    適用於新設曝氣池、系統汰換與設備整合應用。
+                </p>
+
+            </div>
+
+            <!-- 06 -->
+
+            <div class="why-card">
+
+                <div class="why-number">
+                    06
+                </div>
+
+                <h3>
+                    可提供樣品
+                </h3>
+
+                <p>
+                    提供樣品申請，方便評估尺寸、材質與安裝相容性。
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+  <!-- Inquiry Modal -->
+
+  <div id="inquiry-modal"></div>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+<!-- =========================
+     Main JS
+========================= -->
+
+<script src="../../js/main.js"></script>
+
+<script>
+    async function loadComponent(id, file){
+    
+        const target =
+        document.getElementById(id);
+    
+        if(!target) return;
+    
+        try{
+    
+            const response =
+            await fetch(file);
+    
+            if(!response.ok){
+    
+                throw new Error(
+                    `Failed to load: ${file}`
+                );
+            }
+    
+            const data =
+            await response.text();
+    
+            target.innerHTML = data;
+    
+            console.log(`Loaded: ${file}`);
+        }
+    
+        catch(error){
+    
+            console.error(error);
+        }
+    }
+    
+    async function initComponents(){
+    
+        // 載入 Components
+    
+        await loadComponent(
+            "mobile-menu",
+            "../components/zh/mobile-menu.html"
+        );
+    
+        await loadComponent(
+            "inquiry-modal",
+            "../components/zh/inquiry-modal.html"
+        );
+    
+        await loadComponent(
+            "footer",
+            "../components/zh/footer.html"
+        );
+    
+    
+    
+        // 等 DOM 插入完成後再初始化
+    
+        initDropdown();
+    
+        initContact();
+    
+        initMobileMenu();
+    
+        initActiveNav();
+    
+        console.log("All initialized");
+    }
+    
+    document.addEventListener(
+        "DOMContentLoaded",
+        initComponents
+    );
+    </script>
+
+</body>
+</html>

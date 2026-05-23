@@ -13,11 +13,11 @@
     About Us | EnviroValor
     </title>
 
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="../css/contact.css">
-    <link rel="stylesheet" href="../css/mobile-menu.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/header.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/contact.css">
+    <link rel="stylesheet" href="../../css/mobile-menu.css">
 
     <style>
 
@@ -362,127 +362,49 @@
 
     <!-- Header -->
     <header>
-
-    <div class="container navbar">
-
-    <a
-    class="logo"
-    href="../index.html">
-
-    <img
-    src="../images/slogo.jpg"
-    alt="EnviroValor Logo" />
-
-    </a>
-
-    <nav class="nav-links">
-
-    <a
-    href="../index.html"
-    class="nav-link"
-    data-page="home"
-    data-zh="首頁"
-    data-en="Home">
-
-    Home
-
-    </a>
-
-    <div class="nav-dropdown">
-
-    <button
-    class="dropdown-btn"
-    data-page="products"
-    id="productDropdownBtn"
-    data-zh="產品 ▼"
-    data-en="Products ▼">
-
-    Products ▼
-
-    </button>
-
-    <div
-    class="dropdown-menu"
-    id="productDropdownMenu">
-
-    <a
-    href="../html/disc-diffuser.html"
-    data-zh="散氣盤"
-    data-en="Disc Diffusers">
-
-    Disc Diffusers
-
-    </a>
-
-    <a
-    href="../html/tube-diffuser.html"
-    data-zh="散氣管"
-    data-en="Tube Diffusers">
-
-    Tube Diffusers
-
-    </a>
-
-    </div>
-
-    </div>
-
-    <a
-    href="../html/about.html"
-    class="nav-link"
-    data-page="about"
-    data-zh="關於我們"
-    data-en="About Us">
-
-    About Us
-
-    </a>
-
-    <a
-    href="../html/download.html"
-    class="nav-link"
-    data-page="download"
-    data-zh="資料下載"
-    data-en="Download">
-
-    Download
-
-    </a>
-
-    </nav>
-
-    <div class="nav-actions">
-
-    <button
-    class="lang-btn"
-    id="langBtn">
-
-    EN
-
-    </button>
-
-    <button
-    class="quote-btn"
-    id="openInquiryModal"
-    data-zh="聯絡我們"
-    data-en="Contact Us">
-
-    Contact Us
-
-    </button>
-
-    <button
-    class="mobile-menu-btn"
-    id="mobileMenuBtn">
-
-    ☰
-
-    </button>
-
-    </div>
-
-    </div>
-
+        <div class="container navbar">
+    
+            <a class="logo" href="index.html">
+                <img src="../../images/slogo.jpg" alt="EnviroValor Logo" />
+            </a>
+    
+            <nav class="nav-links">
+    
+                <a href="index.html" class="nav-link" data-page="home">Home</a>
+    
+                <div class="nav-dropdown">
+                    <button class="dropdown-btn" data-page="products" id="productDropdownBtn">
+                        Products ▼
+                    </button>
+    
+                    <div class="dropdown-menu" id="productDropdownMenu">
+                        <a href="disc-diffuser.html">Disc Diffusers</a>
+                        <a href="tube-diffuser.html">Tube Diffusers</a>
+                    </div>
+                </div>
+    
+                <a href="about.html" class="nav-link" data-page="about">About Us</a>
+                <a href="download.html" class="nav-link" data-page="download">Download</a>
+    
+            </nav>
+    
+            <div class="nav-actions">
+    
+                <a class="lang-btn" href="../zh/index.html">
+                    中文
+                </a>
+    
+                <button class="quote-btn" id="openInquiryModal">
+                    Contact Us
+                </button>
+    
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    ☰
+                </button>
+    
+            </div>
+    
+        </div>
     </header>
 
     <!-- Mobile Menu -->
@@ -963,56 +885,60 @@
     <!-- Footer -->
     <div id="footer"></div>
 
-    <script src="../js/main.js"></script>
+    <script src="../../js/main.js"></script>
 
     <script>
-
     async function loadComponent(id, file){
-
-    const target =
-    document.getElementById(id);
-
-    if(!target) return;
-
-    const response =
-    await fetch(file);
-
-    const data =
-    await response.text();
-
-    target.innerHTML = data;
+    
+        const target = document.getElementById(id);
+    
+        if(!target){
+            console.error("找不到容器：", id);
+            return;
+        }
+    
+        const response = await fetch(file);
+    
+        if(!response.ok){
+            console.error("載入失敗：", file, response.status);
+            return;
+        }
+    
+        const data = await response.text();
+    
+        target.innerHTML = data;
+    
+        console.log("載入成功：", file);
     }
-
+    
     async function initComponents(){
-
-    await loadComponent(
-    "mobile-menu",
-    "../components/mobile-menu.html"
-    );
-
-    await loadComponent(
-    "inquiry-modal",
-    "../components/inquiry-modal.html"
-    );
-
-    await loadComponent(
-    "footer",
-    "../components/footer.html"
-    );
-
-    initLanguage();
-
-    initDropdown();
-
-    initContact();
-
-    initMobileMenu();
-
-    initActiveNav();
+    
+        await loadComponent(
+            "mobile-menu",
+            "../components/en/mobile-menu.html"
+        );
+    
+        await loadComponent(
+            "inquiry-modal",
+            "../components/en/inquiry-modal.html"
+        );
+    
+        await loadComponent(
+            "footer",
+            "../components/en/footer.html"
+        );
+    
+        console.log("準備初始化功能");
+    
+        initDropdown();
+        initContact();
+        initMobileMenu();
+        initActiveNav();
+    
+        console.log("初始化完成");
     }
-
+    
     initComponents();
-
     </script>
 
 </body>
