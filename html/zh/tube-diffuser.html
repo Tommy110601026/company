@@ -20,721 +20,322 @@ EnviroValor｜Tube Diffusers
 <link rel="stylesheet" href="../../css/contact.css">
 <link rel="stylesheet" href="../../css/mobile-menu.css">
 
-<style>
-        
-    /* Eyebrow */
-
-    .eyebrow{
-
-        display:inline-flex;
-        align-items:center;
-        gap:8px;
-
-        background:rgba(255,255,255,.1);
-
-        border:
-        1px solid rgba(255,255,255,.18);
-
-        border-radius:999px;
-
-        padding:7px 13px;
-
-        color:#baf7c4;
-
-        font-weight:900;
-        font-size:14px;
-
-        margin-bottom:22px;
-    }
-
-    /* Sections */
+    <style>
+    /* =========================
+    01. Common Section
+    ========================= */
 
     main section:not(.hero){
-
         padding:82px 0;
     }
 
     .section-head{
-
         max-width:840px;
         margin-bottom:38px;
     }
 
-    .section-head.center{
-
-        text-align:center;
+    .section-head.center,
+    .section-heading.center{
+        max-width:780px;
         margin:0 auto 42px;
+        text-align:center;
     }
 
-    .section-head p{
-
+    .section-head p,
+    .section-heading.center p{
         color:var(--muted);
         font-size:17px;
     }
 
-    /* Cards */
 
-    .cards-4{
+    /* =========================
+    02. Hero
+    ========================= */
 
-        display:grid;
-        grid-template-columns:repeat(4,1fr);
+    .eyebrow{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
 
-        gap:20px;
+        margin-bottom:22px;
+        padding:7px 13px;
+
+        border:1px solid rgba(255,255,255,.18);
+        border-radius:999px;
+
+        background:rgba(255,255,255,.1);
+
+        color:#baf7c4;
+        font-size:14px;
+        font-weight:900;
     }
 
-    .card{
+    .hero-card{
+        width:fit-content;
+        margin:auto;
+        padding:12px;
 
+        display:flex;
+        justify-content:center;
+        align-items:center;
+
+        border-radius:28px;
+    }
+
+
+    /* =========================
+    03. Product Slider
+    ========================= */
+
+    .product-slider{
+        width:400px;
+        max-width:400px;
+        position:relative;
+    }
+
+    .slider-container{
+        position:relative;
+
+        width:100%;
+        aspect-ratio:1 / 1;
+
+        overflow:hidden;
+        border-radius:28px;
+
+        background:rgba(255,255,255,.08);
+    }
+
+    .slider-image{
+        position:absolute;
+        inset:0;
+
+        width:100%;
+        height:100%;
+
+        object-fit:cover;
+
+        opacity:0;
+        transition:.35s;
+    }
+
+    .slider-image.active{
+        opacity:1;
+    }
+
+    .slider-btn{
+        position:absolute;
+        top:50%;
+        transform:translateY(-50%);
+
+        z-index:20;
+
+        width:46px;
+        height:46px;
+
+        border:none;
+        border-radius:50%;
+
+        background:rgba(0,0,0,.45);
+        color:#fff;
+
+        font-size:26px;
+        cursor:pointer;
+    }
+
+    .prev-btn{
+        left:14px;
+    }
+
+    .next-btn{
+        right:14px;
+    }
+
+
+    /* =========================
+    04. Cards
+    ========================= */
+
+    .card{
         background:var(--white);
 
-        border:
-        1px solid var(--line);
-
+        border:1px solid var(--line);
         border-radius:var(--radius);
 
         padding:28px;
 
-        box-shadow:
-        0 12px 32px rgba(7,48,71,.06);
+        box-shadow:0 12px 32px rgba(7,48,71,.06);
     }
 
     .card h3{
+        margin-bottom:8px;
 
         color:var(--navy);
         font-size:22px;
-
-        margin-bottom:8px;
     }
 
     .card p{
-
         color:var(--muted);
     }
 
-    .icon{
+    .cards-3{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:28px;
+    }
 
+    .jump-card{
+        text-decoration:none;
+        color:inherit;
+    }
+
+    .icon{
         width:54px;
         height:54px;
 
-        border-radius:18px;
-
-        background:
-        rgba(53,179,74,.12);
-
-        color:var(--green);
+        margin-bottom:18px;
 
         display:grid;
         place-items:center;
 
+        border-radius:18px;
+
+        background:rgba(53,179,74,.12);
+        color:var(--green);
+
         font-size:24px;
-
         font-weight:900;
-
-        margin-bottom:18px;
     }
 
     .icon-group{
+        display:flex;
+        align-items:center;
+        gap:12px;
 
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    margin-bottom:26px;
+        margin-bottom:26px;
     }
 
     .icon-group .icon{
-
-    margin-bottom:0;
+        margin-bottom:0;
     }
 
-    /* Tube Visual */
+
+    /* =========================
+    05. Feature Detail
+    ========================= */
+
+    .feature-detail{
+        padding:90px 0;
+        scroll-margin-top:80px;
+
+        border-top:1px solid #e5edf3;
+    }
+
+    .detail-grid{
+        display:grid;
+        grid-template-columns:380px 1fr;
+        gap:60px;
+
+        align-items:start;
+    }
+
+    .detail-kicker{
+        margin-bottom:18px;
+
+        color:#00a7a0;
+
+        font-weight:700;
+        letter-spacing:1px;
+        text-transform:uppercase;
+    }
+
+    .detail-left h2{
+        color:#073047;
+
+        font-size:42px;
+        line-height:1.2;
+    }
+
+    .detail-right p{
+        margin-bottom:24px;
+
+        color:#536879;
+
+        font-size:17px;
+        line-height:1.9;
+    }
+
+    .detail-right ul{
+        padding-left:22px;
+    }
+
+    .detail-right li{
+        margin-bottom:14px;
+
+        color:#073047;
+
+        font-weight:600;
+    }
+
+
+    /* =========================
+    06. Product Specs Section
+    ========================= */
+
+    .product-section{
+        padding:120px 0;
+
+        background:#f7faf9;
+    }
+
+    .spec-layout{
+        display:grid;
+        grid-template-columns:420px 1fr;
+        gap:60px;
+
+        align-items:start;
+    }
+
+    .product-visual-panel{
+        position:sticky;
+        top:120px;
+    }
 
     .tube-visual{
+        min-height:320px;
 
-        min-height:420px;
-
-        border-radius:28px;
-
-        background:
-        radial-gradient(
-            circle at center,
-            rgba(53,179,74,.18),
-            transparent 45%
-        ),
-        linear-gradient(
-            180deg,
-            rgba(255,255,255,.18),
-            rgba(255,255,255,.06)
-        );
+        padding:24px;
 
         display:flex;
         align-items:center;
         justify-content:center;
 
         position:relative;
-    }
 
-    .tube-body{
-
-        display:flex;
-        align-items:center;
-    }
-
-    .tube-main{
-
-        width:340px;
-        height:72px;
-
-        border-radius:999px;
-
-        background:
-        repeating-linear-gradient(
-            90deg,
-            #d7e4ea 0 4px,
-            #edf4f7 4px 10px
-        );
-
-        border:
-        10px solid #ffffff;
-
-        box-shadow:
-        0 12px 28px rgba(0,0,0,.08);
-    }
-
-    .tube-cap{
-
-        width:34px;
-        height:92px;
-
-        background:#d8e3e8;
-    }
-
-    .tube-cap.left{
-
-        border-radius:
-        20px 0 0 20px;
-    }
-
-    .tube-cap.right{
-
-        border-radius:
-        0 20px 20px 0;
-    }
-
-    /* Product */
-
-    .product-section{
-
-        background:var(--white);
-    }
-
-    .grid-2{
-
-        display:grid;
-        grid-template-columns:1fr 1fr;
-
-        gap:34px;
-
-        align-items:center;
-    }
-
-    .product-panel{
-
-        background:var(--bg);
-
-        border:
-        1px solid var(--line);
-
-        border-radius:32px;
-
-        padding:34px;
-
-        box-shadow:var(--shadow);
-    }
-
-    /* Spec Table */
-
-    .spec-table{
-
-        width:100%;
-
-        border-collapse:collapse;
-
-        background:var(--white);
-
-        border-radius:22px;
-
-        overflow:hidden;
-
-        border:
-        1px solid var(--line);
-
-        margin-top:20px;
-    }
-
-    .spec-table th,
-    .spec-table td{
-
-        padding:15px 16px;
-
-        border-bottom:
-        1px solid var(--line);
-
-        text-align:left;
-    }
-
-    .spec-table th{
-
-        background:#edf5f7;
-
-        color:var(--navy);
-
-        width:34%;
-    }
-
-    /* Application */
-
-    .cards-3{
-
-        display:grid;
-
-        grid-template-columns:
-        repeat(3,1fr);
-
-        gap:28px;
-    }
-
-    .application-card{
-
-        background:var(--white);
-
-        border:
-        1px solid var(--line);
-
-        border-radius:22px;
-
-        padding:24px;
-
-        box-shadow:
-        0 12px 32px rgba(7,48,71,.05);
-    }
-
-    .application-card h3{
-
-        color:var(--navy);
-
-        margin-bottom:10px;
-    }
-
-    /* CTA */
-
-    .cta{
-
-        padding:76px 0;
-
-        background:
-        linear-gradient(
-            135deg,
-            var(--navy),
-            var(--navy-light)
-        );
-
-        color:var(--white);
-
-        text-align:center;
-    }
-
-    .cta h2{
-
-        color:var(--white);
-    }
-
-    .cta p{
-
-        color:rgba(255,255,255,.78);
-
-        max-width:760px;
-
-        margin:
-        0 auto 26px;
-    }
-
-    .feature-detail{
-
-    padding:90px 0;
-    scroll-margin-top:80px;
-    border-top:
-    1px solid #e5edf3;
-    }
-
-    .detail-grid{
-
-    display:grid;
-
-    grid-template-columns:
-    380px 1fr;
-
-    gap:60px;
-
-    align-items:start;
-    }
-
-    .detail-kicker{
-
-    color:#00a7a0;
-
-    font-weight:700;
-
-    margin-bottom:18px;
-
-    letter-spacing:1px;
-
-    text-transform:uppercase;
-    }
-
-    .detail-left h2{
-
-    font-size:42px;
-
-    line-height:1.2;
-
-    color:#073047;
-    }
-
-    .detail-right p{
-
-    margin-bottom:24px;
-
-    color:#536879;
-
-    font-size:17px;
-
-    line-height:1.9;
-    }
-
-    .detail-right ul{
-
-    padding-left:22px;
-    }
-
-    .detail-right li{
-
-    margin-bottom:14px;
-
-    color:#073047;
-
-    font-weight:600;
-    }
-
-    .feature-summary{
-
-    padding:100px 0;
-    }
-
-    .summary-grid{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(2,1fr);
-
-    gap:36px;
-    }
-
-    .summary-block{
-
-    background:var(--white);
-
-    border:
-    1px solid var(--line);
-
-    border-radius:32px;
-
-    padding:42px;
-
-    box-shadow:
-    0 12px 32px rgba(7,48,71,.05);
-    }
-
-    .summary-block h2{
-
-    margin:
-    12px 0 18px;
-
-    font-size:42px;
-
-    line-height:1.2;
-
-    color:var(--navy);
-    }
-
-    .summary-block p{
-
-    color:var(--muted);
-
-    line-height:1.9;
-
-    margin-bottom:30px;
-    }
-
-    .tag-group{
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:14px;
-    }
-
-    .feature-tag{
-
-    padding:
-    12px 18px;
-
-    border-radius:999px;
-
-    background:
-    rgba(53,179,74,.08);
-
-    border:
-    1px solid rgba(53,179,74,.16);
-
-    color:var(--navy);
-
-    font-weight:700;
-
-    font-size:15px;
-    }
-
-    /* Why EnviroValor */
-
-    .why-envirovalor{
-
-    padding:110px 0;
-    }
-
-    .why-grid{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
-    gap:26px;
-
-    margin-top:60px;
-    }
-
-    .why-card{
-
-    position:relative;
-
-    background:var(--white);
-
-    border:
-    1px solid var(--line);
-
-    border-radius:30px;
-
-    padding:38px;
-
-    transition:.35s;
-
-    overflow:hidden;
-    }
-
-    .why-card:hover{
-
-    transform:
-    translateY(-8px);
-
-    box-shadow:
-    0 24px 48px rgba(7,48,71,.08);
-    }
-
-    .why-number{
-
-    font-size:64px;
-
-    font-weight:800;
-
-    line-height:1;
-
-    color:rgba(49 188 72 / 58%);
-
-    margin-bottom:22px;
-    }
-
-    .why-card h3{
-
-    font-size:24px;
-
-    line-height:1.3;
-
-    margin-bottom:16px;
-
-    color:var(--navy);
-    }
-
-    .why-card p{
-
-    color:var(--muted);
-
-    line-height:1.9;
-    }
-
-    .feature-grid{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(240px,1fr));
-
-    gap:24px;
-
-    margin-top:40px;
-    }
-
-    .spec-grid{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(240px,1fr));
-
-    gap:24px;
-
-    margin-top:40px;
-    }
-
-    .spec-card{
-
-    background:#fff;
-
-    border-radius:20px;
-
-    padding:28px;
-
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.08);
-
-    transition:.3s ease;
-    }
-
-    .spec-card:hover{
-
-    transform:translateY(-4px);
-
-    box-shadow:
-    0 16px 40px rgba(0,0,0,.12);
-    }
-
-    .spec-card h3{
-
-    font-size:18px;
-
-    font-weight:700;
-
-    margin-bottom:14px;
-
-    color:#0B5E55;
-
-    line-height:1.4;
-    }
-
-    .spec-card p{
-
-    color:#555;
-
-    line-height:1.8;
-
-    font-size:15px;
-
-    margin:0;
-    }
-
-
-    
-    /* =========================
-       Product Specs Section
-    ========================= */
-    
-    .product-section{
-    
-        padding:120px 0;
-    
-        background:#f7faf9;
-    }
-    
-    .section-heading.center{
-    
-        max-width:780px;
-    
-        margin:0 auto 70px;
-    
-        text-align:center;
-    }
-    
-    .spec-layout{
-    
-        display:grid;
-    
-        grid-template-columns:
-        420px 1fr;
-    
-        gap:60px;
-    
-        align-items:start;
-    }
-    
-    /* =========================
-       Product Visual
-    ========================= */
-    
-    .product-visual-panel{
-    
-        position:sticky;
-    
-        top:120px;
-    }
-    
-    .tube-visual{
-    
-        background:#fff;
-    
+        border:1px solid rgba(0,0,0,.05);
         border-radius:28px;
-    
-        padding:70px 40px;
-    
-        box-shadow:
-        0 12px 40px rgba(0,0,0,.06);
-    
-        border:
-        1px solid rgba(0,0,0,.05);
+
+        background:#fff;
+
+        box-shadow:0 12px 40px rgba(0,0,0,.06);
     }
-    
+
     .tube-body{
-    
         position:relative;
-    
+
         width:100%;
-    
         height:70px;
-    
+
         display:flex;
-    
         align-items:center;
     }
-    
+
     .tube-main{
-    
         flex:1;
-    
+
         height:44px;
-    
+
         border-radius:999px;
-    
+
         background:
         linear-gradient(
             90deg,
@@ -742,248 +343,290 @@ EnviroValor｜Tube Diffusers
             #ffffff 50%,
             #c8d8cf 100%
         );
-    
+
         box-shadow:
         inset 0 2px 4px rgba(255,255,255,.7),
         inset 0 -4px 8px rgba(0,0,0,.08);
     }
-    
+
     .tube-cap{
-    
         width:44px;
-    
         height:44px;
-    
+
         border-radius:50%;
-    
+
         background:#7BAE8C;
     }
-    
+
     .tube-cap.left{
-    
         margin-right:-8px;
     }
-    
+
     .tube-cap.right{
-    
         margin-left:-8px;
     }
-    
+
     .visual-badge{
-    
         margin-top:22px;
-    
+
         display:flex;
-    
         justify-content:center;
     }
-    
+
     .visual-badge span{
-    
-        background:#0d8b63;
-    
-        color:#fff;
-    
-        font-size:14px;
-    
-        font-weight:700;
-    
         padding:10px 18px;
-    
+
         border-radius:999px;
+
+        background:#0d8b63;
+        color:#fff;
+
+        font-size:14px;
+        font-weight:700;
     }
-    
-    /* =========================
-       Specs Grid
-    ========================= */
-    
+
     .spec-grid.compact{
-    
         display:grid;
-    
-        grid-template-columns:
-        repeat(2, 1fr);
-    
+        grid-template-columns:repeat(2,1fr);
         gap:18px;
     }
-    
+
     .spec-card{
-    
+        padding:22px;
+
         background:#fff;
-    
+
+        border:1px solid rgba(0,0,0,.06);
         border-radius:20px;
-    
-        padding:22px 22px;
-    
-        border:
-        1px solid rgba(0,0,0,.06);
-    
+
         transition:.25s ease;
     }
-    
+
     .spec-card:hover{
-    
         transform:translateY(-3px);
-    
-        box-shadow:
-        0 10px 24px rgba(0,0,0,.06);
+
+        box-shadow:0 10px 24px rgba(0,0,0,.06);
     }
-    
+
     .spec-card.full{
-    
         grid-column:1 / -1;
     }
-    
+
     .spec-label{
-    
         display:block;
-    
-        font-size:13px;
-    
-        font-weight:700;
-    
-        letter-spacing:.04em;
-    
-        color:#0d8b63;
-    
+
         margin-bottom:8px;
-    
+
+        color:#0d8b63;
+
+        font-size:13px;
+        font-weight:700;
+        letter-spacing:.04em;
         text-transform:uppercase;
     }
-    
+
     .spec-card strong{
-    
         display:block;
-    
+
         color:#1f2937;
-    
-        line-height:1.6;
-    
+
         font-size:15px;
-    
         font-weight:700;
+        line-height:1.6;
     }
-    
+
+
     /* =========================
-       Responsive
+    07. Performance & Application Summary
     ========================= */
-    
-    @media (max-width:991px){
-    
-        .spec-layout{
-    
-            grid-template-columns:1fr;
-    
-            gap:40px;
-        }
-    
-        .product-visual-panel{
-    
-            position:relative;
-    
-            top:auto;
-        }
+
+    .feature-summary{
+        padding:100px 0;
     }
-    
-    @media (max-width:640px){
-    
-        .product-section{
-    
-            padding:80px 0;
-        }
-    
-        .spec-grid.compact{
-    
-            grid-template-columns:1fr;
-        }
-    
-        .tube-visual{
-    
-            padding:50px 24px;
-        }
-    }
-    
-
-    @media(max-width:980px){
-
-    .why-grid{
-
-        grid-template-columns:1fr;
-    }
-
-    .why-card{
-
-        padding:32px;
-    }
-    }
-
-    @media(max-width:980px){
 
     .summary-grid{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+        gap:36px;
+    }
 
-        grid-template-columns:1fr;
+    .summary-block{
+        padding:42px;
+
+        background:var(--white);
+
+        border:1px solid var(--line);
+        border-radius:32px;
+
+        box-shadow:0 12px 32px rgba(7,48,71,.05);
     }
 
     .summary-block h2{
+        margin:12px 0 18px;
 
-        font-size:34px;
+        color:var(--navy);
+
+        font-size:42px;
+        line-height:1.2;
     }
+
+    .summary-block p{
+        margin-bottom:30px;
+
+        color:var(--muted);
+
+        line-height:1.9;
+    }
+
+    .tag-group{
+        display:flex;
+        flex-wrap:wrap;
+        gap:14px;
+    }
+
+    .feature-tag{
+        padding:12px 18px;
+
+        border:1px solid rgba(53,179,74,.16);
+        border-radius:999px;
+
+        background:rgba(53,179,74,.08);
+        color:var(--navy);
+
+        font-size:15px;
+        font-weight:700;
+    }
+
+
+    /* =========================
+    08. Why EnviroValor
+    ========================= */
+
+    .why-envirovalor{
+        padding:110px 0;
+    }
+
+    .why-grid{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:26px;
+
+        margin-top:60px;
+    }
+
+    .why-card{
+        position:relative;
+
+        padding:38px;
+
+        overflow:hidden;
+
+        background:var(--white);
+
+        border:1px solid var(--line);
+        border-radius:30px;
+
+        transition:.35s;
+    }
+
+    .why-card:hover{
+        transform:translateY(-8px);
+
+        box-shadow:0 24px 48px rgba(7,48,71,.08);
+    }
+
+    .why-number{
+        margin-bottom:22px;
+
+        color:rgba(49,188,72,.58);
+
+        font-size:64px;
+        font-weight:800;
+        line-height:1;
+    }
+
+    .why-card h3{
+        margin-bottom:16px;
+
+        color:var(--navy);
+
+        font-size:24px;
+        line-height:1.3;
+    }
+
+    .why-card p{
+        color:var(--muted);
+
+        line-height:1.9;
+    }
+
+
+    /* =========================
+    09. Responsive
+    ========================= */
+
+    @media(max-width:991px){
+
+        .spec-layout{
+            grid-template-columns:1fr;
+            gap:40px;
+        }
+
+        .product-visual-panel{
+            position:relative;
+            top:auto;
+        }
+    }
+
+    @media(max-width:980px){
+
+        .cards-3,
+        .why-grid,
+        .summary-grid{
+            grid-template-columns:1fr;
+        }
+
+        .why-card{
+            padding:32px;
+        }
+
+        .summary-block h2{
+            font-size:34px;
+        }
     }
 
     @media(max-width:900px){
 
-    .detail-grid{
+        .detail-grid{
+            grid-template-columns:1fr;
+            gap:30px;
+        }
 
-        grid-template-columns:1fr;
-
-        gap:30px;
+        .detail-left h2{
+            font-size:32px;
+        }
     }
 
-    .cards-3{
+    @media(max-width:640px){
 
-    grid-template-columns:1fr;
-    }
+        .product-section{
+            padding:80px 0;
+        }
 
-    .detail-left h2{
-
-        font-size:32px;
-    }
-    }
-
-    /* Responsive */
-
-    @media (max-width:980px){
-
-        .grid-2,
-        .cards-4,
-        .cards-3{
-
+        .spec-grid.compact{
             grid-template-columns:1fr;
         }
 
-    }
-
-    @media (max-width:560px){
-
-        .tube-main{
-
-            width:220px;
-            height:56px;
-        }
-
-        .tube-cap{
-
-            height:72px;
-            width:26px;
-        }
-
         .tube-visual{
-
             min-height:260px;
+            padding:50px 24px;
         }
 
+        .product-slider{
+            width:100%;
+            max-width:400px;
+        }
     }
-
     </style>
 
 </head>
@@ -1104,18 +747,22 @@ EnviroValor｜Tube Diffusers
 
             <div class="hero-card">
 
-                <div class="tube-visual">
+                <div class="product-slider">
 
-                    <div class="tube-body">
-
-                        <div class="tube-cap left"></div>
-
-                        <div class="tube-main"></div>
-
-                        <div class="tube-cap right"></div>
-
+                    <button class="slider-btn prev-btn">❮</button>
+                
+                    <div class="slider-container">
+                
+                        <img src="../../images/tube/02.jpg" class="slider-image active">
+                        <img
+                        src="../../images/tube/03.jpg"
+                        style="object-position:center 3%;">
+                        <img src="../../images/tube/04.jpg" class="slider-image">
+                
                     </div>
-
+                
+                    <button class="slider-btn next-btn">❯</button>
+                
                 </div>
 
             </div>
@@ -1391,18 +1038,26 @@ EnviroValor｜Tube Diffusers
 
                 <div class="product-visual-panel">
 
-                    <div class="tube-visual">
+                    <div class="hero-card">
 
-                        <div class="tube-body">
-
-                            <div class="tube-cap left"></div>
-
-                            <div class="tube-main"></div>
-
-                            <div class="tube-cap right"></div>
-
+                        <div class="product-slider">
+        
+                            <button class="slider-btn prev-btn">❮</button>
+                        
+                            <div class="slider-container">
+                        
+                                <img src="../../images/tube/02.jpg" class="slider-image active">
+                                <img
+                                src="../../images/tube/03.jpg"
+                                style="object-position:center 3%;">
+                                <img src="../../images/tube/04.jpg" class="slider-image">
+                        
+                            </div>
+                        
+                            <button class="slider-btn next-btn">❯</button>
+                        
                         </div>
-
+        
                     </div>
 
                     <div class="visual-badge">
@@ -1876,6 +1531,74 @@ EnviroValor｜Tube Diffusers
         }
     }
     
+    function initSlider(){
+
+    const sliders = document.querySelectorAll(".product-slider");
+
+    sliders.forEach(slider => {
+
+        const images = slider.querySelectorAll(".slider-image");
+        const prevBtn = slider.querySelector(".prev-btn");
+        const nextBtn = slider.querySelector(".next-btn");
+
+        if(!images.length || !prevBtn || !nextBtn){
+            return;
+        }
+
+        let current = 0;
+        let timer = null;
+
+        function showSlide(index){
+            images.forEach(img => {
+                img.classList.remove("active");
+            });
+
+            images[index].classList.add("active");
+        }
+
+        function nextSlide(){
+            current++;
+
+            if(current >= images.length){
+                current = 0;
+            }
+
+            showSlide(current);
+        }
+
+        function prevSlide(){
+            current--;
+
+            if(current < 0){
+                current = images.length - 1;
+            }
+
+            showSlide(current);
+        }
+
+        function startAutoPlay(){
+            timer = setInterval(nextSlide, 3000);
+        }
+
+        function resetAutoPlay(){
+            clearInterval(timer);
+            startAutoPlay();
+        }
+
+        nextBtn.addEventListener("click", () => {
+            nextSlide();
+            resetAutoPlay();
+        });
+
+        prevBtn.addEventListener("click", () => {
+            prevSlide();
+            resetAutoPlay();
+        });
+
+        showSlide(0);
+        startAutoPlay();
+    });
+    }
     async function initComponents(){
     
         // 載入 Components
@@ -1900,12 +1623,10 @@ EnviroValor｜Tube Diffusers
         // 等 DOM 插入完成後再初始化
     
         initDropdown();
-    
         initContact();
-    
         initMobileMenu();
-    
         initActiveNav();
+        initSlider();
     
         console.log("All initialized");
     }

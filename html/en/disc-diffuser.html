@@ -214,6 +214,63 @@ main section:not(.hero){
     position:relative;
 }
 
+.product-slider{
+    position:relative;
+    width:100%;
+    max-width:700px;
+    margin:auto;
+}
+
+.slider-container{
+    position:relative;
+    width:100%;
+    aspect-ratio:1/1;
+    overflow:hidden;
+    border-radius:28px;
+    background:rgba(255,255,255,.08);
+}
+
+.slider-image{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:.35s;
+}
+
+.slider-image.active{
+    opacity:1;
+}
+
+.slider-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:5;
+
+    width:46px;
+    height:46px;
+
+    border:none;
+    border-radius:50%;
+
+    background:rgba(0,0,0,.45);
+    color:white;
+
+    font-size:26px;
+    cursor:pointer;
+}
+
+.prev-btn{
+    left:14px;
+}
+
+.next-btn{
+    right:14px;
+}
+
 .disc{
     width:230px;
     height:230px;
@@ -400,10 +457,21 @@ grid-column:span 3;
 
             <div class="hero-card">
 
-                <div class="diffuser-visual">
+                <div class="product-slider">
 
-                    <div class="disc"></div>
-
+                    <button class="slider-btn prev-btn">❮</button>
+                
+                    <div class="slider-container">
+                
+                        <img src="../../images/disc/01.jpg" class="slider-image active">
+                        <img src="../../images/disc/02.jpg" class="slider-image">
+                        <img src="../../images/disc/03.jpg" class="slider-image">
+                        <img src="../../images/disc/04.jpg" class="slider-image">
+                
+                    </div>
+                
+                    <button class="slider-btn next-btn">❯</button>
+                
                 </div>
 
             </div>
@@ -1277,6 +1345,79 @@ grid-column:span 3;
         console.log("載入成功：", file);
     }
     
+    function initSlider(){
+
+    const images = document.querySelectorAll(".slider-image");
+    const prevBtn = document.querySelector(".prev-btn");
+    const nextBtn = document.querySelector(".next-btn");
+
+    if(!images.length || !prevBtn || !nextBtn){
+        console.log("slider elements not found");
+        return;
+    }
+
+    let current = 0;
+    let timer = null;
+
+    function showSlide(index){
+
+        images.forEach(img => {
+            img.classList.remove("active");
+        });
+
+        images[index].classList.add("active");
+    }
+
+    function nextSlide(){
+
+        current++;
+
+        if(current >= images.length){
+            current = 0;
+        }
+
+        showSlide(current);
+    }
+
+    function prevSlide(){
+
+        current--;
+
+        if(current < 0){
+            current = images.length - 1;
+        }
+
+        showSlide(current);
+    }
+
+    nextBtn.addEventListener("click", () => {
+        nextSlide();
+        resetAutoPlay();
+    });
+
+    prevBtn.addEventListener("click", () => {
+        prevSlide();
+        resetAutoPlay();
+    });
+
+    function startAutoPlay(){
+
+        timer = setInterval(() => {
+            nextSlide();
+        }, 3000);
+    }
+
+    function resetAutoPlay(){
+
+        clearInterval(timer);
+        startAutoPlay();
+    }
+
+    startAutoPlay();
+
+    console.log("slider initialized");
+    }
+
     async function initComponents(){
     
         await loadComponent(
@@ -1300,11 +1441,16 @@ grid-column:span 3;
         initContact();
         initMobileMenu();
         initActiveNav();
-    
+        initSlider();
+        
         console.log("初始化完成");
     }
-    
-    initComponents();
+
+   
+    document.addEventListener(
+            "DOMContentLoaded",
+            initComponents
+        );
     </script>
 
 </body>

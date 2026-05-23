@@ -132,65 +132,84 @@ function initContact(){
             form.querySelector(
                 'input[type="text"]'
             ).value;
-
+            
             const email =
             form.querySelector(
                 'input[type="email"]'
             ).value;
-
+            
             const message =
             form.querySelector(
                 'textarea'
             ).value;
-
+            
+            const inquiryType =
+            form.querySelector(
+                'select'
+            ).value;
+            
             try{
 
-                const response =
-
+                // =========================
+                // 測試：確認有抓到資料
+                // =========================
+            
                 console.log({
+                    inquiryType,
                     company,
                     email,
                     message
                 });
-                
+            
+            
+            
+                // =========================
+                // API 測試（之後部署到 Vercel 再打開）
+                // =========================
+            
+                /*
+                const response =
                 await fetch('/api/contact',{
-
+            
                     method:'POST',
-
+            
                     headers:{
                         'Content-Type':'application/json'
                     },
-
+            
                     body:JSON.stringify({
-
+            
                         company,
                         email,
                         message
                     })
                 });
-
+            
                 const result =
                 await response.json();
-
+            
+                console.log(result);
+            
                 if(result.success){
-
+            
                     alert("送出成功！");
-
+            
                     form.reset();
-
+            
                     modal.classList.remove("active");
                 }
-
+            
                 else{
-
+            
                     alert("送出失敗");
                 }
+                */
+            
             }
-
             catch(error){
-
+            
                 console.error(error);
-
+            
                 alert("系統錯誤");
             }
         }
