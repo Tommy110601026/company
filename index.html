@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EnviroValor｜Home</title>
 
-<link rel="stylesheet" href="../css/global.css">
-<link rel="stylesheet" href="../css/header.css">
-<link rel="stylesheet" href="../css/footer.css">
-<link rel="stylesheet" href="../css/contact.css">
-<link rel="stylesheet" href="../css/mobile-menu.css">
+<link rel="stylesheet" href="css/global.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="css/contact.css">
+<link rel="stylesheet" href="css/mobile-menu.css">
 
 <style>
 
@@ -278,10 +278,10 @@
 
           <a
               class="logo"
-              href="../html/home.html">
+              href="html/home.html">
 
               <img
-                  src="../images/slogo.jpg"
+                  src="images/slogo.jpg"
                   alt="EnviroValor Logo" />
 
           </a>
@@ -289,7 +289,7 @@
           <nav class="nav-links">
 
               <a
-                  href="../html/home.html"
+                  href="html/home.html"
                   class="nav-link"
                   data-page="home"
                   data-zh="Home"
@@ -317,7 +317,7 @@
                       id="productDropdownMenu">
 
                       <a
-                          href="../html/disc-diffuser.html"
+                          href="html/disc-diffuser.html"
                           data-zh="散氣盤"
                           data-en="Disc Diffusers">
 
@@ -326,7 +326,7 @@
                       </a>
 
                       <a
-                          href="../html/tube-diffuser.html"
+                          href="html/tube-diffuser.html"
                           data-zh="散氣管"
                           data-en="Tube Diffusers">
 
@@ -339,7 +339,7 @@
               </div>
 
               <a
-                  href="../html/about.html"
+                  href="html/about.html"
                   class="nav-link"
                   data-page="about"
                   data-zh="關於我們"
@@ -350,7 +350,7 @@
               </a>
 
               <a
-                  href="../html/download.html"
+                  href="html/download.html"
                   class="nav-link"
                   data-page="download"
                   data-zh="資料下載"
@@ -430,7 +430,7 @@
             
             <a
               class="btn-outline"
-              href="disc-diffuser.html"
+              href="html/disc-diffuser.html"
               data-zh="查看散氣盤"
               data-en="Disc Diffusers"
             >
@@ -441,7 +441,7 @@
 
         <div class="hero-card">
           <div class="hero-logo-box">
-            <img src="../images/logo.jpg" alt="EnviroValor Logo" />
+            <img src="images/logo.jpg" alt="EnviroValor Logo" />
           </div>
         </div>
       </div>
@@ -735,7 +735,7 @@
      Main JS
 ========================= -->
 
-<script src="../js/main.js"></script>
+<script src="js/main.js"></script>
 
 <!-- =========================
      Components Loader
@@ -763,17 +763,17 @@ async function initComponents(){
 
     await loadComponent(
         "mobile-menu",
-        "../components/mobile-menu.html"
+        "components/mobile-menu.html"
     );
 
     await loadComponent(
         "inquiry-modal",
-        "../components/inquiry-modal.html"
+        "components/inquiry-modal.html"
     );
 
     await loadComponent(
         "footer",
-        "../components/footer.html"
+        "components/footer.html"
     );
 
     // 載入完成後初始化功能
