@@ -35,7 +35,7 @@ export default async function handler(req, res){
 
         const data = await resend.emails.send({
 
-            from:'EnviroValor Website <noreply@envirovalor.com>',
+            from:'EnviroValor Website <onboarding@resend.dev>',
 
             to:'info@envirovalor.com',
 
@@ -62,8 +62,11 @@ export default async function handler(req, res){
 
     }catch(error){
 
+        console.error("Resend error:", error);
+    
         return res.status(500).json({
-            error:'Email sending failed'
+            success:false,
+            error:error.message || 'Email sending failed'
         });
     }
 }
