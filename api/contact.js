@@ -37,7 +37,7 @@ export default async function handler(req, res){
 
             from:'EnviroValor Website <onboarding@resend.dev>',
 
-            to:'info@envirovalor.com',
+            to:'tomyeh0626@gmail.com',
 
             reply_to: email,
 
@@ -54,6 +54,14 @@ export default async function handler(req, res){
                 <p>${escapeHtml(message).replaceAll('\n', '<br>')}</p>
             `
         });
+
+        if(data.error){
+            return res.status(500).json({
+                success:false,
+                error:data.error
+            });
+        }
+        
 
         return res.status(200).json({
             success:true,
