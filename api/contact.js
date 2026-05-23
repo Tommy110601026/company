@@ -37,7 +37,7 @@ export default async function handler(req, res){
 
             from:'EnviroValor Website <onboarding@resend.dev>',
 
-            to:'info@envirovalor.com',
+            to:'tomyeh0626@gmail.com',
 
             reply_to: email,
 
