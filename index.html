@@ -1,12 +1,53 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
 
-    <meta http-equiv="refresh" content="0; url=html/en/index.html">
-    <title>Redirecting...</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>
+        EnviroValor | Wastewater Aeration Solutions
+    </title>
+
+    <meta
+        name="description"
+        content="EnviroValor supplies fine bubble disc diffusers and tube diffusers for wastewater treatment systems and industrial aeration applications."
+    />
+
+    <link
+        rel="canonical"
+        href="https://envirovalor.com/"
+    />
+
+    <script>
+
+        const userLang =
+        navigator.language ||
+        navigator.userLanguage;
+
+        // 中文系語言
+        if(
+            userLang.startsWith("zh")
+        ){
+
+            window.location.href =
+            "/html/zh/index.html";
+        }
+
+        // 其他預設英文
+        else{
+
+            window.location.href =
+            "/html/en/index.html";
+        }
+
+    </script>
 
 </head>
 
