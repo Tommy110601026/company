@@ -345,6 +345,23 @@ function initMobileMenu(){
     console.log(activeLink);
 
     activeLink?.classList.add("active");
+
+    const mobileInquiryBtn =
+document.getElementById("mobileInquiryBtn");
+
+mobileInquiryBtn?.addEventListener(
+    "click",
+    () => {
+
+        mobileMenu
+        .classList
+        .remove("active");
+
+        document
+        .getElementById("openInquiryModal")
+        ?.click();
+    }
+);
 }
 
 function initActiveNav(){

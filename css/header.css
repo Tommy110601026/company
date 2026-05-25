@@ -415,8 +415,13 @@ header{
    Mobile Layout
 ========================= */
 
-@media (max-width:768px){
+@media (max-width:900px){
 
+
+    .quote-btn{
+        display:none;
+    }
+    
     .navbar{
 
         height:auto;
