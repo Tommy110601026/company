@@ -415,9 +415,19 @@ header{
    Mobile Layout
 ========================= */
 
-@media (max-width:900px){
+@media (max-width:980px){
 
 
+    header{
+        height:auto;
+    }
+    
+    .navbar{
+        height:auto;
+        min-height:96px;
+        padding:18px 0;
+    }
+    
     .quote-btn{
         display:none;
     }
@@ -489,38 +499,9 @@ header{
 
 }
 
-
-
-/* Responsive */
-
-@media (max-width:920px){
-
-    .nav-links{
-        display:none;
-    }
-
-    .navbar{
-        height:74px;
-    }
-
-    .logo img{
-        height:40px;
-    }
-
-}
-
 @media (max-width:560px){
-
-    .quote-btn{
-        display:none;
-    }
-
-    .navbar{
-        height:70px;
-    }
 
     .logo img{
         height:36px;
     }
-
 }

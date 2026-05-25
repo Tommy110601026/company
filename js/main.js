@@ -324,13 +324,11 @@ function initMobileMenu(){
         currentPage = "download";
     }
 
-    else if(
-        path.includes("disc-diffuser.html")
-        ||
-        path.includes("tube-diffuser.html")
-    ){
-
-        currentPage = "products";
+    else if(path.includes("disc-diffuser.html")){
+        currentPage = "disc";
+    }
+    else if(path.includes("tube-diffuser.html")){
+        currentPage = "tube";
     }
 
 
