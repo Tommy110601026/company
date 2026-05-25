@@ -75,6 +75,7 @@
     <link rel="stylesheet" href="../../css/footer.css">
     <link rel="stylesheet" href="../../css/contact.css">
     <link rel="stylesheet" href="../../css/mobile-menu.css">
+    <link rel="stylesheet" href="../../css/product.css">
 
     <style>
         /* =========================
@@ -102,113 +103,9 @@
             color:var(--muted);
             font-size:17px;
         }
-    
-    
+
         /* =========================
-        02. Hero
-        ========================= */
-    
-        .eyebrow{
-            display:inline-flex;
-            align-items:center;
-            gap:8px;
-    
-            margin-bottom:22px;
-            padding:7px 13px;
-    
-            border:1px solid rgba(255,255,255,.18);
-            border-radius:999px;
-    
-            background:rgba(255,255,255,.1);
-    
-            color:#baf7c4;
-            font-size:14px;
-            font-weight:900;
-        }
-    
-        .hero-card{
-            width:fit-content;
-            margin:auto;
-            padding:12px;
-    
-            display:flex;
-            justify-content:center;
-            align-items:center;
-    
-            border-radius:28px;
-        }
-    
-    
-        /* =========================
-        03. Product Slider
-        ========================= */
-    
-        .product-slider{
-            width:400px;
-            max-width:400px;
-            position:relative;
-        }
-    
-        .slider-container{
-            position:relative;
-    
-            width:100%;
-            aspect-ratio:1 / 1;
-    
-            overflow:hidden;
-            border-radius:28px;
-    
-            background:rgba(255,255,255,.08);
-        }
-    
-        .slider-image{
-            position:absolute;
-            inset:0;
-    
-            width:100%;
-            height:100%;
-    
-            object-fit:cover;
-    
-            opacity:0;
-            transition:.35s;
-        }
-    
-        .slider-image.active{
-            opacity:1;
-        }
-    
-        .slider-btn{
-            position:absolute;
-            top:50%;
-            transform:translateY(-50%);
-    
-            z-index:20;
-    
-            width:46px;
-            height:46px;
-    
-            border:none;
-            border-radius:50%;
-    
-            background:rgba(0,0,0,.45);
-            color:#fff;
-    
-            font-size:26px;
-            cursor:pointer;
-        }
-    
-        .prev-btn{
-            left:14px;
-        }
-    
-        .next-btn{
-            right:14px;
-        }
-    
-    
-        /* =========================
-        04. Cards
+        02. Cards
         ========================= */
     
         .card{
@@ -276,7 +173,7 @@
     
     
         /* =========================
-        05. Feature Detail
+        03. Feature Detail
         ========================= */
     
         .feature-detail{
@@ -334,7 +231,7 @@
     
     
         /* =========================
-        06. Product Specs Section
+        04. Product Specs Section
         ========================= */
     
         .product-section{
@@ -493,7 +390,7 @@
     
     
         /* =========================
-        07. Performance & Application Summary
+        05. Performance & Application Summary
         ========================= */
     
         .feature-summary{
@@ -555,7 +452,7 @@
     
     
         /* =========================
-        08. Why EnviroValor
+        06. Why EnviroValor
         ========================= */
     
         .why-envirovalor{
@@ -618,7 +515,7 @@
     
     
         /* =========================
-        09. Responsive
+        07. Responsive
         ========================= */
     
         @media(max-width:991px){
@@ -814,6 +711,7 @@
                         <img src="../../images/tube/02.jpg" class="slider-image active">
                         <img
                         src="../../images/tube/03.jpg"
+                        class="slider-image"
                         style="object-position:center 3%;">
                         <img src="../../images/tube/04.jpg" class="slider-image">
                 
@@ -1107,6 +1005,7 @@
                                 <img src="../../images/tube/02.jpg" class="slider-image active">
                                 <img
                                 src="../../images/tube/03.jpg"
+                                class="slider-image"
                                 style="object-position:center 3%;">
                                 <img src="../../images/tube/04.jpg" class="slider-image">
                         
