@@ -137,6 +137,11 @@ function initContact(){
             form.querySelector(
                 'input[type="email"]'
             ).value;
+
+            const subject =
+            form.querySelector(
+                'input[type="subject"]'
+            ).value;
             
             const message =
             form.querySelector(
@@ -158,6 +163,7 @@ function initContact(){
                     inquiryType,
                     company,
                     email,
+                    subject,
                     message
                 });
             
@@ -181,6 +187,7 @@ function initContact(){
                         inquiryType,
                         company,
                         email,
+                        subject,
                         message
                     })
                 });
@@ -345,27 +352,27 @@ function initMobileMenu(){
     activeLink?.classList.add("active");
 
     const mobileInquiryBtn =
-document.getElementById("mobileInquiryBtn");
+    document.getElementById("mobileInquiryBtn");
 
-mobileInquiryBtn?.addEventListener(
-    "click",
-    () => {
+    mobileInquiryBtn?.addEventListener(
+        "click",
+        () => {
 
-        mobileMenu
-        .classList
-        .remove("active");
+            mobileMenu
+            .classList
+            .remove("active");
 
-        document
-        .getElementById("openInquiryModal")
-        ?.click();
-    }
-);
+            document
+            .getElementById("openInquiryModal")
+            ?.click();
+        }
+    );
 }
 
 function initActiveNav(){
 
     console.log("initActiveNav started");
-console.log(window.location.pathname);
+    console.log(window.location.pathname);
 
     const path =
     window.location.pathname;

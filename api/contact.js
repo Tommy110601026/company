@@ -25,10 +25,15 @@ export default async function handler(req, res){
             inquiryType = '',
             company = '',
             email = '',
+            subject = '',
             message = ''
         } = req.body || {};
 
-        if(!email || !message){
+        if(
+            !email ||
+            !subject ||
+            !message
+        ){
             return res.status(400).json({
                 error:'Missing required fields'
             });
@@ -52,6 +57,8 @@ export default async function handler(req, res){
                 <p><strong>公司：</strong>${escapeHtml(company)}</p>
 
                 <p><strong>Email：</strong>${escapeHtml(email)}</p>
+
+                <p><strong>主旨：</strong>${escapeHtml(subject)}</p>
 
                 <p><strong>留言：</strong></p>
                 <p>${escapeHtml(message).replaceAll('\n', '<br>')}</p>
