@@ -35,7 +35,7 @@ export default async function handler(req, res){
 
         const data = await resend.emails.send({
 
-            from:'EnviroValor Website <onboarding@resend.dev>',
+            from:'EnviroValor Website <noreply@send.envirovalor.com>',
 
             to:'info@envirovalor.com',
 
