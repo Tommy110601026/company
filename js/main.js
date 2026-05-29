@@ -141,7 +141,7 @@ function initContact(){
             const subject =
             form.querySelector(
                 'input[type="subject"]'
-            ).value;
+            ).value;    
             
             const message =
             form.querySelector(
