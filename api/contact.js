@@ -22,6 +22,7 @@ export default async function handler(req, res){
     try{
 
         const {
+            inquiryType = '',
             company = '',
             email = '',
             message = ''
@@ -45,6 +46,8 @@ export default async function handler(req, res){
 
             html:`
                 <h2>網站新詢問</h2>
+
+                <p><strong>詢問項目：</strong>${escapeHtml(inquiryType)}</p>
 
                 <p><strong>公司：</strong>${escapeHtml(company)}</p>
 

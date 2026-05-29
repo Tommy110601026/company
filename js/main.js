@@ -178,7 +178,7 @@ function initContact(){
                     },
             
                     body:JSON.stringify({
-            
+                        inquiryType,
                         company,
                         email,
                         message
