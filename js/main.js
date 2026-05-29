@@ -122,6 +122,9 @@ function initContact(){
 
     if(!form) return;
 
+    const isEnglish =
+    window.location.pathname.includes("/en/");
+
     form.addEventListener(
         "submit",
         async (e) => {
@@ -192,26 +195,38 @@ function initContact(){
                 console.log(result);
             
                 if(result.success){
-            
-                    alert("送出成功！");
-            
+
+                    alert(
+                        isEnglish
+                        ? "Inquiry submitted successfully!"
+                        : "送出成功！"
+                    );
+                
                     form.reset();
-            
+                
                     modal.classList.remove("active");
                 }
-            
+                
                 else{
-            
-                    alert("送出失敗");
+                
+                    alert(
+                        isEnglish
+                        ? "Submission failed."
+                        : "送出失敗"
+                    );
                 }
               
             
             }
             catch(error){
-            
+
                 console.error(error);
             
-                alert("系統錯誤");
+                alert(
+                    isEnglish
+                    ? "System error."
+                    : "系統錯誤"
+                );
             }
         }
     );
