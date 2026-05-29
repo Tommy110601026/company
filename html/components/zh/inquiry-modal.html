@@ -46,85 +46,94 @@
             <form class="inquiry-form">
 
                 <div class="form-group">
-
+            
                     <label>
                         詢問項目 *
                     </label>
-
-                    <select>
-
+            
+                    <select name="inquiryType">
+            
                         <option>
                             詢價需求
                         </option>
-
+            
                         <option>
                             樣品需求
                         </option>
-
+            
                         <option>
                             索取產品型錄
                         </option>
-
+            
                     </select>
-
+            
                 </div>
-
+            
                 <div class="form-group">
-
+            
                     <label>
                         公司名稱 *
                     </label>
-
-                    <input type="text">
-
+            
+                    <input
+                        type="text"
+                        name="company"
+                        required>
+            
                 </div>
-
+            
                 <div class="form-group">
-
+            
                     <label>
                         電子郵件 *
                     </label>
-
-                    <input type="email">
-
+            
+                    <input
+                        type="email"
+                        name="email"
+                        required>
+            
                 </div>
-
+            
                 <div class="form-group">
-
+            
                     <label for="subject">
-                
-                        主旨
-                
+            
+                        主旨 *
+            
                     </label>
-                
+            
                     <input
                         type="text"
                         id="subject"
                         name="subject"
-                        placeholder="請輸入主旨">
-                
+                        placeholder="請輸入主旨"
+                        required>
+            
                 </div>
-
+            
                 <div class="form-group">
-
+            
                     <label>
-                        留言內容
+                        留言內容 *
                     </label>
-
-                    <textarea rows="5"></textarea>
-
+            
+                    <textarea
+                        name="message"
+                        rows="5"
+                        required></textarea>
+            
                 </div>
-
+            
                 <button
                     type="submit"
                     class="submit-btn">
-
+            
                     送出詢問
-
+            
                 </button>
-
+            
             </form>
-
         </div>
 
     </div>

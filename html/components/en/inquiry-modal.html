@@ -44,83 +44,93 @@
             <form class="inquiry-form">
 
                 <div class="form-group">
-
+            
                     <label>
                         Inquiry Purpose *
                     </label>
-
-                    <select>
-
+            
+                    <select name="inquiryType">
+            
                         <option>
                             Request Quotation
                         </option>
-
+            
                         <option>
                             Request Sample
                         </option>
-
+            
                         <option>
                             Request Product Catalog
                         </option>
-
+            
                     </select>
-
+            
                 </div>
-
+            
                 <div class="form-group">
-
+            
                     <label>
                         Company Name *
                     </label>
-
-                    <input type="text">
-
+            
+                    <input
+                        type="text"
+                        name="company"
+                        required>
+            
                 </div>
-
+            
                 <div class="form-group">
-
+            
                     <label>
                         Email *
                     </label>
-
-                    <input type="email">
-
+            
+                    <input
+                        type="email"
+                        name="email"
+                        required>
+            
                 </div>
-
+            
                 <div class="form-group">
-
+            
                     <label for="subject">
-                
-                        Subject
-                
+            
+                        Subject *
+            
                     </label>
-                
+            
                     <input
                         type="text"
                         id="subject"
                         name="subject"
-                        placeholder="Enter subject">
-                
+                        placeholder="Enter subject"
+                        required>
+            
                 </div>
-
+            
                 <div class="form-group">
-
+            
                     <label>
-                        Message
+                        Message *
                     </label>
-
-                    <textarea rows="5"></textarea>
-
+            
+                    <textarea
+                        name="message"
+                        rows="5"
+                        required></textarea>
+            
                 </div>
-
+            
                 <button
                     type="submit"
                     class="submit-btn">
-
+            
                     Send Inquiry
-
+            
                 </button>
-
+            
             </form>
 
         </div>

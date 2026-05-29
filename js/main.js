@@ -128,30 +128,24 @@ function initContact(){
 
             e.preventDefault();
 
+
+            const inquiryType =
+            form.querySelector('[name="inquiryType"]').value;
+            
             const company =
-            form.querySelector(
-                'input[type="text"]'
-            ).value;
+            form.querySelector('[name="company"]').value;
             
             const email =
-            form.querySelector(
-                'input[type="email"]'
-            ).value;
-
+            form.querySelector('[name="email"]').value;
+            
             const subject =
-            form.querySelector(
-                'input[type="subject"]'
-            ).value;    
+            form.querySelector('[name="subject"]').value;
             
             const message =
-            form.querySelector(
-                'textarea'
-            ).value;
-            
-            const inquiryType =
-            form.querySelector(
-                'select'
-            ).value;
+            form.querySelector('[name="message"]').value;
+
+ 
+        
             
             try{
 
