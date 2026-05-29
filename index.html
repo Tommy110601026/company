@@ -21,66 +21,52 @@
     />
 
     <meta
-    property="og:image"
-    content="https://www.www.envirovalor.com/images/logo.jpg"
-    >
-
-    <meta
-    property="og:url"
-    content="https://www.envirovalor.com"
-    >
-
-    <!-- SEO -->
-    <meta
-    name="robots"
-    content="index, follow"
-    >
-
-    <!-- Open Graph -->
-    <meta
-    property="og:type"
-    content="website"
-    >
-
-    <meta
-    property="og:site_name"
-    content="EnviroValor"
-    >
-
-    <!-- favicon -->
-    <link
-    rel="icon"
-    type="image/jpeg"
-    href="/images/logo.jpg"
-    >
+        name="robots"
+        content="index, follow"
+    />
 
     <link
         rel="canonical"
-        href="https://envirovalor.com/"
+        href="https://www.envirovalor.com/"
+    />
+
+    <meta
+        property="og:type"
+        content="website"
+    />
+
+    <meta
+        property="og:site_name"
+        content="EnviroValor"
+    />
+
+    <meta
+        property="og:url"
+        content="https://www.envirovalor.com/"
+    />
+
+    <meta
+        property="og:image"
+        content="https://www.envirovalor.com/images/logo.jpg"
+    />
+
+    <link
+        rel="icon"
+        type="image/jpeg"
+        href="/images/logo.jpg"
     />
 
     <script>
-
         const userLang =
-        navigator.language ||
-        navigator.userLanguage;
+            navigator.language ||
+            navigator.userLanguage;
 
-        // 中文系語言
-        if(
-            userLang.startsWith("zh")
-        ){
+        const targetUrl =
+            userLang && userLang.startsWith("zh")
+                ? "/html/zh/index.html"
+                : "/html/en/index.html";
 
-            window.location.href =
-            "/html/zh/index.html";
-        }
-
-        // 其他預設英文
-        else{
-
-            window.location.href =
-            "/html/en/index.html";
-        }
-
+        window.location.replace(targetUrl);
     </script>
 
 </head>
