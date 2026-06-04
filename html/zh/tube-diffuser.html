@@ -77,512 +77,7 @@
     <link rel="stylesheet" href="../../css/mobile-menu.css">
     <link rel="stylesheet" href="../../css/product.css">
 
-    <style>
-        /* =========================
-        01. Common Section
-        ========================= */
-    
-        main section:not(.hero){
-            padding:82px 0;
-        }
-    
-        .section-head{
-            max-width:840px;
-            margin-bottom:38px;
-        }
-    
-        .section-head.center,
-        .section-heading.center{
-            max-width:780px;
-            margin:0 auto 42px;
-            text-align:center;
-        }
-    
-        .section-head p,
-        .section-heading.center p{
-            color:var(--muted);
-            font-size:17px;
-        }
 
-        /* =========================
-        02. Cards
-        ========================= */
-    
-        .card{
-            background:var(--white);
-    
-            border:1px solid var(--line);
-            border-radius:var(--radius);
-    
-            padding:28px;
-    
-            box-shadow:0 12px 32px rgba(7,48,71,.06);
-        }
-    
-        .card h3{
-            margin-bottom:8px;
-    
-            color:var(--navy);
-            font-size:22px;
-        }
-    
-        .card p{
-            color:var(--muted);
-        }
-    
-        .cards-3{
-            display:grid;
-            grid-template-columns:repeat(3,1fr);
-            gap:28px;
-        }
-    
-        .jump-card{
-            text-decoration:none;
-            color:inherit;
-        }
-    
-        .icon{
-            width:54px;
-            height:54px;
-    
-            margin-bottom:18px;
-    
-            display:grid;
-            place-items:center;
-    
-            border-radius:18px;
-    
-            background:rgba(53,179,74,.12);
-            color:var(--green);
-    
-            font-size:24px;
-            font-weight:900;
-        }
-    
-        .icon-group{
-            display:flex;
-            align-items:center;
-            gap:12px;
-    
-            margin-bottom:26px;
-        }
-    
-        .icon-group .icon{
-            margin-bottom:0;
-        }
-    
-    
-        /* =========================
-        03. Feature Detail
-        ========================= */
-    
-        .feature-detail{
-            padding:90px 0;
-            scroll-margin-top:80px;
-    
-            border-top:1px solid #e5edf3;
-        }
-    
-        .detail-grid{
-            display:grid;
-            grid-template-columns:380px 1fr;
-            gap:60px;
-    
-            align-items:start;
-        }
-    
-        .detail-kicker{
-            margin-bottom:18px;
-    
-            color:#00a7a0;
-    
-            font-weight:700;
-            letter-spacing:1px;
-            text-transform:uppercase;
-        }
-    
-        .detail-left h2{
-            color:#073047;
-    
-            font-size:42px;
-            line-height:1.2;
-        }
-    
-        .detail-right p{
-            margin-bottom:24px;
-    
-            color:#536879;
-    
-            font-size:17px;
-            line-height:1.9;
-        }
-    
-        .detail-right ul{
-            padding-left:22px;
-        }
-    
-        .detail-right li{
-            margin-bottom:14px;
-    
-            color:#073047;
-    
-            font-weight:600;
-        }
-    
-    
-        /* =========================
-        04. Product Specs Section
-        ========================= */
-    
-        .product-section{
-            padding:120px 0;
-    
-            background:#f7faf9;
-        }
-    
-        .spec-layout{
-            display:grid;
-            grid-template-columns:420px 1fr;
-            gap:60px;
-    
-            align-items:start;
-        }
-    
-        .product-visual-panel{
-            position:sticky;
-            top:120px;
-        }
-    
-        .tube-visual{
-            min-height:320px;
-    
-            padding:24px;
-    
-            display:flex;
-            align-items:center;
-            justify-content:center;
-    
-            position:relative;
-    
-            border:1px solid rgba(0,0,0,.05);
-            border-radius:28px;
-    
-            background:#fff;
-    
-            box-shadow:0 12px 40px rgba(0,0,0,.06);
-        }
-    
-        .tube-body{
-            position:relative;
-    
-            width:100%;
-            height:70px;
-    
-            display:flex;
-            align-items:center;
-        }
-    
-        .tube-main{
-            flex:1;
-    
-            height:44px;
-    
-            border-radius:999px;
-    
-            background:
-            linear-gradient(
-                90deg,
-                #d7e4dd 0%,
-                #ffffff 50%,
-                #c8d8cf 100%
-            );
-    
-            box-shadow:
-            inset 0 2px 4px rgba(255,255,255,.7),
-            inset 0 -4px 8px rgba(0,0,0,.08);
-        }
-    
-        .tube-cap{
-            width:44px;
-            height:44px;
-    
-            border-radius:50%;
-    
-            background:#7BAE8C;
-        }
-    
-        .tube-cap.left{
-            margin-right:-8px;
-        }
-    
-        .tube-cap.right{
-            margin-left:-8px;
-        }
-    
-        .visual-badge{
-            margin-top:22px;
-    
-            display:flex;
-            justify-content:center;
-        }
-    
-        .visual-badge span{
-            padding:10px 18px;
-    
-            border-radius:999px;
-    
-            background:#0d8b63;
-            color:#fff;
-    
-            font-size:14px;
-            font-weight:700;
-        }
-    
-        .spec-grid.compact{
-            display:grid;
-            grid-template-columns:repeat(2,1fr);
-            gap:18px;
-        }
-    
-        .spec-card{
-            padding:22px;
-    
-            background:#fff;
-    
-            border:1px solid rgba(0,0,0,.06);
-            border-radius:20px;
-    
-            transition:.25s ease;
-        }
-    
-        .spec-card:hover{
-            transform:translateY(-3px);
-    
-            box-shadow:0 10px 24px rgba(0,0,0,.06);
-        }
-    
-        .spec-card.full{
-            grid-column:1 / -1;
-        }
-    
-        .spec-label{
-            display:block;
-    
-            margin-bottom:8px;
-    
-            color:#0d8b63;
-    
-            font-size:13px;
-            font-weight:700;
-            letter-spacing:.04em;
-            text-transform:uppercase;
-        }
-    
-        .spec-card strong{
-            display:block;
-    
-            color:#1f2937;
-    
-            font-size:15px;
-            font-weight:700;
-            line-height:1.6;
-        }
-    
-    
-        /* =========================
-        05. Performance & Application Summary
-        ========================= */
-    
-        .feature-summary{
-            padding:100px 0;
-        }
-    
-        .summary-grid{
-            display:grid;
-            grid-template-columns:repeat(2,1fr);
-            gap:36px;
-        }
-    
-        .summary-block{
-            padding:42px;
-    
-            background:var(--white);
-    
-            border:1px solid var(--line);
-            border-radius:32px;
-    
-            box-shadow:0 12px 32px rgba(7,48,71,.05);
-        }
-    
-        .summary-block h2{
-            margin:12px 0 18px;
-    
-            color:var(--navy);
-    
-            font-size:42px;
-            line-height:1.2;
-        }
-    
-        .summary-block p{
-            margin-bottom:30px;
-    
-            color:var(--muted);
-    
-            line-height:1.9;
-        }
-    
-        .tag-group{
-            display:flex;
-            flex-wrap:wrap;
-            gap:14px;
-        }
-    
-        .feature-tag{
-            padding:12px 18px;
-    
-            border:1px solid rgba(53,179,74,.16);
-            border-radius:999px;
-    
-            background:rgba(53,179,74,.08);
-            color:var(--navy);
-    
-            font-size:15px;
-            font-weight:700;
-        }
-    
-    
-        /* =========================
-        06. Why EnviroValor
-        ========================= */
-    
-        .why-envirovalor{
-            padding:110px 0;
-        }
-    
-        .why-grid{
-            display:grid;
-            grid-template-columns:repeat(3,1fr);
-            gap:26px;
-    
-            margin-top:60px;
-        }
-    
-        .why-card{
-            position:relative;
-    
-            padding:38px;
-    
-            overflow:hidden;
-    
-            background:var(--white);
-    
-            border:1px solid var(--line);
-            border-radius:30px;
-    
-            transition:.35s;
-        }
-    
-        .why-card:hover{
-            transform:translateY(-8px);
-    
-            box-shadow:0 24px 48px rgba(7,48,71,.08);
-        }
-    
-        .why-number{
-            margin-bottom:22px;
-    
-            color:rgba(49,188,72,.58);
-    
-            font-size:64px;
-            font-weight:800;
-            line-height:1;
-        }
-    
-        .why-card h3{
-            margin-bottom:16px;
-    
-            color:var(--navy);
-    
-            font-size:24px;
-            line-height:1.3;
-        }
-    
-        .why-card p{
-            color:var(--muted);
-    
-            line-height:1.9;
-        }
-    
-    
-        /* =========================
-        07. Responsive
-        ========================= */
-    
-        @media(max-width:991px){
-    
-            .spec-layout{
-                grid-template-columns:1fr;
-                gap:40px;
-            }
-    
-            .product-visual-panel{
-                position:relative;
-                top:auto;
-            }
-        }
-    
-        @media(max-width:980px){
-    
-            .cards-3,
-            .why-grid,
-            .summary-grid{
-                grid-template-columns:1fr;
-            }
-    
-            .why-card{
-                padding:32px;
-            }
-    
-            .summary-block h2{
-                font-size:34px;
-            }
-        }
-    
-        @media(max-width:900px){
-    
-            .detail-grid{
-                grid-template-columns:1fr;
-                gap:30px;
-            }
-    
-            .detail-left h2{
-                font-size:32px;
-            }
-        }
-    
-        @media(max-width:640px){
-    
-            .product-section{
-                padding:80px 0;
-            }
-    
-            .spec-grid.compact{
-                grid-template-columns:1fr;
-            }
-    
-            .tube-visual{
-                min-height:260px;
-                padding:50px 24px;
-            }
-    
-            .product-slider{
-                width:100%;
-                max-width:400px;
-            }
-        }
-
-
-    </style>
 
 </head>
 
@@ -652,7 +147,7 @@
   <!-- Mobile Menu -->
   <div id="mobile-menu"></div>
 
-  <main>
+  <main class="product-page tube-page">
 
     <!-- Hero -->
 
@@ -729,114 +224,117 @@
 
     <!-- Why Choose -->
 
-    <section>
+<!-- Why Choose -->
 
-        <div class="container">
+<section class="product-overview">
 
-            <div class="section-head center">
+    <div class="container">
 
-                <div class="kicker">
-                    為什麼選擇 EnviroValor
-                </div>
+        <div class="section-head center">
 
-                <h2>
-                    高效率曝氣與穩定供應
-                </h2>
-
-                <p>
-                    EnviroValor 以穩定品質、快速交貨與台灣供應能力，協助客戶降低工程與維修等待時間。
-                </p>
-
+            <div class="kicker">
+                產品特色
             </div>
-
-            <!-- Feature Cards -->
-
-            <div class="cards-3">
-
-                <!-- Card 1 -->
-
-                <a href="#spin-welded"
-                class="card jump-card">
-
-                    <div class="icon">✓</div>
-
-                    <h3>
-                        旋熔式進氣結構
-                    </h3>
-
-                    <p>
-                        旋熔接合設計可提升密封可靠性並降低側漏風險。
-                    </p>
-
-                </a>
-
-                <!-- Card 2 -->
-
-                <a href="#epdm"
-                class="card jump-card">
-
-                    <div class="icon">↗</div>
-
-                    <h3>
-                        EPDM 膜片
-                    </h3>
-
-                    <p>
-                        EPDM 工程橡膠膜片適合長期污水曝氣應用。
-                    </p>
-
-                </a>
-
-                <!-- Card 3 -->
-
-                <a href="#abs-304"
-                class="card jump-card">
-
-                    <div class="icon-group">
-
-                        <span class="icon">ABS</span>
-
-                        <span class="icon">304</span>
-
-                    </div>
-
-                    <h3>
-                        ABS 支撐本體與 304 束環
-                    </h3>
-
-                    <p>
-                        ABS 支撐結構搭配 304 不鏽鋼束環，可提升穩定性並維持膜片固定效果。
-                    </p>
-
-                </a>
-
-            </div>
-
+        
+            <h2>
+                核心結構與密封設計
+            </h2>
+        
+            <p>
+                從旋熔式進氣結構、EPDM膜片到ABS支撐本體與304不鏽鋼束環，提升散氣管在污水曝氣環境中的穩定性與長期可靠性。
+            </p>
+        
         </div>
 
-    </section>
 
-    <!-- Detail Section 1 -->
+        <div class="product-tab-layout">
 
-    <section class="feature-detail" id="spin-welded">
+            <div class="product-tab-list">
 
-        <div class="container">
+                <button
+                    class="product-tab-item active"
+                    data-panel="panel-spin"
+                    type="button">
 
-            <div class="detail-grid">
+                    <span class="product-tab-number">
+                        01
+                    </span>
 
-                <div class="detail-left">
+                    <span>
 
-                    <div class="detail-kicker">
+                        <strong>
+                            旋熔式進氣結構
+                        </strong>
+
+                        <span>
+                            密封可靠、降低側漏
+                        </span>
+
+                    </span>
+
+                </button>
+
+                <button
+                    class="product-tab-item"
+                    data-panel="panel-epdm"
+                    type="button">
+
+                    <span class="product-tab-number">
+                        02
+                    </span>
+
+                    <span>
+
+                        <strong>
+                            EPDM膜片
+                        </strong>
+
+                        <span>
+                            長期污水曝氣應用
+                        </span>
+
+                    </span>
+
+                </button>
+
+                <button
+                    class="product-tab-item"
+                    data-panel="panel-abs"
+                    type="button">
+
+                    <span class="product-tab-number">
+                        03
+                    </span>
+
+                    <span>
+
+                        <strong>
+                            ABS/304結構
+                        </strong>
+
+                        <span>
+                            穩定支撐與固定
+                        </span>
+
+                    </span>
+
+                </button>
+
+            </div>
+
+            <div class="product-tab-card">
+
+                <div
+                    class="product-tab-panel active"
+                    id="panel-spin">
+
+                    <div class="kicker">
                         產品特色
                     </div>
 
-                    <h2>
+                    <h3>
                         旋熔式進氣結構，並逐支測漏
-                    </h2>
-
-                </div>
-
-                <div class="detail-right">
+                    </h3>
 
                     <p>
                         進氣口採一體成型設計，並以旋熔方式與支撐管件接合。此結構可提升密封可靠性，並降低側漏風險。
@@ -880,33 +378,17 @@
 
                 </div>
 
-            </div>
+                <div
+                    class="product-tab-panel"
+                    id="panel-epdm">
 
-        </div>
-
-    </section>
-
-    <!-- Detail Section 2 -->
-
-    <section class="feature-detail gray-bg" id="epdm">
-
-        <div class="container">
-
-            <div class="detail-grid">
-
-                <div class="detail-left">
-
-                    <div class="detail-kicker">
+                    <div class="kicker">
                         膜片設計
                     </div>
 
-                    <h2>
-                        模壓成型 EPDM 膜片
-                    </h2>
-
-                </div>
-
-                <div class="detail-right">
+                    <h3>
+                        模壓成型EPDM膜片
+                    </h3>
 
                     <p>
                         本產品使用 EPDM 工程橡膠膜片，適合長期污水曝氣環境。膜片具備抗 UV、耐酸鹼與耐腐蝕特性，可應用於較嚴苛的水處理環境。
@@ -918,33 +400,17 @@
 
                 </div>
 
-            </div>
+                <div
+                    class="product-tab-panel"
+                    id="panel-abs">
 
-        </div>
-
-    </section>
-
-    <!-- Detail Section 3 -->
-
-    <section class="feature-detail" id="abs-304">
-
-        <div class="container">
-
-            <div class="detail-grid">
-
-                <div class="detail-left">
-
-                    <div class="detail-kicker">
+                    <div class="kicker">
                         產品結構
                     </div>
 
-                    <h2>
-                        ABS 支撐本體與 304 不鏽鋼束環
-                    </h2>
-
-                </div>
-
-                <div class="detail-right">
+                    <h3>
+                        ABS支撐本體與304不鏽鋼束環
+                    </h3>
 
                     <p>
                         散氣管本體採用 ABS 支撐結構，提供良好的機械強度與穩定支撐效果。中空設計有助於降低浮力，減少管路系統承受的浮力負荷。
@@ -960,7 +426,10 @@
 
         </div>
 
-    </section>
+    </div>
+
+</section>
+
 
     <!-- Product -->
 

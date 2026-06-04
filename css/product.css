@@ -105,6 +105,552 @@
     right:14px;
 }
 
+/* =========================
+   Product Shared Sections
+========================= */
+
+
+
+main section:not(.hero){
+    padding:82px 0;
+}
+
+.section-head{
+    max-width:840px;
+    margin-bottom:38px;
+}
+
+.section-head.center,
+.section-heading.center{
+    max-width:780px;
+    margin:0 auto 42px;
+    text-align:center;
+}
+
+.section-head p,
+.section-heading.center p{
+    color:var(--muted);
+    font-size:17px;
+}
+
+
+/* =========================
+   Product Shared Cards
+========================= */
+
+.cards-3,
+.cards-4{
+    display:grid;
+    gap:22px;
+}
+
+.cards-3{
+    grid-template-columns:repeat(3, 1fr);
+}
+
+.cards-4{
+    grid-template-columns:repeat(4, 1fr);
+}
+
+.card{
+    background:var(--white);
+
+    border:1px solid var(--line);
+    border-radius:22px;
+
+    padding:28px;
+
+    box-shadow:
+    0 12px 32px rgba(7,48,71,.06);
+}
+
+.card h3{
+    color:var(--navy);
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.card p{
+    color:var(--muted);
+    line-height:1.8;
+}
+
+.icon{
+    width:54px;
+    height:54px;
+
+    margin-bottom:18px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:18px;
+
+    background:rgba(53,179,74,.12);
+    color:var(--green);
+
+    font-size:24px;
+    font-weight:900;
+}
+
+.icon-group{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    margin-bottom:26px;
+}
+
+.icon-group .icon{
+    margin-bottom:0;
+}
+
+.jump-card{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* =========================
+   Flat Feature Cards
+   共用扁卡片
+========================= */
+
+.flat-feature-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:16px;
+}
+
+.flat-feature-card{
+    min-height:84px;
+
+    padding:18px 20px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
+    background:var(--white);
+
+    border:1px solid var(--line);
+    border-radius:18px;
+
+    box-shadow:0 8px 22px rgba(7,48,71,.035);
+}
+
+.flat-feature-card span{
+    margin-bottom:6px;
+
+    color:#0d8b63;
+
+    font-size:13px;
+    font-weight:900;
+    line-height:1.5;
+}
+
+.flat-feature-card strong{
+    color:var(--navy);
+
+    font-size:15px;
+    line-height:1.55;
+    font-weight:850;
+}
+/* =========================
+   Structure Split Layout
+   共用左右分割版型
+========================= */
+
+.structure-split{
+    display:grid;
+    grid-template-columns:.85fr 1.15fr;
+    gap:54px;
+
+    align-items:center;
+}
+
+.structure-copy h2{
+    margin:0 0 18px;
+
+    color:var(--navy);
+
+    font-size:42px;
+    line-height:1.2;
+    font-weight:950;
+}
+
+.structure-copy p{
+    max-width:520px;
+    margin:0;
+
+    color:var(--muted);
+
+    font-size:17px;
+    line-height:1.9;
+}
+
+.structure-card-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:18px;
+}
+
+.structure-card-grid .flat-feature-card{
+    min-height:104px;
+}
+
+.structure-card-wide{
+    grid-column:1 / -1;
+}
+
+/* =========================
+   Spec Tabs
+   共用規格分頁
+========================= */
+
+.spec-tabs{
+    padding:28px;
+
+    background:var(--white);
+
+    border:1px solid var(--line);
+    border-radius:28px;
+
+    box-shadow:0 12px 32px rgba(7,48,71,.05);
+}
+
+.spec-tab-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+
+    margin-bottom:28px;
+}
+
+.spec-tab-btn{
+    padding:13px 18px;
+
+    border:1px solid var(--line);
+    border-radius:999px;
+
+    background:var(--white);
+    color:var(--navy);
+
+    font-family:inherit;
+    font-size:15px;
+    font-weight:850;
+
+    cursor:pointer;
+}
+
+.spec-tab-btn.active{
+    background:rgba(53,179,74,.12);
+    border-color:rgba(53,179,74,.24);
+    color:#0d8b63;
+}
+
+.spec-tab-content{
+    margin-top:8px;
+}
+
+.spec-tab-panel{
+    display:none;
+}
+
+.spec-tab-panel.active{
+    display:block;
+}
+
+.spec-group-title{
+    margin-bottom:20px;
+}
+
+.spec-group-title h3{
+    margin:0 0 10px;
+
+    color:var(--navy);
+
+    font-size:30px;
+    line-height:1.25;
+}
+
+.spec-group-title p{
+    max-width:850px;
+    margin:0;
+
+    color:var(--muted);
+
+    line-height:1.85;
+}
+
+.flat-feature-grid.compact-grid{
+    grid-template-columns:repeat(4, 1fr);
+    gap:16px;
+}
+
+.flat-feature-grid.compact-grid .flat-feature-card{
+    min-height:78px;
+    padding:16px 18px;
+}
+
+/* =========================
+   Product Spec Table
+========================= */
+
+.spec-table{
+    width:100%;
+    margin-top:20px;
+
+    border-collapse:collapse;
+    overflow:hidden;
+
+    border:1px solid var(--line);
+    border-radius:22px;
+
+    background:var(--white);
+}
+
+.spec-table th,
+.spec-table td{
+    padding:15px 16px;
+
+    border-bottom:1px solid var(--line);
+
+    text-align:left;
+}
+
+.spec-table th{
+    width:34%;
+
+    background:#edf5f7;
+    color:var(--navy);
+}
+
+
+/* =========================
+   Product Responsive
+========================= */
+
+@media(max-width:980px){
+
+    .cards-3,
+    .cards-4{
+        grid-template-columns:1fr;
+    }
+
+}
+
+/* =========================
+   Product Specs Section
+========================= */
+
+.product-section{
+    padding:100px 0;
+    background:#f6fbf8;
+}
+
+.spec-layout{
+    display:grid;
+    grid-template-columns:420px 1fr;
+    gap:60px;
+    align-items:start;
+}
+
+.product-visual-panel{
+    position:sticky;
+    top:120px;
+}
+
+.visual-badge{
+    margin-top:22px;
+
+    display:flex;
+    justify-content:center;
+}
+
+.visual-badge span{
+    padding:10px 18px;
+
+    border-radius:999px;
+
+    background:#0d8b63;
+    color:#fff;
+
+    font-size:14px;
+    font-weight:700;
+}
+
+.spec-grid.compact{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.spec-card{
+    padding:22px;
+
+    background:#fff;
+
+    border:1px solid rgba(0,0,0,.06);
+    border-radius:20px;
+
+    transition:.25s ease;
+}
+
+.spec-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 24px rgba(0,0,0,.06);
+}
+
+.spec-card.full{
+    grid-column:1 / -1;
+}
+
+.spec-label{
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#0d8b63;
+
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+}
+
+.spec-card strong{
+    display:block;
+
+    color:#1f2937;
+
+    font-size:15px;
+    font-weight:700;
+    line-height:1.6;
+}
+
+
+/* =========================
+   Performance & Applications
+========================= */
+
+.feature-summary{
+    padding:100px 0;
+    background:#ffffff;
+}
+
+.summary-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:36px;
+}
+
+.summary-block{
+    padding:42px;
+
+    background:var(--white);
+
+    border:1px solid var(--line);
+    border-radius:32px;
+
+    box-shadow:0 12px 32px rgba(7,48,71,.05);
+}
+
+.summary-block h2{
+    margin:12px 0 18px;
+
+    color:var(--navy);
+
+    font-size:42px;
+    line-height:1.2;
+}
+
+.summary-block p{
+    margin-bottom:30px;
+
+    color:var(--muted);
+
+    line-height:1.9;
+}
+
+.tag-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+}
+
+.feature-tag{
+    padding:12px 18px;
+
+    border:1px solid rgba(53,179,74,.16);
+    border-radius:999px;
+
+    background:rgba(53,179,74,.08);
+    color:var(--navy);
+
+    font-size:15px;
+    font-weight:700;
+}
+
+
+/* =========================
+   Why EnviroValor
+========================= */
+
+.why-envirovalor{
+    padding:100px 0;
+    background:#f6fbf8;
+}
+.why-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:26px;
+
+    margin-top:60px;
+}
+
+.why-card{
+    position:relative;
+
+    padding:38px;
+
+    overflow:hidden;
+
+    background:var(--white);
+
+    border:1px solid var(--line);
+    border-radius:30px;
+
+    transition:.35s;
+}
+
+.why-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 24px 48px rgba(7,48,71,.08);
+}
+
+.why-number{
+    margin-bottom:22px;
+
+    color:rgba(49,188,72,.58);
+
+    font-size:64px;
+    font-weight:800;
+    line-height:1;
+}
+
+.why-card h3{
+    margin-bottom:16px;
+
+    color:var(--navy);
+
+    font-size:24px;
+    line-height:1.3;
+}
+
+.why-card p{
+    color:var(--muted);
+    line-height:1.9;
+}
 
 
 /* =========================
@@ -173,4 +719,522 @@ body{
 
 *{
     box-sizing:border-box;
+}
+
+
+
+
+/* =========================
+   Product Overview Tabs
+========================= */
+
+.product-overview{
+    padding:90px 0;
+    background:#ffffff;
+}
+
+.product-overview .cards-3{
+    margin-bottom:54px;
+}
+
+.product-tab-layout{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:28px;
+
+    align-items:stretch;
+}
+
+.product-tab-list{
+    padding:18px;
+
+    background:var(--white);
+
+    border:1px solid var(--line);
+    border-radius:28px;
+
+    box-shadow:0 14px 36px rgba(7,48,71,.06);
+}
+
+.product-tab-item{
+    width:100%;
+
+    padding:18px;
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    border:none;
+    border-radius:20px;
+
+    background:transparent;
+
+    text-align:left;
+    font-family:inherit;
+
+    cursor:pointer;
+
+    transition:.25s ease;
+}
+
+.product-tab-item.active{
+    background:rgba(53,179,74,.1);
+}
+
+.product-tab-number{
+    width:42px;
+    height:42px;
+
+    flex-shrink:0;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:14px;
+
+    background:rgba(53,179,74,.12);
+    color:var(--green);
+
+    font-weight:950;
+}
+
+.product-tab-item strong{
+    display:block;
+
+    color:var(--navy);
+
+    font-size:17px;
+    line-height:1.5;
+}
+
+.product-tab-item span:last-child{
+    display:block;
+
+    color:var(--muted);
+
+    font-size:14px;
+    line-height:1.5;
+}
+
+.product-tab-card{
+    min-height:100%;
+
+    padding:44px;
+
+    background:var(--white);
+
+    border:1px solid var(--line);
+    border-radius:28px;
+
+    box-shadow:0 14px 36px rgba(7,48,71,.07);
+}
+
+.product-tab-panel{
+    display:none;
+}
+
+.product-tab-panel.active{
+    display:block;
+}
+
+.product-tab-panel h3{
+    margin:0 0 18px;
+
+    color:var(--navy);
+
+    font-size:36px;
+    line-height:1.25;
+    font-weight:950;
+}
+
+.product-tab-panel p{
+    margin:0 0 18px;
+
+    color:var(--muted);
+
+    font-size:16px;
+    line-height:1.9;
+}
+
+.product-tab-panel ul{
+    margin:24px 0 0;
+    padding-left:22px;
+}
+
+.product-tab-panel li{
+    margin-bottom:12px;
+
+    color:var(--navy);
+
+    font-weight:700;
+    line-height:1.7;
+}
+
+.product-tab-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+
+    margin-top:28px;
+}
+
+.product-tab-tag{
+    padding:12px 16px;
+
+    border-radius:999px;
+
+    background:rgba(53,179,74,.08);
+    border:1px solid rgba(53,179,74,.16);
+
+    color:var(--navy);
+
+    font-size:15px;
+    font-weight:800;
+}
+
+
+
+@media(max-width:900px){
+
+    .product-tab-layout{
+        grid-template-columns:1fr;
+    }
+
+    .product-tab-list{
+        display:grid;
+        gap:10px;
+    }
+
+}
+
+@media(max-width:640px){
+
+    .product-overview{
+        padding:64px 0 76px;
+    }
+
+    .product-tab-card{
+        padding:28px;
+    }
+
+    .product-tab-panel h3{
+        font-size:26px;
+    }
+
+}
+
+@media(max-width:991px){
+
+    .spec-layout{
+        grid-template-columns:1fr;
+        gap:40px;
+    }
+
+    .product-visual-panel{
+        position:relative;
+        top:auto;
+    }
+}
+
+@media(max-width:980px){
+
+    .cards-3,
+    .cards-4,
+    .why-grid,
+    .summary-grid{
+        grid-template-columns:1fr;
+    }
+
+    .why-card{
+        padding:32px;
+    }
+
+    .summary-block h2{
+        font-size:34px;
+    }
+}
+
+@media(max-width:640px){
+
+    .product-section{
+        padding:80px 0;
+    }
+
+    .spec-grid.compact{
+        grid-template-columns:1fr;
+    }
+
+    .product-slider{
+        width:100%;
+        max-width:400px;
+    }
+
+    .product-overview{
+        padding:64px 0 76px;
+    }
+
+    .product-tab-card{
+        padding:28px;
+    }
+
+    .product-tab-panel h3{
+        font-size:26px;
+    }
+}
+
+/* =========================
+   Disc Page Cards
+========================= */
+
+.disc-card-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:18px;
+}
+
+.disc-card-grid .spec-card.full{
+    grid-column:1 / -1;
+}
+
+/* =========================
+   Shared Structure Grid
+   共用 3 + 2 卡片排版
+========================= */
+
+.structure-grid{
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:22px;
+}
+
+.structure-grid .card{
+    grid-column:span 2;
+}
+
+.structure-grid .card:nth-child(4),
+.structure-grid .card:nth-child(5){
+    grid-column:span 3;
+}
+
+
+/* =========================
+   Disc Page Responsive
+========================= */
+
+@media(max-width:980px){
+
+    .disc-card-grid{
+        grid-template-columns:1fr;
+    }
+
+    .structure-grid{
+        grid-template-columns:1fr;
+    }
+
+    .structure-grid .card,
+    .structure-grid .card:nth-child(4),
+    .structure-grid .card:nth-child(5){
+        grid-column:span 1;
+    }
+
+    .flat-feature-grid,
+    .flat-feature-grid.compact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .structure-split{
+        grid-template-columns:1fr;
+        gap:32px;
+    }
+
+    .structure-card-grid{
+        grid-template-columns:1fr;
+    }
+
+    .structure-card-wide{
+        grid-column:auto;
+    }
+}
+
+/* =========================
+   Single Summary Block
+========================= */
+
+.single-summary{
+    grid-template-columns:1fr;
+}
+
+.single-summary .summary-block{
+    max-width:1160px;
+    margin:0 auto;
+}
+
+/* =========================
+   Disc Final Layout Fix
+========================= */
+
+.section-white{
+    background:#ffffff;
+}
+
+.section-soft{
+    background:#f6fbf8;
+}
+
+.disc-page .section-head{
+    max-width:780px;
+    margin:0 auto 42px;
+    text-align:center;
+}
+
+.disc-page .section-head h2{
+    margin:0 0 16px;
+
+    color:var(--navy);
+
+    font-size:44px;
+    line-height:1.2;
+    font-weight:950;
+}
+
+.disc-page .section-head p{
+    margin:0;
+
+    color:var(--muted);
+
+    font-size:17px;
+    line-height:1.9;
+}
+
+
+/* =========================
+   Split Feature
+   左右分割說明區
+========================= */
+
+.split-feature{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    gap:48px;
+
+    align-items:center;
+}
+
+.split-feature-copy h2{
+    margin:0 0 18px;
+
+    color:var(--navy);
+
+    font-size:42px;
+    line-height:1.2;
+    font-weight:950;
+}
+
+.split-feature-copy p{
+    margin:0;
+
+    color:var(--muted);
+
+    font-size:17px;
+    line-height:1.9;
+}
+
+.split-feature-cards{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:18px;
+}
+
+
+/* =========================
+   Dual Summary
+   應用範圍 + 供貨優勢
+========================= */
+
+.dual-summary-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:36px;
+}
+
+.supply-list{
+    display:grid;
+    gap:18px;
+}
+
+.supply-item{
+    display:grid;
+    grid-template-columns:54px 1fr;
+    gap:18px;
+
+    align-items:start;
+
+    padding-bottom:18px;
+
+    border-bottom:1px solid var(--line);
+}
+
+.supply-item:last-child{
+    padding-bottom:0;
+    border-bottom:none;
+}
+
+.supply-item .icon{
+    margin-bottom:0;
+}
+
+.supply-item h3{
+    margin:0 0 8px;
+
+    color:var(--navy);
+
+    font-size:20px;
+}
+
+.supply-item p{
+    margin:0;
+
+    color:var(--muted);
+
+    line-height:1.8;
+}
+
+
+/* =========================
+   Spec Tabs Fix
+========================= */
+
+.spec-tab-btn{
+    appearance:none;
+}
+
+.spec-tab-panel{
+    display:none;
+}
+
+.spec-tab-panel.active{
+    display:block;
+}
+
+
+/* =========================
+   Mobile Fix
+========================= */
+
+@media(max-width:980px){
+
+    .split-feature,
+    .dual-summary-grid{
+        grid-template-columns:1fr;
+    }
+
+    .split-feature-cards{
+        grid-template-columns:1fr;
+    }
+
+    .disc-page .section-head h2{
+        font-size:34px;
+    }
+
 }

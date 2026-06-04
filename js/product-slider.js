@@ -7,6 +7,8 @@ export function initSlider(){
     const sliders =
         document.querySelectorAll(".product-slider");
 
+    if(!sliders.length) return;
+
     sliders.forEach((slider) => {
 
         const images =
@@ -32,16 +34,10 @@ export function initSlider(){
         function showSlide(index){
 
             images.forEach((img) => {
-
-                img
-                    .classList
-                    .remove("active");
-
+                img.classList.remove("active");
             });
 
-            images[index]
-                .classList
-                .add("active");
+            images[index].classList.add("active");
 
         }
 
@@ -50,9 +46,7 @@ export function initSlider(){
             current++;
 
             if(current >= images.length){
-
                 current = 0;
-
             }
 
             showSlide(current);
@@ -64,10 +58,7 @@ export function initSlider(){
             current--;
 
             if(current < 0){
-
-                current =
-                    images.length - 1;
-
+                current = images.length - 1;
             }
 
             showSlide(current);
@@ -87,7 +78,6 @@ export function initSlider(){
         function resetAutoPlay(){
 
             clearInterval(timer);
-
             startAutoPlay();
 
         }
@@ -97,7 +87,6 @@ export function initSlider(){
             () => {
 
                 nextSlide();
-
                 resetAutoPlay();
 
             }
@@ -108,14 +97,12 @@ export function initSlider(){
             () => {
 
                 prevSlide();
-
                 resetAutoPlay();
 
             }
         );
 
         showSlide(0);
-
         startAutoPlay();
 
     });

@@ -85,11 +85,14 @@ a{
 
 .kicker{
     color:var(--green);
+
     font-size:13px;
+    font-weight:950;
+
     letter-spacing:1.8px;
     text-transform:uppercase;
-    font-weight:950;
-    margin-bottom:8px;
+
+    margin-bottom:12px;
 }
 
 h2{

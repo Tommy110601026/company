@@ -4,6 +4,7 @@ import { initMobileMenu } from "./mobile-menu.js";
 import { initActiveNav } from "./nav-active.js";
 import { initContact } from "./contact.js";
 import { initSlider } from "./product-slider.js";
+import { initProductTabs } from "./product-tabs.js";
 
 async function initApp(){
 
@@ -14,6 +15,7 @@ async function initApp(){
     initMobileMenu();
     initActiveNav();
     initSlider();
+    initProductTabs();
 
 }
 

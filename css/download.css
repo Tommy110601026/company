@@ -1,0 +1,271 @@
+/* =========================
+    Download Hero
+========================= */
+
+.download-hero{
+
+    padding:140px 0 90px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #082d43,
+        #0d405b
+    );
+
+    color:#fff;
+}
+
+.download-hero h1{
+
+    color:#fff;
+
+    font-size:56px;
+
+    margin-bottom:18px;
+}
+
+.download-hero p{
+
+    max-width:600px;
+
+    color:rgba(255,255,255,.78);
+
+    font-size:18px;
+
+    line-height:1.9;
+}
+
+/* =========================
+    Download Section
+========================= */
+
+.download-section{
+
+    padding:90px 0;
+
+    background:#f7fafc;
+}
+
+.download-header{
+
+    margin-bottom:42px;
+}
+
+.download-header h2{
+
+    margin-bottom:14px;
+}
+
+.download-header p{
+
+    color:var(--muted);
+
+    max-width:720px;
+}
+
+/* =========================
+    Download List
+========================= */
+
+.download-list{
+
+    display:flex;
+    flex-direction:column;
+
+    gap:22px;
+}
+
+.download-card{
+
+    background:#fff;
+
+    border:1px solid var(--line);
+
+    border-radius:24px;
+
+    padding:30px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:24px;
+
+    box-shadow:
+    0 12px 32px rgba(7,48,71,.05);
+
+    transition:.25s ease;
+}
+
+.download-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 18px 40px rgba(7,48,71,.1);
+}
+
+.download-info{
+
+    display:flex;
+    align-items:center;
+
+    gap:22px;
+
+    flex:1;
+}
+
+.file-icon{
+
+    width:68px;
+    height:68px;
+
+    border-radius:20px;
+
+    background:
+    rgba(53,179,74,.12);
+
+    color:var(--green);
+
+    display:grid;
+    place-items:center;
+
+    font-size:28px;
+
+    font-weight:900;
+
+    flex-shrink:0;
+}
+
+.file-content h3{
+
+    color:var(--navy);
+
+    font-size:24px;
+
+    margin-bottom:8px;
+}
+
+.file-meta{
+
+    display:flex;
+    flex-wrap:wrap;
+
+    gap:18px;
+
+    color:var(--muted);
+
+    font-size:15px;
+}
+
+.download-btn{
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:14px 24px;
+
+    border-radius:14px;
+
+    background:var(--green);
+
+    color:#fff;
+
+    font-weight:800;
+
+    transition:.2s ease;
+
+    white-space:nowrap;
+}
+
+.download-btn:hover{
+
+    transform:translateY(-2px);
+
+    opacity:.92;
+}
+
+.download-info,
+.file-content{
+    min-width:0;
+    max-width:100%;
+}
+
+.file-content h3{
+    max-width:100%;
+    font-size:18px;
+    line-height:1.35;
+
+    white-space:normal;
+    word-break:break-word;
+    overflow-wrap:anywhere;
+}
+
+/* =========================
+    Responsive
+========================= */
+
+@media (max-width:860px){
+
+.download-card{
+
+flex-direction:column;
+align-items:flex-start;
+
+gap:18px;
+padding:20px;
+}
+
+.download-info{
+
+width:100%;
+min-width:0;
+}
+
+.download-title{
+
+font-size:22px;
+line-height:1.4;
+
+word-break:break-word;
+overflow-wrap:break-word;
+}
+
+.download-meta{
+
+flex-wrap:wrap;
+gap:8px;
+}
+
+.download-btn{
+
+width:100%;
+justify-content:center;
+}
+
+.file-content{
+width:100%;
+}
+
+.file-content h3{
+font-size:18px;
+}
+
+
+}
+
+@media (max-width:560px){
+
+.download-hero h1{
+
+font-size:40px;
+}
+
+.download-info{
+
+align-items:flex-start;
+}
+
+}
