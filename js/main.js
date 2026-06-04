@@ -165,6 +165,52 @@ function initContact(){
 
     if(!form) return;
 
+    const messageInput =
+    form.querySelector('[name="message"]');
+
+    const messageCount =
+        form.querySelector(".message-count");
+
+    const messageHint =
+        form.querySelector(".form-hint");
+
+    if(messageInput && messageCount && messageHint){
+
+        const maxLength =
+            Number(messageInput.getAttribute("maxlength")) || 3000;
+
+        const updateMessageCount = () => {
+
+            const currentLength =
+                messageInput.value.length;
+
+            messageCount.textContent =
+                currentLength;
+
+            messageHint.classList.remove(
+                "warning",
+                "error"
+            );
+
+            if(currentLength >= maxLength){
+
+                messageHint.classList.add("error");
+            }
+
+            else if(currentLength >= maxLength * 0.9){
+
+                messageHint.classList.add("warning");
+            }
+        };
+
+        messageInput.addEventListener(
+            "input",
+            updateMessageCount
+        );
+
+        updateMessageCount();
+    }
+
     const isEnglish =
     window.location.pathname.includes("/en/");
 

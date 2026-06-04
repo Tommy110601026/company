@@ -43,6 +43,13 @@
 
             <form class="inquiry-form">
 
+                <input
+                    type="text"
+                    name="website"
+                    class="form-honeypot"
+                    tabindex="-1"
+                    autocomplete="off">
+
                 <div class="form-group">
             
                     <label>
@@ -119,7 +126,13 @@
                     <textarea
                         name="message"
                         rows="5"
+                        maxlength="3000"
+                        placeholder="Enter your message, maximum 3000 characters"
                         required></textarea>
+
+                    <div class="form-hint">
+                        <span class="message-count">0</span> / 3000 characters
+                    </div>
             
                 </div>
             

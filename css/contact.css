@@ -179,6 +179,28 @@
     z-index:10;
 }
 
+.form-honeypot {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.form-hint {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #6b7280;
+    text-align: right;
+}
+
+.form-hint.warning {
+    color: #b45309;
+}
+
+.form-hint.error {
+    color: #dc2626;
+}
+
 @media (max-width:920px){
 
     .inquiry-container{
