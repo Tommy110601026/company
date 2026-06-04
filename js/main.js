@@ -62,6 +62,49 @@ function initDropdown(){
 // Contact Modal
 // =========================
 
+
+function getContactErrorMessage(error, isEnglish){
+
+    const messages = {
+        "Invalid email format": {
+            zh: "請輸入正確的Email格式。",
+            en: "Please enter a valid email address."
+        },
+
+        "Missing required fields": {
+            zh: "請填寫Email、主旨與留言內容。",
+            en: "Please fill in email, subject, and message."
+        },
+
+        "Input content is too long": {
+            zh: "輸入內容過長，請縮短後再送出。",
+            en: "The input content is too long. Please shorten it and try again."
+        },
+
+        "Too many requests. Please try again later.": {
+            zh: "送出次數過多，請稍後再試。",
+            en: "Too many requests. Please try again later."
+        },
+
+        "Method Not Allowed": {
+            zh: "送出方式不正確，請重新整理頁面後再試。",
+            en: "Invalid request method. Please refresh the page and try again."
+        }
+    };
+
+    const fallback = {
+        zh: "送出失敗，請稍後再試。",
+        en: "Submission failed. Please try again later."
+    };
+
+    const selected =
+    messages[error] || fallback;
+
+    return isEnglish
+    ? selected.en
+    : selected.zh;
+}
+
 function initContact(){
 
     console.log("initContact");
@@ -210,9 +253,10 @@ function initContact(){
                 else{
                 
                     alert(
-                        isEnglish
-                        ? "Submission failed."
-                        : "送出失敗"
+                        getContactErrorMessage(
+                            result.error,
+                            isEnglish
+                        )
                     );
                 }
               
@@ -224,8 +268,8 @@ function initContact(){
             
                 alert(
                     isEnglish
-                    ? "System error."
-                    : "系統錯誤"
+                    ? "System error. Please try again later."
+                    : "系統錯誤，請稍後再試。"
                 );
             }
         }
