@@ -2,6 +2,11 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 3;
+
+const rateLimitStore = new Map();
+
 const FIELD_LIMITS = {
     inquiryType: 100,
     company: 100,
@@ -31,12 +36,69 @@ function isOverLimit(value = '', limit){
     return String(value).length > limit;
 }
 
+function getClientIp(req){
+    const forwardedFor =
+        req.headers['x-forwarded-for'];
+
+    if(forwardedFor){
+        return forwardedFor.split(',')[0].trim();
+    }
+
+    return req.socket?.remoteAddress || 'unknown';
+}
+
+function isRateLimited(ip){
+    const now =
+        Date.now();
+
+    const record =
+        rateLimitStore.get(ip);
+
+    if(!record){
+        rateLimitStore.set(ip, {
+            count: 1,
+            startTime: now
+        });
+
+        return false;
+    }
+
+    const elapsedTime =
+        now - record.startTime;
+
+    if(elapsedTime > RATE_LIMIT_WINDOW_MS){
+        rateLimitStore.set(ip, {
+            count: 1,
+            startTime: now
+        });
+
+        return false;
+    }
+
+    record.count += 1;
+
+    if(record.count > RATE_LIMIT_MAX_REQUESTS){
+        return true;
+    }
+
+    return false;
+}
+
 export default async function handler(req, res){
 
     if(req.method !== 'POST'){
         return res.status(405).json({
             success: false,
             error: 'Method Not Allowed'
+        });
+    }
+    const clientIp =
+    getClientIp(req);
+
+    if(isRateLimited(clientIp)){
+        return res.status(429).json({
+            success: false,
+            error: 'Too many requests. Please try again later.'
         });
     }
 
