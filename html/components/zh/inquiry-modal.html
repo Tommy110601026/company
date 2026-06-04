@@ -43,7 +43,23 @@
 
         <div class="inquiry-form-wrap">
 
-            <form class="inquiry-form">
+            <form class="inquiry-form" novalidate>
+
+            <div
+                class="form-alert"
+                id="formAlert">
+
+                <div class="form-alert-title">
+                    ⚠️ 請確認表單內容
+                </div>
+
+                <div class="form-alert-message">
+                    以下欄位需要修正：
+                </div>
+
+                <ul class="form-alert-list"></ul>
+
+            </div>
 
                 <input
                     type="text"
@@ -128,7 +144,6 @@
                     <textarea
                         name="message"
                         rows="5"
-                        maxlength="3000"
                         placeholder="請輸入留言內容，最多3000字"
                         required></textarea>
 

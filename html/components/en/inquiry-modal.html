@@ -41,7 +41,23 @@
 
         <div class="inquiry-form-wrap">
 
-            <form class="inquiry-form">
+            <form class="inquiry-form" novalidate>
+
+            <div
+                class="form-alert"
+                id="formAlert">
+
+                <div class="form-alert-title">
+                    ⚠️ Please check the form
+                </div>
+
+                <div class="form-alert-message">
+                    Please fix the following issues:
+                </div>
+
+                <ul class="form-alert-list"></ul>
+
+            </div>
 
                 <input
                     type="text"
@@ -126,7 +142,6 @@
                     <textarea
                         name="message"
                         rows="5"
-                        maxlength="3000"
                         placeholder="Enter your message, maximum 3000 characters"
                         required></textarea>
 

@@ -105,6 +105,77 @@ function getContactErrorMessage(error, isEnglish){
     : selected.zh;
 }
 
+function showFormErrors(form, errors, isEnglish){
+
+    const alertBox =
+    form.querySelector(".form-alert");
+
+    if(!alertBox) return;
+
+    const alertTitle =
+    alertBox.querySelector(".form-alert-title");
+
+    const alertMessage =
+    alertBox.querySelector(".form-alert-message");
+
+    const alertList =
+    alertBox.querySelector(".form-alert-list");
+
+    if(alertTitle){
+
+        alertTitle.textContent =
+        isEnglish
+        ? "⚠️ Please check the form"
+        : "⚠️ 請確認表單內容";
+    }
+
+    if(alertMessage){
+
+        alertMessage.textContent =
+        isEnglish
+        ? "Please fix the following issues:"
+        : "以下欄位需要修正：";
+    }
+
+    if(alertList){
+
+        alertList.innerHTML = "";
+
+        errors.forEach((error) => {
+
+            const li =
+            document.createElement("li");
+
+            li.textContent =
+            error;
+
+            alertList.appendChild(li);
+        });
+    }
+
+    alertBox.classList.add("active");
+
+    alertBox.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+}
+
+function hideFormErrors(form){
+
+    const alertBox =
+    form.querySelector(".form-alert");
+
+    if(!alertBox) return;
+
+    alertBox.classList.remove("active");
+}
+
+function isValidEmail(email){
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 function initContact(){
 
     console.log("initContact");
@@ -176,8 +247,7 @@ function initContact(){
 
     if(messageInput && messageCount && messageHint){
 
-        const maxLength =
-            Number(messageInput.getAttribute("maxlength")) || 3000;
+        const maxLength = 3000;
 
         const updateMessageCount = () => {
 
@@ -221,21 +291,116 @@ function initContact(){
             e.preventDefault();
 
 
-            const inquiryType =
-            form.querySelector('[name="inquiryType"]').value;
-            
-            const company =
-            form.querySelector('[name="company"]').value;
-            
-            const email =
-            form.querySelector('[name="email"]').value;
-            
-            const subject =
-            form.querySelector('[name="subject"]').value;
-            
-            const message =
-            form.querySelector('[name="message"]').value;
+                   const errors = [];
 
+                    const inquiryType =
+                    form.querySelector("[name='inquiryType']")?.value.trim();
+
+                    const company =
+                    form.querySelector("[name='company']")?.value.trim();
+
+                    const email =
+                    form.querySelector("[name='email']")?.value.trim();
+
+                    const subject =
+                    form.querySelector("[name='subject']")?.value.trim();
+
+                    const message =
+                    form.querySelector("[name='message']")?.value.trim();
+
+                    if(!inquiryType){
+
+                        errors.push(
+                            isEnglish
+                            ? "Inquiry purpose is required"
+                            : "詢問項目為必填"
+                        );
+                    }
+
+                    if(!company){
+
+                        errors.push(
+                            isEnglish
+                            ? "Company name is required"
+                            : "公司名稱為必填"
+                        );
+                    }
+
+                    if(!email){
+
+                        errors.push(
+                            isEnglish
+                            ? "Email is required"
+                            : "Email為必填"
+                        );
+                    }
+
+                    else if(!isValidEmail(email)){
+
+                        errors.push(
+                            isEnglish
+                            ? "Email format is invalid"
+                            : "Email格式不正確"
+                        );
+                    }
+
+                    if(!subject){
+
+                        errors.push(
+                            isEnglish
+                            ? "Subject is required"
+                            : "主旨為必填"
+                        );
+                    }
+
+                    if(!message){
+
+                        errors.push(
+                            isEnglish
+                            ? "Message is required"
+                            : "留言內容為必填"
+                        );
+                    }
+
+                    if(company && company.length > 100){
+
+                        errors.push(
+                            isEnglish
+                            ? "Company name must be under 100 characters"
+                            : "公司名稱最多100字"
+                        );
+                    }
+
+                    if(subject && subject.length > 150){
+
+                        errors.push(
+                            isEnglish
+                            ? "Subject must be under 150 characters"
+                            : "主旨最多150字"
+                        );
+                    }
+
+                    if(message && message.length > 3000){
+
+                        errors.push(
+                            isEnglish
+                            ? "Message must be under 3000 characters"
+                            : "留言內容最多3000字"
+                        );
+                    }
+
+                    if(errors.length > 0){
+
+                        showFormErrors(
+                            form,
+                            errors,
+                            isEnglish
+                        );
+
+                        return;
+                    }
+
+                    hideFormErrors(form);
  
         
             
@@ -298,11 +463,15 @@ function initContact(){
                 
                 else{
                 
-                    alert(
-                        getContactErrorMessage(
-                            result.error,
-                            isEnglish
-                        )
+                    showFormErrors(
+                        form,
+                        [
+                            getContactErrorMessage(
+                                result.error,
+                                isEnglish
+                            )
+                        ],
+                        isEnglish
                     );
                 }
               
@@ -312,10 +481,14 @@ function initContact(){
 
                 console.error(error);
             
-                alert(
+               showFormErrors(
+                    form,
+                    [
+                        isEnglish
+                        ? "System error. Please try again later."
+                        : "系統錯誤，請稍後再試。"
+                    ],
                     isEnglish
-                    ? "System error. Please try again later."
-                    : "系統錯誤，請稍後再試。"
                 );
             }
         }
