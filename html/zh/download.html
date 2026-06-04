@@ -645,81 +645,8 @@ align-items:flex-start;
   <!-- Footer -->
   <div id="footer"></div>
 
-  <script src="../../js/main.js"></script>
+  <script type="module" src="../../js/main.js"></script>
 
-  <script>
-      async function loadComponent(id, file){
-      
-          const target =
-          document.getElementById(id);
-      
-          if(!target) return;
-      
-          try{
-      
-              const response =
-              await fetch(file);
-      
-              if(!response.ok){
-      
-                  throw new Error(
-                      `Failed to load: ${file}`
-                  );
-              }
-      
-              const data =
-              await response.text();
-      
-              target.innerHTML = data;
-      
-              console.log(`Loaded: ${file}`);
-          }
-      
-          catch(error){
-      
-              console.error(error);
-          }
-      }
-      
-      async function initComponents(){
-      
-          // 載入 Components
-      
-          await loadComponent(
-              "mobile-menu",
-              "../components/zh/mobile-menu.html"
-          );
-      
-          await loadComponent(
-              "inquiry-modal",
-              "../components/zh/inquiry-modal.html"
-          );
-      
-          await loadComponent(
-              "footer",
-              "../components/zh/footer.html"
-          );
-      
-      
-      
-          // 等 DOM 插入完成後再初始化
-      
-          initDropdown();
-      
-          initContact();
-      
-          initMobileMenu();
-      
-          initActiveNav();
-      
-          console.log("All initialized");
-      }
-      
-      document.addEventListener(
-          "DOMContentLoaded",
-          initComponents
-      );
-      </script>
 
 </body>
 

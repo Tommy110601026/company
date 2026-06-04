@@ -494,61 +494,8 @@
     <div id="inquiry-modal"></div>
     <div id="footer"></div>
 
-    <script src="../../js/main.js"></script>
+    <script type="module" src="../../js/main.js"></script>
 
-    <script>
-    async function loadComponent(id, file){
-
-        const target = document.getElementById(id);
-
-        if(!target){
-            console.error("找不到容器：", id);
-            return;
-        }
-
-        const response = await fetch(file);
-
-        if(!response.ok){
-            console.error("載入失敗：", file, response.status);
-            return;
-        }
-
-        const data = await response.text();
-
-        target.innerHTML = data;
-
-        console.log("載入成功：", file);
-    }
-
-    async function initComponents(){
-
-        await loadComponent(
-            "mobile-menu",
-            "../components/en/mobile-menu.html"
-        );
-
-        await loadComponent(
-            "inquiry-modal",
-            "../components/en/inquiry-modal.html"
-        );
-
-        await loadComponent(
-            "footer",
-            "../components/en/footer.html"
-        );
-
-        console.log("準備初始化功能");
-
-        initDropdown();
-        initContact();
-        initMobileMenu();
-        initActiveNav();
-
-        console.log("初始化完成");
-    }
-
-    initComponents();
-    </script>
 
 </body>
 </html>
