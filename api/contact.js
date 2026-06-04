@@ -92,15 +92,7 @@ export default async function handler(req, res){
             error: 'Method Not Allowed'
         });
     }
-    const clientIp =
-    getClientIp(req);
 
-    if(isRateLimited(clientIp)){
-        return res.status(429).json({
-            success: false,
-            error: 'Too many requests. Please try again later.'
-        });
-    }
 
     try{
 
@@ -109,9 +101,9 @@ export default async function handler(req, res){
             company = '',
             email = '',
             subject = '',
-            message = ''
+            message = '',
+            website = ''
         } = req.body || {};
-
         const normalizedInquiryType =
             normalizeText(inquiryType);
 
@@ -126,6 +118,26 @@ export default async function handler(req, res){
 
         const normalizedMessage =
             normalizeText(message);
+
+        const normalizedWebsite =
+        normalizeText(website);
+
+        if(normalizedWebsite){
+            return res.status(200).json({
+                success: true
+            });
+        }
+
+        const clientIp =
+        getClientIp(req);
+
+        if(isRateLimited(clientIp)){
+            return res.status(429).json({
+                success: false,
+                error: 'Too many requests. Please try again later.'
+            });
+        }
+
 
         if(
             !normalizedEmail ||
