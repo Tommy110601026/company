@@ -308,6 +308,9 @@ function initContact(){
                     const message =
                     form.querySelector("[name='message']")?.value.trim();
 
+                    const website =
+                    form.querySelector("[name='website']")?.value.trim();   
+
                     if(!inquiryType){
 
                         errors.push(
@@ -415,7 +418,8 @@ function initContact(){
                     company,
                     email,
                     subject,
-                    message
+                    message,
+                    website
                 });
             
             
@@ -439,7 +443,8 @@ function initContact(){
                         company,
                         email,
                         subject,
-                        message
+                        message,
+                        website
                     })
                 });
             
