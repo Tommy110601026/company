@@ -1,6 +1,55 @@
-/* =========================
-   Product Hero
-========================= */
+/* =========================================================
+   product.css
+   EnviroValor 產品頁共用樣式表
+
+   目錄
+   01. 基礎保護設定
+   02. Hero 產品主視覺區
+   03. Product Slider 產品圖片輪播
+   04. Section 共用背景與標題
+   05. Icon 共用小圖示
+   06. Flat Feature Cards 扁卡片模組
+   07. Spec Layout 圖片＋規格卡片模組
+   08. Spec Tabs 規格分頁模組
+   09. Product Overview Tabs 產品特色分頁模組
+   10. Split Layout 左右分割說明模組
+   11. Summary Blocks 摘要卡片與標籤模組
+   12. Why EnviroValor 行銷卡片模組
+   13. Responsive RWD 響應式設定
+
+   使用原則
+   - 這支檔案只放產品頁共用版型與共用元件。
+   - 單一產品頁非常細節的微調，建議放在該 HTML 的 <style> 中。
+   - 目前共用於 disc-diffuser.html 與 tube-diffuser.html。
+========================================================= */
+
+
+/* =========================================================
+   01. 基礎保護設定
+   用途：
+   - 避免寬版內容或圖片造成水平捲軸。
+   - 統一盒模型，讓 padding 與 border 不會額外撐爆寬度。
+========================================================= */
+
+html,
+body{
+    overflow-x:hidden;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+
+/* =========================================================
+   02. Hero 產品主視覺區
+   用途：
+   - 產品頁最上方的大型介紹區。
+   - 左側放產品文字與按鈕，右側放產品輪播圖片。
+   使用頁面：
+   - disc-diffuser.html
+   - tube-diffuser.html
+========================================================= */
 
 .hero{
     width:100%;
@@ -32,9 +81,15 @@
 }
 
 
-/* =========================
-   Product Slider
-========================= */
+/* =========================================================
+   03. Product Slider 產品圖片輪播
+   用途：
+   - Hero 產品圖片輪播。
+   - 產品規格區左側圖片輪播。
+   注意：
+   - JS 會控制 .slider-image.active。
+   - 每組輪播都應該包在 .product-slider 裡面，避免多組輪播互相干擾。
+========================================================= */
 
 .product-slider{
     position:relative;
@@ -86,7 +141,7 @@
     border-radius:50%;
 
     background:rgba(0,0,0,.45);
-    color:#fff;
+    color:#ffffff;
 
     font-size:26px;
     cursor:pointer;
@@ -105,75 +160,91 @@
     right:14px;
 }
 
-/* =========================
-   Product Shared Sections
-========================= */
 
-
+/* =========================================================
+   04. Section 共用背景與標題
+   用途：
+   - 控制產品頁每個區塊的上下留白。
+   - 提供白底與淡綠底兩種交錯背景。
+   - 統一產品頁區塊標題的置中、大小與段落樣式。
+   使用方式：
+   - section-white：白色背景
+   - section-soft：淡綠背景
+   - section-head / section-heading center：標題區
+========================================================= */
 
 main section:not(.hero){
     padding:82px 0;
 }
 
-.section-head{
+.section-white{
+    background:#ffffff;
+}
+
+.section-soft{
+    background:#f6fbf8;
+}
+
+.product-overview{
+    padding:90px 0;
+    background:#ffffff;
+}
+
+.product-section{
+    padding:100px 0;
+    background:#f6fbf8;
+}
+
+.feature-summary{
+    padding:100px 0;
+    background:#ffffff;
+}
+
+.section-head,
+.section-heading{
     max-width:840px;
     margin-bottom:38px;
 }
 
 .section-head.center,
-.section-heading.center{
+.section-heading.center,
+.product-page .section-head,
+.product-page .section-heading{
     max-width:780px;
     margin:0 auto 42px;
     text-align:center;
 }
 
-.section-head p,
-.section-heading.center p{
-    color:var(--muted);
-    font-size:17px;
-}
+.product-page .section-head h2,
+.product-page .section-heading h2{
+    margin:0 0 16px;
 
-
-/* =========================
-   Product Shared Cards
-========================= */
-
-.cards-3,
-.cards-4{
-    display:grid;
-    gap:22px;
-}
-
-.cards-3{
-    grid-template-columns:repeat(3, 1fr);
-}
-
-.cards-4{
-    grid-template-columns:repeat(4, 1fr);
-}
-
-.card{
-    background:var(--white);
-
-    border:1px solid var(--line);
-    border-radius:22px;
-
-    padding:28px;
-
-    box-shadow:
-    0 12px 32px rgba(7,48,71,.06);
-}
-
-.card h3{
     color:var(--navy);
-    font-size:22px;
-    margin-bottom:8px;
+
+    font-size:44px;
+    line-height:1.2;
+    font-weight:950;
 }
 
-.card p{
+.section-head p,
+.section-heading p,
+.product-page .section-head p,
+.product-page .section-heading p{
+    margin:0;
+
     color:var(--muted);
-    line-height:1.8;
+
+    font-size:17px;
+    line-height:1.9;
 }
+
+
+/* =========================================================
+   05. Icon 共用小圖示
+   用途：
+   - 用在供貨優勢清單、編號、符號提示。
+   - 目前 disc-diffuser.html 的 supply-list 有使用。
+========================================================= */
 
 .icon{
     width:54px;
@@ -193,27 +264,23 @@ main section:not(.hero){
     font-weight:900;
 }
 
-.icon-group{
-    display:flex;
-    align-items:center;
-    gap:12px;
 
-    margin-bottom:26px;
-}
+/* =========================================================
+   06. Flat Feature Cards 扁卡片模組
+   用途：
+   - 適合短文字、規格型、條列型資訊。
+   - 目前 disc-diffuser.html 的產品特色與規格分頁有使用。
+   使用方式：
+   <div class="flat-feature-grid">
+       <div class="flat-feature-card">
+           <span>標籤</span>
+           <strong>內容</strong>
+       </div>
+   </div>
 
-.icon-group .icon{
-    margin-bottom:0;
-}
-
-.jump-card{
-    text-decoration:none;
-    color:inherit;
-}
-
-/* =========================
-   Flat Feature Cards
-   共用扁卡片
-========================= */
+   compact-grid：
+   - 用於規格分頁內部，卡片高度與內距較小。
+========================================================= */
 
 .flat-feature-grid{
     display:grid;
@@ -255,57 +322,120 @@ main section:not(.hero){
     line-height:1.55;
     font-weight:850;
 }
-/* =========================
-   Structure Split Layout
-   共用左右分割版型
-========================= */
 
-.structure-split{
+.flat-feature-grid.compact-grid{
+    grid-template-columns:repeat(4, 1fr);
+    gap:16px;
+}
+
+.flat-feature-grid.compact-grid .flat-feature-card{
+    min-height:78px;
+    padding:16px 18px;
+}
+
+
+/* =========================================================
+   07. Spec Layout 圖片＋規格卡片模組
+   用途：
+   - 左側圖片，右側規格卡片。
+   - 適合管狀產品這種需要圖片與完整規格並排展示的頁面。
+   使用頁面：
+   - tube-diffuser.html
+========================================================= */
+
+.spec-layout{
     display:grid;
-    grid-template-columns:.85fr 1.15fr;
-    gap:54px;
-
-    align-items:center;
+    grid-template-columns:420px 1fr;
+    gap:60px;
+    align-items:start;
 }
 
-.structure-copy h2{
-    margin:0 0 18px;
-
-    color:var(--navy);
-
-    font-size:42px;
-    line-height:1.2;
-    font-weight:950;
+.product-visual-panel{
+    position:sticky;
+    top:120px;
 }
 
-.structure-copy p{
-    max-width:520px;
-    margin:0;
+.visual-badge{
+    margin-top:22px;
 
-    color:var(--muted);
-
-    font-size:17px;
-    line-height:1.9;
+    display:flex;
+    justify-content:center;
 }
 
-.structure-card-grid{
+.visual-badge span{
+    padding:10px 18px;
+
+    border-radius:999px;
+
+    background:#0d8b63;
+    color:#ffffff;
+
+    font-size:14px;
+    font-weight:700;
+}
+
+.spec-grid.compact{
     display:grid;
     grid-template-columns:repeat(2, 1fr);
     gap:18px;
 }
 
-.structure-card-grid .flat-feature-card{
-    min-height:104px;
+.spec-card{
+    padding:22px;
+
+    background:#ffffff;
+
+    border:1px solid rgba(0,0,0,.06);
+    border-radius:20px;
+
+    transition:.25s ease;
 }
 
-.structure-card-wide{
+.spec-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 24px rgba(0,0,0,.06);
+}
+
+.spec-card.full{
     grid-column:1 / -1;
 }
 
-/* =========================
-   Spec Tabs
-   共用規格分頁
-========================= */
+.spec-label{
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#0d8b63;
+
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+}
+
+.spec-card strong{
+    display:block;
+
+    color:#1f2937;
+
+    font-size:15px;
+    font-weight:700;
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   08. Spec Tabs 規格分頁模組
+   用途：
+   - 用於同一區塊內切換不同規格資料。
+   - 適合資料很多、但不想讓頁面太長的產品。
+   使用頁面：
+   - disc-diffuser.html
+
+   JS 對應：
+   - 按鈕使用 .spec-tab-btn 與 data-spec-panel
+   - 內容使用 .spec-tab-panel 與對應 id
+========================================================= */
 
 .spec-tabs{
     padding:28px;
@@ -328,6 +458,8 @@ main section:not(.hero){
 
 .spec-tab-btn{
     padding:13px 18px;
+
+    appearance:none;
 
     border:1px solid var(--line);
     border-radius:999px;
@@ -382,360 +514,19 @@ main section:not(.hero){
     line-height:1.85;
 }
 
-.flat-feature-grid.compact-grid{
-    grid-template-columns:repeat(4, 1fr);
-    gap:16px;
-}
 
-.flat-feature-grid.compact-grid .flat-feature-card{
-    min-height:78px;
-    padding:16px 18px;
-}
-
-/* =========================
-   Product Spec Table
-========================= */
-
-.spec-table{
-    width:100%;
-    margin-top:20px;
-
-    border-collapse:collapse;
-    overflow:hidden;
-
-    border:1px solid var(--line);
-    border-radius:22px;
-
-    background:var(--white);
-}
-
-.spec-table th,
-.spec-table td{
-    padding:15px 16px;
-
-    border-bottom:1px solid var(--line);
-
-    text-align:left;
-}
-
-.spec-table th{
-    width:34%;
-
-    background:#edf5f7;
-    color:var(--navy);
-}
-
-
-/* =========================
-   Product Responsive
-========================= */
-
-@media(max-width:980px){
-
-    .cards-3,
-    .cards-4{
-        grid-template-columns:1fr;
-    }
-
-}
-
-/* =========================
-   Product Specs Section
-========================= */
-
-.product-section{
-    padding:100px 0;
-    background:#f6fbf8;
-}
-
-.spec-layout{
-    display:grid;
-    grid-template-columns:420px 1fr;
-    gap:60px;
-    align-items:start;
-}
-
-.product-visual-panel{
-    position:sticky;
-    top:120px;
-}
-
-.visual-badge{
-    margin-top:22px;
-
-    display:flex;
-    justify-content:center;
-}
-
-.visual-badge span{
-    padding:10px 18px;
-
-    border-radius:999px;
-
-    background:#0d8b63;
-    color:#fff;
-
-    font-size:14px;
-    font-weight:700;
-}
-
-.spec-grid.compact{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:18px;
-}
-
-.spec-card{
-    padding:22px;
-
-    background:#fff;
-
-    border:1px solid rgba(0,0,0,.06);
-    border-radius:20px;
-
-    transition:.25s ease;
-}
-
-.spec-card:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 24px rgba(0,0,0,.06);
-}
-
-.spec-card.full{
-    grid-column:1 / -1;
-}
-
-.spec-label{
-    display:block;
-
-    margin-bottom:8px;
-
-    color:#0d8b63;
-
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:.04em;
-    text-transform:uppercase;
-}
-
-.spec-card strong{
-    display:block;
-
-    color:#1f2937;
-
-    font-size:15px;
-    font-weight:700;
-    line-height:1.6;
-}
-
-
-/* =========================
-   Performance & Applications
-========================= */
-
-.feature-summary{
-    padding:100px 0;
-    background:#ffffff;
-}
-
-.summary-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:36px;
-}
-
-.summary-block{
-    padding:42px;
-
-    background:var(--white);
-
-    border:1px solid var(--line);
-    border-radius:32px;
-
-    box-shadow:0 12px 32px rgba(7,48,71,.05);
-}
-
-.summary-block h2{
-    margin:12px 0 18px;
-
-    color:var(--navy);
-
-    font-size:42px;
-    line-height:1.2;
-}
-
-.summary-block p{
-    margin-bottom:30px;
-
-    color:var(--muted);
-
-    line-height:1.9;
-}
-
-.tag-group{
-    display:flex;
-    flex-wrap:wrap;
-    gap:14px;
-}
-
-.feature-tag{
-    padding:12px 18px;
-
-    border:1px solid rgba(53,179,74,.16);
-    border-radius:999px;
-
-    background:rgba(53,179,74,.08);
-    color:var(--navy);
-
-    font-size:15px;
-    font-weight:700;
-}
-
-
-/* =========================
-   Why EnviroValor
-========================= */
-
-.why-envirovalor{
-    padding:100px 0;
-    background:#f6fbf8;
-}
-.why-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:26px;
-
-    margin-top:60px;
-}
-
-.why-card{
-    position:relative;
-
-    padding:38px;
-
-    overflow:hidden;
-
-    background:var(--white);
-
-    border:1px solid var(--line);
-    border-radius:30px;
-
-    transition:.35s;
-}
-
-.why-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 24px 48px rgba(7,48,71,.08);
-}
-
-.why-number{
-    margin-bottom:22px;
-
-    color:rgba(49,188,72,.58);
-
-    font-size:64px;
-    font-weight:800;
-    line-height:1;
-}
-
-.why-card h3{
-    margin-bottom:16px;
-
-    color:var(--navy);
-
-    font-size:24px;
-    line-height:1.3;
-}
-
-.why-card p{
-    color:var(--muted);
-    line-height:1.9;
-}
-
-
-/* =========================
-   Responsive
-========================= */
-
-@media(max-width:768px){
-
-    .hero .container{
-        width:100%;
-        max-width:100%;
-        padding-left:16px;
-        padding-right:16px;
-    }
-
-    .hero-grid{
-        grid-template-columns:1fr !important;
-        gap:32px;
-    }
-
-    .hero h1{
-        font-size:40px;
-        line-height:1.15;
-        word-break:break-word;
-    }
-
-    .hero p{
-        font-size:17px;
-        line-height:1.8;
-        word-break:break-word;
-    }
-
-    .hero-card{
-        width:100%;
-        max-width:100%;
-        padding:10px;
-    }
-
-    .product-slider{
-        width:100%;
-        max-width:100%;
-    }
-
-    .slider-container{
-        width:100%;
-        max-width:100%;
-        aspect-ratio:4 / 3;
-    }
-
-    .slider-btn{
-        width:42px;
-        height:42px;
-        font-size:22px;
-    }
-}
-
-
-/* =========================
-   Safety
-========================= */
-
-html,
-body{
-    overflow-x:hidden;
-}
-
-*{
-    box-sizing:border-box;
-}
-
-
-
-
-/* =========================
-   Product Overview Tabs
-========================= */
-
-.product-overview{
-    padding:90px 0;
-    background:#ffffff;
-}
-
-.product-overview .cards-3{
-    margin-bottom:54px;
-}
+/* =========================================================
+   09. Product Overview Tabs 產品特色分頁模組
+   用途：
+   - 左側為功能選單，右側為詳細說明。
+   - 適合敘事型、技術說明較長的產品特色。
+   使用頁面：
+   - tube-diffuser.html
+
+   JS 對應：
+   - 按鈕使用 .product-tab-item 與 data-panel
+   - 內容使用 .product-tab-panel 與對應 id
+========================================================= */
 
 .product-tab-layout{
     display:grid;
@@ -871,256 +662,26 @@ body{
     line-height:1.7;
 }
 
-.product-tab-tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
 
-    margin-top:28px;
-}
+/* =========================================================
+   10. Split Layout 左右分割說明模組
+   用途：
+   - 左側放主說明文字，右側放卡片。
+   - structure-split：偏產品結構說明。
+   - split-feature：偏單一功能深入說明。
+   使用頁面：
+   - disc-diffuser.html
+========================================================= */
 
-.product-tab-tag{
-    padding:12px 16px;
-
-    border-radius:999px;
-
-    background:rgba(53,179,74,.08);
-    border:1px solid rgba(53,179,74,.16);
-
-    color:var(--navy);
-
-    font-size:15px;
-    font-weight:800;
-}
-
-
-
-@media(max-width:900px){
-
-    .product-tab-layout{
-        grid-template-columns:1fr;
-    }
-
-    .product-tab-list{
-        display:grid;
-        gap:10px;
-    }
-
-}
-
-@media(max-width:640px){
-
-    .product-overview{
-        padding:64px 0 76px;
-    }
-
-    .product-tab-card{
-        padding:28px;
-    }
-
-    .product-tab-panel h3{
-        font-size:26px;
-    }
-
-}
-
-@media(max-width:991px){
-
-    .spec-layout{
-        grid-template-columns:1fr;
-        gap:40px;
-    }
-
-    .product-visual-panel{
-        position:relative;
-        top:auto;
-    }
-}
-
-@media(max-width:980px){
-
-    .cards-3,
-    .cards-4,
-    .why-grid,
-    .summary-grid{
-        grid-template-columns:1fr;
-    }
-
-    .why-card{
-        padding:32px;
-    }
-
-    .summary-block h2{
-        font-size:34px;
-    }
-}
-
-@media(max-width:640px){
-
-    .product-section{
-        padding:80px 0;
-    }
-
-    .spec-grid.compact{
-        grid-template-columns:1fr;
-    }
-
-    .product-slider{
-        width:100%;
-        max-width:400px;
-    }
-
-    .product-overview{
-        padding:64px 0 76px;
-    }
-
-    .product-tab-card{
-        padding:28px;
-    }
-
-    .product-tab-panel h3{
-        font-size:26px;
-    }
-}
-
-/* =========================
-   Disc Page Cards
-========================= */
-
-.disc-card-grid{
+.structure-split{
     display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:18px;
-}
-
-.disc-card-grid .spec-card.full{
-    grid-column:1 / -1;
-}
-
-/* =========================
-   Shared Structure Grid
-   共用 3 + 2 卡片排版
-========================= */
-
-.structure-grid{
-    display:grid;
-    grid-template-columns:repeat(6, 1fr);
-    gap:22px;
-}
-
-.structure-grid .card{
-    grid-column:span 2;
-}
-
-.structure-grid .card:nth-child(4),
-.structure-grid .card:nth-child(5){
-    grid-column:span 3;
-}
-
-
-/* =========================
-   Disc Page Responsive
-========================= */
-
-@media(max-width:980px){
-
-    .disc-card-grid{
-        grid-template-columns:1fr;
-    }
-
-    .structure-grid{
-        grid-template-columns:1fr;
-    }
-
-    .structure-grid .card,
-    .structure-grid .card:nth-child(4),
-    .structure-grid .card:nth-child(5){
-        grid-column:span 1;
-    }
-
-    .flat-feature-grid,
-    .flat-feature-grid.compact-grid{
-        grid-template-columns:1fr;
-    }
-
-    .structure-split{
-        grid-template-columns:1fr;
-        gap:32px;
-    }
-
-    .structure-card-grid{
-        grid-template-columns:1fr;
-    }
-
-    .structure-card-wide{
-        grid-column:auto;
-    }
-}
-
-/* =========================
-   Single Summary Block
-========================= */
-
-.single-summary{
-    grid-template-columns:1fr;
-}
-
-.single-summary .summary-block{
-    max-width:1160px;
-    margin:0 auto;
-}
-
-/* =========================
-   Disc Final Layout Fix
-========================= */
-
-.section-white{
-    background:#ffffff;
-}
-
-.section-soft{
-    background:#f6fbf8;
-}
-
-.disc-page .section-head{
-    max-width:780px;
-    margin:0 auto 42px;
-    text-align:center;
-}
-
-.disc-page .section-head h2{
-    margin:0 0 16px;
-
-    color:var(--navy);
-
-    font-size:44px;
-    line-height:1.2;
-    font-weight:950;
-}
-
-.disc-page .section-head p{
-    margin:0;
-
-    color:var(--muted);
-
-    font-size:17px;
-    line-height:1.9;
-}
-
-
-/* =========================
-   Split Feature
-   左右分割說明區
-========================= */
-
-.split-feature{
-    display:grid;
-    grid-template-columns:.9fr 1.1fr;
-    gap:48px;
+    grid-template-columns:.85fr 1.15fr;
+    gap:54px;
 
     align-items:center;
 }
 
+.structure-copy h2,
 .split-feature-copy h2{
     margin:0 0 18px;
 
@@ -1131,13 +692,37 @@ body{
     font-weight:950;
 }
 
+.structure-copy p,
 .split-feature-copy p{
+    max-width:520px;
     margin:0;
 
     color:var(--muted);
 
     font-size:17px;
     line-height:1.9;
+}
+
+.structure-card-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:18px;
+}
+
+.structure-card-grid .flat-feature-card{
+    min-height:104px;
+}
+
+.structure-card-wide{
+    grid-column:1 / -1;
+}
+
+.split-feature{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    gap:48px;
+
+    align-items:center;
 }
 
 .split-feature-cards{
@@ -1147,15 +732,70 @@ body{
 }
 
 
-/* =========================
-   Dual Summary
-   應用範圍 + 供貨優勢
-========================= */
+/* =========================================================
+   11. Summary Blocks 摘要卡片與標籤模組
+   用途：
+   - summary-grid：一般雙欄摘要。
+   - dual-summary-grid：應用範圍＋供貨優勢這類雙欄摘要。
+   - feature-tag：膠囊型標籤。
+   - supply-list：帶 icon 的供貨優勢清單。
+   使用頁面：
+   - tube-diffuser.html 使用 summary-grid
+   - disc-diffuser.html 使用 dual-summary-grid / supply-list
+========================================================= */
 
+.summary-grid,
 .dual-summary-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2, 1fr);
     gap:36px;
+}
+
+.summary-block{
+    padding:42px;
+
+    background:var(--white);
+
+    border:1px solid var(--line);
+    border-radius:32px;
+
+    box-shadow:0 12px 32px rgba(7,48,71,.05);
+}
+
+.summary-block h2{
+    margin:12px 0 18px;
+
+    color:var(--navy);
+
+    font-size:42px;
+    line-height:1.2;
+}
+
+.summary-block p{
+    margin-bottom:30px;
+
+    color:var(--muted);
+
+    line-height:1.9;
+}
+
+.tag-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+}
+
+.feature-tag{
+    padding:12px 18px;
+
+    border:1px solid rgba(53,179,74,.16);
+    border-radius:999px;
+
+    background:rgba(53,179,74,.08);
+    color:var(--navy);
+
+    font-size:15px;
+    font-weight:700;
 }
 
 .supply-list{
@@ -1201,40 +841,216 @@ body{
 }
 
 
-/* =========================
-   Spec Tabs Fix
-========================= */
+/* =========================================================
+   12. Why EnviroValor 行銷卡片模組
+   用途：
+   - 額外的產品賣點說明區。
+   - 適合放 3 或 6 張較完整的行銷卡片。
+   使用頁面：
+   - tube-diffuser.html
+========================================================= */
 
-.spec-tab-btn{
-    appearance:none;
+.why-envirovalor{
+    padding:100px 0;
+    background:#f6fbf8;
 }
 
-.spec-tab-panel{
-    display:none;
+.why-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:26px;
+
+    margin-top:60px;
 }
 
-.spec-tab-panel.active{
-    display:block;
+.why-card{
+    position:relative;
+
+    padding:38px;
+
+    overflow:hidden;
+
+    background:var(--white);
+
+    border:1px solid var(--line);
+    border-radius:30px;
+
+    transition:.35s;
+}
+
+.why-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 24px 48px rgba(7,48,71,.08);
+}
+
+.why-number{
+    margin-bottom:22px;
+
+    color:rgba(49,188,72,.58);
+
+    font-size:64px;
+    font-weight:800;
+    line-height:1;
+}
+
+.why-card h3{
+    margin-bottom:16px;
+
+    color:var(--navy);
+
+    font-size:24px;
+    line-height:1.3;
+}
+
+.why-card p{
+    color:var(--muted);
+    line-height:1.9;
 }
 
 
-/* =========================
-   Mobile Fix
-========================= */
+/* =========================================================
+   13. Responsive RWD 響應式設定
+   用途：
+   - 980px 以下：大部分多欄區塊改成單欄。
+   - 768px 以下：Hero 圖文上下排列，圖片寬度改為手機友善比例。
+   - 640px 以下：壓縮卡片與區塊間距。
+========================================================= */
+
+@media(max-width:991px){
+
+    .spec-layout{
+        grid-template-columns:1fr;
+        gap:40px;
+    }
+
+    .product-visual-panel{
+        position:relative;
+        top:auto;
+    }
+
+}
 
 @media(max-width:980px){
 
+    .flat-feature-grid,
+    .flat-feature-grid.compact-grid,
+    .structure-card-grid,
+    .split-feature-cards,
+    .summary-grid,
+    .dual-summary-grid,
+    .why-grid{
+        grid-template-columns:1fr;
+    }
+
+    .structure-split,
     .split-feature,
-    .dual-summary-grid{
+    .product-tab-layout{
         grid-template-columns:1fr;
     }
 
-    .split-feature-cards{
-        grid-template-columns:1fr;
+    .structure-split{
+        gap:32px;
     }
 
-    .disc-page .section-head h2{
+    .structure-card-wide{
+        grid-column:auto;
+    }
+
+    .product-tab-list{
+        display:grid;
+        gap:10px;
+    }
+
+    .why-card{
+        padding:32px;
+    }
+
+    .summary-block h2{
         font-size:34px;
+    }
+
+    .product-page .section-head h2,
+    .product-page .section-heading h2{
+        font-size:34px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .hero .container{
+        width:100%;
+        max-width:100%;
+        padding-left:16px;
+        padding-right:16px;
+    }
+
+    .hero-grid{
+        grid-template-columns:1fr !important;
+        gap:32px;
+    }
+
+    .hero h1{
+        font-size:40px;
+        line-height:1.15;
+        word-break:break-word;
+    }
+
+    .hero p{
+        font-size:17px;
+        line-height:1.8;
+        word-break:break-word;
+    }
+
+    .hero-card{
+        width:100%;
+        max-width:100%;
+        padding:10px;
+    }
+
+    .product-slider{
+        width:100%;
+        max-width:100%;
+    }
+
+    .slider-container{
+        width:100%;
+        max-width:100%;
+        aspect-ratio:4 / 3;
+    }
+
+    .slider-btn{
+        width:42px;
+        height:42px;
+
+        font-size:22px;
+    }
+
+}
+
+@media(max-width:640px){
+
+    main section:not(.hero),
+    .product-section,
+    .feature-summary,
+    .why-envirovalor{
+        padding:80px 0;
+    }
+
+    .product-overview{
+        padding:64px 0 76px;
+    }
+
+    .spec-grid.compact{
+        grid-template-columns:1fr;
+    }
+
+    .product-tab-card{
+        padding:28px;
+    }
+
+    .product-tab-panel h3{
+        font-size:26px;
     }
 
 }
