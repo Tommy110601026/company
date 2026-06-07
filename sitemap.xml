@@ -2,24 +2,44 @@
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url>
-    <loc>https://envirovalor.com/html/en/index.html</loc>
-  </url>
+    <url>
+        <loc>https://www.envirovalor.com/html/en/index.html</loc>
+    </url>
 
-  <url>
-    <loc>https://envirovalor.com/html/en/about.html</loc>
-  </url>
+    <url>
+        <loc>https://www.envirovalor.com/html/en/about.html</loc>
+    </url>
 
-  <url>
-    <loc>https://envirovalor.com/html/en/disc-diffuser.html</loc>
-  </url>
+    <url>
+        <loc>https://www.envirovalor.com/html/en/disc-diffuser.html</loc>
+    </url>
 
-  <url>
-    <loc>https://envirovalor.com/html/en/tube-diffuser.html</loc>
-  </url>
+    <url>
+        <loc>https://www.envirovalor.com/html/en/tube-diffuser.html</loc>
+    </url>
 
-  <url>
-    <loc>https://envirovalor.com/html/en/download.html</loc>
-  </url>
+    <url>
+        <loc>https://www.envirovalor.com/html/en/download.html</loc>
+    </url>
+
+    <url>
+        <loc>https://www.envirovalor.com/html/zh/index.html</loc>
+    </url>
+
+    <url>
+        <loc>https://www.envirovalor.com/html/zh/about.html</loc>
+    </url>
+
+    <url>
+        <loc>https://www.envirovalor.com/html/zh/disc-diffuser.html</loc>
+    </url>
+
+    <url>
+        <loc>https://www.envirovalor.com/html/zh/tube-diffuser.html</loc>
+    </url>
+
+    <url>
+        <loc>https://www.envirovalor.com/html/zh/download.html</loc>
+    </url>
 
 </urlset>
