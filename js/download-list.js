@@ -51,10 +51,17 @@ export async function initDownloadList(){
                     ? "Upload Date"
                     : "上傳日期";
 
+            // 取得檔案類型，例如 PDF、DOCX、XLSX、ZIP
+            const fileType =
+                file.fileType
+                    ? file.fileType.toUpperCase()
+                    : "FILE";
+
+            // 依照檔案類型自動產生顯示文字
             const fileTypeLabel =
                 isEnglish
-                    ? "PDF File"
-                    : "PDF 文件";
+                    ? `${fileType} File`
+                    : `${fileType} 文件`;
 
             const buttonText =
                 isEnglish
@@ -71,7 +78,7 @@ export async function initDownloadList(){
                 <div class="download-info">
 
                     <div class="file-icon">
-                        PDF
+                        ${escapeHtml(fileType)}
                     </div>
 
                     <div class="file-content">
@@ -93,7 +100,7 @@ export async function initDownloadList(){
                             </span>
 
                             <span>
-                                ${fileTypeLabel}
+                                ${escapeHtml(fileTypeLabel)}
                             </span>
 
                             <span>
