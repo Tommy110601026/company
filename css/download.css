@@ -204,6 +204,46 @@
 }
 
 /* =========================
+   Download File Description
+========================= */
+
+.file-description{
+    margin:8px 0 10px;
+    color:#5f6f7f;
+    font-size:14px;
+    line-height:1.7;
+    max-width:760px;
+}
+
+/* =========================
+   Download File Highlight List
+========================= */
+
+.file-description-list{
+    margin:8px 0 12px;
+    padding-left:18px;
+    color:#5f6f7f;
+    font-size:14px;
+    line-height:1.7;
+}
+
+.file-description-list li{
+    margin-bottom:2px;
+}
+
+/* =========================
+   Download Error Message
+========================= */
+
+.download-error{
+    padding:24px;
+    background:#fff;
+    border:1px solid #dbe7ee;
+    border-radius:18px;
+    color:#607083;
+}
+
+/* =========================
     Responsive
 ========================= */
 
