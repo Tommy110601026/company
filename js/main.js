@@ -6,6 +6,7 @@ import { initContact } from "./contact.js";
 import { initSlider } from "./product-slider.js";
 import { initProductTabs } from "./product-tabs.js";
 import { initDownloadList } from "./download-list.js";
+import { initScrollTop } from "./scroll-top.js";
 
 async function initApp(){
 
@@ -18,6 +19,7 @@ async function initApp(){
     initSlider();
     initProductTabs();
     initDownloadList();
+    initScrollTop();
 
 }
 

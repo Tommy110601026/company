@@ -196,6 +196,52 @@ h2{
     margin-bottom:32px;
 }
 
+.scroll-top-btn{
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 50%;
+    background: #1f7a4d;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 999;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease,
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+.scroll-top-btn.is-visible{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-top-btn:hover{
+    background: #155f3a;
+}
+
+@media(max-width: 768px){
+    .scroll-top-btn{
+        right: 18px;
+        bottom: 18px;
+        width: 42px;
+        height: 42px;
+        font-size: 20px;
+    }
+}
+
 @media (max-width:920px){
 
     .hero-grid{
