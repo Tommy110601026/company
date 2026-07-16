@@ -56,17 +56,7 @@
         "fileTypeLabelZh": "PDF 文件",
         "fileTypeLabelEn": "PDF File",
         "fileUrl": "../../file/EV-270_Technical_Data_May_2026.pdf",
-        "descriptionZh": "EV-270技術資料，包含膜片材質、氧氣傳輸性能、氣泡尺寸、產品結構與污水曝氣應用資訊。",
-        "descriptionEn": "Technical data sheet for the EV-270 fine bubble disc diffuser, including membrane material, oxygen transfer performance, bubble size, product structure, and wastewater aeration applications.",
-        "highlightsZh": [
-            "待甲方確認：氧氣傳輸效率、通氣量與測試條件",
-            "待甲方確認：膜片材質、拉伸強度、硬度與耐熱資料",
-            "待甲方確認：EV-270技術參數與產品圖面資訊"
-        ],
-        "highlightsEn": [
-            "Pending confirmation: Oxygen transfer efficiency, airflow rate, and test conditions",
-            "Pending confirmation: Membrane material, tensile strength, hardness, and heat resistance data",
-            "Pending confirmation: EV-270 technical parameters and product drawing information"
-        ]
+        "descriptionZh": "EV-270 技術資料，內容包含膜片材質、產品尺寸、通氣量、氣泡尺寸、重量及基本技術規格。",
+        "descriptionEn": "Technical data sheet for the EV-270 fine bubble disc diffuser, including material information, dimensions, airflow range, bubble size, operating temperature, and product drawing."
     }
 ]
