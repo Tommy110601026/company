@@ -133,14 +133,14 @@ export async function initDownloadList(){
                     ${
                         canPreview
                             ? `
-                                <button
+                                <a
                                     class="preview-btn"
-                                    type="button"
-                                    data-preview-url="${escapeHtml(previewUrl)}"
-                                    data-file-name="${escapeHtml(file.fileName)}"
+                                    href="${escapeHtml(previewUrl)}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                 >
                                     ${previewButtonText}
-                                </button>
+                                </a>
                             `
                             : ""
                     }
@@ -159,8 +159,6 @@ export async function initDownloadList(){
             downloadList.appendChild(card);
         });
 
-        // 啟用線上預覽視窗
-        initPreviewModal(downloadList, isEnglish);
 
     }catch(error){
 
@@ -178,158 +176,6 @@ export async function initDownloadList(){
     }
 }
 
-
-// =========================
-// PDF 線上預覽視窗
-// =========================
-
-function initPreviewModal(
-    downloadList,
-    isEnglish
-){
-
-    const previewModal =
-        document.getElementById("previewModal");
-
-    const previewFrame =
-        document.getElementById("previewFrame");
-
-    const previewTitle =
-        document.getElementById("previewTitle");
-
-    const closePreviewButton =
-        document.getElementById("closePreviewModal");
-
-    // 找不到預覽元件時停止執行
-    if(
-        !previewModal ||
-        !previewFrame ||
-        !previewTitle ||
-        !closePreviewButton
-    ){
-        return;
-    }
-
-    // 避免重複綁定事件
-    if(
-        previewModal.dataset.initialized === "true"
-    ){
-        return;
-    }
-
-    previewModal.dataset.initialized =
-        "true";
-
-    // 開啟預覽
-    function openPreview(
-        previewUrl,
-        fileName
-    ){
-
-        previewTitle.textContent =
-            fileName ||
-            (
-                isEnglish
-                    ? "Online Preview"
-                    : "型錄線上預覽"
-            );
-
-        previewFrame.title =
-            fileName ||
-            (
-                isEnglish
-                    ? "Online Preview"
-                    : "型錄線上預覽"
-            );
-
-        previewFrame.src =
-            previewUrl;
-
-        previewModal.hidden =
-            false;
-
-        document.body.classList.add(
-            "preview-open"
-        );
-
-        closePreviewButton.focus();
-    }
-
-    // 關閉預覽
-    function closePreview(){
-
-        previewModal.hidden =
-            true;
-
-        // 清除 PDF，避免關閉後仍占用資源
-        previewFrame.src =
-            "about:blank";
-
-        document.body.classList.remove(
-            "preview-open"
-        );
-    }
-
-    // 監聽下載清單中的預覽按鈕
-    downloadList.addEventListener(
-        "click",
-        (event) => {
-
-            const previewButton =
-                event.target.closest(
-                    ".preview-btn"
-                );
-
-            if(!previewButton) return;
-
-            const previewUrl =
-                previewButton.dataset.previewUrl;
-
-            const fileName =
-                previewButton.dataset.fileName;
-
-            if(!previewUrl) return;
-
-            openPreview(
-                previewUrl,
-                fileName
-            );
-        }
-    );
-
-    // 點擊關閉按鈕
-    closePreviewButton.addEventListener(
-        "click",
-        closePreview
-    );
-
-    // 點擊黑色背景時關閉
-    previewModal.addEventListener(
-        "click",
-        (event) => {
-
-            if(
-                event.target === previewModal
-            ){
-                closePreview();
-            }
-        }
-    );
-
-    // 按下 Esc 時關閉
-    document.addEventListener(
-        "keydown",
-        (event) => {
-
-            if(
-                event.key === "Escape" &&
-                !previewModal.hidden
-            ){
-                closePreview();
-            }
-        }
-    );
-}
 
 
 // =========================
