@@ -243,6 +243,201 @@
     color:#607083;
 }
 
+
+/* =========================
+   Download Actions
+   線上預覽與下載按鈕
+========================= */
+
+.download-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    flex-shrink: 0;
+    gap: 10px;
+    min-width: 145px;
+}
+
+.preview-btn,
+.download-actions .download-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 11px 18px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* 線上預覽按鈕 */
+.preview-btn {
+    color: #16734b;
+    background-color: #ffffff;
+    border: 1px solid #16734b;
+}
+
+.preview-btn:hover {
+    color: #ffffff;
+    background-color: #16734b;
+    transform: translateY(-1px);
+}
+
+/* 下載按鈕 */
+.download-actions .download-btn {
+    color: #ffffff;
+    background-color: #16734b;
+    border: 1px solid #16734b;
+}
+
+.download-actions .download-btn:hover {
+    background-color: #105a3b;
+    border-color: #105a3b;
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   PDF Preview Modal
+========================= */
+
+body.preview-open {
+    overflow: hidden;
+}
+
+.preview-modal[hidden] {
+    display: none;
+}
+
+.preview-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background-color: rgba(0, 0, 0, 0.72);
+}
+
+.preview-dialog {
+    display: flex;
+    flex-direction: column;
+    width: min(1100px, 100%);
+    height: min(88vh, 850px);
+    overflow: hidden;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.32);
+}
+
+.preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    gap: 20px;
+    min-height: 64px;
+    padding: 14px 20px;
+    border-bottom: 1px solid #e4e8e6;
+}
+
+.preview-header h2 {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    color: #1b2d25;
+    font-size: 18px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.preview-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    color: #333333;
+    background-color: transparent;
+    border: 0;
+    border-radius: 50%;
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.preview-close-btn:hover {
+    color: #16734b;
+    background-color: #eef6f2;
+}
+
+.preview-body {
+    flex: 1;
+    min-height: 0;
+    background-color: #eeeeee;
+}
+
+.preview-body iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 768px) {
+
+    .download-actions {
+        width: 100%;
+        min-width: 0;
+        margin-top: 18px;
+    }
+
+    .preview-modal {
+        padding: 0;
+    }
+
+    .preview-dialog {
+        width: 100%;
+        height: 100%;
+        max-height: none;
+        border-radius: 0;
+    }
+
+    .preview-header {
+        min-height: 58px;
+        padding: 10px 14px;
+    }
+
+    .preview-header h2 {
+        font-size: 16px;
+    }
+}
 /* =========================
     Responsive
 ========================= */

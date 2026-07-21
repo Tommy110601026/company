@@ -57,13 +57,28 @@ export async function initDownloadList(){
                     ? file.fileType.toUpperCase()
                     : "FILE";
 
+            // 優先使用 previewUrl
+            // 沒有設定時，直接使用原本的 fileUrl
+            const previewUrl =
+                file.previewUrl || file.fileUrl;
+
+            // 目前僅讓 PDF 顯示線上預覽功能
+            const canPreview =
+                fileType === "PDF" &&
+                Boolean(previewUrl);
+
             // 依照檔案類型自動產生顯示文字
             const fileTypeLabel =
                 isEnglish
                     ? `${fileType} File`
                     : `${fileType} 文件`;
 
-            const buttonText =
+            const previewButtonText =
+                isEnglish
+                    ? "Online Preview"
+                    : "線上預覽";
+
+            const downloadButtonText =
                 isEnglish
                     ? "Download"
                     : "下載型錄";
@@ -113,16 +128,39 @@ export async function initDownloadList(){
 
                 </div>
 
-                <a
-                class="download-btn"
-                href="${escapeHtml(file.fileUrl)}"
-                download>
-                    ${buttonText}
-                </a>
+                <div class="download-actions">
+
+                    ${
+                        canPreview
+                            ? `
+                                <button
+                                    class="preview-btn"
+                                    type="button"
+                                    data-preview-url="${escapeHtml(previewUrl)}"
+                                    data-file-name="${escapeHtml(file.fileName)}"
+                                >
+                                    ${previewButtonText}
+                                </button>
+                            `
+                            : ""
+                    }
+
+                    <a
+                        class="download-btn"
+                        href="${escapeHtml(file.fileUrl)}"
+                        download
+                    >
+                        ${downloadButtonText}
+                    </a>
+
+                </div>
             `;
 
             downloadList.appendChild(card);
         });
+
+        // 啟用線上預覽視窗
+        initPreviewModal(downloadList, isEnglish);
 
     }catch(error){
 
@@ -140,6 +178,160 @@ export async function initDownloadList(){
     }
 }
 
+
+// =========================
+// PDF 線上預覽視窗
+// =========================
+
+function initPreviewModal(
+    downloadList,
+    isEnglish
+){
+
+    const previewModal =
+        document.getElementById("previewModal");
+
+    const previewFrame =
+        document.getElementById("previewFrame");
+
+    const previewTitle =
+        document.getElementById("previewTitle");
+
+    const closePreviewButton =
+        document.getElementById("closePreviewModal");
+
+    // 找不到預覽元件時停止執行
+    if(
+        !previewModal ||
+        !previewFrame ||
+        !previewTitle ||
+        !closePreviewButton
+    ){
+        return;
+    }
+
+    // 避免重複綁定事件
+    if(
+        previewModal.dataset.initialized === "true"
+    ){
+        return;
+    }
+
+    previewModal.dataset.initialized =
+        "true";
+
+    // 開啟預覽
+    function openPreview(
+        previewUrl,
+        fileName
+    ){
+
+        previewTitle.textContent =
+            fileName ||
+            (
+                isEnglish
+                    ? "Online Preview"
+                    : "型錄線上預覽"
+            );
+
+        previewFrame.title =
+            fileName ||
+            (
+                isEnglish
+                    ? "Online Preview"
+                    : "型錄線上預覽"
+            );
+
+        previewFrame.src =
+            previewUrl;
+
+        previewModal.hidden =
+            false;
+
+        document.body.classList.add(
+            "preview-open"
+        );
+
+        closePreviewButton.focus();
+    }
+
+    // 關閉預覽
+    function closePreview(){
+
+        previewModal.hidden =
+            true;
+
+        // 清除 PDF，避免關閉後仍占用資源
+        previewFrame.src =
+            "about:blank";
+
+        document.body.classList.remove(
+            "preview-open"
+        );
+    }
+
+    // 監聽下載清單中的預覽按鈕
+    downloadList.addEventListener(
+        "click",
+        (event) => {
+
+            const previewButton =
+                event.target.closest(
+                    ".preview-btn"
+                );
+
+            if(!previewButton) return;
+
+            const previewUrl =
+                previewButton.dataset.previewUrl;
+
+            const fileName =
+                previewButton.dataset.fileName;
+
+            if(!previewUrl) return;
+
+            openPreview(
+                previewUrl,
+                fileName
+            );
+        }
+    );
+
+    // 點擊關閉按鈕
+    closePreviewButton.addEventListener(
+        "click",
+        closePreview
+    );
+
+    // 點擊黑色背景時關閉
+    previewModal.addEventListener(
+        "click",
+        (event) => {
+
+            if(
+                event.target === previewModal
+            ){
+                closePreview();
+            }
+        }
+    );
+
+    // 按下 Esc 時關閉
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if(
+                event.key === "Escape" &&
+                !previewModal.hidden
+            ){
+                closePreview();
+            }
+        }
+    );
+}
+
+
 // =========================
 // 產生下載文件重點條列
 // =========================
@@ -156,6 +348,7 @@ function renderHighlights(highlights = []){
     const listItems =
         highlights
             .map((item) => {
+
                 return `
                     <li>
                         ${escapeHtml(item)}
@@ -171,8 +364,9 @@ function renderHighlights(highlights = []){
     `;
 }
 
+
 // =========================
-// HTML特殊字元轉義
+// HTML 特殊字元轉義
 // 避免 JSON 內容破壞 HTML 結構
 // =========================
 
