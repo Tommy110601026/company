@@ -89,11 +89,25 @@
     >
 
     <!-- 瀏覽器分頁的小圖示 -->
+    <!-- Favicon：Google 搜尋結果需要「正方形」且「網址固定」的圖示。
+         原本用的 slogo.jpg 是 449×514 非正方形，logo.jpg 是 1170×1166，
+         兩者都不符合，Google 因此改顯示預設的地球圖示。
+         favicon.svg 是由 logo 置中裁切成 512×512 的正方形版本，
+         並且全站都指向同一個絕對路徑。 -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-    rel="icon"
-    type="image/jpeg"
-    href="../../images/slogo.jpg"
-    />
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+    >
+
+    <!-- 進場動畫開關：必須在首次繪製前掛上，
+         否則內容會先出現、再被隱藏、再浮上來，看起來像閃一下。
+         關閉 JS 時這行不會執行，內容照常完整顯示。 -->
+    <script>document.documentElement.classList.add("js-motion");</script>
+
 
     <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/header.css">
@@ -133,400 +147,189 @@
 
 <body>
 
+    <!-- Grain overlay -->
+    <div class="grain" aria-hidden="true"></div>
+
     <!-- Header -->
-
     <header>
-
         <div class="container navbar">
 
-            <a
-            class="logo"
-            href="index.html">
-
-                <img
-                src="../../images/slogo.jpg"
-                alt="EnviroValor Logo"
-                />
-
+            <a class="logo" href="./">
+                <img alt="EnviroValor Logo" src="../../images/slogo.jpg"/>
             </a>
 
             <nav class="nav-links">
 
-                <a
-                href="index.html"
-                class="nav-link"
-                data-page="home">
-
-                    Home
-
-                </a>
+                <a class="nav-link" data-page="home" href="./">Home</a>
 
                 <div class="nav-dropdown">
 
-                    <button
-                    class="dropdown-btn"
-                    data-page="products"
-                    id="productDropdownBtn">
-
+                    <button class="dropdown-btn" data-page="products" id="productDropdownBtn">
                         Products ▼
-
                     </button>
 
-                    <div
-                    class="dropdown-menu"
-                    id="productDropdownMenu">
-
-                        <a href="disc-diffuser.html">
-                            Disc Diffusers
-                        </a>
-
-                        <a href="tube-diffuser.html">
-                            Tube Diffusers
-                        </a>
-
+                    <div class="dropdown-menu" id="productDropdownMenu">
+                        <a data-page="disc" href="disc-diffuser.html">Disc Diffusers</a>
+                        <a data-page="tube" href="tube-diffuser.html">Tube Diffusers</a>
                     </div>
 
                 </div>
 
-                <a
-                href="about.html"
-                class="nav-link"
-                data-page="about">
-
-                    About Us
-
-                </a>
-
-                <a
-                href="download.html"
-                class="nav-link"
-                data-page="download">
-
-                    Download
-
-                </a>
+                <a class="nav-link" data-page="about" href="about.html">About Us</a>
+                <a class="nav-link" data-page="download" href="download.html">Downloads</a>
 
             </nav>
 
             <div class="nav-actions">
-
-                <a
-                class="lang-btn"
-                href="../zh/tube-diffuser.html">
-
-                    中文
-
-                </a>
-
-                <button
-                class="quote-btn"
-                id="openInquiryModal">
-
-                    Contact Us
-
-                </button>
-
-                <button
-                class="mobile-menu-btn"
-                id="mobileMenuBtn">
-
-                    ☰
-
-                </button>
-
+                <a class="lang-btn" href="../zh/tube-diffuser.html" id="langBtn">ZH</a>
+                <button class="quote-btn" id="openInquiryModal">Contact Us</button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
             </div>
 
         </div>
-
     </header>
 
     <!-- Mobile Menu -->
-
     <div id="mobile-menu"></div>
 
     <main class="product-page tube-page">
 
-        <!-- Hero -->
-
         <section class="hero">
-
             <div class="container hero-grid">
 
                 <div>
+                    <div class="eyebrow">Fine Bubble Tube Diffusers</div>
 
-                    <div class="eyebrow">
-                        Fine Bubble Tube Diffusers
-                    </div>
-
-                    <h1>
-                        600 mm Tube Diffuser for Reliable Wastewater Aeration
-                    </h1>
+                    <h1>600 mm Tube Diffuser for Reliable Wastewater Aeration</h1>
 
                     <p>
                         EnviroValor supplies 600 mm fine bubble tube diffusers for municipal and industrial wastewater aeration systems. Designed for stable air distribution, uniform bubble release, and easy installation, this diffuser is suitable for aeration tanks, biological treatment systems, replacement projects, and system integration.
                     </p>
 
                     <div class="hero-buttons">
-
-                        <button
-                        class="btn-primary"
-                        id="openInquiryModalHero">
-
-                            Request Quote
-
+                        <button class="btn-primary" id="openInquiryModalHero">
+                            Request Quote <span class="arrow">→</span>
                         </button>
-
-                        <a
-                        class="btn-outline"
-                        href="#specs">
-
-                            View Specs
-
-                        </a>
-
+                        <a class="btn-outline" href="#specs">View Specs</a>
                     </div>
-
                 </div>
 
-                <div class="hero-card">
-
-                    <div class="product-slider tube-slider">
-
-                        <button class="slider-btn prev-btn">
-                            ❮
-                        </button>
-
-                        <div class="slider-container">
-
-                            <img
-                            src="../../images/tube/02.jpg"
-                            class="slider-image active"
-                            alt="EnviroValor fine bubble tube diffuser product image"
-                            >
-
-                            <img
-                            src="../../images/tube/03.jpg"
-                            class="slider-image"
-                            style="object-position:center 3%;"
-                            alt="EnviroValor tube diffuser side view"
-                            >
-
-                            <img
-                            src="../../images/tube/04.jpg"
-                            class="slider-image"
-                            alt="EnviroValor tube diffuser detail image"
-                            >
-
-                        </div>
-
-                        <button class="slider-btn next-btn">
-                            ❯
-                        </button>
-
+                <!-- Vector tube: perforation pattern and two 304 stainless clamps -->
+                <div class="tube-stage" aria-hidden="true">
+                    <div class="tube">
+                        <div class="tube-band pos-left"></div>
+                        <div class="tube-band pos-right"></div>
+                        <div class="tube-inlet"></div>
                     </div>
-
+                    <div class="bubbles"></div>
+                    <div class="tube-dim"><span>600 mm</span></div>
+                    <div class="tube-callout pos-top">EPDM Membrane</div>
+                    <div class="tube-callout pos-bottom">304 Stainless</div>
                 </div>
 
             </div>
-
         </section>
 
-        <!-- Product Overview -->
+        <section class="stats">
+            <div class="stats-grid">
 
-        <section class="product-overview">
-
-            <div class="container">
-
-                <div class="section-head center">
-
-                    <div class="kicker">
-                        Product Features
-                    </div>
-                
-                    <h2>
-                        Core Structure and Sealing Design
-                    </h2>
-                
-                    <p>
-                        From the spin-welded air inlet structure and EPDM membrane to the ABS support body and 304 stainless steel clamp, the tube diffuser is designed to improve stability and long-term reliability in wastewater aeration environments.
-                    </p>
-                
+                <div class="stat">
+                    <span class="mono">Airflow Range</span>
+                    <div class="stat-num">1.8–12<span class="unit">CMH</span></div>
                 </div>
 
+                <div class="stat">
+                    <span class="mono">Membrane Openings</span>
+                    <div class="stat-num"><span data-count="13500">0</span><span class="unit">openings</span></div>
+                    <div class="stat-sub">Up to 13,500 openings</div>
+                </div>
+
+                <div class="stat">
+                    <span class="mono">Opening Size</span>
+                    <div class="stat-num">Approx. 1–3<span class="unit">mm</span></div>
+                </div>
+
+                <div class="stat">
+                    <span class="mono">Weight</span>
+                    <div class="stat-num">Approx. 0.9<span class="unit">kg</span></div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section-light section-pad">
+            <div class="container">
+
+                <div class="section-head">
+                    <div class="kicker">Product Features</div>
+                    <div>
+                        <h2>Core Structure and Sealing Design</h2>
+                        <p>
+                            From the spin-welded air inlet structure and EPDM membrane to the ABS support body and 304 stainless steel clamp, the tube diffuser is designed to improve stability and long-term reliability in wastewater aeration environments.
+                        </p>
+                    </div>
+                </div>
 
                 <div class="product-tab-layout">
 
                     <div class="product-tab-list">
 
-                        <button
-                        class="product-tab-item active"
-                        data-panel="panel-spin"
-                        type="button">
-
-                            <span class="product-tab-number">
-                                01
-                            </span>
-
+                        <button class="product-tab-item active" data-panel="panel-spin" type="button">
+                            <span class="product-tab-number">01</span>
                             <span>
-
-                                <strong>
-                                    Spin-Welded Air Inlet
-                                </strong>
-
-                                <span>
-                                    Reliable sealing, reduced leakage
-                                </span>
-
+                                <strong>Spin-Welded Air Inlet</strong>
+                                <span>Reliable sealing, reduced leakage</span>
                             </span>
-
                         </button>
 
-                        <button
-                        class="product-tab-item"
-                        data-panel="panel-epdm"
-                        type="button">
-
-                            <span class="product-tab-number">
-                                02
-                            </span>
-
+                        <button class="product-tab-item" data-panel="panel-epdm" type="button">
+                            <span class="product-tab-number">02</span>
                             <span>
-
-                                <strong>
-                                    EPDM Membrane
-                                </strong>
-
-                                <span>
-                                    Long-term wastewater aeration use
-                                </span>
-
+                                <strong>EPDM Membrane</strong>
+                                <span>Long-term wastewater aeration use</span>
                             </span>
-
                         </button>
 
-                        <button
-                        class="product-tab-item"
-                        data-panel="panel-abs"
-                        type="button">
-
-                            <span class="product-tab-number">
-                                03
-                            </span>
-
+                        <button class="product-tab-item" data-panel="panel-abs" type="button">
+                            <span class="product-tab-number">03</span>
                             <span>
-
-                                <strong>
-                                    ABS / 304 Structure
-                                </strong>
-
-                                <span>
-                                    Stable support and membrane fixing
-                                </span>
-
+                                <strong>ABS / 304 Structure</strong>
+                                <span>Stable support and membrane fixing</span>
                             </span>
-
                         </button>
 
                     </div>
 
                     <div class="product-tab-card">
 
-                        <div
-                        class="product-tab-panel active"
-                        id="panel-spin">
-
-                            <div class="kicker">
-                                Key Product Features
-                            </div>
-
-                            <h3>
-                                Spin-Welded Air Inlet Structure with Leakage Testing
-                            </h3>
-
-                            <p>
-                                The air inlet is integrally formed and connected to the support pipe by spin welding. This structure is designed to improve sealing reliability and reduce the risk of side leakage.
-                            </p>
-
-                            <p>
-                                Compared with glue-bonded designs, the spin-welded connection provides stronger structural integrity and better long-term reliability in wastewater aeration environments.
-                            </p>
-
-                            <p>
-                                Before shipment, each tube diffuser is tested with professional leakage testing equipment to verify sealing performance and help ensure stable operation after installation.
-                            </p>
-
+                        <div class="product-tab-panel active" id="panel-spin">
+                            <div class="kicker">Key Product Features</div>
+                            <h3>Spin-Welded Air Inlet Structure with Leakage Testing</h3>
+                            <p>The air inlet is integrally formed and connected to the support pipe by spin welding. This structure is designed to improve sealing reliability and reduce the risk of side leakage.</p>
+                            <p>Compared with glue-bonded designs, the spin-welded connection provides stronger structural integrity and better long-term reliability in wastewater aeration environments.</p>
+                            <p>Before shipment, each tube diffuser is tested with professional leakage testing equipment to verify sealing performance and help ensure stable operation after installation.</p>
                             <ul>
-
-                                <li>
-                                    Integrated air inlet structure
-                                </li>
-
-                                <li>
-                                    Spin-welded connection instead of glue bonding
-                                </li>
-
-                                <li>
-                                    Improved sealing reliability
-                                </li>
-
-                                <li>
-                                    Reduced side-leakage risk
-                                </li>
-
-                                <li>
-                                    Each unit tested before shipment
-                                </li>
-
-                                <li>
-                                    Stable air distribution during operation
-                                </li>
-
+                                <li>Integrated air inlet structure</li>
+                                <li>Spin-welded connection instead of glue bonding</li>
+                                <li>Improved sealing reliability</li>
+                                <li>Reduced side-leakage risk</li>
+                                <li>Each unit tested before shipment</li>
+                                <li>Stable air distribution during operation</li>
                             </ul>
-
                         </div>
 
-                        <div
-                        class="product-tab-panel"
-                        id="panel-epdm">
-
-                            <div class="kicker">
-                                Membrane Design
-                            </div>
-
-                            <h3>
-                                Molded EPDM Membrane with Up to 13,500 Openings
-                            </h3>
-
-                            <p>
-                                The diffuser uses an EPDM engineering rubber membrane designed for long-term wastewater aeration environments. The membrane provides resistance to UV exposure, acid, alkali, and corrosion, making it suitable for demanding treatment conditions.
-                            </p>
-
-                            <p>
-                                The membrane is molded with up to 13,500 openings, with an opening size of approximately 1–3 mm. This molded structure supports uniform aeration and fine bubble distribution.
-                            </p>
-
+                        <div class="product-tab-panel" id="panel-epdm">
+                            <div class="kicker">Membrane Design</div>
+                            <h3>Molded EPDM Membrane with Up to 13,500 Openings</h3>
+                            <p>The diffuser uses an EPDM engineering rubber membrane designed for long-term wastewater aeration environments. The membrane provides resistance to UV exposure, acid, alkali, and corrosion, making it suitable for demanding treatment conditions.</p>
+                            <p>The membrane is molded with up to 13,500 openings, with an opening size of approximately 1–3 mm. This molded structure supports uniform aeration and fine bubble distribution.</p>
                         </div>
 
-                        <div
-                        class="product-tab-panel"
-                        id="panel-abs">
-
-                            <div class="kicker">
-                                Product Structure
-                            </div>
-
-                            <h3>
-                                ABS Support Body & 304 Stainless Steel Clamp
-                            </h3>
-
-                            <p>
-                                The diffuser body uses an ABS support structure to provide mechanical strength and stable support during operation. Its hollow design helps reduce buoyancy and lower the floating load on the piping system.
-                            </p>
-
-                            <p>
-                                The EPDM membrane and diffuser body are fixed with a 304 stainless steel clamp, helping prevent the membrane from loosening during operation.
-                            </p>
-
+                        <div class="product-tab-panel" id="panel-abs">
+                            <div class="kicker">Product Structure</div>
+                            <h3>ABS Support Body &amp; 304 Stainless Steel Clamp</h3>
+                            <p>The diffuser body uses an ABS support structure to provide mechanical strength and stable support during operation. Its hollow design helps reduce buoyancy and lower the floating load on the piping system.</p>
+                            <p>The EPDM membrane and diffuser body are fixed with a 304 stainless steel clamp, helping prevent the membrane from loosening during operation.</p>
                         </div>
 
                     </div>
@@ -534,517 +337,146 @@
                 </div>
 
             </div>
-
         </section>
 
-        <!-- Product Specifications -->
-
-        <section
-        class="product-section"
-        id="specs">
-
+        <section class="section-white section-pad" id="specs">
             <div class="container">
 
-                <div class="section-heading center">
-
-                    <div class="kicker">
-                        Product Specifications
+                <div class="section-head">
+                    <div class="kicker">Product Specifications</div>
+                    <div>
+                        <h2>Tube Diffuser Specifications</h2>
+                        <p>EnviroValor tube diffusers are suitable for wastewater treatment and aeration systems with stable operation and low maintenance requirements.</p>
                     </div>
-
-                    <h2>
-                        Tube Diffuser Specifications
-                    </h2>
-
-                    <p>
-                        EnviroValor tube diffusers are suitable for wastewater treatment and aeration systems with stable operation and low maintenance requirements.
-                    </p>
-
                 </div>
 
                 <div class="spec-layout">
 
                     <div class="product-visual-panel">
 
-                        <div class="hero-card">
+                        <div class="product-slider tube-slider">
 
-                            <div class="product-slider tube-slider">
+                            <div class="slider-container">
+                                <img src="../../images/tube/02.jpg" class="slider-image active" alt="EnviroValor EVT-600 fine bubble tube diffuser">
+                                <img src="../../images/tube/03.jpg" class="slider-image" style="object-position:center 3%;" alt="EnviroValor fine bubble tube diffuser">
+                                <img src="../../images/tube/04.jpg" class="slider-image" alt="EnviroValor fine bubble tube diffuser">
+                            </div>
 
-                                <button class="slider-btn prev-btn">
-                                    ❮
-                                </button>
+                            <div class="slider-nav"></div>
 
-                                <div class="slider-container">
-
-                                    <img
-                                    src="../../images/tube/02.jpg"
-                                    class="slider-image active"
-                                    alt="EnviroValor tube diffuser product image"
-                                    >
-
-                                    <img
-                                    src="../../images/tube/03.jpg"
-                                    class="slider-image"
-                                    style="object-position:center 3%;"
-                                    alt="EnviroValor tube diffuser detailed view"
-                                    >
-
-                                    <img
-                                    src="../../images/tube/04.jpg"
-                                    class="slider-image"
-                                    alt="EnviroValor tube diffuser close-up"
-                                    >
-
-                                </div>
-
-                                <button class="slider-btn next-btn">
-                                    ❯
-                                </button>
-
+                            <div class="slider-caption">
+                                <span class="slider-index">01</span> / 03　EVT-600
                             </div>
 
                         </div>
 
-                        <div class="visual-badge">
-
-                            <span>
-                                600 mm Standard Size
-                            </span>
-
-                        </div>
+                        <div class="visual-badge"><span>600 mm Standard Size</span></div>
 
                     </div>
 
                     <div class="specs-panel">
-
                         <div class="spec-grid compact">
-
-                            <div class="spec-card">
-
-                                <span class="spec-label">
-                                    Model
-                                </span>
-
-                                <strong>
-                                    EVT-600
-                                </strong>
-
-                            </div>
-
-                            <div class="spec-card">
-
-                                <span class="spec-label">
-                                    Product Type
-                                </span>
-
-                                <strong>
-                                    Fine Bubble Tube Diffuser
-                                </strong>
-
-                            </div>
-
-                            <div class="spec-card">
-
-                                <span class="spec-label">
-                                    Size
-                                </span>
-
-                                <strong>
-                                    600 × 65 × 3/4" PT
-                                </strong>
-
-                            </div>
-
-                            <div class="spec-card">
-
-                                <span class="spec-label">
-                                    Airflow Range
-                                </span>
-
-                                <strong>
-                                    1.8–12 CMH
-                                </strong>
-
-                            </div>
-
-                            <div class="spec-card">
-
-                                <span class="spec-label">
-                                    Membrane Material
-                                </span>
-
-                                <strong>
-                                    EPDM
-                                </strong>
-
-                            </div>
-
-                            <div class="spec-card">
-
-                                <span class="spec-label">
-                                    Support Body
-                                </span>
-
-                                <strong>
-                                    ABS
-                                </strong>
-
-                            </div>
-
-                            <div class="spec-card">
-
-                                <span class="spec-label">
-                                    Clamp Material
-                                </span>
-
-                                <strong>
-                                    304 Stainless Steel
-                                </strong>
-
-                            </div>
-
-                            <div class="spec-card">
-
-                                <span class="spec-label">
-                                    Weight
-                                </span>
-
-                                <strong>
-                                    Approx. 0.9 kg
-                                </strong>
-
-                            </div>
-
-                            <div class="spec-card">
-
-                                <span class="spec-label">
-                                    Membrane Openings
-                                </span>
-
-                                <strong>
-                                    Up to 13,500 openings
-                                </strong>
-
-                            </div>
-
-                            <div class="spec-card">
-
-                                <span class="spec-label">
-                                    Opening Size
-                                </span>
-
-                                <strong>
-                                    Approx. 1–3 mm
-                                </strong>
-
-                            </div>
-
-                            <div class="spec-card full">
-
-                                <span class="spec-label">
-                                    Air Inlet Structure
-                                </span>
-
-                                <strong>
-                                    Integrated air inlet with spin-welded connection
-                                </strong>
-
-                            </div>
-
-                            <div class="spec-card full">
-
-                                <span class="spec-label">
-                                    Leakage Control
-                                </span>
-
-                                <strong>
-                                    Each unit tested before shipment
-                                </strong>
-
-                            </div>
-
+                            <div class="spec-card"><span class="spec-label">Model</span><strong>EVT-600</strong></div>
+                            <div class="spec-card"><span class="spec-label">Product Type</span><strong>Fine Bubble Tube Diffuser</strong></div>
+                            <div class="spec-card"><span class="spec-label">Size</span><strong>600 × 65 × 3/4" PT</strong></div>
+                            <div class="spec-card"><span class="spec-label">Airflow Range</span><strong>1.8–12 CMH</strong></div>
+                            <div class="spec-card"><span class="spec-label">Membrane Material</span><strong>EPDM</strong></div>
+                            <div class="spec-card"><span class="spec-label">Support Body</span><strong>ABS</strong></div>
+                            <div class="spec-card"><span class="spec-label">Clamp Material</span><strong>304 Stainless Steel</strong></div>
+                            <div class="spec-card"><span class="spec-label">Weight</span><strong>Approx. 0.9 kg</strong></div>
+                            <div class="spec-card"><span class="spec-label">Membrane Openings</span><strong>Up to 13,500 openings</strong></div>
+                            <div class="spec-card"><span class="spec-label">Opening Size</span><strong>Approx. 1–3 mm</strong></div>
+                            <div class="spec-card"><span class="spec-label">Air Inlet Structure</span><strong>Integrated air inlet with spin-welded connection</strong></div>
+                            <div class="spec-card"><span class="spec-label">Leakage Control</span><strong>Each unit tested before shipment</strong></div>
                         </div>
-
                     </div>
 
                 </div>
 
             </div>
-
         </section>
 
-        <!-- Performance & Applications Summary -->
-
-        <section class="feature-summary">
-
+        <section class="section-light section-pad">
             <div class="container">
-
                 <div class="summary-grid">
 
                     <div class="summary-block">
-
-                        <div class="kicker">
-                            Performance Advantages
-                        </div>
-
-                        <h2>
-                            Reliable Aeration Performance
-                        </h2>
-
-                        <p>
-                            Designed for wastewater aeration applications where oxygen transfer efficiency, low resistance, and reliable sealing are important.
-                        </p>
-
+                        <div class="kicker">Performance Advantages</div>
+                        <h2>Reliable Aeration Performance</h2>
+                        <p>Designed for wastewater aeration applications where oxygen transfer efficiency, low resistance, and reliable sealing are important.</p>
                         <div class="tag-group">
-
-                            <div class="feature-tag">
-                                High Oxygen Transfer
-                            </div>
-
-                            <div class="feature-tag">
-                                Uniform Fine Bubble Distribution
-                            </div>
-
-                            <div class="feature-tag">
-                                Low Headloss
-                            </div>
-
-                            <div class="feature-tag">
-                                Low Power Consumption
-                            </div>
-
-                            <div class="feature-tag">
-                                Easy Installation
-                            </div>
-
-                            <div class="feature-tag">
-                                Wide Aeration Coverage
-                            </div>
-
-                            <div class="feature-tag">
-                                Suitable for SBR Systems
-                            </div>
-
-                            <div class="feature-tag">
-                                Self-Cleaning Design
-                            </div>
-
-                            <div class="feature-tag">
-                                Reduced Side-Leakage Risk
-                            </div>
-
+                            <div class="feature-tag">High Oxygen Transfer</div>
+                            <div class="feature-tag">Uniform Fine Bubble Distribution</div>
+                            <div class="feature-tag">Low Headloss</div>
+                            <div class="feature-tag">Low Power Consumption</div>
+                            <div class="feature-tag">Easy Installation</div>
+                            <div class="feature-tag">Wide Aeration Coverage</div>
+                            <div class="feature-tag">Suitable for SBR Systems</div>
+                            <div class="feature-tag">Self-Cleaning Design</div>
+                            <div class="feature-tag">Reduced Side-Leakage Risk</div>
                         </div>
-
                     </div>
 
                     <div class="summary-block">
-
-                        <div class="kicker">
-                            Applications
-                        </div>
-
-                        <h2>
-                            Various Wastewater Applications
-                        </h2>
-
-                        <p>
-                            Suitable for municipal wastewater, industrial wastewater, and various aeration systems.
-                        </p>
-
+                        <div class="kicker">Applications</div>
+                        <h2>Various Wastewater Applications</h2>
+                        <p>Suitable for municipal wastewater, industrial wastewater, and various aeration systems.</p>
                         <div class="tag-group">
-
-                            <div class="feature-tag">
-                                Municipal Wastewater
-                            </div>
-
-                            <div class="feature-tag">
-                                Industrial Wastewater
-                            </div>
-
-                            <div class="feature-tag">
-                                Water Treatment Systems
-                            </div>
-
-                            <div class="feature-tag">
-                                Ozone Diffusion
-                            </div>
-
-                            <div class="feature-tag">
-                                Sludge Stabilization
-                            </div>
-
-                            <div class="feature-tag">
-                                Aquaculture Aeration
-                            </div>
-
-                            <div class="feature-tag">
-                                River and Lake Aeration
-                            </div>
-
-                            <div class="feature-tag">
-                                SBR Systems
-                            </div>
-
+                            <div class="feature-tag">Municipal Wastewater</div>
+                            <div class="feature-tag">Industrial Wastewater</div>
+                            <div class="feature-tag">Water Treatment Systems</div>
+                            <div class="feature-tag">Ozone Diffusion</div>
+                            <div class="feature-tag">Sludge Stabilization</div>
+                            <div class="feature-tag">Aquaculture Aeration</div>
+                            <div class="feature-tag">River and Lake Aeration</div>
+                            <div class="feature-tag">SBR Systems</div>
                         </div>
-
                     </div>
 
                 </div>
-
             </div>
-
         </section>
 
-        <!-- Why Choose EnviroValor -->
-
-        <section class="why-envirovalor">
-
+        <section class="section-dark section-pad">
             <div class="container">
 
-                <div class="section-head center">
-
-                    <div class="kicker">
-                        Why Choose EnviroValor
+                <div class="section-head">
+                    <div class="kicker">Why Choose EnviroValor</div>
+                    <div>
+                        <h2>Why Choose EnviroValor Tube Diffusers?</h2>
+                        <p>Focused on reliable aeration performance, practical engineering structure, and stable operation.</p>
                     </div>
-
-                    <h2>
-                        Why Choose EnviroValor Tube Diffusers?
-                    </h2>
-
-                    <p>
-                        Focused on reliable aeration performance, practical engineering structure, and stable operation.
-                    </p>
-
                 </div>
 
                 <div class="why-grid">
-
-                    <div class="why-card">
-
-                        <div class="why-number">
-                            01
-                        </div>
-
-                        <h3>
-                            Reliable Spin-Welded Structure
-                        </h3>
-
-                        <p>
-                            Integrated spin-welded structure designed for improved sealing reliability.
-                        </p>
-
-                    </div>
-
-                    <div class="why-card">
-
-                        <div class="why-number">
-                            02
-                        </div>
-
-                        <h3>
-                            Leakage Testing
-                        </h3>
-
-                        <p>
-                            Each diffuser is tested before shipment to reduce side-leakage risk.
-                        </p>
-
-                    </div>
-
-                    <div class="why-card">
-
-                        <div class="why-number">
-                            03
-                        </div>
-
-                        <h3>
-                            Clear 600 mm Specification
-                        </h3>
-
-                        <p>
-                            Focused on the practical and commonly used 600 mm specification.
-                        </p>
-
-                    </div>
-
-                    <div class="why-card">
-
-                        <div class="why-number">
-                            04
-                        </div>
-
-                        <h3>
-                            Practical Technical Data
-                        </h3>
-
-                        <p>
-                            Clear specifications including airflow range, EPDM membrane, ABS body, and 304 clamp.
-                        </p>
-
-                    </div>
-
-                    <div class="why-card">
-
-                        <div class="why-number">
-                            05
-                        </div>
-
-                        <h3>
-                            New & Replacement Projects
-                        </h3>
-
-                        <p>
-                            Suitable for new installations, replacement projects, and system integration.
-                        </p>
-
-                    </div>
-
-                    <div class="why-card">
-
-                        <div class="why-number">
-                            06
-                        </div>
-
-                        <h3>
-                            Sample Available
-                        </h3>
-
-                        <p>
-                            Sample units available for evaluating dimensions, material quality, and installation compatibility.
-                        </p>
-
-                    </div>
-
+                    <div class="why-card"><div class="why-number">01</div><h3>Reliable Spin-Welded Structure</h3><p>Integrated spin-welded structure designed for improved sealing reliability.</p></div>
+                    <div class="why-card"><div class="why-number">02</div><h3>Leakage Testing</h3><p>Each diffuser is tested before shipment to reduce side-leakage risk.</p></div>
+                    <div class="why-card"><div class="why-number">03</div><h3>Clear 600 mm Specification</h3><p>Focused on the practical and commonly used 600 mm specification.</p></div>
+                    <div class="why-card"><div class="why-number">04</div><h3>Practical Technical Data</h3><p>Clear specifications including airflow range, EPDM membrane, ABS body, and 304 clamp.</p></div>
+                    <div class="why-card"><div class="why-number">05</div><h3>New &amp; Replacement Projects</h3><p>Suitable for new installations, replacement projects, and system integration.</p></div>
+                    <div class="why-card"><div class="why-number">06</div><h3>Sample Available</h3><p>Sample units available for evaluating dimensions, material quality, and installation compatibility.</p></div>
                 </div>
 
             </div>
-
         </section>
 
     </main>
 
-            <button
-            class="scroll-top-btn"
-            id="scrollTopBtn"
-            type="button"
-            aria-label="Back to top">
-
-            ↑
-
-        </button>
+    <button
+    class="scroll-top-btn"
+    id="scrollTopBtn"
+    type="button"
+    aria-label="Back to top">
+        ↑
+    </button>
 
     <!-- Inquiry Modal -->
-
     <div id="inquiry-modal"></div>
 
     <!-- Footer -->
-
     <div id="footer"></div>
 
-    <script
-    type="module"
-    src="../../js/main.js">
-    </script>
+    <script type="module" src="../../js/main.js"></script>
 
 </body>
-
 </html>

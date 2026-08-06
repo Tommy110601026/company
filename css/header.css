@@ -1,507 +1,354 @@
-/* Header */
+/* =========================================================
+   header.css
+   全站導覽列
+
+   目錄
+   01. Header 外框
+   02. Logo
+   03. 桌機導覽
+   04. 產品下拉選單
+   05. 目前頁面高亮
+   06. 右側動作區
+   07. 響應式
+
+   注意
+   - header 用 position:sticky，需搭配 global.css 的
+     html, body { overflow-x:clip }。若改回 overflow-x:hidden
+     會建立捲動容器，sticky 會整個失效。
+   - 捲動進度條 .scroll-progress 由 js/motion.js 插入本元素底部。
+========================================================= */
 
 
+/* =========================================================
+   01. Header 外框
+========================================================= */
+
+/* 底色一律填滿。
+   header 是 sticky，在文件流裡佔自己的位置、不會疊在 hero 上，
+   若設成透明，最上面時顯示的會是 body 的淺色底，
+   白色導覽文字就整條看不見了。
+   實心 --ink 與各頁頁首的起始色相同，接縫看不出來。 */
 header{
     position:sticky;
     top:0;
-    z-index:1000;
-    height:96px;
-    background:rgba(7,48,71,.92);
+    z-index:900;
 
-    backdrop-filter:blur(14px);
+    background:var(--ink);
 
-    border-bottom:
-    1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid transparent;
+
+    transition:
+    background .4s var(--ease),
+    backdrop-filter .4s ease,
+    border-color .4s ease;
 }
 
-/* Navbar */
+/* 捲動之後轉為半透明毛玻璃，讓底下內容透出來 */
+header.is-stuck{
+    background:rgba(4,20,29,.82);
+    backdrop-filter:blur(18px) saturate(1.4);
+
+    border-bottom-color:var(--line-d);
+}
 
 .navbar{
-
     position:relative;
-
-    height:96px;
 
     display:flex;
     align-items:center;
     justify-content:space-between;
+    gap:24px;
+
+    padding:20px 0;
+
+    transition:padding .4s var(--ease);
+}
+
+header.is-stuck .navbar{
+    padding:10px 0;
 }
 
 
-/* Logo */
+/* =========================================================
+   02. Logo
+========================================================= */
 
 .logo{
     justify-self:start;
 }
 
+/* logo 是淺底 JPG，在深色 header 上會是一塊亮色方塊。
+   加圓角讓它讀起來像刻意的徽章，而不是去背失敗。 */
 .logo img{
-    height:46px;
+    height:40px;
     width:auto;
 
     display:block;
+
+    border-radius:8px;
 }
 
-/* Navigation */
+
+/* =========================================================
+   03. 桌機導覽
+========================================================= */
 
 .nav-links{
+    display:flex;
+    align-items:center;
+
+    gap:30px;
+}
+
+.nav-links > a,
+.dropdown-btn{
+    position:relative;
+
+    padding:3px 0;
+
+    background:transparent;
+    border:none;
+    cursor:pointer;
+
+    color:rgba(255,255,255,.72);
+
+    font-family:inherit;
+    font-size:15px;
+
+    transition:color .25s ease;
+}
+
+.nav-links > a::after,
+.dropdown-btn::after{
+    content:"";
 
     position:absolute;
+    left:0;
+    bottom:0;
 
+    width:0;
+    height:1px;
+
+    background:var(--green);
+
+    transition:width .35s var(--ease);
+}
+
+.nav-links > a:hover,
+.dropdown-btn:hover{
+    color:#ffffff;
+}
+
+.nav-links > a:hover::after,
+.dropdown-btn:hover::after{
+    width:100%;
+}
+
+
+/* =========================================================
+   04. 產品下拉選單
+========================================================= */
+
+.nav-dropdown{
+    position:relative;
+}
+
+.dropdown-menu{
+    position:absolute;
+    top:calc(100% + 14px);
     left:50%;
-    top:50%;
+    translate:-50% 0;
 
-    transform:
-    translate(-50%, -50%);
+    display:grid;
+    min-width:148px;
 
-    display:flex;
-    align-items:center;
+    opacity:0;
+    visibility:hidden;
 
-    gap:34px;
+    background:rgba(4,20,29,.96);
+    backdrop-filter:blur(14px);
+
+    border:1px solid var(--line-d);
+    border-radius:var(--r-sm);
+
+    overflow:hidden;
+
+    transition:
+    opacity .25s ease,
+    visibility .25s ease;
 }
 
-.nav-links a{
+.dropdown-menu.active{
+    opacity:1;
+    visibility:visible;
+}
 
-     position:relative;
+.dropdown-menu a{
+    padding:12px 18px;
 
-    color:
-    rgba(255,255,255,.88);
+    color:rgba(255,255,255,.72);
+    font-size:15px;
 
-    font-weight:800;
+    transition:
+    background .2s ease,
+    color .2s ease;
+}
 
-    font-size:16px;
+.dropdown-menu a:hover{
+    background:rgba(255,255,255,.07);
+    color:#ffffff;
 }
 
 
-/* Right Buttons */
+/* =========================================================
+   05. 目前頁面高亮
+   由 js/nav-active.js 加上 .active
 
+   顏色與形狀兩種訊號並用（白字＋常駐底線／綠字＋左側色條），
+   紅綠色覺障礙者看不出綠色時仍能分辨。
+========================================================= */
+
+.nav-links > a.active,
+.dropdown-btn.active{
+    color:#ffffff;
+    font-weight:700;
+}
+
+.nav-links > a.active::after,
+.dropdown-btn.active::after{
+    width:100%;
+
+    box-shadow:0 0 12px rgba(53,179,74,.85);
+}
+
+/* 下拉選單裡的目前頁面：
+   綠字 + 左側實心色條 + 底部螢光線，
+   與主導覽的高亮是同一種語言 */
+.dropdown-menu a.active{
+    position:relative;
+
+    color:var(--green-hi);
+    background:rgba(53,179,74,.14);
+
+    box-shadow:inset 3px 0 0 var(--green-hi);
+
+    font-weight:700;
+}
+
+.dropdown-menu a.active::after{
+    content:"";
+
+    position:absolute;
+    left:18px;
+    right:18px;
+    bottom:6px;
+
+    height:1px;
+
+    background:var(--green-hi);
+    box-shadow:0 0 10px rgba(110,231,135,.9);
+}
+
+
+/* =========================================================
+   06. 右側動作區
+========================================================= */
 
 .nav-actions{
-
-    justify-self:end;
-
     display:flex;
     align-items:center;
 
-    gap:14px;
+    gap:16px;
 }
 
 .lang-btn{
-    min-width:64px;
-    height:46px;
-    padding:0 18px;
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:.1em;
 
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
+    color:rgba(255,255,255,.6);
 
-    border-radius:999px;
-    border:1px solid rgba(255,255,255,.35);
-    background:rgba(255,255,255,.08);
-
-    color:#fff;
-    font-size:16px;
-    font-weight:900;
-    line-height:1;
-    text-decoration:none;
-    white-space:nowrap;
-
-    flex-shrink:0;
-    cursor:pointer;
+    transition:color .25s ease;
 }
 
 .lang-btn:hover{
-    background:
-    rgba(255,255,255,.12);
+    color:#ffffff;
 }
 
 .quote-btn{
     display:inline-flex;
     align-items:center;
-    justify-content:center;
+    gap:9px;
 
-    height:54px;
+    padding:11px 20px;
+    min-height:44px;
 
-    padding:0 28px;
+    border:none;
+    border-radius:var(--r-pill);
 
-    border-radius:999px;
+    background:var(--green);
+    color:var(--ink);
 
-    font-weight:900;
+    font-family:inherit;
+    font-weight:700;
+    font-size:15px;
 
-    background:
-    linear-gradient(
-        90deg,
-        var(--green),
-        var(--green-light)
-    );
+    cursor:pointer;
 
-    color:var(--navy);
-
-    box-shadow:
-    0 12px 28px rgba(53,179,74,.22);
-
-    transition:.2s;
+    transition:
+    transform .3s var(--ease),
+    box-shadow .3s ease,
+    background .3s ease;
 }
 
 .quote-btn:hover{
     transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(53,179,74,.4);
 }
-
-/* Dropdown */
-
-.nav-dropdown{
-    position:relative;
-
-    display:flex;
-    align-items:center;
-}
-
-.dropdown-btn{
-    position:relative;
-
-    background:none;
-    border:none;
-
-    color:
-    rgba(255,255,255,.88);
-
-    font-weight:800;
-
-    font-size:16px;
-
-    font-family:inherit;
-
-    cursor:pointer;
-
-    padding:0;
-
-    display:flex;
-    align-items:center;
-
-    height:24px;
-}
-
-.dropdown-menu{
-
-    position:absolute;
-
-    top:calc(100% + 18px);
-    left:0;
-
-    z-index:99999;
-
-    pointer-events:none;
-
-    min-width:220px;
-
-    background:#fff;
-
-    border-radius:18px;
-
-    padding:12px;
-
-    display:flex;
-    flex-direction:column;
-
-    gap:6px;
-
-    opacity:0;
-    visibility:hidden;
-
-    transform:translateY(10px);
-
-    transition:.22s ease;
-
-    box-shadow:
-    0 18px 50px rgba(0,0,0,.14);
-}
-.dropdown-menu.active{
-    opacity:1;
-    visibility:visible;
-
-    transform:translateY(0);
-
-    pointer-events:auto;
-}
-
-.dropdown-menu a{
-    color:#073047;
-
-    text-decoration:none;
-
-    padding:12px 14px;
-
-    border-radius:12px;
-
-    font-weight:600;
-
-    transition:.18s;
-}
-
-.dropdown-menu a:hover{
-    background:#f3f8fb;
-
-    color:#35b34a;
-}
-
-
-.dropdown-btn.active{
-
-    color:#ffffff;
-}
-/* =========================
-   Active Navigation
-========================= */
-
-.nav-links a,
-.dropdown-btn{
-
-    position:relative;
-
-    transition:.25s ease;
-}
-
-
-/* Hover */
-
-.nav-links a:hover,
-.dropdown-btn:hover{
-
-    color:#7CFF7C;
-}
-
-
-/* Active */
-
-.nav-links a.active,
-.dropdown-btn.active{
-
-    color:#ffffff;
-}
-
-
-/* Glow Line */
-
-.nav-links a.active::after,
-.dropdown-btn.active::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:50%;
-    bottom:-14px;
-
-    transform:translateX(-50%);
-
-    width:72%;
-    height:4px;
-
-    border-radius:999px;
-
-    background:#63d84e;
-
-    box-shadow:
-    0 0 10px rgba(99,216,78,.9),
-    0 0 20px rgba(99,216,78,.7),
-    0 0 34px rgba(99,216,78,.45);
-}
-
-
-/* =========================
-   Mobile Header
-========================= */
 
 .mobile-menu-btn{
-
     display:none;
-}
 
-/* =========================
-   Mobile Menu
-========================= */
+    min-width:44px;
+    min-height:44px;
 
-.mobile-menu{
-
-    position:fixed;
-
-    top:0;
-    right:-100%;
-
-    width:320px;
-    height:100vh;
-
-    background:#073047;
-
-    z-index:5000;
-
-    transition:.35s ease;
-
-    padding:34px 28px;
-
-    box-shadow:
-    -10px 0 40px rgba(0,0,0,.18);
-}
-
-.mobile-menu.active{
-
-    right:0;
-}
-
-.mobile-menu-inner{
-
-    display:flex;
-    flex-direction:column;
-
-    gap:24px;
-
-    margin-top:60px;
-}
-
-.mobile-menu a{
-
-    color:#fff;
-
-    font-size:20px;
-
-    font-weight:700;
-}
-
-.mobile-product-group{
-
-    display:flex;
-    flex-direction:column;
-
-    gap:14px;
-
-    padding-left:12px;
-}
-
-.mobile-product-title{
-
-    color:#8fdcff;
-
-    font-size:15px;
-
-    text-transform:uppercase;
-
-    letter-spacing:1px;
-}
-
-.mobile-close-btn{
-
-    position:absolute;
-
-    top:24px;
-    right:24px;
-
-    width:54px;
-    height:54px;
-
+    background:transparent;
     border:none;
 
-    border-radius:50%;
-
-    background:
-    rgba(255,255,255,.08);
-
-    color:#fff;
-
-    font-size:34px;
+    color:#ffffff;
+    font-size:22px;
 
     cursor:pointer;
 }
 
-/* =========================
-   Mobile Layout
-========================= */
 
-@media (max-width:980px){
+/* =========================================================
+   07. 響應式
+========================================================= */
 
-
-    header{
-        height:auto;
-    }
-    
-    .navbar{
-        height:auto;
-        min-height:96px;
-        padding:18px 0;
-    }
-    
-    .quote-btn{
-        display:none;
-    }
-    
-    .navbar{
-
-        height:auto;
-
-        padding:18px 0;
-    }
+@media(max-width:900px){
 
     .nav-links{
-
         display:none;
-    }
-
-    .nav-actions{
-
-        display:flex;
-        align-items:center;
-
-        gap:12px;
-    }
-
-    .logo img{
-
-        height:46px;
-    }
-
-    .lang-btn{
-
-        width:50px;
-        height:50px;
-
-        font-size:15px;
-    }
-
-    .quote-btn{
-
-        padding:13px 18px;
-
-        font-size:15px;
-
-        border-radius:18px;
     }
 
     .mobile-menu-btn{
-
-        width:50px;
-        height:50px;
-
-        border:none;
-
-        border-radius:50%;
-
-        background:
-        rgba(255,255,255,.08);
-
-        color:#fff;
-
-        font-size:26px;
-
-        display:flex;
-        align-items:center;
-        justify-content:center;
-
-        cursor:pointer;
+        display:block;
     }
 
+    .lang-btn{
+        display:none;
+    }
 }
 
-@media (max-width:560px){
+@media(max-width:560px){
+
+    .quote-btn{
+        padding:11px 16px;
+        font-size:14px;
+    }
 
     .logo img{
-        height:36px;
+        height:34px;
     }
 }

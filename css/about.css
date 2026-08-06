@@ -1,114 +1,191 @@
-body{
-    margin:0;
-    background:#f5f7fa;
-    color:#1f2937;
-    line-height:1.8;
-}
+/* =========================================================
+   about.css
+   關於我們頁
 
-.about-hero{
-    background:
-    linear-gradient(
-        rgba(7,48,71,.82),
-        rgba(7,48,71,.82)
-    );
+   目錄
+   01. 頁首
+   02. 內容區塊
+   03. 資訊卡
+   04. 響應式
 
-    color:#fff;
-    padding:120px 20px 90px;
-    text-align:center;
-}
+   說明
+   - 原本這支自己覆寫了 body 的底色與文字色，並寫死一組色碼
+     （含一個與品牌無關的 #00a6c7 青色底線），
+     現在一律走 global.css 的代幣。
+========================================================= */
 
-.about-hero h1{
-    font-size:48px;
-    font-weight:800;
-    margin-bottom:22px;
-}
 
+/* =========================================================
+   01. 頁首
+   底色、網格底紋、漸層標題都在 global.css 的 .page-hero，
+   這裡只留關於我們專屬的微調。
+========================================================= */
+
+/* 這頁的導言比較長，放寬一點 */
 .about-hero p{
-    max-width:920px;
-    margin:auto;
-    font-size:20px;
-    color:rgba(255,255,255,.9);
+    max-width:68ch;
 }
+
+
+/* =========================================================
+   02. 內容區塊
+========================================================= */
 
 .about-container{
-    width:min(1200px, 92%);
-    margin:auto;
-    padding:90px 0;
+    width:min(1280px, calc(100% - 48px));
+    margin:0 auto;
+
+    padding:clamp(80px, 10vw, 130px) 0;
 }
 
 .about-section{
-    margin-bottom:72px;
+    margin-bottom:88px;
 }
+
+.about-section:last-child{
+    margin-bottom:0;
+}
+
+/* 純文字區塊：標題在左、內文在右，
+   與產品頁的結構區同一套節奏，寬度才用得滿 */
+.about-section:not(.grid-2){
+    display:grid;
+    grid-template-columns:.85fr 1.15fr;
+    gap:56px;
+
+    align-items:start;
+
+    padding-top:16px;
+    border-top:1px solid var(--line);
+}
+
+.about-section h2{
+    margin-bottom:0;
+
+    font-size:clamp(26px, 3vw, 40px);
+}
+
+.about-body p{
+    max-width:64ch;
+    margin-bottom:18px;
+
+    color:var(--muted);
+    font-size:17px;
+    line-height:1.85;
+}
+
+.about-body p:last-child{
+    margin-bottom:0;
+}
+
+
+/* =========================================================
+   03. 資訊卡
+========================================================= */
 
 .grid-2{
     display:grid;
     grid-template-columns:repeat(2, 1fr);
-    gap:40px;
+
+    border-top:1px solid var(--line);
 }
 
-.about-section h2{
-    font-size:40px;
-    color:#073047;
-    margin-bottom:24px;
-    position:relative;
-}
-
-.about-section h2::after{
-    content:'';
-    width:80px;
-    height:4px;
-    background:#00a6c7;
-    display:block;
-    margin-top:12px;
-    border-radius:10px;
-}
-
-.about-section p{
-    font-size:17px;
-    color:#4b5563;
-    margin-bottom:18px;
+/* 第三張卡橫跨整列，避免落單時左右不平衡 */
+.grid-2 .info-card:nth-child(3){
+    grid-column:1 / -1;
 }
 
 .info-card{
-    background:#fff;
-    padding:36px;
-    border-radius:24px;
-    box-shadow:0 10px 30px rgba(0,0,0,.06);
+    padding:36px 44px 36px 0;
+
+    border-bottom:1px solid var(--line);
+
+    transition:background .3s ease;
+}
+
+.info-card:nth-child(even){
+    padding-left:44px;
+    border-left:1px solid var(--line);
+}
+
+.info-card:nth-child(3){
+    padding-left:0;
+    border-left:none;
+}
+
+.info-card:hover{
+    background:rgba(14,28,38,.025);
 }
 
 .info-card h3{
-    margin-top:0;
-    margin-bottom:18px;
-    color:#073047;
-    font-size:26px;
+    margin:0 0 18px;
+    font-size:22px;
+}
+
+.info-card p{
+    margin-bottom:16px;
+
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.8;
 }
 
 .info-card ul{
-    padding-left:20px;
-    margin:0;
+    margin:0 0 16px;
+    padding:0;
+
+    list-style:none;
+
+    border-top:1px solid var(--line);
 }
 
 .info-card li{
-    margin-bottom:12px;
-    color:#4b5563;
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+
+    padding:11px 0;
+
+    border-bottom:1px solid var(--line);
+
+    color:var(--muted);
+    font-size:16px;
 }
 
+.info-card li::before{
+    content:"";
+
+    flex:0 0 6px;
+    width:6px;
+    height:6px;
+
+    background:var(--green-t);
+    transform:rotate(45deg) translateY(-2px);
+}
+
+
+/* =========================================================
+   04. 響應式
+========================================================= */
+
 @media(max-width:900px){
+
+    .about-section:not(.grid-2){
+        grid-template-columns:1fr;
+        gap:20px;
+    }
 
     .grid-2{
         grid-template-columns:1fr;
     }
 
-    .about-hero h1{
-        font-size:38px;
+    .info-card,
+    .info-card:nth-child(even){
+        padding:28px 0;
+        border-left:none;
     }
 
-    .about-hero p{
-        font-size:18px;
+    .about-section{
+        margin-bottom:56px;
     }
-
-    .about-section h2{
-        font-size:32px;
-    }
-
 }

@@ -91,11 +91,25 @@
     
     
     <!-- 瀏覽器分頁的小圖示 -->
+    <!-- Favicon：Google 搜尋結果需要「正方形」且「網址固定」的圖示。
+         原本用的 slogo.jpg 是 449×514 非正方形，logo.jpg 是 1170×1166，
+         兩者都不符合，Google 因此改顯示預設的地球圖示。
+         favicon.svg 是由 logo 置中裁切成 512×512 的正方形版本，
+         並且全站都指向同一個絕對路徑。 -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-    rel="icon"
-    type="image/jpeg"
-    href="../../images/slogo.jpg"
-    />
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+    >
+    <!-- 進場動畫開關：必須在首次繪製前掛上，
+         否則內容會先出現、再被隱藏、再浮上來，看起來像閃一下。
+         關閉 JS 時這行不會執行，內容照常完整顯示。 -->
+    <script>document.documentElement.classList.add("js-motion");</script>
+
+
     <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/header.css">
     <link rel="stylesheet" href="../../css/footer.css">
@@ -108,6 +122,9 @@
 </head>
 
 <body>
+
+    <!-- 顆粒疊層 -->
+    <div class="grain" aria-hidden="true"></div>
 
     <header>
         <div class="container navbar">
@@ -130,11 +147,11 @@
         
         <div class="dropdown-menu" id="productDropdownMenu">
         
-        <a href="disc-diffuser.html">
+        <a data-page="disc" href="disc-diffuser.html">
         散氣盤
         </a>
         
-        <a href="tube-diffuser.html">
+        <a data-page="tube" href="tube-diffuser.html">
         散氣管
         </a>
         
@@ -171,16 +188,23 @@
 
     <div id="mobile-menu"></div>
 
-    <section class="about-hero">
+    <section class="about-hero page-hero">
 
-        <h1>
-            關於 EnviroValor
-        </h1>
+        <div class="container">
 
-        <p>
-            EnviroValor 是來自台灣的污水曝氣產品供應商，專注於細氣泡散氣盤與相關曝氣產品，應用於市政污水與工業廢水處理系統。我們專注於實用的產品選擇、穩定供貨，以及即時清楚的溝通，協助工程公司、經銷商、系統整合商與工程採購客戶順利推進專案。
-        </p>
-
+            <div class="eyebrow">
+                關於我們
+            </div>
+    
+            <h1>
+                關於 EnviroValor
+            </h1>
+    
+            <p>
+                EnviroValor 是來自台灣的污水曝氣產品供應商，專注於細氣泡散氣盤與相關曝氣產品，應用於市政污水與工業廢水處理系統。我們專注於實用的產品選擇、穩定供貨，以及即時清楚的溝通，協助工程公司、經銷商、系統整合商與工程採購客戶順利推進專案。
+            </p>
+    
+        </div>
     </section>
 
     <main class="about-container">
@@ -191,17 +215,20 @@
                 關於 EnviroValor
             </h2>
 
-            <p>
-                EnviroValor 是來自台灣的污水曝氣產品供應商，專注於細氣泡散氣盤與相關曝氣產品，應用於市政污水與工業廢水處理系統。
-            </p>
-
-            <p>
-                我們了解，可靠的曝氣設備對於污水處理系統的穩定運轉至關重要。因此，EnviroValor 專注於實用的產品選擇、穩定供貨，以及即時清楚的溝通，協助環工承包商、經銷商、系統整合商與工程採購客戶順利推進專案。
-            </p>
-
-            <p>
-                透過標準散氣產品庫存供應，EnviroValor 協助客戶縮短採購時間，支援緊急汰換需求，並讓污水處理工程能夠順利推進。
-            </p>
+            <div class="about-body">
+    
+                <p>
+                    EnviroValor 是來自台灣的污水曝氣產品供應商，專注於細氣泡散氣盤與相關曝氣產品，應用於市政污水與工業廢水處理系統。
+                </p>
+    
+                <p>
+                    我們了解，可靠的曝氣設備對於污水處理系統的穩定運轉至關重要。因此，EnviroValor 專注於實用的產品選擇、穩定供貨，以及即時清楚的溝通，協助環工承包商、經銷商、系統整合商與工程採購客戶順利推進專案。
+                </p>
+    
+                <p>
+                    透過標準散氣產品庫存供應，EnviroValor 協助客戶縮短採購時間，支援緊急汰換需求，並讓污水處理工程能夠順利推進。
+                </p>
+            </div>
 
         </section>
 
@@ -211,17 +238,20 @@
                 我們的故事
             </h2>
 
-            <p>
-                EnviroValor 的成立目標很簡單：提供可靠的污水曝氣產品，並以更快速、更彈性的供貨能力支援客戶。
-            </p>
-
-            <p>
-                在污水處理產業中，許多採購客戶經常面臨交期過長、交貨時程不確定，以及汰換零件難以及時取得的問題。EnviroValor 希望透過聚焦常用曝氣產品、建立庫存供應，並與客戶保持清楚溝通，協助解決這些實務上的痛點。
-            </p>
-
-            <p>
-                我們從細氣泡散氣盤開始，逐步建立適用於台灣與國際市場污水處理工程的實用產品線。
-            </p>
+            <div class="about-body">
+    
+                <p>
+                    EnviroValor 的成立目標很簡單：提供可靠的污水曝氣產品，並以更快速、更彈性的供貨能力支援客戶。
+                </p>
+    
+                <p>
+                    在污水處理產業中，許多採購客戶經常面臨交期過長、交貨時程不確定，以及汰換零件難以及時取得的問題。EnviroValor 希望透過聚焦常用曝氣產品、建立庫存供應，並與客戶保持清楚溝通，協助解決這些實務上的痛點。
+                </p>
+    
+                <p>
+                    我們從細氣泡散氣盤開始，逐步建立適用於台灣與國際市場污水處理工程的實用產品線。
+                </p>
+            </div>
 
         </section>
 
@@ -331,7 +361,7 @@
             class="scroll-top-btn"
             id="scrollTopBtn"
             type="button"
-            aria-label="Back to top">
+            aria-label="回到頂部">
 
             ↑
 

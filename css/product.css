@@ -1,113 +1,482 @@
 /* =========================================================
    product.css
-   EnviroValor 產品頁共用樣式表
+   產品頁共用版型與元件
 
    目錄
-   01. 基礎保護設定
-   02. Hero 產品主視覺區
-   03. Product Slider 產品圖片輪播
-   04. Section 共用背景與標題
-   05. Icon 共用小圖示
-   06. Flat Feature Cards 扁卡片模組
-   07. Spec Layout 圖片＋規格卡片模組
-   08. Spec Tabs 規格分頁模組
-   09. Product Overview Tabs 產品特色分頁模組
-   10. Split Layout 左右分割說明模組
-   11. Summary Blocks 摘要卡片與標籤模組
-   12. Why EnviroValor 行銷卡片模組
-   13. Responsive RWD 響應式設定
+   01. Hero 產品區
+   02. 散氣盤向量圖與氣泡
+   03. 產品圖片輪播
+   04. 數據帶
+   05. 特色線列（兩欄編輯式）
+   06. 結構區（黏著式左右分割）
+   07. 規格區：左圖右資料
+   08. 規格分頁與資料格
+   09. 產品特色分頁（散氣管）
+   10. 剖面圖與狀態切換
+   11. 摘要、標籤、供貨清單
+   12. 為什麼選擇卡片
+   13. 結尾行動區
+   14. 響應式
 
    使用原則
-   - 這支檔案只放產品頁共用版型與共用元件。
-   - 單一產品頁非常細節的微調，建議放在該 HTML 的 <style> 中。
-   - 目前共用於 disc-diffuser.html 與 tube-diffuser.html。
+   - 只放產品頁共用的版型與元件。
+   - 顏色一律走 global.css 的代幣，不要寫死色碼。
+   - 單一頁面的細部微調寫在該頁 <style>，不要塞進這裡。
 ========================================================= */
 
 
 /* =========================================================
-   01. 基礎保護設定
-   用途：
-   - 避免寬版內容或圖片造成水平捲軸。
-   - 統一盒模型，讓 padding 與 border 不會額外撐爆寬度。
+   01. Hero 產品區
 ========================================================= */
-
-html,
-body{
-    overflow-x:hidden;
-}
-
-*{
-    box-sizing:border-box;
-}
-
-
-/* =========================================================
-   02. Hero 產品主視覺區
-   用途：
-   - 產品頁最上方的大型介紹區。
-   - 左側放產品文字與按鈕，右側放產品輪播圖片。
-   使用頁面：
-   - disc-diffuser.html
-   - tube-diffuser.html
-========================================================= */
-
-.hero{
-    width:100%;
-    overflow:hidden;
-}
-
-.hero-grid{
-    display:grid;
-    grid-template-columns:1.15fr .85fr;
-    gap:70px;
-    align-items:center;
-}
-
-.hero-grid > div{
-    min-width:0;
-}
 
 .hero-card{
-    width:fit-content;
-    max-width:100%;
-    margin:auto;
-    padding:12px;
+    width:100%;
+    max-width:520px;
+    margin-inline:auto;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    padding:24px;
 
-    border-radius:28px;
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--line-d);
+    border-radius:var(--r-lg);
+
+    box-shadow:0 40px 90px -40px rgba(0,0,0,.85);
+}
+
+/* 現貨／交期那一行用綠字收尾，與內文區隔 */
+.hero .hero-note{
+    color:var(--green-hi);
+    font-weight:400;
 }
 
 
 /* =========================================================
-   03. Product Slider 產品圖片輪播
-   用途：
-   - Hero 產品圖片輪播。
-   - 產品規格區左側圖片輪播。
-   注意：
-   - JS 會控制 .slider-image.active。
-   - 每組輪播都應該包在 .product-slider 裡面，避免多組輪播互相干擾。
+   02. 散氣盤向量圖與氣泡
+   純 CSS 繪製：同心圓孔紋對應膜片實際布孔，
+   外圈白色為 P.P. 本體。裝飾用，標 aria-hidden。
+========================================================= */
+
+.disc-stage{
+    position:relative;
+
+    display:grid;
+    place-items:center;
+
+    width:100%;
+    max-width:520px;
+    aspect-ratio:1;
+
+    margin-inline:auto;
+}
+
+.disc{
+    position:relative;
+
+    width:78%;
+    aspect-ratio:1;
+    border-radius:50%;
+
+    background:radial-gradient(circle at 34% 28%, #2a3a44, #0a1218 62%, #050a0e);
+
+    box-shadow:
+    0 0 0 14px rgba(255,255,255,.94),
+    0 0 0 15px rgba(0,0,0,.2),
+    0 50px 90px -30px rgba(0,0,0,.85),
+    inset 0 2px 30px rgba(255,255,255,.09);
+
+    animation:disc-float 7s ease-in-out infinite;
+}
+
+@keyframes disc-float{
+    0%,100%{transform:translateY(-8px)}
+    50%{transform:translateY(10px)}
+}
+
+/* 膜片同心孔紋 */
+.disc::before{
+    content:"";
+
+    position:absolute;
+    inset:6%;
+    border-radius:50%;
+
+    background:repeating-radial-gradient(
+        circle,
+        rgba(255,255,255,.11) 0 1px,
+        transparent 1px 7px
+    );
+
+    opacity:.85;
+}
+
+.disc::after{
+    content:attr(data-model);
+
+    position:absolute;
+    inset:0;
+
+    display:grid;
+    place-items:center;
+
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:.2em;
+
+    color:rgba(255,255,255,.3);
+}
+
+.disc-ring{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+
+    border:1px dashed rgba(255,255,255,.16);
+
+    animation:disc-spin 40s linear infinite;
+}
+
+.disc-ring.is-inner{
+    inset:7%;
+
+    border-style:solid;
+    border-color:rgba(53,179,74,.22);
+
+    animation-duration:26s;
+    animation-direction:reverse;
+}
+
+@keyframes disc-spin{
+    to{transform:rotate(360deg)}
+}
+
+/* 標註線 */
+.disc-callout{
+    position:absolute;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    white-space:nowrap;
+
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:.1em;
+
+    color:rgba(255,255,255,.72);
+}
+
+.disc-callout::before{
+    content:"";
+
+    width:26px;
+    height:1px;
+
+    background:rgba(255,255,255,.28);
+}
+
+.disc-callout.pos-top{
+    top:16%;
+    right:-4%;
+}
+
+.disc-callout.pos-bottom{
+    bottom:22%;
+    left:-6%;
+
+    flex-direction:row-reverse;
+}
+
+/* =========================================================
+   02b. 散氣管向量圖
+   橫置圓柱：膜片孔紋、兩道 304 不鏽鋼束環、一端進氣口。
+   下方是工程圖式的尺寸線，標出 600 mm。
+   裝飾用，標 aria-hidden。
+========================================================= */
+
+.tube-stage{
+    position:relative;
+
+    display:grid;
+    place-items:center;
+
+    width:100%;
+    max-width:520px;
+    aspect-ratio:1;
+
+    margin-inline:auto;
+}
+
+.tube{
+    position:relative;
+
+    width:86%;
+    height:19%;
+
+    border-radius:999px;
+
+    background:linear-gradient(
+        180deg,
+        #3d4d57 0%,
+        #161e23 38%,
+        #080d10 70%,
+        #202b33 100%
+    );
+
+    box-shadow:
+    inset 0 2px 12px rgba(255,255,255,.15),
+    inset 0 -6px 14px rgba(0,0,0,.6),
+    0 44px 72px -30px rgba(0,0,0,.9);
+
+    animation:tube-float 7s ease-in-out infinite;
+}
+
+@keyframes tube-float{
+    0%,100%{transform:translateY(-7px)}
+    50%{transform:translateY(9px)}
+}
+
+/* 膜片孔紋：13,500 孔的視覺對應 */
+.tube::before{
+    content:"";
+
+    position:absolute;
+    inset:16% 5%;
+
+    border-radius:999px;
+
+    background:repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,.1) 0 1px,
+        transparent 1px 6px
+    );
+
+    opacity:.75;
+}
+
+/* 圓柱高光 */
+.tube::after{
+    content:"";
+
+    position:absolute;
+    left:5%;
+    right:5%;
+    top:15%;
+
+    height:13%;
+    border-radius:999px;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.22) 30%,
+        rgba(255,255,255,.22) 70%,
+        transparent
+    );
+}
+
+/* 304 不鏽鋼束環 */
+.tube-band{
+    position:absolute;
+    top:-8%;
+    bottom:-8%;
+
+    width:11px;
+    border-radius:4px;
+
+    background:linear-gradient(
+        180deg,
+        #f2f6f8 0%,
+        #93a3ad 46%,
+        #6f7f89 58%,
+        #e2eaee 100%
+    );
+
+    box-shadow:0 0 12px rgba(0,0,0,.45);
+}
+
+.tube-band.pos-left{
+    left:17%;
+}
+
+.tube-band.pos-right{
+    right:17%;
+}
+
+/* 一端的進氣口 */
+.tube-inlet{
+    position:absolute;
+    right:-6%;
+    top:50%;
+    translate:0 -50%;
+
+    width:8%;
+    height:54%;
+
+    border-radius:3px;
+
+    background:linear-gradient(
+        180deg,
+        #eef3f6 0%,
+        #a4b2bb 50%,
+        #dbe4e9 100%
+    );
+
+    box-shadow:0 0 10px rgba(0,0,0,.4);
+}
+
+/* 尺寸線：工程圖的語彙 */
+.tube-dim{
+    position:absolute;
+    left:7%;
+    right:7%;
+    bottom:24%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    height:1px;
+    background:rgba(255,255,255,.24);
+}
+
+.tube-dim::before,
+.tube-dim::after{
+    content:"";
+
+    position:absolute;
+    top:-6px;
+
+    width:1px;
+    height:13px;
+
+    background:rgba(255,255,255,.24);
+}
+
+.tube-dim::before{
+    left:0;
+}
+
+.tube-dim::after{
+    right:0;
+}
+
+.tube-dim span{
+    padding:0 12px;
+
+    background:var(--ink);
+
+    color:rgba(255,255,255,.72);
+
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:.1em;
+}
+
+
+/* 氣泡，由 js/hero-bubbles.js 產生 */
+.bubbles{
+    position:absolute;
+    inset:0;
+
+    pointer-events:none;
+}
+
+.bubble{
+    position:absolute;
+    bottom:52%;
+    left:50%;
+
+    border-radius:50%;
+    opacity:0;
+
+    background:radial-gradient(
+        circle at 32% 30%,
+        rgba(255,255,255,.9),
+        rgba(94,200,224,.28) 55%,
+        rgba(94,200,224,.05)
+    );
+
+    border:1px solid rgba(255,255,255,.3);
+
+    animation:bubble-rise linear infinite;
+}
+
+@keyframes bubble-rise{
+    0%{opacity:0;transform:translate(0,0) scale(.4)}
+    12%{opacity:.9}
+    100%{opacity:0;transform:translate(var(--dx), -320px) scale(1.25)}
+}
+
+/* 散氣管是橫置的，氣泡沿整條管身冒出，起點比散氣盤高一些 */
+.tube-stage .bubble{
+    bottom:56%;
+}
+
+/* 標註線與散氣盤共用同一套樣式 */
+.tube-callout{
+    position:absolute;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    white-space:nowrap;
+
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:.1em;
+
+    color:rgba(255,255,255,.72);
+}
+
+.tube-callout::before{
+    content:"";
+
+    width:26px;
+    height:1px;
+
+    background:rgba(255,255,255,.28);
+}
+
+.tube-callout.pos-top{
+    top:22%;
+    right:2%;
+}
+
+.tube-callout.pos-bottom{
+    bottom:34%;
+    left:2%;
+
+    flex-direction:row-reverse;
+}
+
+
+/* =========================================================
+   03. 產品圖片輪播
+   照片為實拍，套內縮暗角把邊緣壓下去，視覺焦點回到產品本體。
 ========================================================= */
 
 .product-slider{
     position:relative;
-    width:400px;
-    max-width:100%;
+    width:100%;
 }
 
 .slider-container{
     position:relative;
 
     width:100%;
-    aspect-ratio:1 / 1;
+    aspect-ratio:1;
 
     overflow:hidden;
 
-    border-radius:28px;
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    border-radius:var(--r-md);
+}
 
-    background:transparent;
+.section-dark .slider-container{
+    border-color:var(--line-d);
 }
 
 .slider-image{
@@ -117,371 +486,450 @@ body{
     width:100%;
     height:100%;
 
-    object-fit:contain;
-    object-position:center center;
+    object-fit:cover;
+    object-position:center;
 
     opacity:0;
-    transition:.35s;
+
+    transition:opacity .6s var(--ease);
 }
 
 .slider-image.active{
     opacity:1;
 }
 
-.slider-btn{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    z-index:20;
+.slider-container::after{
+    content:"";
 
-    width:46px;
-    height:46px;
+    position:absolute;
+    inset:0;
+
+    pointer-events:none;
+
+    box-shadow:inset 0 0 80px rgba(4,20,29,.5);
+}
+
+/* 指示條：一眼看得出共幾張、現在第幾張，且不會蓋住照片 */
+.slider-nav{
+    display:flex;
+    gap:8px;
+
+    margin-top:14px;
+}
+
+.slider-dot{
+    flex:1;
+
+    height:3px;
+    padding:0;
 
     border:none;
-    border-radius:50%;
+    border-radius:2px;
 
-    background:rgba(0,0,0,.45);
-    color:#ffffff;
+    background:var(--line);
 
-    font-size:26px;
     cursor:pointer;
-    transition:.25s;
+
+    transition:background .3s ease;
 }
 
-.slider-btn:hover{
-    background:rgba(0,0,0,.7);
+.section-dark .slider-dot{
+    background:var(--line-d);
 }
 
-.prev-btn{
-    left:14px;
+.slider-dot.active{
+    background:var(--green-t);
 }
 
-.next-btn{
-    right:14px;
+.section-dark .slider-dot.active{
+    background:var(--green-hi);
 }
 
-
-/* =========================================================
-   04. Section 共用背景與標題
-   用途：
-   - 控制產品頁每個區塊的上下留白。
-   - 提供白底與淡綠底兩種交錯背景。
-   - 統一產品頁區塊標題的置中、大小與段落樣式。
-   使用方式：
-   - section-white：白色背景
-   - section-soft：淡綠背景
-   - section-head / section-heading center：標題區
-========================================================= */
-
-main section:not(.hero){
-    padding:82px 0;
+/* 指示條本身只有 3px，另外撐出 44px 的可點範圍 */
+.slider-nav{
+    padding:20px 0;
+    margin-top:0;
 }
 
-.section-white{
-    background:#ffffff;
-}
-
-.section-soft{
-    background:#f6fbf8;
-}
-
-.product-overview{
-    padding:90px 0;
-    background:#ffffff;
-}
-
-.product-section{
-    padding:100px 0;
-    background:#f6fbf8;
-}
-
-.feature-summary{
-    padding:100px 0;
-    background:#ffffff;
-}
-
-.section-head,
-.section-heading{
-    max-width:840px;
-    margin-bottom:38px;
-}
-
-.section-head.center,
-.section-heading.center,
-.product-page .section-head,
-.product-page .section-heading{
-    max-width:780px;
-    margin:0 auto 42px;
-    text-align:center;
-}
-
-.product-page .section-head h2,
-.product-page .section-heading h2{
-    margin:0 0 16px;
-
-    color:var(--navy);
-
-    font-size:44px;
-    line-height:1.2;
-    font-weight:950;
-}
-
-.section-head p,
-.section-heading p,
-.product-page .section-head p,
-.product-page .section-heading p{
-    margin:0;
+.slider-caption{
+    margin-top:2px;
 
     color:var(--muted);
 
-    font-size:17px;
-    line-height:1.9;
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:.1em;
+}
+
+.section-dark .slider-caption{
+    color:var(--muted-d);
 }
 
 
 /* =========================================================
-   05. Icon 共用小圖示
-   用途：
-   - 用在供貨優勢清單、編號、符號提示。
-   - 目前 disc-diffuser.html 的 supply-list 有使用。
+   04. 數據帶
+   把埋在規格表裡最有說服力的數字拉到最前面。
+   標籤高度固定，四欄的大數字才會落在同一條基線上。
 ========================================================= */
 
-.icon{
-    width:54px;
-    height:54px;
+.stats{
+    background:var(--ink-2);
 
-    margin-bottom:18px;
+    border-top:1px solid var(--line-d);
+    border-bottom:1px solid var(--line-d);
+}
 
+.stats-grid{
     display:grid;
-    place-items:center;
+    grid-template-columns:repeat(4, 1fr);
+}
 
-    border-radius:18px;
+.stat{
+    display:flex;
+    flex-direction:column;
 
-    background:rgba(53,179,74,.12);
-    color:var(--green);
+    min-height:206px;
+    padding:46px 32px;
 
-    font-size:24px;
-    font-weight:900;
+    border-right:1px solid var(--line-d);
+
+    transition:background .4s ease;
+}
+
+.stat:last-child{
+    border-right:none;
+}
+
+.stat:hover{
+    background:rgba(53,179,74,.07);
+}
+
+.stat .mono{
+    display:block;
+    margin-bottom:26px;
+
+    color:rgba(255,255,255,.42);
+}
+
+.stat-num{
+    display:flex;
+    align-items:baseline;
+    gap:7px;
+    flex-wrap:wrap;
+
+    color:#ffffff;
+
+    font-size:clamp(34px, 3.6vw, 52px);
+    font-weight:800;
+    line-height:1;
+    letter-spacing:-.02em;
+
+    font-variant-numeric:tabular-nums;
+}
+
+.stat-num .unit{
+    color:var(--green-hi);
+
+    font-size:.36em;
+    font-weight:600;
+    letter-spacing:.02em;
+
+    white-space:nowrap;
+}
+
+.stat-sub{
+    margin-top:16px;
+
+    color:var(--muted-d);
+
+    font-size:15px;
+    font-weight:400;
+    line-height:1.65;
 }
 
 
 /* =========================================================
-   06. Flat Feature Cards 扁卡片模組
-   用途：
-   - 適合短文字、規格型、條列型資訊。
-   - 目前 disc-diffuser.html 的產品特色與規格分頁有使用。
-   使用方式：
-   <div class="flat-feature-grid">
-       <div class="flat-feature-card">
-           <span>標籤</span>
-           <strong>內容</strong>
-       </div>
-   </div>
-
-   compact-grid：
-   - 用於規格分頁內部，卡片高度與內距較小。
+   05. 特色線列（兩欄編輯式）
+   取代原本的卡片：卡片在高密度資訊上會很吵，
+   髮絲線分隔讓內容自己說話，也不會拉得太長。
 ========================================================= */
 
 .flat-feature-grid{
     display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:16px;
+    grid-template-columns:1fr 1fr;
+
+    border-top:1px solid var(--line);
+}
+
+.section-dark .flat-feature-grid{
+    border-top-color:var(--line-d);
+}
+
+.flat-feature-grid.is-single{
+    grid-template-columns:1fr;
 }
 
 .flat-feature-card{
-    min-height:84px;
+    display:grid;
+    gap:8px;
+    align-content:center;
 
-    padding:18px 20px;
+    padding:26px 36px 26px 12px;
 
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+    border-bottom:1px solid var(--line);
 
-    background:var(--white);
+    transition:
+    padding .45s var(--ease),
+    background .3s ease;
+}
 
-    border:1px solid var(--line);
-    border-radius:18px;
+.section-dark .flat-feature-card{
+    border-bottom-color:var(--line-d);
+}
 
-    box-shadow:0 8px 22px rgba(7,48,71,.035);
+.flat-feature-grid:not(.is-single) .flat-feature-card:nth-child(even){
+    padding-left:44px;
+    border-left:1px solid var(--line);
+}
+
+.section-dark .flat-feature-grid:not(.is-single) .flat-feature-card:nth-child(even){
+    border-left-color:var(--line-d);
+}
+
+.flat-feature-card:hover{
+    padding-left:26px;
+    background:rgba(14,28,38,.025);
+}
+
+.flat-feature-grid:not(.is-single) .flat-feature-card:nth-child(even):hover{
+    padding-left:58px;
+}
+
+.section-dark .flat-feature-card:hover{
+    background:rgba(255,255,255,.028);
 }
 
 .flat-feature-card span{
-    margin-bottom:6px;
+    color:var(--text);
 
-    color:#0d8b63;
+    font-size:17px;
+    font-weight:700;
+    letter-spacing:-.01em;
+}
 
-    font-size:13px;
-    font-weight:900;
-    line-height:1.5;
+.section-dark .flat-feature-card span{
+    color:#ffffff;
 }
 
 .flat-feature-card strong{
-    color:var(--navy);
+    color:var(--muted);
 
-    font-size:15px;
-    line-height:1.55;
-    font-weight:850;
+    font-size:16px;
+    font-weight:500;
+    line-height:1.65;
+
+    font-variant-numeric:tabular-nums;
 }
 
-.flat-feature-grid.compact-grid{
-    grid-template-columns:repeat(4, 1fr);
-    gap:16px;
-}
-
-.flat-feature-grid.compact-grid .flat-feature-card{
-    min-height:78px;
-    padding:16px 18px;
+.section-dark .flat-feature-card strong{
+    color:var(--muted-d);
 }
 
 
 /* =========================================================
-   07. Spec Layout 圖片＋規格卡片模組
-   用途：
-   - 左側圖片，右側規格卡片。
-   - 適合管狀產品這種需要圖片與完整規格並排展示的頁面。
-   使用頁面：
-   - tube-diffuser.html
+   06. 結構區（黏著式左右分割）
+========================================================= */
+
+.structure-split,
+.split-feature{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    gap:70px;
+
+    align-items:start;
+}
+
+.structure-copy,
+.split-feature-copy{
+    position:sticky;
+    top:120px;
+}
+
+.structure-copy h2,
+.split-feature-copy h2{
+    margin:24px 0 18px;
+}
+
+.structure-copy p,
+.split-feature-copy p{
+    max-width:40ch;
+
+    color:var(--muted);
+    font-size:17px;
+    font-weight:400;
+}
+
+.section-dark .structure-copy p,
+.section-dark .split-feature-copy p{
+    color:var(--muted-d);
+}
+
+/* 兩欄排列，最後一項橫跨整列，形成 2–2–1，
+   單欄堆疊會把這一區拉得太長 */
+.struct-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    border-top:1px solid var(--line);
+}
+
+.section-dark .struct-grid{
+    border-top-color:var(--line-d);
+}
+
+.struct-item{
+    display:grid;
+    gap:9px;
+    align-content:start;
+
+    padding:26px 36px 26px 0;
+
+    border-bottom:1px solid var(--line);
+
+    transition:
+    padding .45s var(--ease),
+    background .3s ease;
+}
+
+.section-dark .struct-item{
+    border-bottom-color:var(--line-d);
+}
+
+.struct-grid .struct-item:nth-child(even){
+    padding-left:36px;
+    border-left:1px solid var(--line);
+}
+
+.section-dark .struct-grid .struct-item:nth-child(even){
+    border-left-color:var(--line-d);
+}
+
+/* 落單的最後一項改成整列，右側才不會空一半 */
+.struct-grid .struct-item:last-child:nth-child(odd){
+    grid-column:1 / -1;
+
+    padding-left:0;
+    border-left:none;
+}
+
+.struct-item:hover{
+    background:rgba(14,28,38,.025);
+}
+
+.section-dark .struct-item:hover{
+    background:rgba(255,255,255,.028);
+}
+
+.struct-item p{
+    color:var(--muted);
+
+    font-size:15.5px;
+    font-weight:400;
+    line-height:1.7;
+}
+
+.section-dark .struct-item p{
+    color:var(--muted-d);
+}
+
+
+/* =========================================================
+   07. 規格區：左圖右資料
+   照片跟著捲動黏住，切換規格分頁時圖片一直在視線內。
 ========================================================= */
 
 .spec-layout{
     display:grid;
-    grid-template-columns:420px 1fr;
+    grid-template-columns:400px 1fr;
     gap:60px;
+
     align-items:start;
 }
 
+.spec-shots,
 .product-visual-panel{
     position:sticky;
     top:120px;
 }
 
 .visual-badge{
-    margin-top:22px;
-
     display:flex;
     justify-content:center;
+
+    margin-top:18px;
 }
 
 .visual-badge span{
     padding:10px 18px;
 
-    border-radius:999px;
+    background:transparent;
+    border:1px solid rgba(53,179,74,.4);
+    border-radius:var(--r-pill);
 
-    background:#0d8b63;
-    color:#ffffff;
+    color:var(--text);
 
     font-size:14px;
-    font-weight:700;
+    font-weight:600;
 }
 
-.spec-grid.compact{
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:18px;
-}
-
-.spec-card{
-    padding:22px;
-
-    background:#ffffff;
-
-    border:1px solid rgba(0,0,0,.06);
-    border-radius:20px;
-
-    transition:.25s ease;
-}
-
-.spec-card:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 24px rgba(0,0,0,.06);
-}
-
-.spec-card.full{
-    grid-column:1 / -1;
-}
-
-.spec-label{
-    display:block;
-
-    margin-bottom:8px;
-
-    color:#0d8b63;
-
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:.04em;
-    text-transform:uppercase;
-}
-
-.spec-card strong{
-    display:block;
-
-    color:#1f2937;
-
-    font-size:15px;
-    font-weight:700;
-    line-height:1.6;
+.section-dark .visual-badge span{
+    color:var(--on-dark);
+    border-color:var(--line-d);
 }
 
 
 /* =========================================================
-   08. Spec Tabs 規格分頁模組
-   用途：
-   - 用於同一區塊內切換不同規格資料。
-   - 適合資料很多、但不想讓頁面太長的產品。
-   使用頁面：
-   - disc-diffuser.html
-
-   JS 對應：
-   - 按鈕使用 .spec-tab-btn 與 data-spec-panel
-   - 內容使用 .spec-tab-panel 與對應 id
+   08. 規格分頁與資料格
 ========================================================= */
 
-.spec-tabs{
-    padding:28px;
-
-    background:var(--white);
-
-    border:1px solid var(--line);
-    border-radius:28px;
-
-    box-shadow:0 12px 32px rgba(7,48,71,.05);
-}
-
-.spec-tab-buttons{
+.spec-tab-buttons,
+.spec-tabs-nav{
     display:flex;
+    gap:8px;
     flex-wrap:wrap;
-    gap:12px;
 
-    margin-bottom:28px;
+    margin-bottom:36px;
 }
 
 .spec-tab-btn{
-    padding:13px 18px;
+    padding:12px 22px;
+    min-height:44px;
 
-    appearance:none;
-
+    background:transparent;
     border:1px solid var(--line);
-    border-radius:999px;
+    border-radius:var(--r-pill);
 
-    background:var(--white);
-    color:var(--navy);
+    color:var(--muted);
 
     font-family:inherit;
-    font-size:15px;
-    font-weight:850;
+    font-size:15.5px;
+    font-weight:700;
 
     cursor:pointer;
+
+    transition:.3s var(--ease);
 }
 
+.spec-tab-btn:hover{
+    border-color:var(--text);
+    color:var(--text);
+}
+
+/* 選中狀態用深底反白，靠明暗區分而非只靠顏色 */
 .spec-tab-btn.active{
-    background:rgba(53,179,74,.12);
-    border-color:rgba(53,179,74,.24);
-    color:#0d8b63;
-}
-
-.spec-tab-content{
-    margin-top:8px;
+    background:var(--ink);
+    border-color:var(--ink);
+    color:#ffffff;
 }
 
 .spec-tab-panel{
@@ -490,113 +938,186 @@ main section:not(.hero){
 
 .spec-tab-panel.active{
     display:block;
+    animation:panel-fade .5s var(--ease);
+}
+
+@keyframes panel-fade{
+    from{opacity:0;transform:translateY(14px)}
+    to{opacity:1;transform:none}
 }
 
 .spec-group-title{
-    margin-bottom:20px;
+    margin-bottom:26px;
+}
+
+.spec-group-title .kicker{
+    display:inline-block;
+    margin-bottom:12px;
 }
 
 .spec-group-title h3{
-    margin:0 0 10px;
-
-    color:var(--navy);
-
-    font-size:30px;
-    line-height:1.25;
+    margin-bottom:10px;
+    font-size:26px;
 }
 
 .spec-group-title p{
-    max-width:850px;
-    margin:0;
+    max-width:56ch;
+
+    color:var(--muted);
+    line-height:1.8;
+}
+
+/* 資料格：髮絲線切開的方格，數字用等寬對齊 */
+.spec-grid,
+.spec-grid.compact{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+    gap:1px;
+
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:var(--r-md);
+
+    overflow:hidden;
+}
+
+.spec-card{
+    padding:22px 20px;
+
+    background:var(--paper);
+
+    transition:background .35s ease;
+}
+
+.spec-card:hover{
+    background:var(--white);
+}
+
+.spec-card.full{
+    grid-column:1 / -1;
+}
+
+.spec-label{
+    display:block;
+    margin-bottom:9px;
 
     color:var(--muted);
 
-    line-height:1.85;
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+}
+
+.spec-card strong{
+    display:block;
+
+    color:var(--text);
+
+    font-size:16.5px;
+    font-weight:700;
+    line-height:1.45;
+
+    font-variant-numeric:tabular-nums;
 }
 
 
 /* =========================================================
-   09. Product Overview Tabs 產品特色分頁模組
-   用途：
-   - 左側為功能選單，右側為詳細說明。
-   - 適合敘事型、技術說明較長的產品特色。
-   使用頁面：
-   - tube-diffuser.html
-
-   JS 對應：
-   - 按鈕使用 .product-tab-item 與 data-panel
-   - 內容使用 .product-tab-panel 與對應 id
+   09. 產品特色分頁（散氣管）
 ========================================================= */
 
 .product-tab-layout{
     display:grid;
-    grid-template-columns:320px 1fr;
-    gap:28px;
+    grid-template-columns:300px 1fr;
+    gap:0;
 
-    align-items:stretch;
+    border-top:1px solid var(--line);
 }
 
 .product-tab-list{
-    padding:18px;
-
-    background:var(--white);
-
-    border:1px solid var(--line);
-    border-radius:28px;
-
-    box-shadow:0 14px 36px rgba(7,48,71,.06);
+    border-right:1px solid var(--line);
 }
 
 .product-tab-item{
-    width:100%;
-
-    padding:18px;
+    position:relative;
 
     display:flex;
-    align-items:center;
-    gap:14px;
+    align-items:flex-start;
+    gap:16px;
 
-    border:none;
-    border-radius:20px;
+    width:100%;
+    min-height:44px;
+    padding:22px 28px 22px 0;
 
     background:transparent;
+    border:none;
+    border-bottom:1px solid var(--line);
 
     text-align:left;
     font-family:inherit;
 
     cursor:pointer;
 
-    transition:.25s ease;
+    transition:
+    padding .3s var(--ease),
+    background .3s ease;
+}
+
+/* 選中狀態：左側實心色條 + 文字加深，兩種訊號 */
+.product-tab-item::before{
+    content:"";
+
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+
+    width:0;
+
+    background:var(--green-t);
+
+    transition:width .3s var(--ease);
+}
+
+.product-tab-item.active::before{
+    width:3px;
 }
 
 .product-tab-item.active{
-    background:rgba(53,179,74,.1);
+    padding-left:20px;
+}
+
+.product-tab-item:hover{
+    background:rgba(14,28,38,.035);
 }
 
 .product-tab-number{
-    width:42px;
-    height:42px;
-
     flex-shrink:0;
+    padding-top:4px;
 
-    display:grid;
-    place-items:center;
+    color:var(--muted);
 
-    border-radius:14px;
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:.1em;
+}
 
-    background:rgba(53,179,74,.12);
-    color:var(--green);
-
-    font-weight:950;
+.product-tab-item.active .product-tab-number{
+    color:var(--green-t);
 }
 
 .product-tab-item strong{
     display:block;
 
-    color:var(--navy);
+    color:var(--text);
 
-    font-size:17px;
-    line-height:1.5;
+    font-size:16px;
+    font-weight:600;
+    line-height:1.45;
+}
+
+.product-tab-item.active strong{
+    font-weight:800;
 }
 
 .product-tab-item span:last-child{
@@ -604,21 +1125,12 @@ main section:not(.hero){
 
     color:var(--muted);
 
-    font-size:14px;
+    font-size:15px;
     line-height:1.5;
 }
 
 .product-tab-card{
-    min-height:100%;
-
-    padding:44px;
-
-    background:var(--white);
-
-    border:1px solid var(--line);
-    border-radius:28px;
-
-    box-shadow:0 14px 36px rgba(7,48,71,.07);
+    padding:8px 0 0 56px;
 }
 
 .product-tab-panel{
@@ -627,209 +1139,263 @@ main section:not(.hero){
 
 .product-tab-panel.active{
     display:block;
+    animation:panel-fade .5s var(--ease);
 }
 
 .product-tab-panel h3{
-    margin:0 0 18px;
-
-    color:var(--navy);
-
-    font-size:36px;
-    line-height:1.25;
-    font-weight:950;
+    margin:0 0 16px;
+    font-size:clamp(22px, 2.2vw, 30px);
 }
 
 .product-tab-panel p{
-    margin:0 0 18px;
+    margin:0 0 16px;
 
     color:var(--muted);
 
     font-size:16px;
-    line-height:1.9;
+    line-height:1.8;
 }
 
 .product-tab-panel ul{
-    margin:24px 0 0;
-    padding-left:22px;
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+
+    margin:28px 0 0;
+    padding:0;
+
+    list-style:none;
+
+    border-top:1px solid var(--line);
 }
 
 .product-tab-panel li{
-    margin-bottom:12px;
+    display:flex;
+    align-items:baseline;
+    gap:12px;
 
-    color:var(--navy);
+    padding:13px 0;
 
-    font-weight:700;
+    border-bottom:1px solid var(--line);
+
+    color:var(--muted);
     line-height:1.7;
 }
 
+.product-tab-panel li::before{
+    content:"";
+
+    flex:0 0 5px;
+    width:5px;
+    height:5px;
+
+    background:var(--green-t);
+
+    transform:translateY(-2px);
+}
+
 
 /* =========================================================
-   10. Split Layout 左右分割說明模組
-   用途：
-   - 左側放主說明文字，右側放卡片。
-   - structure-split：偏產品結構說明。
-   - split-feature：偏單一功能深入說明。
-   使用頁面：
-   - disc-diffuser.html
+   10. 剖面圖與狀態切換
 ========================================================= */
 
-.structure-split{
-    display:grid;
-    grid-template-columns:.85fr 1.15fr;
-    gap:54px;
+.cutaway{
+    padding:32px;
 
-    align-items:center;
+    background:linear-gradient(160deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+    border:1px solid var(--line-d);
+    border-radius:var(--r-md);
 }
 
-.structure-copy h2,
-.split-feature-copy h2{
-    margin:0 0 18px;
-
-    color:var(--navy);
-
-    font-size:42px;
-    line-height:1.2;
-    font-weight:950;
+.cut-svg{
+    width:100%;
+    height:auto;
 }
 
-.structure-copy p,
-.split-feature-copy p{
-    max-width:520px;
-    margin:0;
+.toggle-row{
+    display:flex;
+    gap:8px;
 
-    color:var(--muted);
-
-    font-size:17px;
-    line-height:1.9;
+    margin-top:24px;
 }
 
-.structure-card-grid{
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:18px;
+.toggle-btn{
+    flex:1;
+
+    padding:12px;
+    min-height:44px;
+
+    background:transparent;
+    border:1px solid var(--line-d);
+    border-radius:var(--r-sm);
+
+    color:rgba(255,255,255,.72);
+
+    font-family:inherit;
+    font-size:15px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s var(--ease);
 }
 
-.structure-card-grid .flat-feature-card{
-    min-height:104px;
+.toggle-btn.active{
+    background:var(--green);
+    border-color:var(--green);
+    color:var(--ink);
 }
 
-.structure-card-wide{
-    grid-column:1 / -1;
-}
+.cut-note{
+    margin-top:16px;
+    min-height:44px;
 
-.split-feature{
-    display:grid;
-    grid-template-columns:.9fr 1.1fr;
-    gap:48px;
+    color:var(--muted-d);
 
-    align-items:center;
-}
-
-.split-feature-cards{
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:18px;
+    font-size:15.5px;
+    font-weight:400;
 }
 
 
 /* =========================================================
-   11. Summary Blocks 摘要卡片與標籤模組
-   用途：
-   - summary-grid：一般雙欄摘要。
-   - dual-summary-grid：應用範圍＋供貨優勢這類雙欄摘要。
-   - feature-tag：膠囊型標籤。
-   - supply-list：帶 icon 的供貨優勢清單。
-   使用頁面：
-   - tube-diffuser.html 使用 summary-grid
-   - disc-diffuser.html 使用 dual-summary-grid / supply-list
+   11. 摘要、標籤、供貨清單
 ========================================================= */
 
 .summary-grid,
 .dual-summary-grid{
     display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:36px;
-}
+    grid-template-columns:1fr 1fr;
+    gap:64px;
 
-.summary-block{
-    padding:42px;
-
-    background:var(--white);
-
-    border:1px solid var(--line);
-    border-radius:32px;
-
-    box-shadow:0 12px 32px rgba(7,48,71,.05);
+    align-items:start;
 }
 
 .summary-block h2{
-    margin:12px 0 18px;
-
-    color:var(--navy);
-
-    font-size:42px;
-    line-height:1.2;
+    margin:22px 0 14px;
+    font-size:clamp(26px, 2.6vw, 34px);
 }
 
-.summary-block p{
-    margin-bottom:30px;
-
+.summary-block > p{
     color:var(--muted);
+    font-size:16.5px;
+}
 
-    line-height:1.9;
+.section-dark .summary-block > p{
+    color:var(--muted-d);
 }
 
 .tag-group{
     display:flex;
     flex-wrap:wrap;
-    gap:14px;
+    gap:12px;
+
+    margin-top:26px;
 }
 
 .feature-tag{
-    padding:12px 18px;
+    display:inline-flex;
+    align-items:center;
+    gap:11px;
 
-    border:1px solid rgba(53,179,74,.16);
-    border-radius:999px;
+    padding:12px 22px;
 
-    background:rgba(53,179,74,.08);
-    color:var(--navy);
+    background:transparent;
+    border:1px solid var(--line);
+    border-radius:var(--r-pill);
 
-    font-size:15px;
-    font-weight:700;
+    color:var(--text);
+
+    font-size:15.5px;
+    font-weight:500;
+
+    transition:
+    transform .3s var(--ease),
+    border-color .3s ease,
+    background .3s ease;
 }
 
+/* 用 CSS 畫菱形而不是文字符號，避免出現小於 14px 的字級 */
+.feature-tag::before{
+    content:"";
+
+    width:6px;
+    height:6px;
+
+    background:var(--green-t);
+    transform:rotate(45deg);
+
+    flex:0 0 6px;
+}
+
+.feature-tag:hover{
+    transform:translateY(-3px);
+
+    background:rgba(53,179,74,.07);
+    border-color:rgba(53,179,74,.45);
+}
+
+.section-dark .feature-tag{
+    border-color:var(--line-d);
+    color:var(--on-dark);
+}
+
+.section-dark .feature-tag::before{
+    color:var(--green-hi);
+}
+
+/* 供貨清單：保留小圖示 */
 .supply-list{
     display:grid;
-    gap:18px;
+    gap:4px;
+
+    margin-top:26px;
 }
 
 .supply-item{
     display:grid;
     grid-template-columns:54px 1fr;
-    gap:18px;
+    gap:20px;
 
     align-items:start;
 
-    padding-bottom:18px;
+    padding:24px 0;
 
     border-bottom:1px solid var(--line);
 }
 
 .supply-item:last-child{
-    padding-bottom:0;
     border-bottom:none;
 }
 
-.supply-item .icon{
-    margin-bottom:0;
+.icon{
+    display:grid;
+    place-items:center;
+
+    width:54px;
+    height:54px;
+
+    border-radius:var(--r-md);
+
+    background:rgba(53,179,74,.12);
+    color:var(--green-t);
+
+    font-size:17px;
+    font-weight:800;
+    letter-spacing:.02em;
+
+    font-variant-numeric:tabular-nums;
+
+    transition:
+    background .3s var(--ease),
+    transform .3s var(--ease);
+}
+
+.supply-item:hover .icon{
+    background:rgba(53,179,74,.2);
+    transform:translateY(-2px);
 }
 
 .supply-item h3{
-    margin:0 0 8px;
-
-    color:var(--navy);
-
-    font-size:20px;
+    margin:0 0 7px;
 }
 
 .supply-item p{
@@ -837,220 +1403,311 @@ main section:not(.hero){
 
     color:var(--muted);
 
-    line-height:1.8;
+    font-size:15.5px;
+    line-height:1.7;
+}
+
+.section-dark .icon{
+    background:rgba(110,231,135,.14);
+    color:var(--green-hi);
+}
+
+.section-dark .supply-item{
+    border-bottom-color:var(--line-d);
+}
+
+.section-dark .supply-item p{
+    color:var(--muted-d);
 }
 
 
 /* =========================================================
-   12. Why EnviroValor 行銷卡片模組
-   用途：
-   - 額外的產品賣點說明區。
-   - 適合放 3 或 6 張較完整的行銷卡片。
-   使用頁面：
-   - tube-diffuser.html
+   12. 為什麼選擇卡片
 ========================================================= */
-
-.why-envirovalor{
-    padding:100px 0;
-    background:#f6fbf8;
-}
 
 .why-grid{
     display:grid;
     grid-template-columns:repeat(3, 1fr);
-    gap:26px;
 
-    margin-top:60px;
+    border-top:1px solid var(--line);
+}
+
+.section-dark .why-grid{
+    border-top-color:var(--line-d);
 }
 
 .why-card{
     position:relative;
 
-    padding:38px;
+    padding:36px 36px 36px 0;
 
-    overflow:hidden;
+    border-bottom:1px solid var(--line);
 
-    background:var(--white);
+    transition:background .3s ease;
+}
 
-    border:1px solid var(--line);
-    border-radius:30px;
+.section-dark .why-card{
+    border-bottom-color:var(--line-d);
+}
 
-    transition:.35s;
+.why-card:nth-child(3n+2),
+.why-card:nth-child(3n){
+    padding-left:36px;
+    border-left:1px solid var(--line);
+}
+
+.section-dark .why-card:nth-child(3n+2),
+.section-dark .why-card:nth-child(3n){
+    border-left-color:var(--line-d);
+}
+
+/* 四欄變體：首頁的優勢區是四項，換一組分隔線規則 */
+.why-grid.is-4{
+    grid-template-columns:repeat(4, 1fr);
+}
+
+.why-grid.is-4 .why-card:nth-child(3n+2),
+.why-grid.is-4 .why-card:nth-child(3n){
+    padding-left:0;
+    border-left:none;
+}
+
+.why-grid.is-4 .why-card:not(:nth-child(4n+1)){
+    padding-left:36px;
+    border-left:1px solid var(--line);
+}
+
+.section-dark .why-grid.is-4 .why-card:not(:nth-child(4n+1)){
+    border-left-color:var(--line-d);
 }
 
 .why-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 24px 48px rgba(7,48,71,.08);
+    background:rgba(14,28,38,.025);
 }
 
+.section-dark .why-card:hover{
+    background:rgba(255,255,255,.025);
+}
+
+/* 這六點不是流程順序，所以編號只做安靜的索引，不放大 */
 .why-number{
-    margin-bottom:22px;
+    margin-bottom:20px;
 
-    color:rgba(49,188,72,.58);
+    color:var(--green-t);
 
-    font-size:64px;
-    font-weight:800;
+    font-family:var(--mono);
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:.16em;
     line-height:1;
 }
 
+.section-dark .why-number{
+    color:var(--green-hi);
+}
+
 .why-card h3{
-    margin-bottom:16px;
-
-    color:var(--navy);
-
-    font-size:24px;
-    line-height:1.3;
+    margin-bottom:12px;
+    font-size:20px;
 }
 
 .why-card p{
     color:var(--muted);
-    line-height:1.9;
+    line-height:1.75;
+}
+
+.section-dark .why-card p{
+    color:var(--muted-d);
 }
 
 
 /* =========================================================
-   13. Responsive RWD 響應式設定
-   用途：
-   - 980px 以下：大部分多欄區塊改成單欄。
-   - 768px 以下：Hero 圖文上下排列，圖片寬度改為手機友善比例。
-   - 640px 以下：壓縮卡片與區塊間距。
+   13. 結尾行動區
 ========================================================= */
 
-@media(max-width:991px){
+.cta-section{
+    position:relative;
+    overflow:hidden;
+
+    text-align:center;
+
+    background:
+    radial-gradient(80% 120% at 50% 110%, rgba(53,179,74,.28), transparent 62%),
+    var(--ink);
+
+    color:var(--on-dark);
+}
+
+/* 大字收尾句 */
+.cta-section .cta-lead{
+    margin-bottom:36px;
+
+    color:var(--green-hi);
+
+    font-size:clamp(22px, 3.4vw, 44px);
+    font-weight:500;
+    line-height:1.35;
+}
+
+/* 一般說明文（標題底下那種） */
+.cta-section p{
+    max-width:62ch;
+    margin:0 auto 30px;
+
+    color:var(--muted-d);
+    font-size:17px;
+}
+
+.cta-section .hero-buttons{
+    justify-content:center;
+    margin-top:0;
+}
+
+
+/* =========================================================
+   14. 響應式
+========================================================= */
+
+@media(max-width:1040px){
+
+    .spec-layout{
+        grid-template-columns:330px 1fr;
+        gap:40px;
+    }
+}
+
+@media(max-width:960px){
+
+    .structure-split,
+    .split-feature{
+        grid-template-columns:1fr;
+        gap:44px;
+    }
+
+    .structure-copy,
+    .split-feature-copy{
+        position:static;
+    }
+}
+
+@media(max-width:760px){
+
+    .struct-grid{
+        grid-template-columns:1fr;
+    }
+
+    .struct-item,
+    .struct-grid .struct-item:nth-child(even){
+        padding:22px 0;
+        border-left:none;
+    }
+}
+
+@media(max-width:900px){
+
+    .stats-grid{
+        grid-template-columns:repeat(2, 1fr);
+    }
+
+    .stat{
+        min-height:184px;
+        padding:34px 24px;
+
+        border-bottom:1px solid var(--line-d);
+    }
+
+    .stat:nth-child(2n){
+        border-right:none;
+    }
 
     .spec-layout{
         grid-template-columns:1fr;
         gap:40px;
     }
 
+    .spec-shots,
     .product-visual-panel{
-        position:relative;
-        top:auto;
+        position:static;
     }
 
+    .summary-grid,
+    .dual-summary-grid{
+        grid-template-columns:1fr;
+        gap:56px;
+    }
 }
 
-@media(max-width:980px){
+@media(max-width:860px){
 
-    .flat-feature-grid,
-    .flat-feature-grid.compact-grid,
-    .structure-card-grid,
-    .split-feature-cards,
-    .summary-grid,
-    .dual-summary-grid,
-    .why-grid{
-        grid-template-columns:1fr;
-    }
-
-    .structure-split,
-    .split-feature,
     .product-tab-layout{
         grid-template-columns:1fr;
     }
 
-    .structure-split{
-        gap:32px;
-    }
-
-    .structure-card-wide{
-        grid-column:auto;
-    }
-
     .product-tab-list{
-        display:grid;
-        gap:10px;
+        border-right:none;
     }
 
-    .why-card{
-        padding:32px;
+    .product-tab-card{
+        padding:32px 0 0;
     }
 
-    .summary-block h2{
-        font-size:34px;
+    .product-tab-panel ul{
+        grid-template-columns:1fr;
     }
-
-    .product-page .section-head h2,
-    .product-page .section-heading h2{
-        font-size:34px;
-    }
-
 }
 
-@media(max-width:768px){
+@media(max-width:760px){
 
-    .hero .container{
-        width:100%;
-        max-width:100%;
-        padding-left:16px;
-        padding-right:16px;
+    .flat-feature-grid{
+        grid-template-columns:1fr;
     }
 
-    .hero-grid{
-        grid-template-columns:1fr !important;
-        gap:32px;
+    .flat-feature-card,
+    .flat-feature-grid:not(.is-single) .flat-feature-card:nth-child(even){
+        padding:22px 4px;
+        border-left:none;
     }
 
-    .hero h1{
-        font-size:40px;
-        line-height:1.15;
-        word-break:break-word;
+    .flat-feature-card:hover,
+    .flat-feature-grid:not(.is-single) .flat-feature-card:nth-child(even):hover{
+        padding-left:18px;
     }
 
-    .hero p{
-        font-size:17px;
-        line-height:1.8;
-        word-break:break-word;
+    .why-grid{
+        grid-template-columns:1fr;
     }
 
-    .hero-card{
-        width:100%;
-        max-width:100%;
-        padding:10px;
+    .why-grid.is-4{
+        grid-template-columns:1fr;
     }
 
-    .product-slider{
-        width:100%;
-        max-width:100%;
+    .why-card,
+    .why-card:nth-child(3n+2),
+    .why-card:nth-child(3n),
+    .why-grid.is-4 .why-card:not(:nth-child(4n+1)){
+        padding:28px 0;
+        border-left:none;
     }
-
-    .slider-container{
-        width:100%;
-        max-width:100%;
-        aspect-ratio:4 / 3;
-    }
-
-    .slider-btn{
-        width:42px;
-        height:42px;
-
-        font-size:22px;
-    }
-
 }
 
-@media(max-width:640px){
+@media(max-width:560px){
 
-    main section:not(.hero),
-    .product-section,
-    .feature-summary,
-    .why-envirovalor{
-        padding:80px 0;
+    .stats-grid{
+        grid-template-columns:1fr;
     }
 
-    .product-overview{
-        padding:64px 0 76px;
+    .stat{
+        min-height:0;
+        border-right:none;
     }
 
+    .spec-grid,
     .spec-grid.compact{
         grid-template-columns:1fr;
     }
 
-    .product-tab-card{
-        padding:28px;
+    .disc-callout,
+    .tube-callout{
+        display:none;
     }
-
-    .product-tab-panel h3{
-        font-size:26px;
-    }
-
 }

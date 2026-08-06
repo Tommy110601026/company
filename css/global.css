@@ -1,18 +1,88 @@
-/* global.css */
+/* =========================================================
+   global.css
+   EnviroValor 全站設計系統核心
 
-:root {
-    --navy: #073047;
-    --navy-light: #0d405b;
-    --green: #35b34a;
-    --green-light: #74d66b;
-    --white: #ffffff;
-    --bg: #f4f8fa;
-    --text: #132333;
-    --muted: #607080;
-    --line: #dce7ed;
-    --shadow: 0 18px 48px rgba(7, 48, 71, 0.14);
-    --radius: 24px;
+   目錄
+   01. 設計代幣
+   02. 基礎重置與字體
+   03. 版面容器
+   04. 文字階層
+   05. 按鈕
+   06. 質感疊層與捲動進度
+   07. Hero 主視覺共用
+   08. 進場動畫
+   09. 回到頂部
+   10. 無障礙與偏好設定
+
+   使用原則
+   - 這支只放全站共用的基礎，不放任何單一頁面的版型。
+   - 顏色一律走代幣，不要在其他檔案裡寫死色碼。
+   - 所有文字色都經過 WCAG 對比度實測，數值註記在代幣旁。
+========================================================= */
+
+
+/* =========================================================
+   01. 設計代幣
+========================================================= */
+
+:root{
+
+    /* 深色調 */
+    --ink:#04141d;
+    --ink-2:#082433;
+    --ink-3:#0d3245;
+
+    /* 淺色調 */
+    --paper:#f6f8f7;
+    --paper-2:#eceff0;
+    --white:#ffffff;
+
+    /* 重點色
+       綠色依「用途」分成三個，不可混用：
+       --green    填色、邊框、深色底上的圖形
+       --green-hi 深色底上的綠色文字（對比 11.97）
+       --green-t  淺色底上的綠色文字（對比  5.70）
+       亮綠 #35b34a 若直接當淺底文字只有 2.56，弱視與老花會看不清楚 */
+    --green:#35b34a;
+    --green-hi:#6ee787;
+    --green-t:#14713a;
+    --aqua:#5ec8e0;
+
+    /* 文字（括號為對比度實測值） */
+    --text:#0e1c26;                     /* 淺底主文字 15.4 */
+    --muted:#556873;                    /* 淺底次文字  5.45 */
+    --on-dark:#e9f4f8;                  /* 深底主文字 16.2 */
+    --muted-d:rgba(233,244,248,.62);    /* 深底次文字  6.6  */
+
+    /* 線 */
+    --line:rgba(14,28,38,.12);
+    --line-d:rgba(255,255,255,.13);
+
+    /* 圓角 */
+    --r-sm:12px;
+    --r-md:18px;
+    --r-lg:24px;
+    --r-pill:100px;
+
+    /* 字體 */
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:"Inter","Noto Sans TC","PingFang TC","Microsoft JhengHei","Segoe UI",sans-serif;
+
+    --ease:cubic-bezier(.22,1,.36,1);
+
+    /* ---- 舊代幣別名，供尚未改寫的樣式沿用 ---- */
+    --navy:var(--ink);
+    --navy-light:var(--ink-2);
+    --green-light:var(--green-hi);
+    --bg:var(--paper);
+    --shadow:0 18px 48px rgba(4,20,29,.14);
+    --radius:var(--r-lg);
 }
+
+
+/* =========================================================
+   02. 基礎重置與字體
+========================================================= */
 
 *{
     box-sizing:border-box;
@@ -20,19 +90,26 @@
     padding:0;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
+/* clip 與 hidden 一樣不會出現水平捲軸，
+   但 clip 不會建立捲動容器，header 的 position:sticky 才不會失效 */
+html,
 body{
-    font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Noto Sans TC",
-    "Microsoft JhengHei",
-    Arial,
-    sans-serif;
+    overflow-x:clip;
+}
+
+body{
+    font-family:var(--sans);
 
     color:var(--text);
-    background:var(--bg);
-    line-height:1.7;
+    background:var(--paper);
+
+    line-height:1.75;
+
+    -webkit-font-smoothing:antialiased;
 }
 
 a{
@@ -40,220 +117,632 @@ a{
     text-decoration:none;
 }
 
+img{
+    max-width:100%;
+    display:block;
+}
+
+button{
+    font-family:inherit;
+}
+
+
+/* =========================================================
+   03. 版面容器
+========================================================= */
+
 .container{
-    width:min(1160px, calc(100% - 40px));
+    width:min(1280px, calc(100% - 48px));
     margin:0 auto;
 }
+
+/* 深底／淺底區塊 */
+
+.section-dark{
+    background:var(--ink);
+    color:var(--on-dark);
+}
+
+.section-light{
+    background:var(--paper);
+    color:var(--text);
+}
+
+.section-white{
+    background:var(--white);
+    color:var(--text);
+}
+
+.section-pad{
+    padding:clamp(80px, 10vw, 140px) 0;
+}
+
+
+/* =========================================================
+   04. 文字階層
+========================================================= */
+
+h1,h2,h3,h4{
+    font-weight:800;
+    line-height:1.16;
+    letter-spacing:-.01em;   /* 中文不用負字距，僅微調拉丁與數字 */
+    text-wrap:balance;
+    color:var(--text);
+}
+
+.section-dark h1,
+.section-dark h2,
+.section-dark h3,
+.section-dark h4{
+    color:#ffffff;
+}
+
+h1{
+    font-size:clamp(38px, 5vw, 72px);
+    line-height:1.1;
+}
+
+h2{
+    font-size:clamp(30px, 4.2vw, 54px);
+}
+
+h3{
+    font-size:19px;
+    line-height:1.4;
+}
+
+p{
+    font-size:16px;
+}
+
+/* 等寬小標籤：儀器面板與規格書的語彙，
+   數字一律 tabular，欄位才對得齊 */
+.mono{
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-variant-numeric:tabular-nums;
+}
+
+/* 區塊小標題 */
+.kicker{
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+
+    color:var(--green-t);
+
+    padding-top:12px;
+    border-top:1px solid var(--green-t);
+
+    align-self:start;
+}
+
+.section-dark .kicker{
+    color:var(--green-hi);
+    border-top-color:rgba(110,231,135,.5);
+}
+
+/* 區塊標題群：左標籤、右內文 */
+.section-head{
+    display:grid;
+    grid-template-columns:180px 1fr;
+    gap:40px;
+
+    margin-bottom:64px;
+}
+
+.section-head p{
+    margin-top:22px;
+    max-width:58ch;
+
+    color:var(--muted);
+    font-size:17px;
+    font-weight:400;
+}
+
+.section-dark .section-head p{
+    color:var(--muted-d);
+}
+
+@media(max-width:800px){
+
+    .section-head{
+        grid-template-columns:1fr;
+        gap:18px;
+
+        margin-bottom:44px;
+    }
+}
+
+
+/* =========================================================
+   05. 按鈕
+========================================================= */
 
 .btn-primary,
 .btn-outline{
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    border-radius:999px;
-    padding:13px 22px;
-    font-weight:900;
-    transition:.2s ease;
+    gap:10px;
+
+    padding:15px 28px;
+    min-height:44px;          /* 觸控目標下限 */
+
+    border:1px solid transparent;
+    border-radius:var(--r-pill);
+
+    font-family:inherit;
+    font-weight:700;
+    font-size:15px;
+
+    cursor:pointer;
+
+    transition:
+    transform .3s var(--ease),
+    box-shadow .3s ease,
+    background .3s ease,
+    border-color .3s ease;
 }
 
 .btn-primary{
-    background:linear-gradient(
-        90deg,
-        var(--green),
-        var(--green-light)
-    );
+    background:var(--green);
+    color:var(--ink);
+}
 
-    color:var(--navy);
+.btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 16px 40px rgba(53,179,74,.36);
 }
 
 .btn-outline{
-    border:1px solid rgba(255,255,255,.32);
-    color:var(--white);
     background:rgba(255,255,255,.08);
+    border-color:rgba(255,255,255,.24);
+    color:#ffffff;
 }
 
-.btn-primary:hover,
 .btn-outline:hover{
-    transform:translateY(-2px);
+    transform:translateY(-3px);
+    background:rgba(255,255,255,.12);
+    border-color:rgba(255,255,255,.5);
+}
+
+/* 淺色底上的次要按鈕 */
+.section-light .btn-outline,
+.section-white .btn-outline{
+    background:transparent;
+    border-color:var(--line);
+    color:var(--text);
+}
+
+.section-light .btn-outline:hover,
+.section-white .btn-outline:hover{
+    background:rgba(14,28,38,.04);
+    border-color:var(--text);
 }
 
 .hero-buttons{
     display:flex;
     gap:14px;
     flex-wrap:wrap;
+
+    margin-top:36px;
 }
 
-.kicker{
-    color:var(--green);
-
-    font-size:13px;
-    font-weight:950;
-
-    letter-spacing:1.8px;
-    text-transform:uppercase;
-
-    margin-bottom:12px;
+/* 按鈕內的箭頭 */
+.btn-primary .arrow,
+.btn-outline .arrow{
+    transition:transform .3s var(--ease);
 }
 
-h2{
-    font-size:clamp(30px, 3.8vw, 48px);
-    line-height:1.18;
-    color:var(--navy);
-    letter-spacing:-0.8px;
-    margin-bottom:14px;
+.btn-primary:hover .arrow,
+.btn-outline:hover .arrow{
+    transform:translateX(4px);
 }
 
-/* Hero */
+
+/* =========================================================
+   06. 質感疊層與捲動進度
+========================================================= */
+
+/* 顆粒疊層：削掉大面積純色的塑膠感 */
+.grain{
+    position:fixed;
+    inset:0;
+    z-index:9998;
+
+    pointer-events:none;
+    opacity:.5;
+
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
+
+    mix-blend-mode:overlay;
+}
+
+/* 捲動進度條，由 js/motion.js 插入 header 底緣 */
+.scroll-progress{
+    position:absolute;
+    left:0;
+    bottom:-1px;
+
+    height:2px;
+    width:100%;
+
+    transform:scaleX(0);
+    transform-origin:left center;
+
+    background:linear-gradient(90deg, var(--green), var(--green-hi));
+    box-shadow:0 0 12px rgba(53,179,74,.5);
+
+    will-change:transform;
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   07. Hero 主視覺共用
+========================================================= */
 
 .hero{
-    background:
-    radial-gradient(
-        circle at 75% 30%,
-        rgba(53,179,74,.22),
-        transparent 34%
-    ),
-    linear-gradient(
-        135deg,
-        #06283e,
-        #0a3b55
-    );
-
-    color:var(--white);
-
-    padding:100px 0;
-
+    position:relative;
     overflow:hidden;
+
+    padding:150px 0 90px;
+
+    background:
+    radial-gradient(120% 90% at 78% 18%, rgba(53,179,74,.16), transparent 58%),
+    radial-gradient(90% 70% at 8% 92%, rgba(94,200,224,.12), transparent 60%),
+    var(--ink);
+
+    color:var(--on-dark);
+}
+
+/* 淡出的網格底紋 */
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background-image:
+    linear-gradient(var(--line-d) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-d) 1px, transparent 1px);
+
+    background-size:90px 90px;
+
+    mask-image:radial-gradient(80% 70% at 50% 40%, #000, transparent 78%);
+
+    opacity:.45;
+}
+
+.hero .container{
+    position:relative;
+    z-index:1;
 }
 
 .hero-grid{
     display:grid;
-
-    grid-template-columns:
-    1fr 1fr;
-
+    grid-template-columns:1.08fr .92fr;
     gap:60px;
 
     align-items:center;
 }
 
-.hero-card{
-    background:
-    rgba(255,255,255,.1);
-
-    border:
-    1px solid rgba(255,255,255,.18);
-
-    border-radius:34px;
-
-    padding:32px;
-
-    box-shadow:
-    0 30px 80px rgba(0,0,0,.26);
+.hero-grid > div{
+    min-width:0;
 }
 
-.eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-
-    background:
-    rgba(255,255,255,.1);
-
-    border:
-    1px solid rgba(255,255,255,.18);
-
-    border-radius:999px;
-
-    padding:8px 14px;
-
-    color:#baf7c4;
-
-    font-weight:900;
-    font-size:14px;
-
-    margin-bottom:24px;
-}
-
+/* 主標題漸層字 */
 .hero h1{
-    font-size:
-    clamp(42px, 5vw, 68px);
+    color:#ffffff;
+    max-width:15ch;
 
-    line-height:1.08;
-
-    letter-spacing:-1.5px;
-
-    margin-bottom:24px;
+    background:linear-gradient(100deg, #ffffff 38%, var(--green-hi) 78%, var(--aqua));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
 }
 
 .hero p{
-    color:
-    rgba(255,255,255,.82);
+    margin-top:20px;
+    max-width:52ch;
 
-    font-size:18px;
-
-    max-width:720px;
-
-    margin-bottom:32px;
+    color:var(--muted-d);
+    font-size:16.5px;
+    font-weight:400;
 }
 
-.scroll-top-btn{
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    width: 46px;
-    height: 46px;
-    border: none;
-    border-radius: 50%;
-    background: #1f7a4d;
-    color: #ffffff;
-    font-size: 22px;
-    font-weight: 700;
-    cursor: pointer;
-    z-index: 999;
+/* ---------------------------------------------------------
+   內頁頁首（關於我們、資料下載這類沒有產品視覺的頁面）
 
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(12px);
+   與產品頁的 .hero 共用同一組底色、網格底紋與漸層標題，
+   差別只在沒有右側視覺，內容單欄堆疊。
+   about.css 與 download.css 原本各自複製了一份，
+   已收斂到這裡，改一次兩頁同步。
+--------------------------------------------------------- */
 
-    transition:
-        opacity 0.25s ease,
-        visibility 0.25s ease,
-        transform 0.25s ease,
-        background 0.25s ease;
+.page-hero{
+    position:relative;
+    overflow:hidden;
+
+    padding:150px 0 100px;
+
+    background:
+    radial-gradient(120% 90% at 78% 18%, rgba(53,179,74,.16), transparent 58%),
+    radial-gradient(90% 70% at 8% 92%, rgba(94,200,224,.12), transparent 60%),
+    var(--ink);
+
+    color:var(--on-dark);
 }
 
-.scroll-top-btn.is-visible{
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+.page-hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background-image:
+    linear-gradient(var(--line-d) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-d) 1px, transparent 1px);
+
+    background-size:90px 90px;
+
+    mask-image:radial-gradient(80% 70% at 50% 40%, #000, transparent 78%);
+
+    opacity:.45;
 }
 
-.scroll-top-btn:hover{
-    background: #155f3a;
+.page-hero .container{
+    position:relative;
+    z-index:1;
 }
 
-@media(max-width: 768px){
-    .scroll-top-btn{
-        right: 18px;
-        bottom: 18px;
-        width: 42px;
-        height: 42px;
-        font-size: 20px;
+.page-hero h1{
+    max-width:16ch;
+    margin-bottom:22px;
+
+    background:linear-gradient(100deg, #ffffff 38%, var(--green-hi) 78%, var(--aqua));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.page-hero p{
+    max-width:62ch;
+    margin:0;
+
+    color:var(--muted-d);
+
+    font-size:17px;
+    line-height:1.85;
+}
+
+@media(max-width:900px){
+
+    .page-hero{
+        padding:120px 0 72px;
     }
 }
 
-@media (max-width:920px){
+
+/* 眉標：脈動小點 + 等寬字 */
+.eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    margin-bottom:26px;
+
+    color:var(--green-hi);
+
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+}
+
+.eyebrow::before{
+    content:"";
+
+    width:6px;
+    height:6px;
+    border-radius:50%;
+
+    background:var(--green-hi);
+
+    animation:eyebrow-pulse 2.4s infinite;
+}
+
+@keyframes eyebrow-pulse{
+    0%,100%{opacity:1;transform:scale(1)}
+    50%{opacity:.35;transform:scale(.7)}
+}
+
+@media(max-width:960px){
+
+    .hero{
+        padding:120px 0 72px;
+    }
 
     .hero-grid{
         grid-template-columns:1fr;
+        gap:56px;
     }
-
 }
 
-@media (max-width:560px){
 
-    .container{
-        width:min(100% - 28px, 1160px);
+/* =========================================================
+   08. 進場動畫
+   由 js/motion.js 加上 .is-in
+
+   注意：.is-in 的 class 刻意重複兩次以拉高權重。
+   隱藏規則含 .hero-grid > div（帶標籤選擇器）權重為 (0,2,1)，
+   顯示規則若只寫一個 class 只有 (0,2,0)，會蓋不過去，
+   元素就會永遠停在 opacity:0。
+========================================================= */
+
+.js-motion :is(
+    .hero-grid > div,
+    .section-head,
+    .stat,
+    .feat,
+    .struct-item,
+    .spec-shots,
+    .spec-tabs,
+    .cutaway,
+    .feature-tag,
+    .supply-item,
+    .why-card,
+    .feature-card,
+    .info-card,
+    .intro-card,
+    .download-item
+){
+    opacity:0;
+    translate:0 28px;
+
+    transition:
+    opacity .9s var(--ease),
+    translate .9s var(--ease);
+}
+
+.js-motion .is-in.is-in{
+    opacity:1;
+    translate:none;
+}
+
+
+/* =========================================================
+   09. 回到頂部
+========================================================= */
+
+.scroll-top-btn{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:940;
+
+    width:46px;
+    height:46px;
+
+    border:none;
+    border-radius:50%;
+
+    background:var(--green);
+    color:var(--ink);
+
+    font-size:20px;
+    font-weight:800;
+
+    cursor:pointer;
+
+    opacity:0;
+    visibility:hidden;
+    translate:0 12px;
+
+    transition:
+    opacity .25s ease,
+    visibility .25s ease,
+    translate .25s ease,
+    background .25s ease;
+}
+
+.scroll-top-btn.is-visible{
+    opacity:1;
+    visibility:visible;
+    translate:none;
+}
+
+.scroll-top-btn:hover{
+    background:var(--green-hi);
+}
+
+@media(max-width:768px){
+
+    .scroll-top-btn{
+        right:18px;
+        bottom:18px;
+
+        width:44px;
+        height:44px;
+    }
+}
+
+
+/* =========================================================
+   10. 無障礙與偏好設定
+========================================================= */
+
+/* 鍵盤焦點：原本全站沒有樣式，只用鍵盤操作的人會完全迷路 */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible{
+    outline:3px solid var(--green-hi);
+    outline-offset:3px;
+    border-radius:4px;
+}
+
+.section-light a:focus-visible,
+.section-light button:focus-visible,
+.section-white a:focus-visible,
+.section-white button:focus-visible{
+    outline-color:var(--text);
+}
+
+@media(prefers-reduced-motion:reduce){
+
+    *{
+        animation:none !important;
+        transition-duration:.01ms !important;
     }
 
+    .js-motion :is(
+        .hero-grid > div,
+        .section-head,
+        .stat,
+        .feat,
+        .struct-item,
+        .spec-shots,
+        .spec-tabs,
+        .cutaway,
+        .feature-tag,
+        .supply-item,
+        .why-card,
+        .feature-card,
+        .info-card,
+        .intro-card,
+        .download-item
+    ){
+        opacity:1;
+        translate:none;
+    }
+
+    .grain,
+    .scroll-progress{
+        display:none;
+    }
+}
+
+@media(prefers-contrast:more){
+
+    :root{
+        --line:rgba(14,28,38,.4);
+        --line-d:rgba(255,255,255,.36);
+        --muted:#3a4a54;
+        --muted-d:rgba(233,244,248,.88);
+    }
+
+    .grain{
+        display:none;
+    }
+}
+
+@media(max-width:560px){
+
+    .container{
+        width:min(100% - 32px, 1280px);
+    }
 }

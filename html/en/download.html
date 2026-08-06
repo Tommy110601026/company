@@ -89,11 +89,25 @@
     >
 
     <!-- 瀏覽器分頁的小圖示 -->
+    <!-- Favicon：Google 搜尋結果需要「正方形」且「網址固定」的圖示。
+         原本用的 slogo.jpg 是 449×514 非正方形，logo.jpg 是 1170×1166，
+         兩者都不符合，Google 因此改顯示預設的地球圖示。
+         favicon.svg 是由 logo 置中裁切成 512×512 的正方形版本，
+         並且全站都指向同一個絕對路徑。 -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-    rel="icon"
-    type="image/jpeg"
-    href="../../images/slogo.jpg"
-    />
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+    >
+
+    <!-- 進場動畫開關：必須在首次繪製前掛上，
+         否則內容會先出現、再被隱藏、再浮上來，看起來像閃一下。
+         關閉 JS 時這行不會執行，內容照常完整顯示。 -->
+    <script>document.documentElement.classList.add("js-motion");</script>
+
     <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/header.css">
     <link rel="stylesheet" href="../../css/footer.css">
@@ -105,6 +119,9 @@
 </head>
 
 <body>
+
+    <!-- Grain overlay -->
+    <div class="grain" aria-hidden="true"></div>
 
 
 
@@ -126,8 +143,8 @@
                 </button>
 
                 <div class="dropdown-menu" id="productDropdownMenu">
-                    <a href="disc-diffuser.html">Disc Diffusers</a>
-                    <a href="tube-diffuser.html">Tube Diffusers</a>
+                    <a data-page="disc" href="disc-diffuser.html">Disc Diffusers</a>
+                    <a data-page="tube" href="tube-diffuser.html">Tube Diffusers</a>
                 </div>
             </div>
 
@@ -162,7 +179,7 @@
 
         <!-- Download Hero -->
     
-        <section class="download-hero">
+        <section class="download-hero page-hero">
     
             <div class="container">
     

@@ -50,11 +50,13 @@
         content="https://www.envirovalor.com/images/logo.jpg"
     />
 
-    <link
-        rel="icon"
-        type="image/jpeg"
-        href="/images/logo.jpg"
-    />
+    <!-- Favicon：Google 搜尋結果需要「正方形」且「網址固定」的圖示。
+         原本用的 logo.jpg 是 1170×1166、slogo.jpg 是 449×514，
+         兩者都不是正方形，Google 因此改顯示預設的地球圖示。
+         favicon.svg 是由 logo 置中裁切成 512×512 的正方形版本。
+         這一頁是首頁，Google 主要就是從這裡讀 favicon。 -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/favicon.svg">
 
     <script>
         const userLang =

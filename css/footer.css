@@ -1,65 +1,65 @@
-/* footer.css */
+/* =========================================================
+   footer.css
+   全站頁尾
+
+   目錄
+   01. 外框
+   02. 三欄版面
+   03. 品牌欄與地圖
+   04. 版權列
+   05. 響應式
+========================================================= */
+
+
+/* =========================================================
+   01. 外框
+========================================================= */
 
 footer{
     position:relative;
-
-    background:#061f31;
-
-    color:rgba(255,255,255,.76);
-
-    padding:48px 0 24px;
-
     overflow:hidden;
+
+    padding:64px 0 28px;
+
+    background:var(--ink-2);
+    color:var(--muted-d);
+
+    border-top:1px solid var(--line-d);
 }
 
+/* 左下角一抹極淡的綠光，與 hero 呼應 */
 footer::before{
     content:"";
 
     position:absolute;
     inset:0;
 
-    background:
-    radial-gradient(
-        circle at left bottom,
-        rgba(53,179,74,.08),
-        transparent 42%
+    background:radial-gradient(
+        60% 80% at left bottom,
+        rgba(53,179,74,.07),
+        transparent 52%
     );
 
     pointer-events:none;
 }
 
-.footer-grid{
-    position:relative;
-    z-index:2;
-
-    display:grid;
-
-    grid-template-columns:
-    1.2fr 0.8fr 1fr;
-
-    gap:32px;
-
-    padding-bottom:28px;
-
-    border-bottom:
-    1px solid rgba(255,255,255,.12);
-}
-
 footer h4{
-    color:var(--white);
+    margin-bottom:14px;
 
-    font-size:18px;
+    color:#ffffff;
 
-    margin-bottom:12px;
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:-.01em;
 }
 
 footer p,
 footer li{
-    color:rgba(255,255,255,.7);
+    color:var(--muted-d);
 
-    font-size:15px;
-
+    font-size:16px;
     line-height:1.8;
+    font-weight:400;
 }
 
 footer ul{
@@ -70,66 +70,94 @@ footer li{
     margin-bottom:8px;
 }
 
+footer a:hover{
+    color:var(--green-hi);
+}
+
+
+/* =========================================================
+   02. 三欄版面
+========================================================= */
+
+.footer-grid{
+    position:relative;
+    z-index:2;
+
+    display:grid;
+    grid-template-columns:1.2fr .8fr 1fr;
+    gap:40px;
+
+    padding-bottom:32px;
+
+    border-bottom:1px solid var(--line-d);
+}
+
+
+/* =========================================================
+   03. 品牌欄與地圖
+========================================================= */
+
+.footer-brand{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+.footer-brand p{
+    margin:0 0 20px;
+}
+
+.footer-logo{
+    width:170px;
+    height:auto;
+
+    object-fit:contain;
+
+    opacity:.9;
+}
+
 .map{
     width:100%;
-
     height:210px;
 
-    border:0;
+    border:1px solid var(--line-d);
+    border-radius:var(--r-sm);
 
-    border-radius:18px;
-
-    filter:saturate(.85);
+    filter:saturate(.8) brightness(.94);
 }
+
+
+/* =========================================================
+   04. 版權列
+========================================================= */
 
 .copyright{
     position:relative;
     z-index:2;
 
-    padding-top:20px;
-
     display:flex;
-
     justify-content:space-between;
-
     gap:16px;
-
     flex-wrap:wrap;
 
-    color:rgba(255,255,255,.52);
+    padding-top:22px;
 
+    color:rgba(233,244,248,.45);
+
+    font-family:var(--mono);
     font-size:14px;
-}
-
-.footer-brand{
-    display:flex;
-    flex-direction:column;
-
-    align-items:flex-start;
-}
-
-.footer-brand p{
-    margin:
-    0 0 18px;
-}
-
-.footer-logo{
-    width:180px;
-    height:auto;
-
-    object-fit:contain;
+    letter-spacing:.1em;
 }
 
 
+/* =========================================================
+   05. 響應式
+========================================================= */
 
-
-/* Responsive */
-
-@media (max-width:920px){
+@media(max-width:920px){
 
     .footer-grid{
         grid-template-columns:1fr;
+        gap:32px;
     }
-
-
 }
