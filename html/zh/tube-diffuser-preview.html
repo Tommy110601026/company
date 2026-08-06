@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="ev-motion">
+<head>
+    <meta charset="UTF-8" />
+
+    <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>
+    〔動畫預覽〕細氣泡散氣管｜EnviroValor
+    </title>
+
+    <!-- 預覽頁：不讓搜尋引擎收錄，避免與正式頁重複 -->
+    <meta
+    name="robots"
+    content="noindex, nofollow"
+    >
+
+    <link
+    rel="icon"
+    type="image/jpeg"
+    href="../../images/slogo.jpg"
+    />
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/header.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/contact.css">
+    <link rel="stylesheet" href="../../css/mobile-menu.css">
+    <link rel="stylesheet" href="../../css/product.css">
+
+    <!-- =========================
+         動畫樣式（預覽用，全部寫在這一頁裡）
+    ========================= -->
+
+    <style>
+
+    /* 位移使用獨立的 translate 屬性，不佔用 transform，
+       因此 product.css 既有的 :hover translateY 仍可正常運作 */
+
+    :root{
+        --ev-ease:cubic-bezier(.22, 1, .36, 1);
+        --ev-rise:26px;
+        --ev-dur:.85s;
+    }
+
+    /* 捲動進度條（貼在 header 底部） */
+
+    .ev-progress{
+        position:absolute;
+        left:0;
+        bottom:-1px;
+
+        height:2px;
+        width:100%;
+
+        transform:scaleX(0);
+        transform-origin:left center;
+
+        background:linear-gradient(
+            90deg,
+            var(--green),
+            var(--green-light)
+        );
+
+        box-shadow:0 0 12px rgba(53, 179, 74, .5);
+
+        will-change:transform;
+        pointer-events:none;
+    }
+
+    /* 進場動畫目標 */
+
+    .ev-motion :is(
+        .hero-grid > div,
+        .section-head,
+        .section-heading,
+        .summary-block,
+        .spec-card,
+        .why-card,
+        .feature-tag,
+        .product-tab-item,
+        .product-tab-card,
+        .product-visual-panel
+    ){
+        opacity:0;
+
+        translate:0 var(--ev-rise);
+
+        transition:
+        opacity var(--ev-dur) var(--ev-ease),
+        translate var(--ev-dur) var(--ev-ease);
+
+        will-change:opacity, translate;
+    }
+
+    /* 小元素用比較輕、比較快的位移 */
+
+    .ev-motion :is(.feature-tag, .spec-card, .product-tab-item){
+        --ev-rise:14px;
+        --ev-dur:.6s;
+    }
+
+    /* 進場後 */
+
+    .ev-motion .is-in{
+        opacity:1;
+
+        translate:none;
+
+        will-change:auto;
+    }
+
+    /* 標籤滑鼠互動（原本沒有 hover 效果） */
+
+    .ev-motion .feature-tag{
+        transition:
+        opacity var(--ev-dur) var(--ev-ease),
+        translate var(--ev-dur) var(--ev-ease),
+        transform .3s var(--ev-ease),
+        border-color .3s ease;
+    }
+
+    .ev-motion .feature-tag:hover{
+        transform:translateY(-3px);
+    }
+
+    /* 減少動態偏好設定 */
+
+    @media (prefers-reduced-motion: reduce){
+
+        .ev-motion :is(
+            .hero-grid > div,
+            .section-head,
+            .section-heading,
+            .summary-block,
+            .spec-card,
+            .why-card,
+            .feature-tag,
+            .product-tab-item,
+            .product-tab-card,
+            .product-visual-panel
+        ){
+            opacity:1;
+
+            translate:none;
+
+            transition:none;
+        }
+
+        .ev-progress{
+            display:none;
+        }
+    }
+
+    /* 預覽頁標示條 */
+
+    .preview-flag{
+        position:fixed;
+        left:16px;
+        bottom:16px;
+        z-index:1200;
+
+        padding:8px 16px;
+        border-radius:999px;
+
+        background:rgba(7, 48, 71, .9);
+        backdrop-filter:blur(10px);
+
+        border:1px solid rgba(255, 255, 255, .18);
+
+        color:#fff;
+        font-size:12px;
+        font-weight:700;
+        letter-spacing:.04em;
+
+        pointer-events:none;
+    }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container navbar">
+
+        <a class="logo" href="./">
+        <img alt="EnviroValor Logo" src="../../images/slogo.jpg"/>
+        </a>
+
+        <nav class="nav-links">
+
+        <a class="nav-link" data-page="home" href="./">
+        首頁
+        </a>
+
+        <div class="nav-dropdown">
+
+        <button class="dropdown-btn" data-page="products" id="productDropdownBtn">
+        產品 ▼
+        </button>
+
+        <div class="dropdown-menu" id="productDropdownMenu">
+
+        <a href="disc-diffuser.html">
+        散氣盤
+        </a>
+
+        <a href="tube-diffuser.html">
+        散氣管
+        </a>
+
+        </div>
+        </div>
+
+        <a class="nav-link" data-page="about" href="about.html">
+        關於我們
+        </a>
+
+        <a class="nav-link" data-page="download" href="download.html">
+        資料下載
+        </a>
+
+        </nav>
+
+        <div class="nav-actions">
+
+        <a class="lang-btn" href="../en/tube-diffuser.html" id="langBtn">
+        EN
+        </a>
+
+        <button class="quote-btn" id="openInquiryModal">
+        聯絡我們
+        </button>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+        ☰
+        </button>
+
+        </div>
+        </div>
+    </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu"></div>
+
+  <main class="product-page tube-page">
+
+    <!-- Hero -->
+
+    <section class="hero">
+
+        <div class="container hero-grid">
+
+            <div>
+
+                <div class="eyebrow">
+                    細氣泡散氣管
+                </div>
+
+                <h1>
+                    600 mm 細氣泡散氣管解決方案
+                </h1>
+
+                <p>
+                    EnviroValor 提供適用於污水處理與工業廢水曝氣系統之 600 mm 散氣管，適合安裝於曝氣池底部，協助系統達到穩定供氣、均勻曝氣與提升氧氣傳輸效率之目的。本產品適用於都市污水處理、工業廢水處理、生物處理曝氣池及其他水處理曝氣應用。
+                </p>
+
+                <p>
+                    透過細緻且均勻的氣孔設計，散氣管能使空氣有效分散於水體中，提升氧氣與水體接觸面積，協助系統維持穩定處理效果。
+                </p>
+
+                <div class="hero-buttons">
+
+                    <button
+                    class="btn-primary"
+                    id="openInquiryModalHero">
+
+                    立即詢價
+
+                    </button>
+
+                    <a
+                    class="btn-outline"
+                    href="#specs">
+
+                    查看規格
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="hero-card">
+
+                <div class="product-slider tube-slider">
+
+                    <button class="slider-btn prev-btn">❮</button>
+
+                    <div class="slider-container">
+
+                        <img src="../../images/tube/02.jpg" class="slider-image active">
+                        <img
+                        src="../../images/tube/03.jpg"
+                        class="slider-image"
+                        style="object-position:center 3%;">
+                        <img src="../../images/tube/04.jpg" class="slider-image">
+
+                    </div>
+
+                    <button class="slider-btn next-btn">❯</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Why Choose -->
+
+<section class="product-overview">
+
+    <div class="container">
+
+        <div class="section-head center">
+
+            <div class="kicker">
+                產品特色
+            </div>
+
+            <h2>
+                核心結構與密封設計
+            </h2>
+
+            <p>
+                從旋熔式進氣結構、EPDM膜片到ABS支撐本體與304不鏽鋼束環，提升散氣管在污水曝氣環境中的穩定性與長期可靠性。
+            </p>
+
+        </div>
+
+
+        <div class="product-tab-layout">
+
+            <div class="product-tab-list">
+
+                <button
+                    class="product-tab-item active"
+                    data-panel="panel-spin"
+                    type="button">
+
+                    <span class="product-tab-number">
+                        01
+                    </span>
+
+                    <span>
+
+                        <strong>
+                            旋熔式進氣結構
+                        </strong>
+
+                        <span>
+                            密封可靠、降低側漏
+                        </span>
+
+                    </span>
+
+                </button>
+
+                <button
+                    class="product-tab-item"
+                    data-panel="panel-epdm"
+                    type="button">
+
+                    <span class="product-tab-number">
+                        02
+                    </span>
+
+                    <span>
+
+                        <strong>
+                            EPDM膜片
+                        </strong>
+
+                        <span>
+                            長期污水曝氣應用
+                        </span>
+
+                    </span>
+
+                </button>
+
+                <button
+                    class="product-tab-item"
+                    data-panel="panel-abs"
+                    type="button">
+
+                    <span class="product-tab-number">
+                        03
+                    </span>
+
+                    <span>
+
+                        <strong>
+                            ABS/304結構
+                        </strong>
+
+                        <span>
+                            穩定支撐與固定
+                        </span>
+
+                    </span>
+
+                </button>
+
+            </div>
+
+            <div class="product-tab-card">
+
+                <div
+                    class="product-tab-panel active"
+                    id="panel-spin">
+
+                    <div class="kicker">
+                        產品特色
+                    </div>
+
+                    <h3>
+                        旋熔式進氣結構，並逐支測漏
+                    </h3>
+
+                    <p>
+                        進氣口採一體成型設計，並以旋熔方式與支撐管件接合。此結構可提升密封可靠性，並降低側漏風險。
+                    </p>
+
+                    <p>
+                        與膠合式設計相比，旋熔接合具有更佳的結構完整性，能在污水曝氣環境中提供更穩定的長期可靠性。
+                    </p>
+
+                    <p>
+                        出貨前，每一支散氣管皆會以專業測漏設備進行檢測，確認密封性能，協助確保安裝後的穩定運轉。
+                    </p>
+
+                    <ul>
+
+                        <li>
+                            一體成型進氣結構
+                        </li>
+
+                        <li>
+                            旋熔接合，非膠水黏合
+                        </li>
+
+                        <li>
+                            提升密封可靠性
+                        </li>
+
+                        <li>
+                            降低側漏風險
+                        </li>
+
+                        <li>
+                            每支出貨前皆經檢測
+                        </li>
+
+                        <li>
+                            運轉時空氣分布穩定
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div
+                    class="product-tab-panel"
+                    id="panel-epdm">
+
+                    <div class="kicker">
+                        膜片設計
+                    </div>
+
+                    <h3>
+                        模壓成型EPDM膜片
+                    </h3>
+
+                    <p>
+                        本產品使用 EPDM 工程橡膠膜片，適合長期污水曝氣環境。膜片具備抗 UV、耐酸鹼與耐腐蝕特性，可應用於較嚴苛的水處理環境。
+                    </p>
+
+                    <p>
+                        膜片開孔數最高可達 13,500 孔，孔徑約 1–3 mm。模壓成型結構有助於均勻曝氣與細氣泡釋放，並不同於市面上常見的連續擠壓成型膜片。
+                    </p>
+
+                </div>
+
+                <div
+                    class="product-tab-panel"
+                    id="panel-abs">
+
+                    <div class="kicker">
+                        產品結構
+                    </div>
+
+                    <h3>
+                        ABS支撐本體與304不鏽鋼束環
+                    </h3>
+
+                    <p>
+                        散氣管本體採用 ABS 支撐結構，提供良好的機械強度與穩定支撐效果。中空設計有助於降低浮力，減少管路系統承受的浮力負荷。
+                    </p>
+
+                    <p>
+                        EPDM 膜片與散氣管本體使用 304 不鏽鋼束環固定，可避免膜片在運轉過程中自管體鬆脫。
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- Product -->
+
+    <section class="product-section" id="specs">
+
+        <div class="container">
+
+            <!-- Section Header -->
+
+            <div class="section-heading center">
+
+                <div class="kicker">
+                    產品規格
+                </div>
+
+                <h2>
+                    散氣管產品規格
+                </h2>
+
+                <p>
+                    EnviroValor 散氣管適用於各類污水處理與曝氣系統，具備穩定供氣、均勻曝氣與提升氧氣傳輸效率等特性。
+                </p>
+
+            </div>
+
+            <!-- Product Layout -->
+
+            <div class="spec-layout">
+
+                <!-- Left Product -->
+
+                <div class="product-visual-panel">
+
+                    <div class="hero-card">
+
+                        <div class="product-slider tube-slider">
+
+                            <button class="slider-btn prev-btn">❮</button>
+
+                            <div class="slider-container">
+
+                                <img src="../../images/tube/02.jpg" class="slider-image active">
+                                <img
+                                src="../../images/tube/03.jpg"
+                                class="slider-image"
+                                style="object-position:center 3%;">
+                                <img src="../../images/tube/04.jpg" class="slider-image">
+
+                            </div>
+
+                            <button class="slider-btn next-btn">❯</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="visual-badge">
+
+                        <span>
+                            600 mm 標準規格
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- Right Specs -->
+
+                <div class="specs-panel">
+
+                    <div class="spec-grid compact">
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                產品型號
+                            </span>
+
+                            <strong>EVT-600</strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                產品類型
+                            </span>
+
+                            <strong>
+                                細氣泡散氣管
+                            </strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                尺寸
+                            </span>
+
+                            <strong>600 × 65 × 3/4" PT</strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                通氣量
+                            </span>
+
+                            <strong>1.8–12 CMH</strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                膜片材質
+                            </span>
+
+                            <strong>EPDM</strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                支撐本體
+                            </span>
+
+                            <strong>ABS</strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                束環材質
+                            </span>
+
+                            <strong>
+                                304 不鏽鋼
+                            </strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                重量
+                            </span>
+
+                            <strong>
+                                約 0.9 kg
+                            </strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                膜片開孔數
+                            </span>
+
+                            <strong>
+                                最高約 13,500 孔
+                            </strong>
+
+                        </div>
+
+                        <div class="spec-card">
+
+                            <span class="spec-label">
+                                孔徑大小
+                            </span>
+
+                            <strong>
+                                約 1–3 mm
+                            </strong>
+
+                        </div>
+
+                        <div class="spec-card full">
+
+                            <span class="spec-label">
+                                進氣結構
+                            </span>
+
+                            <strong>
+                                一體成型進氣口，旋熔接合
+                            </strong>
+
+                        </div>
+
+                        <div class="spec-card full">
+
+                            <span class="spec-label">
+                                漏氣控制
+                            </span>
+
+                            <strong>
+                                每支出貨前皆經測漏檢測
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Performance & Applications Summary -->
+
+<section class="feature-summary">
+
+    <div class="container">
+
+        <div class="summary-grid">
+
+            <!-- Performance -->
+
+            <div class="summary-block">
+
+                <div class="kicker">
+                    性能優勢
+                </div>
+
+                <h2>
+                    高效率曝氣性能
+                </h2>
+
+                <p>
+                    600 mm 細氣泡散氣管適用於重視氧氣傳輸效率、低阻力與密封可靠性的實際污水曝氣應用。
+                </p>
+
+                <div class="tag-group">
+
+                    <div class="feature-tag">
+                        高氧氣傳輸效率
+                    </div>
+
+                    <div class="feature-tag">
+                        均勻細氣泡分布
+                    </div>
+
+                    <div class="feature-tag">
+                        壓力損失低
+                    </div>
+
+                    <div class="feature-tag">
+                        操作能耗低
+                    </div>
+
+                    <div class="feature-tag">
+                        安裝容易
+                    </div>
+
+                    <div class="feature-tag">
+                        廣泛曝氣範圍
+                    </div>
+
+                    <div class="feature-tag">
+                        SBR 系統適用
+                    </div>
+
+                    <div class="feature-tag">
+                        自清潔設計
+                    </div>
+
+                    <div class="feature-tag">
+                        降低側漏風險
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Applications -->
+
+            <div class="summary-block">
+
+                <div class="kicker">
+                    應用領域
+                </div>
+
+                <h2>
+                    多元水處理應用
+                </h2>
+
+                <p>
+                    適用於市政污水、工業廢水與多種曝氣系統應用。
+                </p>
+
+                <div class="tag-group">
+
+                    <div class="feature-tag">
+                        市政污水處理
+                    </div>
+
+                    <div class="feature-tag">
+                        工業廢水處理
+                    </div>
+
+                    <div class="feature-tag">
+                        水處理系統
+                    </div>
+
+                    <div class="feature-tag">
+                        臭氧曝氣
+                    </div>
+
+                    <div class="feature-tag">
+                        污泥穩定化
+                    </div>
+
+                    <div class="feature-tag">
+                        養殖池曝氣
+                    </div>
+
+                    <div class="feature-tag">
+                        河川湖泊曝氣
+                    </div>
+
+                    <div class="feature-tag">
+                        SBR 系統
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Why Choose EnviroValor -->
+
+<section class="why-envirovalor">
+
+    <div class="container">
+
+        <div class="section-head center">
+
+            <div class="kicker">
+                為什麼選擇 EnviroValor
+            </div>
+
+            <h2>
+                為什麼選擇 EnviroValor 散氣管？
+            </h2>
+
+            <p>
+                專注於穩定曝氣性能、可靠結構與實用工程應用。
+            </p>
+
+        </div>
+
+        <div class="why-grid">
+
+            <!-- 01 -->
+
+            <div class="why-card">
+
+                <div class="why-number">
+                    01
+                </div>
+
+                <h3>
+                    可靠的旋熔結構
+                </h3>
+
+                <p>
+                    一體成型進氣口與旋熔接合設計，可提供更佳的密封可靠性。
+                </p>
+
+            </div>
+
+            <!-- 02 -->
+
+            <div class="why-card">
+
+                <div class="why-number">
+                    02
+                </div>
+
+                <h3>
+                    出貨前逐支測漏
+                </h3>
+
+                <p>
+                    每支散氣管皆經專業測漏設備檢測，以降低側漏風險。
+                </p>
+
+            </div>
+
+            <!-- 03 -->
+
+            <div class="why-card">
+
+                <div class="why-number">
+                    03
+                </div>
+
+                <h3>
+                    明確的 600 mm 規格
+                </h3>
+
+                <p>
+                    聚焦於實用且常見的 600 mm 散氣管尺寸。
+                </p>
+
+            </div>
+
+            <!-- 04 -->
+
+            <div class="why-card">
+
+                <div class="why-number">
+                    04
+                </div>
+
+                <h3>
+                    清楚實用的技術資料
+                </h3>
+
+                <p>
+                    包含通氣量、EPDM 膜片、ABS 本體與 304 束環等完整資訊。
+                </p>
+
+            </div>
+
+            <!-- 05 -->
+
+            <div class="why-card">
+
+                <div class="why-number">
+                    05
+                </div>
+
+                <h3>
+                    適合新建與汰換工程
+                </h3>
+
+                <p>
+                    適用於新設曝氣池、系統汰換與設備整合應用。
+                </p>
+
+            </div>
+
+            <!-- 06 -->
+
+            <div class="why-card">
+
+                <div class="why-number">
+                    06
+                </div>
+
+                <h3>
+                    可提供樣品
+                </h3>
+
+                <p>
+                    提供樣品申請，方便評估尺寸、材質與安裝相容性。
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+        <button
+            class="scroll-top-btn"
+            id="scrollTopBtn"
+            type="button"
+            aria-label="Back to top">
+
+            ↑
+
+        </button>
+
+  <!-- Inquiry Modal -->
+
+  <div id="inquiry-modal"></div>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <div class="preview-flag">動畫預覽版</div>
+
+<!-- =========================
+     Main JS（沿用正式站，未做任何修改）
+========================= -->
+
+<script type="module" src="../../js/main.js"></script>
+
+
+<!-- =========================
+     動畫腳本（預覽用，全部寫在這一頁裡）
+     刻意使用一般 script，即使 main.js 因故沒載入也能運作
+========================= -->
+
+<script>
+(function(){
+
+    var REVEAL_SELECTOR = [
+        ".hero-grid > div",
+        ".section-head",
+        ".section-heading",
+        ".summary-block",
+        ".spec-card",
+        ".why-card",
+        ".feature-tag",
+        ".product-tab-item",
+        ".product-tab-card",
+        ".product-visual-panel"
+    ].join(", ");
+
+    var STAGGER_MS  = 70;
+    var STAGGER_MAX = 420;
+
+
+    function initProgressBar(){
+
+        var header = document.querySelector("header");
+
+        if(!header) return;
+
+        var bar = document.createElement("div");
+
+        bar.className = "ev-progress";
+
+        header.appendChild(bar);
+
+        var ticking = false;
+
+        function update(){
+
+            var max =
+                document.documentElement.scrollHeight - window.innerHeight;
+
+            var ratio =
+                max > 0
+                    ? Math.min(window.scrollY / max, 1)
+                    : 0;
+
+            bar.style.transform = "scaleX(" + ratio + ")";
+
+            ticking = false;
+        }
+
+        window.addEventListener("scroll", function(){
+
+            if(ticking) return;
+
+            ticking = true;
+
+            window.requestAnimationFrame(update);
+
+        }, { passive: true });
+
+        window.addEventListener("resize", update);
+
+        update();
+    }
+
+
+    function initReveal(){
+
+        var targets =
+            document.querySelectorAll(REVEAL_SELECTOR);
+
+        if(!targets.length) return;
+
+        var reduced =
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        // 不支援 IntersectionObserver 或使用者關閉動態時，直接全部顯示
+        if(reduced || !("IntersectionObserver" in window)){
+
+            Array.prototype.forEach.call(targets, function(el){
+                el.classList.add("is-in");
+            });
+
+            return;
+        }
+
+        // 依照同一個父層分組，讓相鄰元素依序進場
+        var order  = new Map();
+        var counts = new Map();
+
+        Array.prototype.forEach.call(targets, function(el){
+
+            var parent = el.parentElement;
+            var index  = counts.get(parent) || 0;
+
+            order.set(el, index);
+            counts.set(parent, index + 1);
+        });
+
+        var fired = false;
+
+        var observer = new IntersectionObserver(function(entries){
+
+            fired = true;
+
+            entries.forEach(function(entry){
+
+                if(!entry.isIntersecting) return;
+
+                var el = entry.target;
+
+                var delay =
+                    Math.min(order.get(el) * STAGGER_MS, STAGGER_MAX);
+
+                el.style.transitionDelay = delay + "ms";
+
+                el.classList.add("is-in");
+
+                observer.unobserve(el);
+            });
+
+        }, {
+            threshold: 0.12,
+            rootMargin: "0px 0px -6% 0px"
+        });
+
+        Array.prototype.forEach.call(targets, function(el){
+            observer.observe(el);
+        });
+
+        // 保險機制：觀察器若完全沒有觸發過，2 秒後強制顯示
+        window.setTimeout(function(){
+
+            if(fired) return;
+
+            Array.prototype.forEach.call(targets, function(el){
+                el.classList.add("is-in");
+            });
+
+        }, 2000);
+    }
+
+
+    function init(){
+        initProgressBar();
+        initReveal();
+    }
+
+    if(document.readyState === "loading"){
+        document.addEventListener("DOMContentLoaded", init);
+    }else{
+        init();
+    }
+
+})();
+</script>
+
+</body>
+</html>
