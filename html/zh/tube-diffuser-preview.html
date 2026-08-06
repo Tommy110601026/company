@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" class="ev-motion">
+<html lang="zh-Hant" class="ev-motion ev-refine">
 <head>
     <meta charset="UTF-8" />
 
@@ -24,6 +24,7 @@
     href="../../images/slogo.jpg"
     />
 
+    <!-- 正式站樣式，未做任何修改 -->
     <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/header.css">
     <link rel="stylesheet" href="../../css/footer.css">
@@ -31,14 +32,14 @@
     <link rel="stylesheet" href="../../css/mobile-menu.css">
     <link rel="stylesheet" href="../../css/product.css">
 
-    <!-- =========================
-         動畫樣式（預覽用，全部寫在這一頁裡）
-    ========================= -->
-
+    <!-- 動畫樣式（只存在於這一頁）-->
     <style>
 
-    /* 位移使用獨立的 translate 屬性，不佔用 transform，
-       因此 product.css 既有的 :hover translateY 仍可正常運作 */
+    /* ==========================================================
+       捲動進場動畫 + header 捲動進度條
+       位移使用 CSS 獨立的 translate 屬性，不佔用 transform，
+       因此 product.css 既有的 :hover translateY 仍可正常運作。
+       ========================================================== */
 
     :root{
         --ev-ease:cubic-bezier(.22, 1, .36, 1);
@@ -46,7 +47,24 @@
         --ev-dur:.85s;
     }
 
-    /* 捲動進度條（貼在 header 底部） */
+    /* ----------------------------------------------------------
+       修正 header 無法固定的問題
+
+       product.css 有一條 html, body { overflow-x:hidden }。
+       overflow-x:hidden 會把該元素變成捲動容器，
+       連帶讓底下所有 position:sticky 失效 —— 也就是 header.css
+       的 position:sticky 在有載入 product.css 的頁面上不會生效。
+
+       改用 overflow-x:clip：一樣不會出現水平捲軸，
+       但 clip 不會建立捲動容器，所以 sticky 可以正常運作。
+       ---------------------------------------------------------- */
+
+    html,
+    body{
+        overflow-x:clip;
+    }
+
+    /* 捲動進度條（貼在 header 底緣） */
 
     .ev-progress{
         position:absolute;
@@ -104,8 +122,12 @@
     }
 
     /* 進場後 */
+    /* class 刻意重複寫兩次，用意是拉高權重。
+       上面的隱藏規則因為 :is() 裡含有 .hero-grid > div（帶標籤選擇器），
+       整條權重是 (0,2,1)；這裡若只寫 .ev-motion .is-in 只有 (0,2,0)，
+       蓋不過隱藏規則，元素會永遠停在 opacity:0。 */
 
-    .ev-motion .is-in{
+    .ev-motion .is-in.is-in{
         opacity:1;
 
         translate:none;
@@ -127,7 +149,7 @@
         transform:translateY(-3px);
     }
 
-    /* 減少動態偏好設定 */
+    /* 系統設定為減少動態時，直接顯示不做動畫 */
 
     @media (prefers-reduced-motion: reduce){
 
@@ -155,28 +177,614 @@
         }
     }
 
-    /* 預覽頁標示條 */
+    /* 前後對照切換鈕 */
 
-    .preview-flag{
+    .style-toggle{
         position:fixed;
-        left:16px;
-        bottom:16px;
+        left:20px;
+        bottom:20px;
         z-index:1200;
 
-        padding:8px 16px;
+        display:flex;
+        align-items:center;
+        gap:10px;
+
+        padding:10px 18px;
         border-radius:999px;
 
-        background:rgba(7, 48, 71, .9);
+        background:rgba(7, 48, 71, .92);
         backdrop-filter:blur(10px);
 
-        border:1px solid rgba(255, 255, 255, .18);
+        border:1px solid rgba(255, 255, 255, .2);
 
         color:#fff;
-        font-size:12px;
-        font-weight:700;
-        letter-spacing:.04em;
+        font-family:inherit;
+        font-size:13px;
+        font-weight:600;
+        letter-spacing:.02em;
 
-        pointer-events:none;
+        cursor:pointer;
+        transition:transform .25s ease, background .25s ease;
+    }
+
+    .style-toggle:hover{
+        transform:translateY(-2px);
+        background:rgba(7, 48, 71, 1);
+    }
+
+    .style-toggle .dot{
+        width:8px;
+        height:8px;
+        border-radius:50%;
+        background:#8a9aa8;
+        transition:background .25s ease;
+    }
+
+    .ev-refine .style-toggle .dot{
+        background:#4ade80;
+        box-shadow:0 0 10px rgba(74, 222, 128, .8);
+    }
+
+
+    /* ==========================================================
+       視覺調整層
+
+       全部掛在 .ev-refine 底下，等於在原本每條選擇器前面
+       多加一個 class，權重必定高於 product.css / global.css，
+       但只要把 <html> 的 ev-refine 拿掉就完全還原。
+
+       調整方向：
+       01. 字重與字級 —— 建立真正的階層
+       02. 色彩 —— 把六種綠收斂成一種
+       03. 圓角與陰影 —— 建立一致的尺度
+       04. 間距節奏
+       05. 中文排版細節
+       ========================================================== */
+
+    .ev-refine{
+        /* 圓角尺度 */
+        --r-sm:8px;
+        --r-md:12px;
+        --r-lg:16px;
+
+        /* --------------------------------------------------
+           文字色階
+           每個值都實測過 WCAG 對比度，白底與 #f4f6f7 淺灰底
+           兩種情況都要達到 AA 內文標準（4.5:1）。
+           括號內為「白底 / 灰底」的實測值。
+           -------------------------------------------------- */
+
+        --ink:#0a2537;      /* 標題    15.76 / 14.54 */
+        --ink-2:#3d5568;    /* 內文     7.78 /  7.18 */
+        --ink-3:#5a7183;    /* 小標籤   5.09 /  4.70 */
+
+        /* --------------------------------------------------
+           重點色拆成兩個用途：
+
+           --accent      只用於填色、邊框、圖示等非文字元件
+                         （非文字元件的門檻是 3:1，實測 3.21）
+           --accent-text 綠色「文字」專用的深綠
+                         （實測 5.59 / 5.16，達 AA 內文標準）
+
+           原本整份 CSS 直接拿亮綠 #35b34a 當文字色，
+           在白底只有 2.6:1，弱視或老花的人會看不清楚。
+           -------------------------------------------------- */
+
+        --accent:#2ea44f;
+        --accent-text:#197741;
+        --accent-soft:rgba(46, 164, 79, .09);
+        --accent-line:rgba(46, 164, 79, .32);
+
+        /* 面與線 */
+        --hairline:#dde4e9;
+        --surface:#ffffff;
+        --surface-2:#f4f6f7;
+
+        /* 覆寫原有代幣，讓沒被個別指定的地方也一起受惠 */
+        --muted:#556b7d;    /* 5.55 / 5.12 */
+        --line:#dde4e9;
+    }
+
+    /* ---------- 01. 字重與字級 ---------- */
+
+    /* 中文字型在 700 以上多半會落到同一個粗體，
+       再往上加只會讓筆畫糊掉，所以全部收斂到 400 / 600 / 700 三級 */
+
+    .ev-refine h1,
+    .ev-refine h2,
+    .ev-refine h3,
+    .ev-refine h4{
+        font-weight:700;
+        letter-spacing:normal;   /* 負字距會把中文字擠在一起 */
+        text-wrap:balance;
+        color:var(--ink);
+    }
+
+    .ev-refine .hero h1{
+        font-size:clamp(34px, 4.2vw, 52px);
+        line-height:1.25;
+        color:#fff;
+        margin-bottom:22px;
+    }
+
+    .ev-refine .product-page .section-head h2,
+    .ev-refine .product-page .section-heading h2{
+        font-size:clamp(26px, 3vw, 36px);
+        font-weight:700;
+        line-height:1.3;
+        margin:0 0 14px;
+    }
+
+    .ev-refine .summary-block h2{
+        font-size:clamp(24px, 2.4vw, 28px);
+        line-height:1.35;
+        margin:10px 0 14px;
+    }
+
+    .ev-refine .product-tab-panel h3{
+        font-size:clamp(20px, 2vw, 24px);
+        line-height:1.4;
+        margin:0 0 16px;
+    }
+
+    .ev-refine .why-card h3{
+        font-size:19px;
+        line-height:1.45;
+        margin-bottom:12px;
+    }
+
+    /* 內文：行高 1.9 對中文太鬆，段落會散開 */
+
+    /* 內文一律不小於 16px；說明段落給到 17px。
+       這是為了讓老花或視力較弱的使用者不必放大頁面就能讀。 */
+
+    .ev-refine .section-head p,
+    .ev-refine .section-heading p,
+    .ev-refine .product-page .section-head p,
+    .ev-refine .product-page .section-heading p,
+    .ev-refine .product-tab-panel p,
+    .ev-refine .summary-block p,
+    .ev-refine .why-card p{
+        font-size:17px;
+        line-height:1.75;
+        font-weight:400;
+        color:var(--ink-2);
+    }
+
+    .ev-refine .section-head p,
+    .ev-refine .section-heading p{
+        max-width:60ch;
+        margin-inline:auto;
+    }
+
+    .ev-refine .product-tab-panel li{
+        font-size:16px;
+        font-weight:400;
+        line-height:1.75;
+        color:var(--ink-2);
+        margin-bottom:8px;
+    }
+
+    .ev-refine .product-tab-panel ul{
+        margin-top:20px;
+        padding-left:20px;
+    }
+
+    .ev-refine .product-tab-panel li::marker{
+        color:var(--accent-text);
+    }
+
+    /* 小標籤：中文用 uppercase 沒有作用，卻會讓英數字距變怪 */
+
+    .ev-refine .kicker{
+        font-size:14px;
+        font-weight:700;
+        letter-spacing:.1em;
+        text-transform:none;
+        color:var(--accent-text);
+        margin-bottom:14px;
+    }
+
+    /* ---------- 02. 色彩收斂 ---------- */
+
+    .ev-refine .hero{
+        background:
+        radial-gradient(
+            120% 80% at 78% 12%,
+            rgba(46, 164, 79, .16),
+            transparent 58%
+        ),
+        linear-gradient(
+            160deg,
+            #062132,
+            #0b3550
+        );
+    }
+
+    .ev-refine .hero p{
+        color:rgba(255, 255, 255, .78);
+        font-size:17px;
+        line-height:1.8;
+        max-width:58ch;
+        margin-bottom:20px;
+    }
+
+    /* 深底上的淺綠，對比 11.5:1 */
+
+    .ev-refine .eyebrow{
+        padding:8px 16px;
+        border-radius:999px;
+        background:rgba(255, 255, 255, .08);
+        border:1px solid rgba(255, 255, 255, .16);
+        color:#a8ecb8;
+        font-size:14px;
+        font-weight:600;
+        letter-spacing:.02em;
+        margin-bottom:22px;
+    }
+
+    /* 規格標籤原本是綠色，數量太多會讓整頁都在閃綠光，改成中性灰 */
+
+    .ev-refine .spec-label,
+    .ev-refine .flat-feature-card span{
+        color:var(--ink-3);
+        font-size:14px;
+        font-weight:600;
+        letter-spacing:.02em;
+        text-transform:none;
+        margin-bottom:8px;
+    }
+
+    .ev-refine .spec-card strong,
+    .ev-refine .flat-feature-card strong{
+        color:var(--ink);
+        font-size:15.5px;
+        font-weight:600;
+        line-height:1.55;
+        font-variant-numeric:tabular-nums;
+    }
+
+    /* 淡綠底換成中性底，整頁不再泛薄荷色 */
+
+    .ev-refine .product-section,
+    .ev-refine .why-envirovalor,
+    .ev-refine .section-soft{
+        background:var(--surface-2);
+    }
+
+    /* ---------- 03. 圓角與陰影 ---------- */
+
+    /* 原本每張卡都有陰影，全部都突出等於都不突出。
+       改成髮絲線為主，陰影只留給 hover。 */
+
+    .ev-refine .spec-card,
+    .ev-refine .flat-feature-card,
+    .ev-refine .why-card,
+    .ev-refine .summary-block,
+    .ev-refine .product-tab-card,
+    .ev-refine .product-tab-list,
+    .ev-refine .spec-tabs{
+        border-radius:var(--r-lg);
+        border:1px solid var(--hairline);
+        box-shadow:none;
+        background:var(--surface);
+    }
+
+    .ev-refine .spec-card:hover,
+    .ev-refine .flat-feature-card:hover{
+        border-color:var(--accent-line);
+        box-shadow:0 6px 18px rgba(10, 37, 55, .06);
+    }
+
+    .ev-refine .why-card:hover{
+        transform:translateY(-4px);
+        border-color:var(--accent-line);
+        box-shadow:0 14px 32px rgba(10, 37, 55, .08);
+    }
+
+    .ev-refine .summary-block{
+        padding:36px;
+    }
+
+    .ev-refine .why-card{
+        padding:32px;
+    }
+
+    .ev-refine .product-tab-card{
+        padding:40px;
+    }
+
+    .ev-refine .hero-card{
+        padding:24px;
+        border-radius:var(--r-lg);
+        background:rgba(255, 255, 255, .06);
+        border:1px solid rgba(255, 255, 255, .13);
+        box-shadow:0 24px 60px rgba(0, 0, 0, .28);
+    }
+
+    .ev-refine .slider-container{
+        border-radius:var(--r-md);
+    }
+
+    /* 維持 44px，這是觸控目標的最小建議尺寸，
+       手指較不靈活或使用觸控筆的人才按得到 */
+
+    .ev-refine .slider-btn{
+        width:44px;
+        height:44px;
+        font-size:20px;
+        background:rgba(6, 33, 50, .62);
+        border:1px solid rgba(255, 255, 255, .22);
+        backdrop-filter:blur(6px);
+    }
+
+    .ev-refine .slider-btn:hover{
+        background:rgba(6, 33, 50, .8);
+    }
+
+    /* 「為什麼選擇」的 01–06 並不是流程順序，
+       原本 64px 的半透明綠數字視覺重量過大，改成安靜的索引 */
+
+    .ev-refine .why-number{
+        font-size:14px;
+        font-weight:700;
+        letter-spacing:.12em;
+        line-height:1;
+        color:var(--accent-text);
+        margin-bottom:18px;
+        padding-bottom:18px;
+        border-bottom:1px solid var(--hairline);
+        font-variant-numeric:tabular-nums;
+    }
+
+    /* 標籤：原本整片綠底，改成中性底，hover 才上綠 */
+
+    .ev-refine .feature-tag{
+        padding:10px 16px;
+        background:var(--surface-2);
+        border:1px solid var(--hairline);
+        color:var(--ink-2);
+        font-size:15px;
+        font-weight:500;
+    }
+
+    .ev-refine .feature-tag:hover{
+        background:var(--accent-soft);
+        border-color:var(--accent-line);
+        color:var(--ink);
+    }
+
+    .ev-refine .tag-group{
+        gap:9px;
+    }
+
+    /* 產品特色分頁：選中狀態改成深底反白，對比更明確 */
+
+    .ev-refine .product-tab-list{
+        padding:10px;
+    }
+
+    .ev-refine .product-tab-item{
+        border-radius:var(--r-md);
+        padding:16px;
+    }
+
+    .ev-refine .product-tab-item:hover{
+        background:var(--surface-2);
+    }
+
+    .ev-refine .product-tab-item.active{
+        background:var(--ink);
+    }
+
+    .ev-refine .product-tab-item.active strong{
+        color:#fff;
+    }
+
+    .ev-refine .product-tab-item.active span:last-child{
+        color:rgba(255, 255, 255, .62);
+    }
+
+    .ev-refine .product-tab-item.active .product-tab-number{
+        background:var(--accent);
+        color:#fff;
+    }
+
+    .ev-refine .product-tab-number{
+        width:36px;
+        height:36px;
+        border-radius:var(--r-sm);
+        background:var(--surface-2);
+        color:var(--ink-3);
+        font-size:13px;
+        font-weight:700;
+        font-variant-numeric:tabular-nums;
+    }
+
+    .ev-refine .product-tab-item strong{
+        font-size:16px;
+        font-weight:600;
+        line-height:1.45;
+    }
+
+    .ev-refine .product-tab-item span:last-child{
+        font-size:14px;
+        color:var(--ink-3);
+    }
+
+    .ev-refine .visual-badge span{
+        background:var(--surface);
+        border:1px solid var(--accent-line);
+        color:var(--ink);
+        font-size:14px;
+        font-weight:600;
+    }
+
+    /* 按鈕：漸層換成單色，並確保文字對比足夠 */
+
+    .ev-refine .btn-primary{
+        background:var(--accent);
+        color:#04202f;
+        padding:14px 26px;
+        font-weight:700;
+        font-size:15px;
+    }
+
+    .ev-refine .btn-primary:hover{
+        background:#35b957;
+        transform:translateY(-2px);
+        box-shadow:0 10px 26px rgba(46, 164, 79, .32);
+    }
+
+    .ev-refine .btn-outline{
+        padding:14px 26px;
+        font-weight:600;
+        font-size:15px;
+        border-color:rgba(255, 255, 255, .26);
+        background:rgba(255, 255, 255, .06);
+    }
+
+    .ev-refine .btn-outline:hover{
+        background:rgba(255, 255, 255, .12);
+        border-color:rgba(255, 255, 255, .45);
+        transform:translateY(-2px);
+    }
+
+    /* ---------- 04. 間距節奏 ---------- */
+
+    /* 原本各區塊是 82 / 90 / 100 / 100 / 100，收成同一個值 */
+
+    .ev-refine main section:not(.hero),
+    .ev-refine .product-overview,
+    .ev-refine .product-section,
+    .ev-refine .feature-summary,
+    .ev-refine .why-envirovalor{
+        padding:92px 0;
+    }
+
+    .ev-refine .hero{
+        padding:96px 0;
+    }
+
+    .ev-refine .section-head,
+    .ev-refine .section-heading,
+    .ev-refine .product-page .section-head,
+    .ev-refine .product-page .section-heading{
+        margin-bottom:48px;
+    }
+
+    .ev-refine .why-grid{
+        margin-top:0;
+        gap:20px;
+    }
+
+    .ev-refine .spec-grid.compact{
+        gap:14px;
+    }
+
+    .ev-refine .summary-grid{
+        gap:24px;
+    }
+
+    .ev-refine .product-tab-layout{
+        gap:20px;
+    }
+
+    /* ---------- 05. 無障礙 ---------- */
+
+    /* 鍵盤焦點：原本完全沒有樣式，只靠鍵盤操作的人會完全迷路。
+       用深色描邊而非綠色，確保在任何底色上都看得見。 */
+
+    .ev-refine a:focus-visible,
+    .ev-refine button:focus-visible,
+    .ev-refine input:focus-visible,
+    .ev-refine select:focus-visible,
+    .ev-refine textarea:focus-visible{
+        outline:3px solid var(--ink);
+        outline-offset:2px;
+        border-radius:4px;
+    }
+
+    /* 深色底（hero、header）上的焦點改用白色描邊 */
+
+    .ev-refine .hero a:focus-visible,
+    .ev-refine .hero button:focus-visible,
+    .ev-refine header a:focus-visible,
+    .ev-refine header button:focus-visible{
+        outline-color:#fff;
+    }
+
+    /* 觸控目標最小 44px */
+
+    .ev-refine .quote-btn,
+    .ev-refine .lang-btn,
+    .ev-refine .mobile-menu-btn,
+    .ev-refine .btn-primary,
+    .ev-refine .btn-outline,
+    .ev-refine .submit-btn,
+    .ev-refine .product-tab-item{
+        min-height:44px;
+    }
+
+    /* 系統設定為高對比時，把線條與文字再加重 */
+
+    @media (prefers-contrast: more){
+
+        .ev-refine{
+            --ink-2:#22323f;
+            --ink-3:#3d5568;
+            --hairline:#9fb0bd;
+            --accent-text:#146c43;
+        }
+
+        .ev-refine .spec-card,
+        .ev-refine .flat-feature-card,
+        .ev-refine .why-card,
+        .ev-refine .summary-block,
+        .ev-refine .product-tab-card,
+        .ev-refine .product-tab-list,
+        .ev-refine .feature-tag{
+            border-width:2px;
+        }
+    }
+
+    /* 使用者放大字級時不要讓卡片內容被裁掉 */
+
+    .ev-refine .flat-feature-card,
+    .ev-refine .spec-card{
+        min-height:0;
+        height:auto;
+    }
+
+    .ev-refine .scroll-top-btn{
+        background:var(--ink);
+        width:42px;
+        height:42px;
+        font-size:19px;
+    }
+
+    .ev-refine .scroll-top-btn:hover{
+        background:var(--accent);
+    }
+
+    @media(max-width:640px){
+
+        .ev-refine main section:not(.hero),
+        .ev-refine .product-overview,
+        .ev-refine .product-section,
+        .ev-refine .feature-summary,
+        .ev-refine .why-envirovalor{
+            padding:64px 0;
+        }
+
+        .ev-refine .hero{
+            padding:64px 0;
+        }
+
+        .ev-refine .summary-block,
+        .ev-refine .product-tab-card{
+            padding:26px;
+        }
     }
 
     </style>
@@ -185,69 +793,147 @@
 
 <body>
 
+
     <!-- Header -->
     <header>
         <div class="container navbar">
-
+        
         <a class="logo" href="./">
         <img alt="EnviroValor Logo" src="../../images/slogo.jpg"/>
         </a>
-
+        
         <nav class="nav-links">
-
+        
         <a class="nav-link" data-page="home" href="./">
         首頁
         </a>
-
+        
         <div class="nav-dropdown">
-
+        
         <button class="dropdown-btn" data-page="products" id="productDropdownBtn">
         產品 ▼
         </button>
-
+        
         <div class="dropdown-menu" id="productDropdownMenu">
-
+        
         <a href="disc-diffuser.html">
         散氣盤
         </a>
-
+        
         <a href="tube-diffuser.html">
         散氣管
         </a>
-
+        
         </div>
         </div>
-
+        
         <a class="nav-link" data-page="about" href="about.html">
         關於我們
         </a>
-
+        
         <a class="nav-link" data-page="download" href="download.html">
         資料下載
         </a>
-
+        
         </nav>
-
+        
         <div class="nav-actions">
-
+        
         <a class="lang-btn" href="../en/tube-diffuser.html" id="langBtn">
         EN
         </a>
-
+        
         <button class="quote-btn" id="openInquiryModal">
         聯絡我們
         </button>
-
+        
         <button class="mobile-menu-btn" id="mobileMenuBtn">
         ☰
         </button>
-
+        
         </div>
         </div>
     </header>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu"></div>
+  <div id="mobile-menu"><div
+    class="mobile-menu"
+    id="mobileMenu">
+
+    <div class="mobile-menu-inner">
+
+        <button
+            class="mobile-close-btn"
+            id="mobileCloseBtn">
+
+            ×
+
+        </button>
+
+        <a
+            href="../zh/index.html"
+            class="mobile-nav-link"
+            data-mobile-page="home">
+
+            首頁
+
+        </a>
+
+        <div class="mobile-product-group">
+
+            <div class="mobile-product-title">
+                產品介紹
+            </div>
+
+            <a
+                href="../zh/disc-diffuser.html"
+                class="mobile-nav-link"
+                data-mobile-page="disc">
+
+                散氣盤
+
+            </a>
+
+            <a
+                href="../zh/tube-diffuser.html"
+                class="mobile-nav-link"
+                data-mobile-page="tube">
+
+                散氣管
+
+            </a>
+
+        </div>
+
+        <a
+            href="../zh/about.html"
+            class="mobile-nav-link"
+            data-mobile-page="about">
+
+            關於我們
+
+        </a>
+
+        <a
+            href="../zh/download.html"
+            class="mobile-nav-link"
+            data-mobile-page="download">
+
+            型錄下載
+
+        </a>
+
+        <button
+        class="mobile-contact-btn"
+        id="mobileInquiryBtn">
+
+        聯絡我們
+
+        </button>
+
+    </div>
+
+</div></div>
 
   <main class="product-page tube-page">
 
@@ -302,20 +988,20 @@
                 <div class="product-slider tube-slider">
 
                     <button class="slider-btn prev-btn">❮</button>
-
+                
                     <div class="slider-container">
-
+                
                         <img src="../../images/tube/02.jpg" class="slider-image active">
                         <img
                         src="../../images/tube/03.jpg"
                         class="slider-image"
                         style="object-position:center 3%;">
                         <img src="../../images/tube/04.jpg" class="slider-image">
-
+                
                     </div>
-
+                
                     <button class="slider-btn next-btn">❯</button>
-
+                
                 </div>
 
             </div>
@@ -326,6 +1012,8 @@
 
     <!-- Why Choose -->
 
+<!-- Why Choose -->
+
 <section class="product-overview">
 
     <div class="container">
@@ -335,15 +1023,15 @@
             <div class="kicker">
                 產品特色
             </div>
-
+        
             <h2>
                 核心結構與密封設計
             </h2>
-
+        
             <p>
                 從旋熔式進氣結構、EPDM膜片到ABS支撐本體與304不鏽鋼束環，提升散氣管在污水曝氣環境中的穩定性與長期可靠性。
             </p>
-
+        
         </div>
 
 
@@ -566,24 +1254,24 @@
                     <div class="hero-card">
 
                         <div class="product-slider tube-slider">
-
+        
                             <button class="slider-btn prev-btn">❮</button>
-
+                        
                             <div class="slider-container">
-
+                        
                                 <img src="../../images/tube/02.jpg" class="slider-image active">
                                 <img
                                 src="../../images/tube/03.jpg"
                                 class="slider-image"
                                 style="object-position:center 3%;">
                                 <img src="../../images/tube/04.jpg" class="slider-image">
-
+                        
                             </div>
-
+                        
                             <button class="slider-btn next-btn">❯</button>
-
+                        
                         </div>
-
+        
                     </div>
 
                     <div class="visual-badge">
@@ -1022,26 +1710,455 @@
 
   <!-- Inquiry Modal -->
 
-  <div id="inquiry-modal"></div>
+  <div id="inquiry-modal"><div
+    class="inquiry-modal"
+    id="inquiryModal">
+
+    <div
+        class="inquiry-overlay"
+        id="closeInquiryModal"></div>
+
+    <div class="inquiry-container">
+
+        <button
+            class="inquiry-close"
+            id="closeInquiryBtn">
+
+            ×
+
+        </button>
+
+        <div class="inquiry-info">
+
+            <div class="inquiry-kicker">
+                EnviroValor
+            </div>
+
+            <h2>
+                聯絡我們
+            </h2>
+
+            <p>
+                歡迎與我們聯繫產品詢價、樣品需求、型錄索取或 OEM 合作。
+            </p>
+
+            <ul class="inquiry-points">
+
+                <li>✓ 快速回覆</li>
+                <li>✓ 提供樣品</li>
+                <li>✓ OEM 合作討論</li>
+                <li>✓ 台灣供應商</li>
+
+            </ul>
+
+        </div>
+
+        <div class="inquiry-form-wrap">
+
+            <form class="inquiry-form" novalidate>
+
+            <div
+                class="form-alert"
+                id="formAlert">
+
+                <div class="form-alert-title">
+                    ⚠️ 請確認表單內容
+                </div>
+
+                <div class="form-alert-message">
+                    以下欄位需要修正：
+                </div>
+
+                <ul class="form-alert-list"></ul>
+
+            </div>
+
+                <input
+                    type="text"
+                    name="website"
+                    class="form-honeypot"
+                    tabindex="-1"
+                    autocomplete="off">
+
+                <div class="form-group">
+            
+                    <label>
+                        詢問項目 *
+                    </label>
+            
+                    <select name="inquiryType">
+            
+                        <option>
+                            詢價需求
+                        </option>
+            
+                        <option>
+                            樣品需求
+                        </option>
+            
+                        <option>
+                            索取產品型錄
+                        </option>
+            
+                    </select>
+            
+                </div>
+            
+                <div class="form-group">
+            
+                    <label>
+                        公司名稱 *
+                    </label>
+            
+                    <input
+                        type="text"
+                        name="company"
+                        required>
+            
+                </div>
+            
+                <div class="form-group">
+            
+                    <label>
+                        電子郵件 *
+                    </label>
+            
+                    <input
+                        type="email"
+                        name="email"
+                        required>
+            
+                </div>
+            
+                <div class="form-group">
+            
+                    <label for="subject">
+            
+                        主旨 *
+            
+                    </label>
+            
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        placeholder="請輸入主旨"
+                        required>
+            
+                </div>
+            
+                <div class="form-group">
+            
+                    <label>
+                        留言內容 *
+                    </label>
+            
+                    <textarea
+                        name="message"
+                        rows="5"
+                        placeholder="請輸入留言內容，最多3000字"
+                        required></textarea>
+
+                    <div class="form-hint">
+                        <span class="message-count">0</span> / 3000 字
+                    </div>
+            
+                </div>
+            
+                <button
+                    type="submit"
+                    class="submit-btn">
+            
+                    送出詢問
+            
+                </button>
+            
+            </form>
+        </div>
+
+    </div>
+
+</div></div>
 
   <!-- Footer -->
-  <div id="footer"></div>
+  <div id="footer"><footer>
 
-  <div class="preview-flag">動畫預覽版</div>
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+
+            <h4>
+                EnviroValor
+            </h4>
+
+            <p>
+                專注於污水處理與曝氣產品的台灣供應商。
+            </p>
+
+            <img
+                class="footer-logo"
+                src="../../images/logo.jpg"
+                alt="EnviroValor Logo">
+
+        </div>
+
+        <div>
+
+            <h4>
+                聯絡資訊
+            </h4>
+
+            <ul>
+
+                <li>
+                    電子郵件：info@envirovalor.com
+                </li>
+
+                <li>
+                    電話：（03）-403-1234
+                </li>
+
+                <li>
+                    營業時間：週一至週五 08:30–17:30
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div>
+
+            <h4>
+                雄威環境科技有限公司
+            </h4>
+
+            <iframe
+                class="map"
+                title="雄威環境科技有限公司地圖"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=雄威環境科技有限公司+桃園市平鎮區中豐路南勢二段460巷120-2號&amp;output=embed">
+            </iframe>
+
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+
+        <span>
+            © 2026 EnviroValor 版權所有
+        </span>
+
+        <span>
+            污水處理曝氣產品
+        </span>
+
+    </div>
+
+</footer></div>
 
 <!-- =========================
-     Main JS（沿用正式站，未做任何修改）
+     Main JS
 ========================= -->
 
-<script type="module" src="../../js/main.js"></script>
+
+
+
+
+
+    <button
+        class="style-toggle"
+        id="styleToggle"
+        type="button"
+        aria-pressed="true">
+
+        <span class="dot" aria-hidden="true"></span>
+        <span id="styleToggleLabel">新版樣式</span>
+
+    </button>
 
 
 <!-- =========================
-     動畫腳本（預覽用，全部寫在這一頁裡）
-     刻意使用一般 script，即使 main.js 因故沒載入也能運作
+     正式站互動邏輯
+     改寫成一般腳本，讓 file:// 直接開啟也能運作
 ========================= -->
 
 <script>
+
+// 以下邏輯與 js/ 底下的正式模組相同，只是改寫成一般腳本，
+// 讓這一頁用 file:// 直接開啟也能運作。
+
+// ===== 圖片輪播（js/product-slider.js）=====
+document.querySelectorAll(".product-slider").forEach(function(slider){
+
+    var images  = slider.querySelectorAll(".slider-image");
+    var prevBtn = slider.querySelector(".prev-btn");
+    var nextBtn = slider.querySelector(".next-btn");
+
+    if(!images.length || !prevBtn || !nextBtn) return;
+
+    var current = 0;
+    var timer   = null;
+
+    function show(i){
+        images.forEach(function(img){ img.classList.remove("active"); });
+        images[i].classList.add("active");
+    }
+
+    function next(){ current = (current + 1) % images.length; show(current); }
+    function prev(){ current = (current - 1 + images.length) % images.length; show(current); }
+
+    function start(){ timer = setInterval(next, 3000); }
+    function reset(){ clearInterval(timer); start(); }
+
+    nextBtn.addEventListener("click", function(){ next(); reset(); });
+    prevBtn.addEventListener("click", function(){ prev(); reset(); });
+
+    show(0);
+    start();
+});
+
+// ===== 產品特色分頁（js/product-tabs.js）=====
+(function(){
+    var buttons = document.querySelectorAll(".product-tab-item");
+    var panels  = document.querySelectorAll(".product-tab-panel");
+
+    if(!buttons.length || !panels.length) return;
+
+    buttons.forEach(function(button){
+        button.addEventListener("click", function(){
+
+            var target = document.getElementById(button.dataset.panel);
+            if(!target) return;
+
+            buttons.forEach(function(b){ b.classList.remove("active"); });
+            panels.forEach(function(p){ p.classList.remove("active"); });
+
+            button.classList.add("active");
+            target.classList.add("active");
+        });
+    });
+})();
+
+// ===== 詢價視窗（js/contact.js）=====
+(function(){
+    var modal = document.querySelector(".inquiry-modal");
+    if(!modal) return;
+
+    function open(){  modal.classList.add("active"); }
+    function close(){ modal.classList.remove("active"); }
+
+    document.querySelectorAll(".quote-btn, #openInquiryModal, #openInquiryModalHero")
+        .forEach(function(b){ b.addEventListener("click", open); });
+
+    document.querySelectorAll(".inquiry-close, .inquiry-overlay")
+        .forEach(function(b){ b.addEventListener("click", close); });
+
+    document.addEventListener("keydown", function(e){
+        if(e.key === "Escape") close();
+    });
+
+    var form = modal.querySelector(".inquiry-form");
+    if(form){
+        form.addEventListener("submit", function(e){
+            e.preventDefault();
+            alert("這是動畫預覽版，表單不會實際送出。");
+        });
+    }
+})();
+
+// ===== 回到頂部（js/scroll-top.js）=====
+(function(){
+    var btn = document.getElementById("scrollTopBtn");
+    if(!btn) return;
+
+    window.addEventListener("scroll", function(){
+        btn.classList.toggle("is-visible", window.scrollY > 400);
+    }, { passive: true });
+
+    btn.addEventListener("click", function(){
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+})();
+
+// ===== 產品下拉選單（js/nav-dropdown.js）=====
+(function(){
+    var btn  = document.querySelector(".dropdown-btn");
+    var menu = document.querySelector(".dropdown-menu");
+    if(!btn || !menu) return;
+
+    btn.addEventListener("click", function(e){
+        e.stopPropagation();
+        menu.classList.toggle("active");
+    });
+
+    menu.addEventListener("click", function(e){ e.stopPropagation(); });
+
+    document.addEventListener("click", function(){
+        menu.classList.remove("active");
+    });
+})();
+
+// ===== 新舊樣式切換（僅預覽頁使用）=====
+(function(){
+    var btn   = document.getElementById("styleToggle");
+    var label = document.getElementById("styleToggleLabel");
+    if(!btn || !label) return;
+
+    btn.addEventListener("click", function(){
+
+        var on = document.documentElement.classList.toggle("ev-refine");
+
+        label.textContent = on ? "新版樣式" : "原始樣式";
+        btn.setAttribute("aria-pressed", String(on));
+    });
+})();
+
+// ===== 手機選單（js/mobile-menu.js）=====
+(function(){
+    var menuBtn    = document.querySelector(".mobile-menu-btn");
+    var mobileMenu = document.querySelector(".mobile-menu");
+    var closeBtn   = document.querySelector(".mobile-close-btn");
+
+    if(!menuBtn || !mobileMenu) return;
+
+    menuBtn.addEventListener("click", function(){
+        mobileMenu.classList.add("active");
+    });
+
+    if(closeBtn){
+        closeBtn.addEventListener("click", function(){
+            mobileMenu.classList.remove("active");
+        });
+    }
+
+    document.querySelectorAll(".mobile-nav-link").forEach(function(link){
+        link.addEventListener("click", function(){
+            mobileMenu.classList.remove("active");
+        });
+    });
+
+    var mobileInquiry = document.getElementById("mobileInquiryBtn");
+    if(mobileInquiry){
+        mobileInquiry.addEventListener("click", function(){
+            mobileMenu.classList.remove("active");
+            var opener = document.getElementById("openInquiryModal");
+            if(opener) opener.click();
+        });
+    }
+})();
+
+</script>
+
+
+<!-- =========================
+     動畫腳本
+========================= -->
+
+<script>
+
 (function(){
 
     var REVEAL_SELECTOR = [
@@ -1061,16 +2178,15 @@
     var STAGGER_MAX = 420;
 
 
+    // ===== header 捲動進度條 =====
+
     function initProgressBar(){
 
         var header = document.querySelector("header");
-
         if(!header) return;
 
         var bar = document.createElement("div");
-
         bar.className = "ev-progress";
-
         header.appendChild(bar);
 
         var ticking = false;
@@ -1080,10 +2196,7 @@
             var max =
                 document.documentElement.scrollHeight - window.innerHeight;
 
-            var ratio =
-                max > 0
-                    ? Math.min(window.scrollY / max, 1)
-                    : 0;
+            var ratio = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
 
             bar.style.transform = "scaleX(" + ratio + ")";
 
@@ -1095,7 +2208,6 @@
             if(ticking) return;
 
             ticking = true;
-
             window.requestAnimationFrame(update);
 
         }, { passive: true });
@@ -1106,31 +2218,28 @@
     }
 
 
+    // ===== 捲動進場 =====
+
     function initReveal(){
 
-        var targets =
-            document.querySelectorAll(REVEAL_SELECTOR);
-
+        var targets = document.querySelectorAll(REVEAL_SELECTOR);
         if(!targets.length) return;
 
         var reduced =
             window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        // 不支援 IntersectionObserver 或使用者關閉動態時，直接全部顯示
+        // 使用者關閉動態、或瀏覽器不支援時，直接全部顯示
         if(reduced || !("IntersectionObserver" in window)){
 
-            Array.prototype.forEach.call(targets, function(el){
-                el.classList.add("is-in");
-            });
-
+            targets.forEach(function(el){ el.classList.add("is-in"); });
             return;
         }
 
-        // 依照同一個父層分組，讓相鄰元素依序進場
+        // 依同一個父層分組，讓相鄰元素依序進場
         var order  = new Map();
         var counts = new Map();
 
-        Array.prototype.forEach.call(targets, function(el){
+        targets.forEach(function(el){
 
             var parent = el.parentElement;
             var index  = counts.get(parent) || 0;
@@ -1150,12 +2259,9 @@
                 if(!entry.isIntersecting) return;
 
                 var el = entry.target;
-
-                var delay =
-                    Math.min(order.get(el) * STAGGER_MS, STAGGER_MAX);
+                var delay = Math.min(order.get(el) * STAGGER_MS, STAGGER_MAX);
 
                 el.style.transitionDelay = delay + "ms";
-
                 el.classList.add("is-in");
 
                 observer.unobserve(el);
@@ -1166,18 +2272,14 @@
             rootMargin: "0px 0px -6% 0px"
         });
 
-        Array.prototype.forEach.call(targets, function(el){
-            observer.observe(el);
-        });
+        targets.forEach(function(el){ observer.observe(el); });
 
-        // 保險機制：觀察器若完全沒有觸發過，2 秒後強制顯示
+        // 保險：觀察器若完全沒觸發過，2 秒後強制顯示，避免內容看不到
         window.setTimeout(function(){
 
             if(fired) return;
 
-            Array.prototype.forEach.call(targets, function(el){
-                el.classList.add("is-in");
-            });
+            targets.forEach(function(el){ el.classList.add("is-in"); });
 
         }, 2000);
     }
@@ -1195,6 +2297,7 @@
     }
 
 })();
+
 </script>
 
 </body>
