@@ -1,0 +1,3638 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <title>
+    動效實驗室 II｜工程圖與產線語彙
+    </title>
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet"
+    >
+
+    <script>document.documentElement.classList.add("js-motion");</script>
+
+<style>
+/* =========================================================
+   test2.html — 動效樣板預覽 II：工程圖與產線語彙
+
+   與第一版的差別（重點）
+   - 拿掉：極光模糊色團、柔焦光暈、玻璃卡片、駭客解碼字。
+     那些是軟體公司的語言，跟散氣盤工廠沒有關係。
+   - 換成：藍圖格線、繪圖機描線、尺寸標註、爆炸圖、零件表、
+     膜片機構、產線工站、壓力錶、規格表、檢驗章。
+   - 緩動改硬：機械動作用 cubic-bezier(.4,0,.2,1) 與 steps()，
+     不用會飄的彈跳曲線。
+   - 圓角改小（8/4/2px）。大圓角是消費性 App 的語言，
+     工程產品要方正。這是唯一偏離 global.css 的地方，
+     要改回去只需要動 --r-* 三個值。
+
+   顏色完全沿用 global.css 的代幣，沒有新增任何色。
+
+   目錄
+   01. 設計代幣
+   02. 基礎重置
+   03. 版面與示範區塊外框
+   04. 固定介面：藍圖底、尺規、圖框、十字準星
+   05. A 主視覺：繪圖機描線
+   06. B 爆炸圖與零件表
+   07. C 膜片機構
+   08. D 產線工站
+   09. E 運轉數據面板
+   10. F 規格表
+   11. G 出廠檢驗
+   12. 進場與偏好設定
+========================================================= */
+
+
+/* =========================================================
+   01. 設計代幣
+========================================================= */
+
+:root{
+
+    --ink:#04141d;
+    --ink-2:#082433;
+    --ink-3:#0d3245;
+
+    --paper:#f6f8f7;
+    --white:#ffffff;
+
+    --green:#35b34a;
+    --green-hi:#6ee787;
+    --green-t:#14713a;
+    --aqua:#5ec8e0;
+
+    --text:#0e1c26;
+    --muted:#556873;
+    --on-dark:#e9f4f8;
+    --muted-d:rgba(233,244,248,.62);
+
+    --line-d:rgba(255,255,255,.13);
+    --line-h:rgba(255,255,255,.28);
+
+    /* 工程圖的圓角：接近直角 */
+    --r-lg:8px;
+    --r-md:6px;
+    --r-sm:4px;
+    --r-xs:2px;
+
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:"Inter","Noto Sans TC","PingFang TC","Microsoft JhengHei","Segoe UI",sans-serif;
+
+    /* 機械緩動：起步快、收尾穩，沒有回彈 */
+    --ease-m:cubic-bezier(.4,0,.2,1);
+    --ease-out:cubic-bezier(.2,.8,.3,1);
+}
+
+
+/* =========================================================
+   02. 基礎重置
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+html,
+body{
+    overflow-x:clip;
+}
+
+body{
+    font-family:var(--sans);
+
+    color:var(--on-dark);
+    background:var(--ink);
+
+    line-height:1.75;
+
+    -webkit-font-smoothing:antialiased;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+button{
+    font-family:inherit;
+    cursor:pointer;
+}
+
+h1,h2,h3{
+    font-weight:800;
+    line-height:1.16;
+    color:#ffffff;
+    text-wrap:balance;
+}
+
+h2{
+    font-size:clamp(26px, 3.2vw, 42px);
+}
+
+h3{
+    font-size:18px;
+    line-height:1.4;
+}
+
+p{
+    font-size:16px;
+}
+
+.mono{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-variant-numeric:tabular-nums;
+}
+
+
+/* =========================================================
+   03. 版面與示範區塊外框
+========================================================= */
+
+.container{
+    width:min(1240px, calc(100% - 96px));
+    margin:0 auto;
+}
+
+@media(max-width:760px){
+
+    .container{
+        width:calc(100% - 32px);
+    }
+}
+
+.demo{
+    position:relative;
+    padding:clamp(80px, 9vw, 130px) 0;
+
+    border-top:1px solid var(--line-d);
+}
+
+/* 段落抬頭：左邊圖號、右邊說明，像圖說 */
+.demo-head{
+    display:grid;
+    grid-template-columns:210px 1fr;
+    gap:40px;
+
+    margin-bottom:52px;
+}
+
+.demo-tag{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+
+    color:var(--green-hi);
+
+    padding-top:10px;
+    border-top:2px solid var(--green);
+
+    align-self:start;
+}
+
+.demo-tag span{
+    display:block;
+    margin-top:4px;
+
+    color:var(--muted-d);
+    letter-spacing:.1em;
+}
+
+.demo-head p{
+    margin-top:16px;
+    max-width:58ch;
+
+    color:var(--muted-d);
+    font-size:16px;
+}
+
+.demo-head .use{
+    display:inline-block;
+    margin-top:16px;
+
+    padding:5px 12px;
+    border:1px solid var(--line-d);
+    border-radius:var(--r-xs);
+
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.1em;
+
+    color:var(--aqua);
+}
+
+@media(max-width:860px){
+
+    .demo-head{
+        grid-template-columns:1fr;
+        gap:14px;
+
+        margin-bottom:36px;
+    }
+}
+
+
+/* =========================================================
+   04. 固定介面
+========================================================= */
+
+/* 藍圖底：10px 細格 + 80px 粗格，滿版不做柔化。
+   工程圖的格線就是要看得到，不是裝飾用的漸層。 */
+.blueprint{
+    position:fixed;
+    inset:0;
+    z-index:0;
+
+    pointer-events:none;
+
+    background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+
+    background-size:
+    10px 10px,
+    10px 10px,
+    80px 80px,
+    80px 80px;
+}
+
+main{
+    position:relative;
+    z-index:1;
+}
+
+/* 左緣尺規：跟著捲動走的刻度，像繪圖桌邊的比例尺 */
+.ruler{
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    z-index:3;
+
+    width:26px;
+
+    border-right:1px solid var(--line-d);
+    background:rgba(4,20,29,.55);
+
+    pointer-events:none;
+}
+
+.ruler i{
+    position:absolute;
+    inset:0;
+
+    background-image:
+    repeating-linear-gradient(
+        180deg,
+        var(--line-h) 0 1px,
+        transparent 1px 10px
+    ),
+    repeating-linear-gradient(
+        180deg,
+        rgba(110,231,135,.55) 0 1px,
+        transparent 1px 50px
+    );
+
+    background-size:9px 10px, 17px 50px;
+    background-position:right center, right center;
+    background-repeat:repeat-y;
+}
+
+/* 目前捲動位置的指示塊 */
+.ruler b{
+    position:absolute;
+    left:0;
+    right:0;
+
+    height:2px;
+    background:var(--green-hi);
+
+    box-shadow:0 0 8px rgba(110,231,135,.8);
+}
+
+@media(max-width:1100px){
+
+    .ruler{
+        display:none;
+    }
+}
+
+/* 十字準星：取代第一版的柔光暈。
+   繪圖軟體的游標語彙，右下角顯示座標讀值。 */
+.crosshair{
+    position:fixed;
+    inset:0;
+    z-index:4;
+
+    pointer-events:none;
+    opacity:0;
+
+    transition:opacity .3s var(--ease-m);
+}
+
+.crosshair.is-on{
+    opacity:1;
+}
+
+.crosshair i,
+.crosshair u{
+    position:absolute;
+
+    background:rgba(110,231,135,.28);
+}
+
+.crosshair i{
+    left:0;
+    right:0;
+    height:1px;
+
+    transform:translateY(var(--cy, 0px));
+}
+
+.crosshair u{
+    top:0;
+    bottom:0;
+    width:1px;
+
+    transform:translateX(var(--cx, 0px));
+}
+
+.crosshair s{
+    position:absolute;
+
+    width:14px;
+    height:14px;
+    margin:-7px 0 0 -7px;
+
+    border:1px solid rgba(110,231,135,.6);
+
+    transform:translate3d(var(--cx,0px), var(--cy,0px), 0);
+}
+
+/* 圖框：工程圖右下角那一塊，隨捲動更新張次 */
+.title-block{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    z-index:9;
+
+    display:grid;
+    grid-template-columns:auto auto;
+
+    border:1px solid var(--line-h);
+    border-radius:var(--r-xs);
+
+    background:rgba(4,20,29,.86);
+    backdrop-filter:blur(6px);
+
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.1em;
+
+    color:var(--muted-d);
+
+    pointer-events:none;
+}
+
+.title-block div{
+    padding:6px 12px;
+    border-top:1px solid var(--line-d);
+}
+
+.title-block div:nth-child(-n+2){
+    border-top:0;
+}
+
+.title-block div:nth-child(odd){
+    border-right:1px solid var(--line-d);
+    color:rgba(233,244,248,.42);
+}
+
+.title-block b{
+    color:var(--green-hi);
+    font-weight:500;
+}
+
+@media(max-width:900px){
+
+    .title-block{
+        display:none;
+    }
+}
+
+/* 頂端掃描線 */
+.progress{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:9999;
+
+    height:2px;
+    width:100%;
+
+    transform:scaleX(0);
+    transform-origin:left center;
+
+    background:var(--green);
+
+    will-change:transform;
+    pointer-events:none;
+}
+
+.bar-top{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:9990;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+
+    padding:12px 22px 12px 40px;
+
+    background:rgba(4,20,29,.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-d);
+
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:.12em;
+
+    color:var(--muted-d);
+}
+
+/* 工業風按鈕：方正、等寬字、按下去有段落感 */
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    padding:12px 20px;
+    min-height:42px;
+
+    border:1px solid var(--line-h);
+    border-radius:var(--r-xs);
+
+    background:rgba(255,255,255,.05);
+    color:#ffffff;
+
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    text-decoration:none;
+
+    transition:
+    background .18s var(--ease-m),
+    border-color .18s var(--ease-m),
+    transform .1s var(--ease-m);
+}
+
+.btn:hover{
+    background:rgba(255,255,255,.1);
+    border-color:var(--green);
+}
+
+.btn:active{
+    transform:translateY(1px);
+}
+
+.btn-solid{
+    background:var(--green);
+    border-color:var(--green);
+    color:var(--ink);
+    font-weight:700;
+}
+
+.btn-solid:hover{
+    background:var(--green-hi);
+    border-color:var(--green-hi);
+}
+
+.btn.is-on{
+    background:var(--green);
+    border-color:var(--green);
+    color:var(--ink);
+    font-weight:700;
+}
+
+.btn-sm{
+    padding:8px 14px;
+    min-height:34px;
+    font-size:11px;
+}
+
+
+/* =========================================================
+   05. A 主視覺：繪圖機描線
+========================================================= */
+
+.hero{
+    position:relative;
+
+    padding:clamp(120px, 14vw, 170px) 0 clamp(70px, 8vw, 110px);
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:1.02fr .98fr;
+    gap:56px;
+
+    align-items:center;
+}
+
+.hero-grid > div{
+    min-width:0;
+}
+
+/* 品號牌：像貼在機台上的銘牌 */
+.nameplate{
+    display:inline-flex;
+    align-items:stretch;
+
+    margin-bottom:26px;
+
+    border:1px solid var(--line-h);
+    border-radius:var(--r-xs);
+
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:.14em;
+
+    overflow:hidden;
+}
+
+.nameplate span{
+    padding:7px 12px;
+}
+
+.nameplate span:first-child{
+    background:var(--green);
+    color:var(--ink);
+    font-weight:700;
+}
+
+.nameplate span:last-child{
+    color:var(--muted-d);
+}
+
+.hero h1{
+    font-size:clamp(34px, 4.6vw, 62px);
+    line-height:1.12;
+
+    max-width:15ch;
+}
+
+/* 標題揭露：一條綠色描線由左往右刷過去，
+   字跟在描線後面出現，像繪圖機在畫字。
+   不是逐字浮起，那太柔。 */
+.plot-line{
+    display:block;
+    position:relative;
+
+    clip-path:inset(0 100% 0 0);
+
+    transition:clip-path 1.1s var(--ease-m);
+    transition-delay:var(--d, 0ms);
+}
+
+.plot-line::after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:-2px;
+
+    width:2px;
+    background:var(--green-hi);
+
+    opacity:0;
+}
+
+.is-in .plot-line{
+    clip-path:inset(0 0 0 0);
+}
+
+.is-in .plot-line::after{
+    animation:plot-head 1.1s var(--ease-m) forwards;
+    animation-delay:var(--d, 0ms);
+}
+
+@keyframes plot-head{
+    0%{opacity:1}
+    92%{opacity:1}
+    100%{opacity:0}
+}
+
+.hero p{
+    margin-top:20px;
+    max-width:50ch;
+
+    color:var(--muted-d);
+    font-size:16px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+
+    margin-top:32px;
+}
+
+/* 圖紙：右側工程圖的紙面 */
+.sheet{
+    position:relative;
+
+    border:1px solid var(--line-h);
+    border-radius:var(--r-xs);
+
+    background:
+    linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px) 0 0 / 100% 10px,
+    linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px) 0 0 / 10px 100%,
+    rgba(4,20,29,.5);
+}
+
+/* 紙面四角的定位角標 */
+.sheet::before,
+.sheet::after{
+    content:"";
+    position:absolute;
+
+    width:14px;
+    height:14px;
+
+    border:1px solid var(--green);
+}
+
+.sheet::before{
+    top:8px;
+    left:8px;
+    border-right:0;
+    border-bottom:0;
+}
+
+.sheet::after{
+    right:8px;
+    bottom:8px;
+    border-left:0;
+    border-top:0;
+}
+
+.sheet svg{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+.sheet-foot{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+
+    padding:8px 12px;
+    border-top:1px solid var(--line-d);
+
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.1em;
+
+    color:rgba(233,244,248,.42);
+}
+
+@media(max-width:960px){
+
+    .hero-grid{
+        grid-template-columns:1fr;
+        gap:44px;
+    }
+}
+
+/* ---- SVG 線條規範 ---- */
+
+.ln{
+    fill:none;
+    stroke:#e9f4f8;
+    stroke-width:1.4;
+}
+
+.ln-g{
+    fill:none;
+    stroke:var(--green-hi);
+    stroke-width:1.4;
+}
+
+.ln-a{
+    fill:none;
+    stroke:var(--aqua);
+    stroke-width:1.4;
+}
+
+/* 中心線：點劃線，工程圖的規矩 */
+.ln-c{
+    fill:none;
+    stroke:rgba(110,231,135,.5);
+    stroke-width:1;
+    stroke-dasharray:14 4 2 4;
+}
+
+/* 尺寸線 */
+.dim{
+    fill:none;
+    stroke:var(--green-hi);
+    stroke-width:1;
+}
+
+.lbl{
+    font-family:var(--mono);
+    font-size:9.5px;
+    letter-spacing:.1em;
+    fill:var(--green-hi);
+}
+
+.lbl-w{
+    fill:rgba(233,244,248,.72);
+}
+
+/* 描線動畫：dasharray 由 JS 依實際長度設定 */
+.draw{
+    stroke-dashoffset:var(--len, 0);
+    transition:stroke-dashoffset 1.2s var(--ease-m);
+    transition-delay:var(--d, 0ms);
+}
+
+.is-in .draw{
+    stroke-dashoffset:0;
+}
+
+/* 標註在圖畫完之後才淡入 */
+.anno{
+    opacity:0;
+    transition:opacity .5s var(--ease-m);
+    transition-delay:var(--d, 900ms);
+}
+
+.is-in .anno{
+    opacity:1;
+}
+
+/* 側視圖裡冒出的氣泡：規律、對稱，不是隨機飄 */
+.bub{
+    opacity:0;
+    animation:bub-rise 2.8s linear infinite;
+    animation-delay:var(--bd, 0s);
+}
+
+@keyframes bub-rise{
+    0%{opacity:0;transform:translateY(0) scale(.6)}
+    15%{opacity:.9}
+    100%{opacity:0;transform:translateY(-64px) scale(1)}
+}
+
+
+/* =========================================================
+   06. B 爆炸圖與零件表
+========================================================= */
+
+.exploded{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+
+    align-items:start;
+}
+
+.exploded-stage{
+    position:sticky;
+    top:96px;
+
+    border:1px solid var(--line-d);
+    border-radius:var(--r-xs);
+
+    background:rgba(4,20,29,.45);
+}
+
+.exploded-stage svg{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+/* 零件依 --sep（0→1）沿 Y 軸分離，
+   每個零件的行程不同，才會像真的爆炸圖 */
+.part{
+    transform:translateY(calc(var(--sep, 0) * var(--travel, 0px)));
+    transition:opacity .25s var(--ease-m);
+}
+
+.part .leader{
+    opacity:calc(var(--sep, 0) * 1.4 - .2);
+}
+
+.part.is-dim{
+    opacity:.28;
+}
+
+.part.is-hot .ln{
+    stroke:var(--green-hi);
+    stroke-width:2;
+}
+
+/* 零件表：滑鼠移到哪一行，圖上就亮哪個零件 */
+.bom{
+    width:100%;
+    border-collapse:collapse;
+
+    font-size:14px;
+}
+
+.bom caption{
+    padding-bottom:12px;
+
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    text-align:left;
+
+    color:var(--muted-d);
+}
+
+.bom th{
+    padding:10px 12px;
+    border-bottom:1px solid var(--line-h);
+
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    text-align:left;
+    font-weight:500;
+
+    color:rgba(233,244,248,.5);
+}
+
+.bom td{
+    padding:14px 12px;
+    border-bottom:1px solid var(--line-d);
+
+    color:var(--muted-d);
+}
+
+.bom td:first-child{
+    font-family:var(--mono);
+    color:var(--green-hi);
+    width:52px;
+}
+
+.bom td:nth-child(2){
+    color:#ffffff;
+}
+
+.bom tr{
+    position:relative;
+    cursor:default;
+
+    transition:background .2s var(--ease-m);
+}
+
+.bom tbody tr:hover,
+.bom tbody tr.is-hot{
+    background:rgba(110,231,135,.08);
+}
+
+.bom tbody tr.is-hot td:first-child{
+    box-shadow:inset 2px 0 0 var(--green-hi);
+}
+
+@media(max-width:960px){
+
+    .exploded{
+        grid-template-columns:1fr;
+        gap:32px;
+    }
+
+    .exploded-stage{
+        position:relative;
+        top:0;
+    }
+}
+
+
+/* =========================================================
+   07. C 膜片機構
+========================================================= */
+
+.mech{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:48px;
+
+    align-items:center;
+}
+
+.mech-stage{
+    border:1px solid var(--line-d);
+    border-radius:var(--r-xs);
+
+    background:rgba(4,20,29,.45);
+}
+
+.mech-stage svg{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+/* 通氣：膜片鼓起、細縫撐開、氣泡冒出 */
+.membrane{
+    transform-box:fill-box;
+    transform-origin:center bottom;
+
+    transition:transform .55s var(--ease-m);
+}
+
+.is-air .membrane{
+    transform:scaleY(1.32) translateY(-2px);
+}
+
+.slit{
+    transform-box:fill-box;
+    transform-origin:center;
+
+    transform:scaleX(.12);
+
+    transition:transform .45s var(--ease-m);
+}
+
+.is-air .slit{
+    transform:scaleX(1);
+}
+
+.mech-bub{
+    opacity:0;
+}
+
+.is-air .mech-bub{
+    animation:bub-rise 2.4s linear infinite;
+    animation-delay:var(--bd, 0s);
+}
+
+/* 停氣：止回，畫一個被擋住的回流箭頭 */
+.backflow{
+    opacity:0;
+    transition:opacity .4s var(--ease-m) .2s;
+}
+
+.is-shut .backflow{
+    opacity:1;
+}
+
+.mech-panel .readout{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+
+    padding:16px 0;
+    border-bottom:1px solid var(--line-d);
+}
+
+.mech-panel .readout .k{
+    flex:1;
+
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+
+    color:rgba(233,244,248,.5);
+}
+
+.mech-panel .readout .v{
+    font-family:var(--mono);
+    font-size:26px;
+    font-weight:500;
+    font-variant-numeric:tabular-nums;
+
+    color:#ffffff;
+}
+
+.mech-panel .readout .u{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--green-hi);
+}
+
+.mech-ctrl{
+    display:flex;
+    gap:10px;
+    margin-top:22px;
+}
+
+/* 運轉指示燈 */
+.lamp{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.12em;
+
+    color:var(--muted-d);
+}
+
+.lamp::before{
+    content:"";
+
+    width:9px;
+    height:9px;
+    border-radius:50%;
+
+    background:rgba(233,244,248,.25);
+
+    transition:background .25s var(--ease-m), box-shadow .25s var(--ease-m);
+}
+
+.is-air .lamp::before{
+    background:var(--green);
+    box-shadow:0 0 10px rgba(53,179,74,.9);
+}
+
+@media(max-width:960px){
+
+    .mech{
+        grid-template-columns:1fr;
+        gap:30px;
+    }
+}
+
+
+/* =========================================================
+   08. D 產線工站
+========================================================= */
+
+.line{
+    position:relative;
+    padding:30px 0 10px;
+}
+
+/* 輸送軌：虛線持續往右流動 */
+.rail{
+    position:absolute;
+    left:0;
+    right:0;
+    top:64px;
+
+    height:2px;
+
+    background-image:linear-gradient(90deg, var(--line-h) 0 12px, transparent 12px 22px);
+    background-size:22px 2px;
+
+    animation:rail-run 1.2s linear infinite;
+}
+
+@keyframes rail-run{
+    to{background-position:22px 0}
+}
+
+.stations{
+    position:relative;
+
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:10px;
+}
+
+.station{
+    position:relative;
+
+    padding:18px 14px;
+
+    border:1px solid var(--line-d);
+    border-radius:var(--r-xs);
+
+    background:rgba(4,20,29,.6);
+
+    text-align:left;
+    color:inherit;
+
+    transition:
+    border-color .25s var(--ease-m),
+    background .25s var(--ease-m),
+    transform .25s var(--ease-m);
+}
+
+/* 工站上方接到輸送軌的立柱 */
+.station::before{
+    content:"";
+    position:absolute;
+    left:22px;
+    top:-16px;
+
+    width:1px;
+    height:16px;
+
+    background:var(--line-h);
+}
+
+.station .no{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.14em;
+
+    color:rgba(233,244,248,.42);
+}
+
+.station .nm{
+    margin-top:10px;
+
+    font-size:15px;
+    font-weight:700;
+    color:#ffffff;
+}
+
+.station .sp{
+    margin-top:6px;
+
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.06em;
+
+    color:var(--muted-d);
+}
+
+.station.is-on{
+    border-color:var(--green);
+    background:rgba(53,179,74,.12);
+    transform:translateY(-4px);
+}
+
+.station.is-on .no{
+    color:var(--green-hi);
+}
+
+/* 走在軌道上的托板 */
+.carrier{
+    position:absolute;
+    top:56px;
+    left:0;
+
+    width:18px;
+    height:18px;
+
+    border:1px solid var(--green);
+    border-radius:1px;
+
+    background:rgba(53,179,74,.35);
+
+    transform:translateX(var(--x, 0px));
+
+    transition:transform .9s var(--ease-m);
+}
+
+.carrier::after{
+    content:"";
+    position:absolute;
+    inset:4px;
+
+    border:1px solid var(--green-hi);
+}
+
+/* 齒輪：用 steps 轉，才有間歇機構的頓挫感 */
+.gearbox{
+    display:flex;
+    align-items:center;
+    gap:0;
+
+    margin-top:34px;
+}
+
+.gearbox svg{
+    overflow:visible;
+}
+
+.gear{
+    transform-box:fill-box;
+    transform-origin:center;
+
+    animation:gear-cw 6s steps(24) infinite;
+}
+
+.gear.ccw{
+    animation:gear-ccw 6s steps(24) infinite;
+}
+
+@keyframes gear-cw{
+    to{transform:rotate(360deg)}
+}
+
+@keyframes gear-ccw{
+    to{transform:rotate(-360deg)}
+}
+
+.line-log{
+    margin-top:26px;
+    padding:14px 16px;
+
+    border:1px solid var(--line-d);
+    border-radius:var(--r-xs);
+
+    background:rgba(4,20,29,.6);
+
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.06em;
+
+    color:var(--muted-d);
+}
+
+.line-log b{
+    color:var(--green-hi);
+    font-weight:500;
+}
+
+@media(max-width:900px){
+
+    .stations{
+        grid-template-columns:repeat(2, 1fr);
+        gap:12px;
+    }
+
+    .rail,
+    .carrier{
+        display:none;
+    }
+
+    .station::before{
+        display:none;
+    }
+}
+
+
+/* =========================================================
+   09. E 運轉數據面板
+========================================================= */
+
+.panel{
+    display:grid;
+    grid-template-columns:300px 1fr;
+    gap:1px;
+
+    border:1px solid var(--line-h);
+    border-radius:var(--r-xs);
+
+    background:var(--line-d);
+
+    overflow:hidden;
+}
+
+.panel > div{
+    padding:26px;
+    background:rgba(4,20,29,.72);
+}
+
+.gauge{
+    display:grid;
+    place-items:center;
+    gap:6px;
+}
+
+.gauge svg{
+    width:100%;
+    max-width:240px;
+    height:auto;
+}
+
+/* 指針：轉到定位後停住，收尾刻意慢，像機械阻尼 */
+.needle{
+    transform-box:fill-box;
+    transform-origin:50% 88%;
+
+    transform:rotate(-132deg);
+
+    transition:transform 1.9s cubic-bezier(.16,.8,.24,1);
+}
+
+.gauge-val{
+    font-family:var(--mono);
+    font-size:30px;
+    font-weight:500;
+    font-variant-numeric:tabular-nums;
+
+    color:#ffffff;
+}
+
+.gauge-val small{
+    font-size:.45em;
+    color:var(--green-hi);
+    margin-left:6px;
+}
+
+.gauge-cap{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+
+    color:rgba(233,244,248,.45);
+}
+
+.meters{
+    display:grid;
+    gap:22px;
+}
+
+.meter .row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.meter .nm{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+
+    color:rgba(233,244,248,.5);
+}
+
+.meter .vl{
+    font-family:var(--mono);
+    font-size:17px;
+    font-variant-numeric:tabular-nums;
+
+    color:#ffffff;
+}
+
+.meter .vl em{
+    font-style:normal;
+    font-size:.7em;
+    color:var(--green-hi);
+    margin-left:4px;
+}
+
+/* 條狀讀值：分段格，像面板上的一格一格燈 */
+.track{
+    position:relative;
+
+    height:10px;
+    margin-top:10px;
+
+    border:1px solid var(--line-d);
+    border-radius:1px;
+
+    overflow:hidden;
+}
+
+.track i{
+    position:absolute;
+    inset:0 auto 0 0;
+
+    width:0;
+
+    background:
+    repeating-linear-gradient(
+        90deg,
+        var(--green) 0 6px,
+        transparent 6px 9px
+    );
+
+    transition:width 1.6s var(--ease-m);
+    transition-delay:var(--d, 0ms);
+}
+
+.is-in .track i{
+    width:var(--v, 50%);
+}
+
+.chart{
+    margin-top:6px;
+}
+
+.chart svg{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+@media(max-width:860px){
+
+    .panel{
+        grid-template-columns:1fr;
+    }
+}
+
+
+/* =========================================================
+   10. F 規格表
+========================================================= */
+
+.spec-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    flex-wrap:wrap;
+
+    margin-bottom:18px;
+}
+
+.unit-switch{
+    display:inline-flex;
+
+    border:1px solid var(--line-h);
+    border-radius:var(--r-xs);
+
+    overflow:hidden;
+}
+
+.spec{
+    width:100%;
+    border-collapse:collapse;
+
+    border:1px solid var(--line-h);
+
+    font-size:15px;
+}
+
+.spec th{
+    padding:12px 16px;
+
+    border-bottom:1px solid var(--line-h);
+
+    background:rgba(255,255,255,.04);
+
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    text-align:left;
+    font-weight:500;
+
+    color:rgba(233,244,248,.55);
+}
+
+.spec td{
+    padding:15px 16px;
+    border-bottom:1px solid var(--line-d);
+
+    color:var(--muted-d);
+}
+
+.spec tbody tr{
+    transition:background .18s var(--ease-m);
+}
+
+.spec tbody tr:nth-child(even){
+    background:rgba(255,255,255,.018);
+}
+
+.spec tbody tr:hover{
+    background:rgba(110,231,135,.09);
+}
+
+.spec tbody tr:hover td:first-child{
+    box-shadow:inset 2px 0 0 var(--green-hi);
+    color:#ffffff;
+}
+
+.spec td:nth-child(2),
+.spec td:nth-child(3){
+    font-family:var(--mono);
+    font-variant-numeric:tabular-nums;
+    color:#ffffff;
+}
+
+.spec td:nth-child(3){
+    color:var(--muted-d);
+}
+
+@media(max-width:700px){
+
+    .spec{
+        font-size:14px;
+    }
+
+    .spec td,
+    .spec th{
+        padding:11px 10px;
+    }
+}
+
+
+/* =========================================================
+   11. G 出廠檢驗
+========================================================= */
+
+.qc{
+    display:grid;
+    grid-template-columns:1fr 300px;
+    gap:40px;
+
+    align-items:start;
+}
+
+.checklist{
+    border:1px solid var(--line-h);
+    border-radius:var(--r-xs);
+
+    overflow:hidden;
+}
+
+.check{
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    padding:16px 18px;
+    border-bottom:1px solid var(--line-d);
+
+    background:rgba(4,20,29,.55);
+}
+
+.check:last-child{
+    border-bottom:0;
+}
+
+.check .box{
+    flex:none;
+
+    width:20px;
+    height:20px;
+
+    border:1px solid var(--line-h);
+    border-radius:1px;
+
+    display:grid;
+    place-items:center;
+
+    transition:border-color .3s var(--ease-m), background .3s var(--ease-m);
+}
+
+.check .box svg{
+    width:12px;
+    height:12px;
+}
+
+.check .box path{
+    fill:none;
+    stroke:var(--ink);
+    stroke-width:2.4;
+    stroke-linecap:square;
+
+    stroke-dasharray:16;
+    stroke-dashoffset:16;
+
+    transition:stroke-dashoffset .35s var(--ease-m);
+}
+
+.check.is-ok .box{
+    border-color:var(--green);
+    background:var(--green);
+}
+
+.check.is-ok .box path{
+    stroke-dashoffset:0;
+}
+
+.check .nm{
+    flex:1;
+    font-size:15px;
+    color:#ffffff;
+}
+
+.check .st{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.14em;
+
+    color:rgba(233,244,248,.35);
+
+    transition:color .3s var(--ease-m);
+}
+
+.check.is-ok .st{
+    color:var(--green-hi);
+}
+
+/* 檢驗章：落章是瞬間的，用 steps 做出「啪」的段落 */
+.stamp{
+    display:grid;
+    place-items:center;
+    gap:18px;
+
+    padding:26px;
+
+    border:1px solid var(--line-d);
+    border-radius:var(--r-xs);
+
+    background:rgba(4,20,29,.55);
+
+    text-align:center;
+}
+
+.stamp-mark{
+    width:150px;
+    height:150px;
+
+    display:grid;
+    place-items:center;
+
+    border:3px solid var(--green-hi);
+    border-radius:50%;
+
+    color:var(--green-hi);
+
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:.16em;
+    line-height:1.5;
+    text-transform:uppercase;
+
+    transform:rotate(-14deg) scale(2.4);
+    opacity:0;
+}
+
+.qc.is-in .stamp-mark{
+    animation:stamp-down .34s steps(4) forwards;
+    animation-delay:.7s;
+}
+
+@keyframes stamp-down{
+    from{transform:rotate(-14deg) scale(2.4);opacity:0}
+    to{transform:rotate(-14deg) scale(1);opacity:1}
+}
+
+/* 批號：像里程表，數字捲上去 */
+.odo{
+    display:inline-flex;
+    gap:1px;
+
+    font-family:var(--mono);
+    font-size:20px;
+    font-variant-numeric:tabular-nums;
+}
+
+.odo .d{
+    display:inline-block;
+    overflow:hidden;
+
+    width:.62em;
+    height:1.5em;
+
+    background:rgba(255,255,255,.05);
+}
+
+.odo .d i{
+    display:block;
+    font-style:normal;
+
+    transform:translateY(0);
+    transition:transform 1.4s var(--ease-m);
+    transition-delay:var(--d, 0ms);
+}
+
+.odo .d i span{
+    display:block;
+    height:1.5em;
+    line-height:1.5em;
+    text-align:center;
+}
+
+.odo .s{
+    padding:0 2px;
+    line-height:1.5em;
+    color:var(--muted-d);
+}
+
+@media(max-width:900px){
+
+    .qc{
+        grid-template-columns:1fr;
+        gap:26px;
+    }
+}
+
+
+/* =========================================================
+   12. 進場與偏好設定
+========================================================= */
+
+.js-motion .fade{
+    opacity:0;
+    translate:0 18px;
+
+    transition:
+    opacity .6s var(--ease-m),
+    translate .6s var(--ease-m);
+
+    transition-delay:var(--d, 0ms);
+}
+
+.js-motion .fade.is-in{
+    opacity:1;
+    translate:none;
+}
+
+a:focus-visible,
+button:focus-visible{
+    outline:2px solid var(--green-hi);
+    outline-offset:2px;
+}
+
+.foot{
+    padding:60px 0 90px;
+    border-top:1px solid var(--line-d);
+
+    color:var(--muted-d);
+    font-size:14px;
+}
+
+@media(prefers-reduced-motion:reduce){
+
+    *{
+        animation:none !important;
+        transition-duration:.01ms !important;
+    }
+
+    .js-motion .fade,
+    .plot-line,
+    .draw,
+    .anno{
+        opacity:1;
+        translate:none;
+        clip-path:none;
+        stroke-dashoffset:0 !important;
+    }
+
+    .crosshair,
+    .ruler{
+        display:none;
+    }
+}
+
+html.no-motion *{
+    animation:none !important;
+    transition-duration:.01ms !important;
+}
+
+html.no-motion .js-motion .fade,
+html.no-motion .plot-line,
+html.no-motion .draw,
+html.no-motion .anno{
+    opacity:1;
+    translate:none;
+    clip-path:none;
+    stroke-dashoffset:0 !important;
+}
+
+html.no-motion .crosshair,
+html.no-motion .ruler{
+    display:none;
+}
+</style>
+
+</head>
+
+<body>
+
+    <div class="blueprint" aria-hidden="true"></div>
+
+    <div class="ruler" aria-hidden="true">
+        <i></i>
+        <b id="rulerMark"></b>
+    </div>
+
+    <div class="crosshair" id="crosshair" aria-hidden="true">
+        <i></i>
+        <u></u>
+        <s></s>
+    </div>
+
+    <div class="progress" id="progress" aria-hidden="true"></div>
+
+    <div class="bar-top">
+
+        <span>EnviroValor / Motion Lab II — 工程圖與產線語彙</span>
+
+        <span>
+            <span id="coords" class="mono">X 000 · Y 000</span>
+            &nbsp;
+            <button class="btn btn-sm" id="motionToggle" aria-pressed="false">
+                Motion : On
+            </button>
+        </span>
+
+    </div>
+
+    <div class="title-block" aria-hidden="true">
+
+        <div>DWG NO.</div>
+        <div><b>EV-MOTION-02</b></div>
+
+        <div>SHEET</div>
+        <div><b id="sheetNo">01 / 07</b></div>
+
+        <div>SCALE</div>
+        <div>1 : 1</div>
+
+        <div>REV</div>
+        <div>A</div>
+
+    </div>
+
+    <main>
+
+        <!-- =========================================================
+             A 主視覺：繪圖機描線
+        ========================================================= -->
+
+        <section class="hero" data-sheet="01">
+
+            <div class="container hero-grid">
+
+                <div class="reveal" data-reveal>
+
+                    <div class="nameplate">
+                        <span>EV-270</span>
+                        <span>FINE BUBBLE DISC DIFFUSER · Ø9"</span>
+                    </div>
+
+                    <h1>
+                        <span class="plot-line" style="--d:0ms">規格先講清楚，</span>
+                        <span class="plot-line" style="--d:220ms">再談交期。</span>
+                    </h1>
+
+                    <p class="fade" style="--d:520ms">
+                        主視覺不是背景動畫，是一張正在被畫出來的工程圖：外形線依序描出、中心線就位、尺寸標註最後掛上去。客戶第一眼看到的是產品的規格，不是特效。
+                    </p>
+
+                    <div class="hero-buttons fade" style="--d:640ms">
+
+                        <a class="btn btn-solid" href="#b">
+                            零件爆炸圖 →
+                        </a>
+
+                        <a class="btn" href="#c">
+                            膜片機構
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="fade" style="--d:200ms">
+
+                    <div class="sheet reveal" data-reveal>
+
+                        <svg viewBox="0 0 420 400" role="img"
+                             aria-label="散氣盤工程圖：俯視圖與剖面圖">
+
+                            <defs>
+                                <pattern id="hatch" width="6" height="6"
+                                         patternTransform="rotate(45)"
+                                         patternUnits="userSpaceOnUse">
+                                    <line x1="0" y1="0" x2="0" y2="6"
+                                          stroke="rgba(233,244,248,.3)" stroke-width="1"/>
+                                </pattern>
+                            </defs>
+
+                            <!-- ---- 俯視圖 ---- -->
+
+                            <!-- 中心線 -->
+                            <g class="anno" style="--d:1000ms">
+                                <line class="ln-c" x1="40" y1="130" x2="300" y2="130"/>
+                                <line class="ln-c" x1="170" y1="18" x2="170" y2="242"/>
+                            </g>
+
+                            <!-- 盤面外形 -->
+                            <circle class="ln draw" cx="170" cy="130" r="96" style="--d:0ms"/>
+                            <circle class="ln draw" cx="170" cy="130" r="88" style="--d:120ms"/>
+                            <!-- 膜片有效散氣區 -->
+                            <circle class="ln-g draw" cx="170" cy="130" r="74" style="--d:260ms"/>
+                            <!-- 中心壓板 -->
+                            <circle class="ln draw" cx="170" cy="130" r="20" style="--d:400ms"/>
+
+                            <!-- 出氣孔陣列（由 JS 依同心圓排布，避免手寫幾十個座標） -->
+                            <g id="perf" class="anno" style="--d:1100ms"></g>
+
+                            <!-- 尺寸線：⌀228 -->
+                            <g class="anno" style="--d:1250ms">
+
+                                <line class="dim" x1="74" y1="252" x2="266" y2="252"/>
+                                <line class="dim" x1="74" y1="246" x2="74" y2="258"/>
+                                <line class="dim" x1="266" y1="246" x2="266" y2="258"/>
+                                <path class="dim" d="M74 252 L82 249 L82 255 Z" fill="#6ee787"/>
+                                <path class="dim" d="M266 252 L258 249 L258 255 Z" fill="#6ee787"/>
+
+                                <text class="lbl" x="170" y="245" text-anchor="middle">
+                                    Ø228 (9")
+                                </text>
+
+                            </g>
+
+                            <!-- 引線標註：膜片 -->
+                            <g class="anno" style="--d:1400ms">
+
+                                <path class="dim" d="M222 78 L258 52 L318 52"/>
+                                <circle cx="222" cy="78" r="2.5" fill="#6ee787"/>
+
+                                <text class="lbl" x="322" y="49">EPDM 膜片</text>
+                                <text class="lbl lbl-w" x="322" y="62">有效散氣面積 0.038 m²</text>
+
+                            </g>
+
+                            <!-- ---- 剖面圖 A-A ---- -->
+
+                            <g class="anno" style="--d:1550ms">
+                                <text class="lbl" x="40" y="292">SECTION A-A</text>
+                            </g>
+
+                            <!-- 底盤本體 -->
+                            <path class="ln draw" d="M74 340 L74 356 Q170 380 266 356 L266 340"
+                                  style="--d:560ms"/>
+                            <line class="ln draw" x1="74" y1="340" x2="266" y2="340" style="--d:700ms"/>
+
+                            <!-- 膜片 -->
+                            <path class="ln-g draw" d="M78 340 Q170 306 262 340" style="--d:820ms"/>
+
+                            <!-- 進氣接頭 -->
+                            <path class="ln draw" d="M156 366 L156 396 M184 366 L184 396"
+                                  style="--d:940ms"/>
+
+                            <!-- 剖面線 -->
+                            <path class="anno" style="--d:1200ms"
+                                  d="M74 344 L74 356 Q170 380 266 356 L266 344 Z"
+                                  fill="url(#hatch)" stroke="none"/>
+
+                            <!-- 剖面裡冒出的氣泡：位置對稱、間隔規律 -->
+                            <g class="anno" style="--d:1500ms">
+                                <circle class="bub" cx="120" cy="330" r="3.5" fill="#6ee787" style="--bd:0s"/>
+                                <circle class="bub" cx="145" cy="322" r="4.5" fill="#6ee787" style="--bd:.45s"/>
+                                <circle class="bub" cx="170" cy="318" r="5" fill="#5ec8e0" style="--bd:.9s"/>
+                                <circle class="bub" cx="195" cy="322" r="4.5" fill="#6ee787" style="--bd:1.35s"/>
+                                <circle class="bub" cx="220" cy="330" r="3.5" fill="#5ec8e0" style="--bd:1.8s"/>
+                            </g>
+
+                            <!-- 進氣方向 -->
+                            <g class="anno" style="--d:1650ms">
+                                <path class="ln-a" d="M170 396 L170 372"/>
+                                <path class="ln-a" d="M164 380 L170 370 L176 380"/>
+                                <text class="lbl lbl-w" x="192" y="392">AIR IN 3/4"</text>
+                            </g>
+
+                        </svg>
+
+                        <div class="sheet-foot">
+                            <span>DWG EV-270-A</span>
+                            <span>PROJECTION：第三角法</span>
+                            <span>UNIT：mm</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             B 爆炸圖
+        ========================================================= -->
+
+        <section class="demo" id="b" data-sheet="02">
+
+            <div class="container">
+
+                <div class="demo-head fade">
+
+                    <div class="demo-tag">
+                        B — Exploded View
+                        <span>捲動驅動</span>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            捲動把產品拆開，零件表跟著對號
+                        </h2>
+
+                        <p>
+                            往下捲，五個零件沿軸向分離，件號隨零件一起拉開。右邊零件表滑到哪一行，圖上就亮哪一顆；反過來也成立。工程客戶要的是「拆給我看」，不是轉場特效。
+                        </p>
+
+                        <span class="use">
+                            適用：產品頁結構說明、規格書導覽
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="exploded">
+
+                    <div class="exploded-stage" id="explodedStage">
+
+                        <svg viewBox="0 0 340 420" role="img" aria-label="散氣盤零件爆炸圖">
+
+                            <!-- 組裝中心線 -->
+                            <line class="ln-c" x1="170" y1="20" x2="170" y2="400"/>
+
+                            <!-- 1 中心壓板 -->
+                            <g class="part" data-part="1" style="--travel:-116px">
+                                <ellipse class="ln" cx="170" cy="238" rx="30" ry="8"/>
+                                <path class="ln" d="M140 238 L140 244 Q170 252 200 244 L200 238"/>
+                                <g class="leader">
+                                    <line class="dim" x1="140" y1="240" x2="60" y2="240"/>
+                                    <circle class="dim" cx="50" cy="240" r="10" fill="rgba(4,20,29,.9)"/>
+                                    <text class="lbl" x="50" y="243.5" text-anchor="middle">1</text>
+                                </g>
+                            </g>
+
+                            <!-- 2 膜片 -->
+                            <g class="part" data-part="2" style="--travel:-78px">
+                                <path class="ln-g" d="M74 262 Q170 226 266 262"/>
+                                <ellipse class="ln-g" cx="170" cy="262" rx="96" ry="14"/>
+                                <g class="leader">
+                                    <line class="dim" x1="74" y1="262" x2="60" y2="262"/>
+                                    <circle class="dim" cx="50" cy="262" r="10" fill="rgba(4,20,29,.9)"/>
+                                    <text class="lbl" x="50" y="265.5" text-anchor="middle">2</text>
+                                </g>
+                            </g>
+
+                            <!-- 3 束環 -->
+                            <g class="part" data-part="3" style="--travel:-40px">
+                                <ellipse class="ln" cx="170" cy="286" rx="100" ry="15"/>
+                                <ellipse class="ln" cx="170" cy="286" rx="92" ry="12"/>
+                                <g class="leader">
+                                    <line class="dim" x1="70" y1="286" x2="60" y2="286"/>
+                                    <circle class="dim" cx="50" cy="286" r="10" fill="rgba(4,20,29,.9)"/>
+                                    <text class="lbl" x="50" y="289.5" text-anchor="middle">3</text>
+                                </g>
+                            </g>
+
+                            <!-- 4 底盤 -->
+                            <g class="part" data-part="4" style="--travel:0px">
+                                <ellipse class="ln" cx="170" cy="312" rx="96" ry="14"/>
+                                <path class="ln" d="M74 312 L74 330 Q170 352 266 330 L266 312"/>
+                                <g class="leader">
+                                    <line class="dim" x1="74" y1="322" x2="60" y2="322"/>
+                                    <circle class="dim" cx="50" cy="322" r="10" fill="rgba(4,20,29,.9)"/>
+                                    <text class="lbl" x="50" y="325.5" text-anchor="middle">4</text>
+                                </g>
+                            </g>
+
+                            <!-- 5 進氣接頭 -->
+                            <g class="part" data-part="5" style="--travel:52px">
+                                <path class="ln" d="M154 348 L154 392 M186 348 L186 392"/>
+                                <ellipse class="ln" cx="170" cy="392" rx="16" ry="5"/>
+                                <path class="ln-a" d="M170 388 L170 366 M164 374 L170 364 L176 374"/>
+                                <g class="leader">
+                                    <line class="dim" x1="154" y1="372" x2="60" y2="372"/>
+                                    <circle class="dim" cx="50" cy="372" r="10" fill="rgba(4,20,29,.9)"/>
+                                    <text class="lbl" x="50" y="375.5" text-anchor="middle">5</text>
+                                </g>
+                            </g>
+
+                        </svg>
+
+                    </div>
+
+                    <div>
+
+                        <table class="bom" id="bom">
+
+                            <caption>Bill of Materials — EV-270</caption>
+
+                            <thead>
+                                <tr>
+                                    <th>件號</th>
+                                    <th>名稱</th>
+                                    <th>材質</th>
+                                    <th>數量</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr data-row="1">
+                                    <td>01</td>
+                                    <td>中心壓板</td>
+                                    <td>PP</td>
+                                    <td>1</td>
+                                </tr>
+
+                                <tr data-row="2">
+                                    <td>02</td>
+                                    <td>散氣膜片</td>
+                                    <td>EPDM</td>
+                                    <td>1</td>
+                                </tr>
+
+                                <tr data-row="3">
+                                    <td>03</td>
+                                    <td>固定束環</td>
+                                    <td>PP</td>
+                                    <td>1</td>
+                                </tr>
+
+                                <tr data-row="4">
+                                    <td>04</td>
+                                    <td>底盤本體</td>
+                                    <td>PP</td>
+                                    <td>1</td>
+                                </tr>
+
+                                <tr data-row="5">
+                                    <td>05</td>
+                                    <td>進氣接頭 3/4"</td>
+                                    <td>PP</td>
+                                    <td>1</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             C 膜片機構
+        ========================================================= -->
+
+        <section class="demo" id="c" data-sheet="03">
+
+            <div class="container">
+
+                <div class="demo-head fade">
+
+                    <div class="demo-tag">
+                        C — Mechanism
+                        <span>可操作</span>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            通氣開、停氣關，止回這件事用演的
+                        </h2>
+
+                        <p>
+                            這是產品的核心機構：通氣時膜片鼓起、細縫撐開切出 1–3 mm 氣泡；停氣時細縫閉合形成止回，污水回不去管路。文字講三行不如按一下看一次，下面兩顆按鈕可以現場切給客戶看。
+                        </p>
+
+                        <span class="use">
+                            適用：產品頁核心賣點、展場循環播放
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="mech is-air" id="mech">
+
+                    <div class="mech-stage">
+
+                        <svg viewBox="0 0 520 300" role="img" aria-label="膜片通氣與止回機構示意">
+
+                            <!-- 水體標示 -->
+                            <line class="ln-c" x1="20" y1="40" x2="500" y2="40"/>
+                            <text class="lbl lbl-w" x="20" y="34">水面 / WATER LEVEL</text>
+
+                            <!-- 氣泡 -->
+                            <g>
+                                <circle class="mech-bub" cx="180" cy="150" r="5" fill="#6ee787" style="--bd:0s"/>
+                                <circle class="mech-bub" cx="220" cy="146" r="6.5" fill="#6ee787" style="--bd:.4s"/>
+                                <circle class="mech-bub" cx="260" cy="142" r="7" fill="#5ec8e0" style="--bd:.8s"/>
+                                <circle class="mech-bub" cx="300" cy="146" r="6.5" fill="#6ee787" style="--bd:1.2s"/>
+                                <circle class="mech-bub" cx="340" cy="150" r="5" fill="#5ec8e0" style="--bd:1.6s"/>
+                            </g>
+
+                            <!-- 膜片 -->
+                            <g class="membrane">
+
+                                <path class="ln-g" d="M140 190 Q260 150 380 190"/>
+
+                                <!-- 細縫：停氣時閉合，通氣時撐開 -->
+                                <g>
+                                    <rect class="slit" x="186" y="170" width="10" height="3"
+                                          rx="1.5" fill="#6ee787"/>
+                                    <rect class="slit" x="226" y="164" width="10" height="3"
+                                          rx="1.5" fill="#6ee787"/>
+                                    <rect class="slit" x="266" y="161" width="10" height="3"
+                                          rx="1.5" fill="#6ee787"/>
+                                    <rect class="slit" x="306" y="164" width="10" height="3"
+                                          rx="1.5" fill="#6ee787"/>
+                                    <rect class="slit" x="346" y="170" width="10" height="3"
+                                          rx="1.5" fill="#6ee787"/>
+                                </g>
+
+                            </g>
+
+                            <!-- 底盤 -->
+                            <path class="ln" d="M140 190 L140 214 Q260 244 380 214 L380 190"/>
+                            <line class="ln" x1="140" y1="190" x2="380" y2="190"/>
+
+                            <path d="M140 194 L140 214 Q260 244 380 214 L380 194 Z"
+                                  fill="url(#hatch2)" stroke="none" opacity=".5"/>
+
+                            <defs>
+                                <pattern id="hatch2" width="6" height="6"
+                                         patternTransform="rotate(45)"
+                                         patternUnits="userSpaceOnUse">
+                                    <line x1="0" y1="0" x2="0" y2="6"
+                                          stroke="rgba(233,244,248,.3)" stroke-width="1"/>
+                                </pattern>
+                            </defs>
+
+                            <!-- 進氣 -->
+                            <path class="ln" d="M244 238 L244 288 M276 238 L276 288"/>
+                            <path class="ln-a" d="M260 286 L260 250 M252 260 L260 246 L268 260"/>
+                            <text class="lbl lbl-w" x="286" y="278">AIR IN</text>
+
+                            <!-- 止回：停氣時出現的被擋住的回流箭頭 -->
+                            <g class="backflow">
+                                <path class="dim" d="M420 150 L420 196 M412 186 L420 200 L428 186"
+                                      stroke="#5ec8e0"/>
+                                <line x1="404" y1="204" x2="436" y2="204"
+                                      stroke="#6ee787" stroke-width="3"/>
+                                <text class="lbl" x="444" y="180">止回</text>
+                                <text class="lbl lbl-w" x="444" y="193">NO BACKFLOW</text>
+                            </g>
+
+                            <!-- 標註 -->
+                            <text class="lbl lbl-w" x="20" y="196">膜片 EPDM</text>
+                            <text class="lbl lbl-w" x="20" y="222">底盤 PP</text>
+
+                        </svg>
+
+                    </div>
+
+                    <div class="mech-panel">
+
+                        <span class="lamp" id="lamp">狀態：通氣中</span>
+
+                        <div class="readout">
+                            <span class="k">氣室壓力</span>
+                            <span class="v" id="mechP">0.38</span>
+                            <span class="u">bar</span>
+                        </div>
+
+                        <div class="readout">
+                            <span class="k">單盤風量</span>
+                            <span class="v" id="mechQ">5.0</span>
+                            <span class="u">Nm³/h</span>
+                        </div>
+
+                        <div class="readout">
+                            <span class="k">氣泡粒徑</span>
+                            <span class="v" id="mechD">2.0</span>
+                            <span class="u">mm</span>
+                        </div>
+
+                        <div class="mech-ctrl">
+
+                            <button class="btn is-on" id="btnAir">通氣 AIR ON</button>
+                            <button class="btn" id="btnShut">停氣 SHUT</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             D 產線工站
+        ========================================================= -->
+
+        <section class="demo" data-sheet="04">
+
+            <div class="container">
+
+                <div class="demo-head fade">
+
+                    <div class="demo-tag">
+                        D — Process Line
+                        <span>自動輪播</span>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            從原料到出貨，六站走一遍
+                        </h2>
+
+                        <p>
+                            托板沿輸送軌移動，走到哪一站哪一站亮起來，下方即時log 跟著跳。點任何一站可以直接跳過去。這一段是在回答客戶心裡真正的問題：東西是怎麼做出來的、品質哪裡把關。
+                        </p>
+
+                        <span class="use">
+                            適用：關於我們製程介紹、品質保證頁
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="line fade">
+
+                    <div class="rail" aria-hidden="true"></div>
+                    <div class="carrier" id="carrier" aria-hidden="true"></div>
+
+                    <div class="stations" id="stations">
+
+                        <button class="station is-on" data-st="0">
+                            <div class="no">ST-01</div>
+                            <div class="nm">原料檢驗</div>
+                            <div class="sp">PP / EPDM 進料抽驗</div>
+                        </button>
+
+                        <button class="station" data-st="1">
+                            <div class="no">ST-02</div>
+                            <div class="nm">射出成型</div>
+                            <div class="sp">底盤 · 束環 成形</div>
+                        </button>
+
+                        <button class="station" data-st="2">
+                            <div class="no">ST-03</div>
+                            <div class="nm">膜片衝縫</div>
+                            <div class="sp">細縫排列 · 孔數管控</div>
+                        </button>
+
+                        <button class="station" data-st="3">
+                            <div class="no">ST-04</div>
+                            <div class="nm">組裝鎖固</div>
+                            <div class="sp">扭力設定 · 束環定位</div>
+                        </button>
+
+                        <button class="station" data-st="4">
+                            <div class="no">ST-05</div>
+                            <div class="nm">氣密測試</div>
+                            <div class="sp">全數水槽測漏</div>
+                        </button>
+
+                        <button class="station" data-st="5">
+                            <div class="no">ST-06</div>
+                            <div class="nm">包裝出貨</div>
+                            <div class="sp">批號標示 · 棧板</div>
+                        </button>
+
+                    </div>
+
+                    <div class="gearbox" aria-hidden="true">
+
+                        <svg width="120" height="60" viewBox="0 0 120 60">
+
+                            <g class="gear">
+                                <circle cx="30" cy="30" r="16" class="ln"/>
+                                <circle cx="30" cy="30" r="5" class="ln"/>
+                                <g stroke="#e9f4f8" stroke-width="1.4">
+                                    <line x1="30" y1="10" x2="30" y2="16"/>
+                                    <line x1="30" y1="44" x2="30" y2="50"/>
+                                    <line x1="10" y1="30" x2="16" y2="30"/>
+                                    <line x1="44" y1="30" x2="50" y2="30"/>
+                                    <line x1="16" y1="16" x2="20" y2="20"/>
+                                    <line x1="40" y1="40" x2="44" y2="44"/>
+                                    <line x1="16" y1="44" x2="20" y2="40"/>
+                                    <line x1="40" y1="20" x2="44" y2="16"/>
+                                </g>
+                            </g>
+
+                            <g class="gear ccw">
+                                <circle cx="72" cy="30" r="11" class="ln-g"/>
+                                <circle cx="72" cy="30" r="3.5" class="ln-g"/>
+                                <g stroke="#6ee787" stroke-width="1.4">
+                                    <line x1="72" y1="15" x2="72" y2="19"/>
+                                    <line x1="72" y1="41" x2="72" y2="45"/>
+                                    <line x1="57" y1="30" x2="61" y2="30"/>
+                                    <line x1="83" y1="30" x2="87" y2="30"/>
+                                </g>
+                            </g>
+
+                        </svg>
+
+                    </div>
+
+                    <div class="line-log" id="lineLog">
+                        <b>&gt;</b> ST-01 原料檢驗 — PP / EPDM 進料抽驗
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             E 運轉數據面板
+        ========================================================= -->
+
+        <section class="demo" data-sheet="05">
+
+            <div class="container">
+
+                <div class="demo-head fade">
+
+                    <div class="demo-tag">
+                        E — Instrument Panel
+                        <span>捲入觸發</span>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            數據做成儀表，不是做成行銷數字
+                        </h2>
+
+                        <p>
+                            壓力錶指針掃到定位後帶阻尼停住，讀值用等寬字跳動不晃欄，效率條做成一格一格的燈。同樣是數字，用設備面板的樣子呈現，客戶會直覺當成規格而不是廣告。
+                        </p>
+
+                        <span class="use">
+                            適用：產品頁性能數據、規格摘要
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="panel fade" data-panel>
+
+                    <div class="gauge">
+
+                        <svg viewBox="0 0 200 150" role="img" aria-label="氣室壓力錶">
+
+                            <!-- 刻度由 JS 產生 -->
+                            <g id="gaugeTicks"></g>
+
+                            <!-- 錶面弧線 -->
+                            <path class="ln" d="M32 120 A 72 72 0 1 1 168 120"
+                                  stroke="rgba(255,255,255,.25)"/>
+
+                            <!-- 工作區間 -->
+                            <path class="ln-g" d="M92 30 A 72 72 0 0 1 156 78"
+                                  stroke-width="4" stroke-linecap="butt"/>
+
+                            <!-- 指針 -->
+                            <g class="needle" id="needle">
+                                <path d="M100 118 L97 60 L100 52 L103 60 Z" fill="#6ee787"/>
+                            </g>
+
+                            <circle cx="100" cy="118" r="7" fill="#04141d"
+                                    stroke="#6ee787" stroke-width="1.5"/>
+
+                            <text class="lbl lbl-w" x="30" y="138">0</text>
+                            <text class="lbl lbl-w" x="163" y="138">1.0</text>
+
+                        </svg>
+
+                        <div class="gauge-val">
+                            <span id="gaugeNum">0.00</span><small>bar</small>
+                        </div>
+
+                        <div class="gauge-cap">氣室工作壓力</div>
+
+                    </div>
+
+                    <div class="meters">
+
+                        <div class="meter">
+
+                            <div class="row">
+                                <span class="nm">氧氣傳輸效率 SOTE</span>
+                                <span class="vl"><span data-count="6.2" data-dec="1">0.0</span><em>%/m</em></span>
+                            </div>
+
+                            <div class="track"><i style="--v:72%;--d:0ms"></i></div>
+
+                        </div>
+
+                        <div class="meter">
+
+                            <div class="row">
+                                <span class="nm">單盤風量範圍</span>
+                                <span class="vl"><span data-count="8" data-dec="0">0</span><em>Nm³/h</em></span>
+                            </div>
+
+                            <div class="track"><i style="--v:58%;--d:120ms"></i></div>
+
+                        </div>
+
+                        <div class="meter">
+
+                            <div class="row">
+                                <span class="nm">氣泡粒徑</span>
+                                <span class="vl"><span data-count="3" data-dec="0">0</span><em>mm</em></span>
+                            </div>
+
+                            <div class="track"><i style="--v:34%;--d:240ms"></i></div>
+
+                        </div>
+
+                        <div class="chart">
+
+                            <svg viewBox="0 0 420 120" role="img" aria-label="風量與壓損曲線">
+
+                                <!-- 座標格 -->
+                                <g stroke="rgba(255,255,255,.1)" stroke-width="1">
+                                    <line x1="30" y1="20" x2="410" y2="20"/>
+                                    <line x1="30" y1="50" x2="410" y2="50"/>
+                                    <line x1="30" y1="80" x2="410" y2="80"/>
+                                    <line x1="30" y1="105" x2="410" y2="105"/>
+                                </g>
+
+                                <line class="ln" x1="30" y1="12" x2="30" y2="105"
+                                      stroke="rgba(255,255,255,.28)"/>
+
+                                <!-- 壓損曲線 -->
+                                <path class="ln-g draw" id="curve"
+                                      d="M30 96 C 110 88, 170 74, 230 58 S 350 30, 410 22"
+                                      stroke-width="2"/>
+
+                                <text class="lbl lbl-w" x="34" y="118">風量 Nm³/h →</text>
+                                <text class="lbl" x="330" y="16">壓損 mbar</text>
+
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             F 規格表
+        ========================================================= -->
+
+        <section class="demo" data-sheet="06">
+
+            <div class="container">
+
+                <div class="demo-head fade">
+
+                    <div class="demo-tag">
+                        F — Spec Table
+                        <span>單位換算</span>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            規格表本身就是最強的動效
+                        </h2>
+
+                        <p>
+                            右上角切 mm / inch，長度數字滾動換算過去；滑到哪一列，左緣就出現綠色標記。B2B 客戶在你的網站停最久的就是這張表，它值得被好好處理。
+                        </p>
+
+                        <span class="use">
+                            適用：產品頁規格區、型錄下載頁
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="fade">
+
+                    <div class="spec-bar">
+
+                        <span class="mono" style="color:rgba(233,244,248,.5)">
+                            EV-270 · TECHNICAL DATA
+                        </span>
+
+                        <div class="unit-switch">
+                            <button class="btn btn-sm is-on" data-unit="mm">mm</button>
+                            <button class="btn btn-sm" data-unit="in">inch</button>
+                        </div>
+
+                    </div>
+
+                    <table class="spec" id="spec">
+
+                        <thead>
+                            <tr>
+                                <th>項目</th>
+                                <th>規格</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>盤面直徑</td>
+                                <td><span data-mm="228" data-in="9" data-dec-mm="0" data-dec-in="0">228</span>
+                                    <span class="u" data-u>mm</span></td>
+                                <td>標準規格</td>
+                            </tr>
+
+                            <tr>
+                                <td>盤面高度</td>
+                                <td><span data-mm="60" data-in="2.36" data-dec-mm="0" data-dec-in="2">60</span>
+                                    <span class="u" data-u>mm</span></td>
+                                <td>含接頭</td>
+                            </tr>
+
+                            <tr>
+                                <td>進氣接頭</td>
+                                <td><span data-mm="19" data-in="0.75" data-dec-mm="0" data-dec-in="2">19</span>
+                                    <span class="u" data-u>mm</span></td>
+                                <td>3/4" 螺紋</td>
+                            </tr>
+
+                            <tr>
+                                <td>有效散氣面積</td>
+                                <td>0.038 m²</td>
+                                <td>膜片有效區</td>
+                            </tr>
+
+                            <tr>
+                                <td>工作風量</td>
+                                <td>2 – 8 Nm³/h</td>
+                                <td>每盤</td>
+                            </tr>
+
+                            <tr>
+                                <td>氣泡粒徑</td>
+                                <td>1 – 3 mm</td>
+                                <td>細氣泡</td>
+                            </tr>
+
+                            <tr>
+                                <td>膜片材質</td>
+                                <td>EPDM</td>
+                                <td>可依需求評估</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             G 出廠檢驗
+        ========================================================= -->
+
+        <section class="demo" data-sheet="07">
+
+            <div class="container">
+
+                <div class="demo-head fade">
+
+                    <div class="demo-tag">
+                        G — QC Record
+                        <span>捲入觸發</span>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            檢驗項目一項一項打勾，最後蓋章
+                        </h2>
+
+                        <p>
+                            五個檢驗項目依序打勾，勾是描出來的不是淡入的；最後檢驗章「啪」一下落下，用 steps 做出段落感而不是柔順縮放。批號像里程表捲到定位。
+                        </p>
+
+                        <span class="use">
+                            適用：品質保證頁、出貨說明
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="qc" id="qc">
+
+                    <div class="checklist">
+
+                        <div class="check" data-chk>
+                            <span class="box">
+                                <svg viewBox="0 0 12 12"><path d="M2 6 L5 9 L10 3"/></svg>
+                            </span>
+                            <span class="nm">膜片外觀與細縫排列</span>
+                            <span class="st">PASS</span>
+                        </div>
+
+                        <div class="check" data-chk>
+                            <span class="box">
+                                <svg viewBox="0 0 12 12"><path d="M2 6 L5 9 L10 3"/></svg>
+                            </span>
+                            <span class="nm">底盤尺寸與平整度</span>
+                            <span class="st">PASS</span>
+                        </div>
+
+                        <div class="check" data-chk>
+                            <span class="box">
+                                <svg viewBox="0 0 12 12"><path d="M2 6 L5 9 L10 3"/></svg>
+                            </span>
+                            <span class="nm">束環鎖固扭力</span>
+                            <span class="st">PASS</span>
+                        </div>
+
+                        <div class="check" data-chk>
+                            <span class="box">
+                                <svg viewBox="0 0 12 12"><path d="M2 6 L5 9 L10 3"/></svg>
+                            </span>
+                            <span class="nm">水槽氣密測漏（全數）</span>
+                            <span class="st">PASS</span>
+                        </div>
+
+                        <div class="check" data-chk>
+                            <span class="box">
+                                <svg viewBox="0 0 12 12"><path d="M2 6 L5 9 L10 3"/></svg>
+                            </span>
+                            <span class="nm">出氣均勻性目視確認</span>
+                            <span class="st">PASS</span>
+                        </div>
+
+                    </div>
+
+                    <div class="stamp">
+
+                        <div class="stamp-mark">
+                            QC<br>PASSED
+                        </div>
+
+                        <div>
+                            <div class="mono" style="color:rgba(233,244,248,.45);margin-bottom:8px">
+                                BATCH NO.
+                            </div>
+                            <div class="odo" id="odo" data-batch="EV270-2609-0142"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="foot">
+
+            <div class="container">
+
+                A 繪圖機描線｜B 爆炸圖與零件表｜C 膜片機構｜D 產線工站｜E 儀表面板｜F 規格表｜G 出廠檢驗
+                <br>
+                這一版的語彙是工程圖與產線。挑要留的告訴我，我再拆進 css/ 與 js/ 接到正式頁面。
+
+            </div>
+
+        </div>
+
+    </main>
+
+<script>
+/* =========================================================
+   動效邏輯 II
+
+   共用原則
+   - 先問 prefers-reduced-motion，關閉時直接跳到最終狀態。
+   - scroll / pointermove 一律 requestAnimationFrame 節流。
+   - 全部是漸進增強，關掉 JS 內容依然完整。
+========================================================= */
+
+(function(){
+
+    "use strict";
+
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var manualOff = false;
+
+    function motionOff(){
+        return reduced || manualOff;
+    }
+
+    function nodes(sel, root){
+        return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+    }
+
+
+    /* =========================
+       動態開關
+       ========================= */
+
+    var toggle = document.getElementById("motionToggle");
+
+    toggle.addEventListener("click", function(){
+
+        manualOff = !manualOff;
+
+        document.documentElement.classList.toggle("no-motion", manualOff);
+
+        toggle.textContent = manualOff ? "Motion : Off" : "Motion : On";
+        toggle.setAttribute("aria-pressed", String(manualOff));
+    });
+
+
+    /* =========================
+       十字準星與座標讀值
+       游標位置直接寫進 CSS 變數，不做追隨延遲。
+       繪圖軟體的準星是即時的，慢半拍反而不對。
+       ========================= */
+
+    var cross = document.getElementById("crosshair");
+    var coords = document.getElementById("coords");
+
+    if(!reduced && window.matchMedia("(hover:hover) and (pointer:fine)").matches){
+
+        var cRaf = false;
+        var cx = 0;
+        var cy = 0;
+
+        window.addEventListener("pointermove", function(e){
+
+            cx = e.clientX;
+            cy = e.clientY;
+
+            cross.classList.add("is-on");
+
+            if(cRaf) return;
+
+            cRaf = true;
+
+            requestAnimationFrame(function(){
+
+                cross.style.setProperty("--cx", cx + "px");
+                cross.style.setProperty("--cy", cy + "px");
+
+                coords.textContent =
+                    "X " + String(Math.round(cx)).padStart(3, "0") +
+                    " · Y " + String(Math.round(cy + window.scrollY)).padStart(3, "0");
+
+                cRaf = false;
+            });
+
+        }, { passive:true });
+    }
+
+
+    /* =========================
+       捲動：進度條、尺規指示、圖框張次
+       ========================= */
+
+    var progress = document.getElementById("progress");
+    var rulerMark = document.getElementById("rulerMark");
+    var sheetNo = document.getElementById("sheetNo");
+    var sheets = nodes("[data-sheet]");
+
+    var sTick = false;
+
+    function onScroll(){
+
+        if(sTick) return;
+
+        sTick = true;
+
+        requestAnimationFrame(function(){
+
+            var max = document.documentElement.scrollHeight - window.innerHeight;
+            var ratio = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+
+            progress.style.transform = "scaleX(" + ratio + ")";
+
+            if(rulerMark){
+                rulerMark.style.top = (ratio * (window.innerHeight - 2)) + "px";
+            }
+
+            // 圖框張次：以視窗上緣往下三成的位置判定目前段落
+            var probe = window.innerHeight * .3;
+            var cur = sheets[0];
+
+            sheets.forEach(function(s){
+
+                if(s.getBoundingClientRect().top <= probe){
+                    cur = s;
+                }
+            });
+
+            if(sheetNo && cur){
+                sheetNo.textContent = cur.getAttribute("data-sheet") + " / 07";
+            }
+
+            sTick = false;
+        });
+    }
+
+    window.addEventListener("scroll", onScroll, { passive:true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+
+
+    /* =========================
+       共用進場觀察器
+       ========================= */
+
+    function observe(list, cb, threshold){
+
+        if(!list.length) return;
+
+        if(motionOff() || !("IntersectionObserver" in window)){
+
+            list.forEach(function(el){ cb(el); });
+
+            return;
+        }
+
+        var io = new IntersectionObserver(function(entries){
+
+            entries.forEach(function(entry){
+
+                if(!entry.isIntersecting) return;
+
+                cb(entry.target);
+
+                io.unobserve(entry.target);
+            });
+
+        }, {
+            threshold: threshold || .15,
+            rootMargin: "0px 0px -8% 0px"
+        });
+
+        list.forEach(function(el){ io.observe(el); });
+    }
+
+
+    /* =========================
+       A-1 繪圖機描線
+       每條線先量實際長度，把 dasharray 設成整條線長，
+       dashoffset 從線長收到 0，看起來就是筆尖在走。
+       線長差很多時用固定秒數會忽快忽慢，
+       所以描線時間依長度微調。
+       ========================= */
+
+    nodes(".draw").forEach(function(el){
+
+        var len;
+
+        try{
+            len = el.getTotalLength();
+        }catch(err){
+            len = 400;
+        }
+
+        el.style.strokeDasharray = len;
+        el.style.setProperty("--len", len);
+
+        // 每 260px 約一秒，夾在 0.5–1.6 秒之間
+        var dur = Math.max(.5, Math.min(1.6, len / 260));
+
+        el.style.transitionDuration = dur.toFixed(2) + "s";
+    });
+
+
+    /* =========================
+       A-2 出氣孔陣列
+       同心圓排布，孔數與間距用算的，
+       手寫幾十個座標既難改也容易排歪。
+       ========================= */
+
+    var perf = document.getElementById("perf");
+
+    if(perf){
+
+        var NS = "http://www.w3.org/2000/svg";
+        var rings = [{ r:34, n:12 }, { r:52, n:18 }, { r:66, n:24 }];
+
+        rings.forEach(function(ring){
+
+            for(var i = 0; i < ring.n; i++){
+
+                var a = (i / ring.n) * Math.PI * 2;
+
+                var dot = document.createElementNS(NS, "circle");
+
+                dot.setAttribute("cx", (170 + Math.cos(a) * ring.r).toFixed(1));
+                dot.setAttribute("cy", (130 + Math.sin(a) * ring.r).toFixed(1));
+                dot.setAttribute("r", "1.4");
+                dot.setAttribute("fill", "rgba(110,231,135,.75)");
+
+                perf.appendChild(dot);
+            }
+        });
+    }
+
+    observe(nodes("[data-reveal]"), function(el){
+        el.classList.add("is-in");
+    }, .12);
+
+
+    /* =========================
+       B 爆炸圖
+       零件的分離量綁在區塊的捲動進度上，
+       捲多少拆多少，使用者完全掌控節奏。
+       ========================= */
+
+    var stage = document.getElementById("explodedStage");
+    var parts = nodes(".part");
+    var bomRows = nodes("#bom tbody tr");
+
+    if(stage && parts.length){
+
+        var eTick = false;
+
+        var syncExploded = function(){
+
+            if(eTick) return;
+
+            eTick = true;
+
+            requestAnimationFrame(function(){
+
+                if(motionOff()){
+
+                    parts.forEach(function(p){ p.style.setProperty("--sep", 1); });
+
+                    eTick = false;
+
+                    return;
+                }
+
+                var wrap = stage.parentElement;
+                var r = wrap.getBoundingClientRect();
+
+                // 區塊頂端進入視窗中線 → 底端離開，對應 0 → 1
+                var total = r.height + window.innerHeight * .5;
+                var passed = window.innerHeight * .8 - r.top;
+
+                var sep = Math.max(0, Math.min(1, passed / (total * .55)));
+
+                parts.forEach(function(p){
+                    p.style.setProperty("--sep", sep.toFixed(3));
+                });
+
+                eTick = false;
+            });
+        };
+
+        window.addEventListener("scroll", syncExploded, { passive:true });
+        window.addEventListener("resize", syncExploded);
+        syncExploded();
+
+        // 零件表與圖面互相高亮
+        function hot(no){
+
+            parts.forEach(function(p){
+
+                var on = p.getAttribute("data-part") === no;
+
+                p.classList.toggle("is-hot", on);
+                p.classList.toggle("is-dim", no !== null && !on);
+            });
+
+            bomRows.forEach(function(tr){
+                tr.classList.toggle("is-hot", tr.getAttribute("data-row") === no);
+            });
+        }
+
+        bomRows.forEach(function(tr){
+
+            tr.addEventListener("pointerenter", function(){
+                hot(tr.getAttribute("data-row"));
+            });
+
+            tr.addEventListener("pointerleave", function(){
+                hot(null);
+            });
+        });
+
+        parts.forEach(function(p){
+
+            p.addEventListener("pointerenter", function(){
+                hot(p.getAttribute("data-part"));
+            });
+
+            p.addEventListener("pointerleave", function(){
+                hot(null);
+            });
+        });
+    }
+
+
+    /* =========================
+       C 膜片機構
+       通氣／停氣兩個狀態，讀值跟著跳。
+       沒人操作時每 5 秒自己切一次，展場可以放著循環；
+       使用者一按過就停止自動切換，不跟人搶控制權。
+       ========================= */
+
+    var mech = document.getElementById("mech");
+
+    if(mech){
+
+        var lamp = document.getElementById("lamp");
+        var btnAir = document.getElementById("btnAir");
+        var btnShut = document.getElementById("btnShut");
+
+        var mechP = document.getElementById("mechP");
+        var mechQ = document.getElementById("mechQ");
+        var mechD = document.getElementById("mechD");
+
+        var autoTimer = null;
+        var userTook = false;
+
+        function tween(el, from, to, dec, dur){
+
+            if(motionOff()){
+
+                el.textContent = to.toFixed(dec);
+
+                return;
+            }
+
+            var t0 = null;
+
+            function step(ts){
+
+                if(t0 === null) t0 = ts;
+
+                var p = Math.min((ts - t0) / dur, 1);
+                var e = 1 - Math.pow(1 - p, 3);
+
+                el.textContent = (from + (to - from) * e).toFixed(dec);
+
+                if(p < 1) requestAnimationFrame(step);
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        function setState(air){
+
+            mech.classList.toggle("is-air", air);
+            mech.classList.toggle("is-shut", !air);
+
+            btnAir.classList.toggle("is-on", air);
+            btnShut.classList.toggle("is-on", !air);
+
+            lamp.textContent = air ? "狀態：通氣中" : "狀態：停氣（止回）";
+
+            tween(mechP, parseFloat(mechP.textContent), air ? 0.38 : 0.00, 2, 700);
+            tween(mechQ, parseFloat(mechQ.textContent), air ? 5.0 : 0.0, 1, 700);
+            tween(mechD, parseFloat(mechD.textContent), air ? 2.0 : 0.0, 1, 700);
+        }
+
+        function stopAuto(){
+
+            userTook = true;
+
+            if(autoTimer){
+                clearInterval(autoTimer);
+                autoTimer = null;
+            }
+        }
+
+        btnAir.addEventListener("click", function(){ stopAuto(); setState(true); });
+        btnShut.addEventListener("click", function(){ stopAuto(); setState(false); });
+
+        // 捲進畫面才開始自動循環，離開就停，不在背景空轉
+        if(!motionOff() && "IntersectionObserver" in window){
+
+            var mio = new IntersectionObserver(function(entries){
+
+                entries.forEach(function(entry){
+
+                    if(userTook) return;
+
+                    if(entry.isIntersecting && !autoTimer){
+
+                        var air = true;
+
+                        autoTimer = setInterval(function(){
+
+                            air = !air;
+                            setState(air);
+
+                        }, 5000);
+
+                    }else if(!entry.isIntersecting && autoTimer){
+
+                        clearInterval(autoTimer);
+                        autoTimer = null;
+                    }
+                });
+
+            }, { threshold:.3 });
+
+            mio.observe(mech);
+        }
+    }
+
+
+    /* =========================
+       D 產線工站
+       ========================= */
+
+    var stations = document.getElementById("stations");
+
+    if(stations){
+
+        var stEls = nodes(".station", stations);
+        var carrier = document.getElementById("carrier");
+        var log = document.getElementById("lineLog");
+
+        var idx = 0;
+        var lineTimer = null;
+
+        function goto(i){
+
+            idx = (i + stEls.length) % stEls.length;
+
+            stEls.forEach(function(el, n){
+                el.classList.toggle("is-on", n === idx);
+            });
+
+            var el = stEls[idx];
+
+            if(carrier){
+
+                // 托板停在該工站立柱的位置
+                var x = el.offsetLeft + 22 - 9;
+
+                carrier.style.setProperty("--x", x + "px");
+            }
+
+            if(log){
+
+                log.innerHTML =
+                    "<b>&gt;</b> " +
+                    el.querySelector(".no").textContent + " " +
+                    el.querySelector(".nm").textContent + " — " +
+                    el.querySelector(".sp").textContent;
+            }
+        }
+
+        stEls.forEach(function(el, n){
+
+            el.addEventListener("click", function(){
+
+                if(lineTimer){
+                    clearInterval(lineTimer);
+                    lineTimer = null;
+                }
+
+                goto(n);
+            });
+        });
+
+        goto(0);
+
+        window.addEventListener("resize", function(){ goto(idx); });
+
+        if(!motionOff() && "IntersectionObserver" in window){
+
+            var lio = new IntersectionObserver(function(entries){
+
+                entries.forEach(function(entry){
+
+                    if(entry.isIntersecting && !lineTimer){
+
+                        lineTimer = setInterval(function(){
+                            goto(idx + 1);
+                        }, 2600);
+
+                    }else if(!entry.isIntersecting && lineTimer){
+
+                        clearInterval(lineTimer);
+                        lineTimer = null;
+                    }
+                });
+
+            }, { threshold:.25 });
+
+            lio.observe(stations);
+        }
+    }
+
+
+    /* =========================
+       E 儀表面板
+       ========================= */
+
+    // 錶面刻度：21 格，主刻度每 5 格加長
+    var ticks = document.getElementById("gaugeTicks");
+
+    if(ticks){
+
+        var NS2 = "http://www.w3.org/2000/svg";
+
+        for(var t = 0; t <= 20; t++){
+
+            var ang = (-132 + (t / 20) * 264) * Math.PI / 180;
+
+            var major = t % 5 === 0;
+
+            var r1 = 62;
+            var r2 = major ? 50 : 56;
+
+            var ln = document.createElementNS(NS2, "line");
+
+            ln.setAttribute("x1", (100 + Math.sin(ang) * r1).toFixed(1));
+            ln.setAttribute("y1", (118 - Math.cos(ang) * r1).toFixed(1));
+            ln.setAttribute("x2", (100 + Math.sin(ang) * r2).toFixed(1));
+            ln.setAttribute("y2", (118 - Math.cos(ang) * r2).toFixed(1));
+
+            ln.setAttribute("stroke", major ? "rgba(233,244,248,.7)" : "rgba(233,244,248,.3)");
+            ln.setAttribute("stroke-width", major ? "1.6" : "1");
+
+            ticks.appendChild(ln);
+        }
+    }
+
+    function countUp(el){
+
+        var target = parseFloat(el.getAttribute("data-count"));
+        var dec = parseInt(el.getAttribute("data-dec") || "0", 10);
+
+        if(motionOff()){
+
+            el.textContent = target.toFixed(dec);
+
+            return;
+        }
+
+        var dur = 1500;
+        var t0 = null;
+
+        function step(ts){
+
+            if(t0 === null) t0 = ts;
+
+            var p = Math.min((ts - t0) / dur, 1);
+            var e = 1 - Math.pow(1 - p, 3);
+
+            el.textContent = (target * e).toFixed(dec);
+
+            if(p < 1){
+                requestAnimationFrame(step);
+            }else{
+                el.textContent = target.toFixed(dec);
+            }
+        }
+
+        requestAnimationFrame(step);
+    }
+
+    observe(nodes("[data-panel]"), function(el){
+
+        el.classList.add("is-in");
+
+        nodes("[data-count]", el).forEach(countUp);
+
+        var needle = document.getElementById("needle");
+        var num = document.getElementById("gaugeNum");
+
+        var val = .38;                       // bar
+        var deg = -132 + (val / 1) * 264;
+
+        if(needle){
+
+            if(motionOff()){
+                needle.style.transform = "rotate(" + deg + "deg)";
+            }else{
+                requestAnimationFrame(function(){
+                    needle.style.transform = "rotate(" + deg + "deg)";
+                });
+            }
+        }
+
+        if(num){
+
+            if(motionOff()){
+
+                num.textContent = val.toFixed(2);
+
+            }else{
+
+                var t0 = null;
+
+                requestAnimationFrame(function step(ts){
+
+                    if(t0 === null) t0 = ts;
+
+                    var p = Math.min((ts - t0) / 1900, 1);
+                    var e = 1 - Math.pow(1 - p, 3);
+
+                    num.textContent = (val * e).toFixed(2);
+
+                    if(p < 1) requestAnimationFrame(step);
+                });
+            }
+        }
+
+    }, .25);
+
+
+    /* =========================
+       F 規格表單位切換
+       數字在兩個單位之間滾動換算，直接換掉會太生硬。
+       ========================= */
+
+    var spec = document.getElementById("spec");
+
+    if(spec){
+
+        var unitBtns = nodes("[data-unit]");
+        var cells = nodes("[data-mm]", spec);
+        var units = nodes("[data-u]", spec);
+
+        unitBtns.forEach(function(btn){
+
+            btn.addEventListener("click", function(){
+
+                var unit = btn.getAttribute("data-unit");
+
+                unitBtns.forEach(function(b){
+                    b.classList.toggle("is-on", b === btn);
+                });
+
+                units.forEach(function(u){
+                    u.textContent = unit === "mm" ? "mm" : "in";
+                });
+
+                cells.forEach(function(c){
+
+                    var to = parseFloat(c.getAttribute(unit === "mm" ? "data-mm" : "data-in"));
+                    var dec = parseInt(c.getAttribute(unit === "mm" ? "data-dec-mm" : "data-dec-in"), 10);
+                    var from = parseFloat(c.textContent) || 0;
+
+                    if(motionOff()){
+
+                        c.textContent = to.toFixed(dec);
+
+                        return;
+                    }
+
+                    var t0 = null;
+
+                    requestAnimationFrame(function step(ts){
+
+                        if(t0 === null) t0 = ts;
+
+                        var p = Math.min((ts - t0) / 500, 1);
+                        var e = 1 - Math.pow(1 - p, 3);
+
+                        c.textContent = (from + (to - from) * e).toFixed(dec);
+
+                        if(p < 1){
+                            requestAnimationFrame(step);
+                        }else{
+                            c.textContent = to.toFixed(dec);
+                        }
+                    });
+                });
+            });
+        });
+    }
+
+
+    /* =========================
+       G 出廠檢驗
+       ========================= */
+
+    // 批號里程表：每一位數字是一條 0–9 的直條，捲到定位
+    var odo = document.getElementById("odo");
+
+    if(odo){
+
+        var batch = odo.getAttribute("data-batch") || "";
+
+        batch.split("").forEach(function(ch, i){
+
+            if(!/[0-9]/.test(ch)){
+
+                var sep = document.createElement("span");
+
+                sep.className = "s";
+                sep.textContent = ch;
+
+                odo.appendChild(sep);
+
+                return;
+            }
+
+            var d = document.createElement("span");
+            d.className = "d";
+
+            var strip = document.createElement("i");
+
+            for(var n = 0; n <= 9; n++){
+
+                var s = document.createElement("span");
+
+                s.textContent = n;
+
+                strip.appendChild(s);
+            }
+
+            strip.style.setProperty("--d", (i * 55) + "ms");
+            strip.setAttribute("data-target", ch);
+
+            d.appendChild(strip);
+            odo.appendChild(d);
+        });
+    }
+
+    observe(nodes("#qc"), function(el){
+
+        el.classList.add("is-in");
+
+        // 檢驗項目依序打勾
+        nodes("[data-chk]", el).forEach(function(row, i){
+
+            if(motionOff()){
+
+                row.classList.add("is-ok");
+
+                return;
+            }
+
+            setTimeout(function(){
+                row.classList.add("is-ok");
+            }, 220 + i * 260);
+        });
+
+        // 批號捲到定位
+        nodes("#odo i").forEach(function(strip){
+
+            var target = parseInt(strip.getAttribute("data-target"), 10);
+
+            strip.style.transform = "translateY(-" + (target * 1.5) + "em)";
+        });
+
+    }, .25);
+
+
+    /* =========================
+       通用進場
+       ========================= */
+
+    observe(nodes(".fade"), function(el){
+        el.classList.add("is-in");
+    });
+
+})();
+</script>
+
+</body>
+
+</html>
