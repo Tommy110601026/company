@@ -69,14 +69,6 @@
     --sans:"Inter","Noto Sans TC","PingFang TC","Microsoft JhengHei","Segoe UI",sans-serif;
 
     --ease:cubic-bezier(.22,1,.36,1);
-
-    /* ---- 舊代幣別名，供尚未改寫的樣式沿用 ---- */
-    --navy:var(--ink);
-    --navy-light:var(--ink-2);
-    --green-light:var(--green-hi);
-    --bg:var(--paper);
-    --shadow:0 18px 48px rgba(4,20,29,.14);
-    --radius:var(--r-lg);
 }
 
 
@@ -586,7 +578,7 @@ p{
     .hero-grid > div,
     .section-head,
     .stat,
-    .feat,
+    .flat-feature-card,
     .struct-item,
     .spec-shots,
     .spec-tabs,
@@ -594,10 +586,11 @@ p{
     .feature-tag,
     .supply-item,
     .why-card,
-    .feature-card,
     .info-card,
     .intro-card,
-    .download-item
+    .product-tab-item,
+    .product-tab-card,
+    .product-visual-panel
 ){
     opacity:0;
     translate:0 28px;
@@ -703,7 +696,7 @@ textarea:focus-visible{
         .hero-grid > div,
         .section-head,
         .stat,
-        .feat,
+        .flat-feature-card,
         .struct-item,
         .spec-shots,
         .spec-tabs,
@@ -711,10 +704,11 @@ textarea:focus-visible{
         .feature-tag,
         .supply-item,
         .why-card,
-        .feature-card,
         .info-card,
         .intro-card,
-        .download-item
+        .product-tab-item,
+        .product-tab-card,
+        .product-visual-panel
     ){
         opacity:1;
         translate:none;

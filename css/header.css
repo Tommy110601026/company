@@ -335,13 +335,13 @@ header.is-stuck .navbar{
     .mobile-menu-btn{
         display:block;
     }
-
-    .lang-btn{
-        display:none;
-    }
 }
 
 @media(max-width:560px){
+
+    .nav-actions{
+        gap:12px;
+    }
 
     .quote-btn{
         padding:11px 16px;

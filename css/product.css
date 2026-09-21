@@ -749,19 +749,16 @@
     align-items:start;
 }
 
-.structure-copy,
-.split-feature-copy{
+.structure-copy{
     position:sticky;
     top:120px;
 }
 
-.structure-copy h2,
-.split-feature-copy h2{
+.structure-copy h2{
     margin:24px 0 18px;
 }
 
-.structure-copy p,
-.split-feature-copy p{
+.structure-copy p{
     max-width:40ch;
 
     color:var(--muted);
@@ -769,8 +766,7 @@
     font-weight:400;
 }
 
-.section-dark .structure-copy p,
-.section-dark .split-feature-copy p{
+.section-dark .structure-copy p{
     color:var(--muted-d);
 }
 
@@ -892,8 +888,7 @@
    08. 規格分頁與資料格
 ========================================================= */
 
-.spec-tab-buttons,
-.spec-tabs-nav{
+.spec-tab-buttons{
     display:flex;
     gap:8px;
     flex-wrap:wrap;
@@ -991,10 +986,6 @@
 
 .spec-card:hover{
     background:var(--white);
-}
-
-.spec-card.full{
-    grid-column:1 / -1;
 }
 
 .spec-label{
@@ -1538,17 +1529,6 @@
     color:var(--on-dark);
 }
 
-/* 大字收尾句 */
-.cta-section .cta-lead{
-    margin-bottom:36px;
-
-    color:var(--green-hi);
-
-    font-size:clamp(22px, 3.4vw, 44px);
-    font-weight:500;
-    line-height:1.35;
-}
-
 /* 一般說明文（標題底下那種） */
 .cta-section p{
     max-width:62ch;
@@ -1584,8 +1564,7 @@
         gap:44px;
     }
 
-    .structure-copy,
-    .split-feature-copy{
+    .structure-copy{
         position:static;
     }
 }

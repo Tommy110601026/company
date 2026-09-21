@@ -11,7 +11,6 @@ const REVEAL_SELECTOR = [
     ".hero-grid > div",
     ".section-head",
     ".stat",
-    ".feat",
     ".flat-feature-card",
     ".struct-item",
     ".spec-shots",
@@ -20,10 +19,8 @@ const REVEAL_SELECTOR = [
     ".feature-tag",
     ".supply-item",
     ".why-card",
-    ".feature-card",
     ".info-card",
     ".intro-card",
-    ".download-item",
     ".product-tab-item",
     ".product-tab-card",
     ".product-visual-panel"
