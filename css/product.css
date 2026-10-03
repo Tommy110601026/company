@@ -159,30 +159,40 @@
 
     white-space:nowrap;
 
+    padding:6px 12px;
+
     font-family:var(--mono);
-    font-size:14px;
+    font-size:13px;
     letter-spacing:.1em;
 
-    color:rgba(255,255,255,.72);
+    color:var(--on-dark);
+
+    /* 深色底：標籤落在白色外圈上時字才看得清楚 */
+    background:rgba(4,20,29,.88);
+    border:1px solid var(--line-d);
+    border-radius:var(--r-pill);
+
+    /* 與 .disc 同一組浮動動畫、同時開始，引導線才會一直對準盤子 */
+    animation:disc-float 7s ease-in-out infinite;
 }
 
 .disc-callout::before{
     content:"";
 
-    width:26px;
+    width:18px;
     height:1px;
 
-    background:rgba(255,255,255,.28);
+    background:var(--green-hi);
 }
 
 .disc-callout.pos-top{
-    top:16%;
-    right:-4%;
+    top:4%;
+    right:-2%;
 }
 
 .disc-callout.pos-bottom{
-    bottom:22%;
-    left:-6%;
+    bottom:6%;
+    left:-4%;
 
     flex-direction:row-reverse;
 }
