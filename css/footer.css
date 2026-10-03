@@ -4,8 +4,8 @@
 
    目錄
    01. 外框
-   02. 三欄版面
-   03. 品牌欄與地圖
+   02. 兩欄版面
+   03. 聯絡資訊與地圖
    04. 版權列
    05. 響應式
 ========================================================= */
@@ -53,30 +53,14 @@ footer h4{
     letter-spacing:-.01em;
 }
 
-footer p,
-footer li{
-    color:var(--muted-d);
-
-    font-size:16px;
-    line-height:1.8;
-    font-weight:400;
-}
-
-footer ul{
-    list-style:none;
-}
-
-footer li{
-    margin-bottom:8px;
-}
-
 footer a:hover{
     color:var(--green-hi);
 }
 
 
 /* =========================================================
-   02. 三欄版面
+   02. 兩欄版面
+   左：品牌＋聯絡資訊　右：地圖
 ========================================================= */
 
 .footer-grid{
@@ -84,41 +68,71 @@ footer a:hover{
     z-index:2;
 
     display:grid;
-    grid-template-columns:1.2fr .8fr 1fr;
-    gap:40px;
+    grid-template-columns:1.4fr 1fr;
+    gap:48px;
+    align-items:start;
 
-    padding-bottom:32px;
+    padding-bottom:28px;
 
     border-bottom:1px solid var(--line-d);
 }
 
 
 /* =========================================================
-   03. 品牌欄與地圖
+   03. 聯絡資訊與地圖
 ========================================================= */
 
-.footer-brand{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
+/* 兩欄排列：郵件／電話、營業時間，地址橫跨整列 */
+.footer-info dl{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px 24px;
 }
 
-.footer-brand p{
-    margin:0 0 20px;
+.footer-address{
+    grid-column:1 / -1;
 }
 
-.footer-logo{
-    width:170px;
-    height:auto;
+.footer-info dt{
+    margin-bottom:2px;
 
-    object-fit:contain;
+    color:rgba(233,244,248,.45);
 
-    opacity:.9;
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+}
+
+.footer-info dd{
+    color:var(--on-dark);
+
+    font-size:15px;
+    line-height:1.6;
+}
+
+.footer-info a{
+    color:inherit;
+    text-decoration:none;
+
+    transition:color .2s var(--ease);
+}
+
+/* 「在地圖上查看」只在手機（不顯示嵌入地圖時）出現 */
+.map-link{
+    display:none;
+}
+
+.footer-info .map-link{
+    color:var(--green-hi);
+    font-size:14px;
 }
 
 .map{
+    display:block;
+
     width:100%;
-    height:210px;
+    height:180px;
 
     border:1px solid var(--line-d);
     border-radius:var(--r-sm);
@@ -135,18 +149,13 @@ footer a:hover{
     position:relative;
     z-index:2;
 
-    display:flex;
-    justify-content:space-between;
-    gap:16px;
-    flex-wrap:wrap;
-
-    padding-top:22px;
+    padding-top:20px;
 
     color:rgba(233,244,248,.45);
 
     font-family:var(--mono);
-    font-size:14px;
-    letter-spacing:.1em;
+    font-size:13px;
+    letter-spacing:.06em;
 }
 
 
@@ -154,10 +163,56 @@ footer a:hover{
    05. 響應式
 ========================================================= */
 
-@media(max-width:920px){
+@media(max-width:900px){
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+        gap:32px;
+    }
+
+    /* 平板寬度不夠放兩欄聯絡資訊，改單欄 */
+    .footer-info dl{
+        grid-template-columns:1fr;
+    }
+}
+
+/* 手機：拿掉嵌入地圖，改用地址旁的連結開啟 Google 地圖 */
+@media(max-width:560px){
+
+    footer{
+        padding:36px 0 20px;
+    }
 
     .footer-grid{
         grid-template-columns:1fr;
-        gap:32px;
+
+        padding-bottom:24px;
+    }
+
+    footer h4{
+        margin-bottom:14px;
+    }
+
+    .footer-info dl{
+        grid-template-columns:1fr 1fr;
+        gap:12px 16px;
+    }
+
+    .footer-info dd{
+        font-size:14px;
+    }
+
+    .map{
+        display:none;
+    }
+
+    .map-link{
+        display:inline-block;
+        margin-top:4px;
+    }
+
+    .copyright{
+        padding-top:16px;
+        font-size:12px;
     }
 }

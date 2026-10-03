@@ -1,228 +1,218 @@
-/* =========================
-   Mobile Menu Overlay
-========================= */
+/* =========================================================
+   mobile-menu.css
+   手機側滑選單（900px 以下）
+
+   目錄
+   01. 外框
+   02. 關閉按鈕
+   03. 連結
+   04. 產品分組
+   05. 聯絡按鈕
+   06. 桌機隱藏
+========================================================= */
+
+
+/* =========================================================
+   01. 外框
+========================================================= */
 
 .mobile-menu{
-
     position:fixed;
-
     top:0;
     right:-100%;
-
-    width:100%;
-    max-width:420px;
-
-    height:100vh;
-
-    background:#073047;
-
     z-index:3000;
 
-    transition:.35s ease;
+    /* 只滑出半邊；太窄的手機保底 220px，字才放得下 */
+    width:max(50%, 220px);
+    max-width:360px;
+    height:100vh;
+    height:100dvh;
+
+    background:var(--ink-2);
 
     overflow-y:auto;
+
+    transition:right .35s var(--ease);
 }
 
-
-/* 開啟 */
-
 .mobile-menu.active{
-
     right:0;
 }
 
+/* 選單外側遮罩：由 js/mobile-menu.js 插入，點擊即關閉 */
+.mobile-menu-backdrop{
+    position:fixed;
+    inset:0;
+    z-index:2990;
 
-/* =========================
-   Inner
-========================= */
+    background:rgba(4,20,29,.55);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:
+    opacity .35s ease,
+    visibility .35s ease;
+}
+
+.mobile-menu-backdrop.active{
+    opacity:1;
+    visibility:visible;
+}
 
 .mobile-menu-inner{
-
-    padding:
-    40px
-    34px
-    80px;
-
     display:flex;
-
     flex-direction:column;
+    gap:22px;
 
-    gap:34px;
+    padding:16px 20px 48px;
 }
 
 
-/* =========================
-   Close Button
-========================= */
+/* =========================================================
+   02. 關閉按鈕
+========================================================= */
 
 .mobile-close-btn{
+    width:44px;
+    height:44px;
 
-    width:68px;
-    height:68px;
-
-    margin-left:auto;
+    margin:0 -6px 8px auto;
 
     border:none;
-
     border-radius:50%;
 
-    background:
-    rgba(255,255,255,.08);
+    background:rgba(255,255,255,.08);
+    color:#ffffff;
 
-    color:#fff;
-
-    font-size:42px;
+    font-size:26px;
+    line-height:1;
 
     cursor:pointer;
 
-    transition:.25s ease;
+    transition:background .25s ease;
 }
-
 
 .mobile-close-btn:hover{
-
-    background:
-    rgba(255,255,255,.16);
+    background:rgba(255,255,255,.16);
 }
 
 
-/* =========================
-   Links
-========================= */
+/* =========================================================
+   03. 連結
+========================================================= */
 
 .mobile-nav-link{
-
     position:relative;
 
     width:fit-content;
 
     color:#ffffff;
 
-    text-decoration:none;
+    font-size:18px;
+    font-weight:700;
 
-    font-size:28px;
-
-    font-weight:800;
-
-    transition:.25s ease;
+    transition:color .25s ease;
 }
 
-
-.mobile-nav-link:hover{
-
-    color:#7CFF7C;
-}
-
-
-/* =========================
-   Active
-========================= */
-
+.mobile-nav-link:hover,
 .mobile-nav-link.active{
-
-    color:#7CFF7C;
+    color:var(--green-hi);
 }
 
-
+/* 目前頁面：綠字 + 底線，兩種訊號並用 */
 .mobile-nav-link.active::after{
-
     content:"";
 
     position:absolute;
-
     left:0;
-    bottom:-10px;
+    bottom:-6px;
 
-    width:72px;
-    height:4px;
+    width:28px;
+    height:2px;
 
-    border-radius:999px;
+    border-radius:var(--r-pill);
 
-    background:#63d84e;
-
-    box-shadow:
-    0 0 10px rgba(99,216,78,.9),
-    0 0 20px rgba(99,216,78,.7);
+    background:var(--green-hi);
+    box-shadow:0 0 10px rgba(110,231,135,.8);
 }
 
 
-/* =========================
-   Product Group
-========================= */
+/* =========================================================
+   04. 產品分組
+========================================================= */
 
 .mobile-product-group{
-
     display:flex;
-
     flex-direction:column;
+    gap:16px;
 
-    gap:24px;
+    padding-left:14px;
 
-    padding-left:16px;
+    border-left:1px solid var(--line-d);
 }
 
-
 .mobile-product-title{
+    color:rgba(255,255,255,.5);
 
-    color:
-    rgba(255,255,255,.7);
-
-    font-size:18px;
-
+    font-family:var(--mono);
+    font-size:12px;
     letter-spacing:.12em;
-
     text-transform:uppercase;
 }
 
+.mobile-product-group .mobile-nav-link{
+    font-size:16px;
+    font-weight:600;
+}
+
+
+/* =========================================================
+   05. 聯絡按鈕
+========================================================= */
+
 .mobile-contact-btn{
-
-    width:100%;
-
-    margin-top:34px;
-    padding:18px 22px;
-
     display:flex;
     align-items:center;
     justify-content:center;
 
+    width:100%;
+    min-height:48px;
+    margin-top:14px;
+    padding:12px 20px;
+
     border:none;
-    border-radius:18px;
+    border-radius:var(--r-pill);
 
-    background:linear-gradient(
-        135deg,
-        #6ae05d,
-        #43c34e
-    );
+    background:var(--green);
+    color:var(--ink);
 
-    color:#062f45;
-
-    font-size:20px;
-    font-weight:900;
-
-    box-shadow:
-    0 10px 28px rgba(86,212,90,.25);
+    font-family:inherit;
+    font-size:16px;
+    font-weight:700;
 
     cursor:pointer;
 
-    transition:.25s;
+    transition:
+    transform .25s var(--ease),
+    box-shadow .25s ease;
 }
 
 .mobile-contact-btn:hover{
-
     transform:translateY(-2px);
-
-    box-shadow:
-    0 14px 34px rgba(86,212,90,.35);
+    box-shadow:0 10px 26px rgba(53,179,74,.35);
 }
 
-/* =========================
-   Mobile Only
-========================= */
 
-@media (min-width:992px){
+/* =========================================================
+   06. 桌機隱藏
+   與 header.css 漢堡按鈕的 900px 斷點對齊
+========================================================= */
 
-    .mobile-menu{
+@media(min-width:901px){
 
+    .mobile-menu,
+    .mobile-menu-backdrop{
         display:none;
     }
 }

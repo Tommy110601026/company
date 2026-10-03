@@ -26,39 +26,42 @@ export function initMobileMenu(){
         return;
     }
 
+    // 選單只佔半邊，另一半蓋一層遮罩，點遮罩即可關閉
+    const backdrop =
+        document.createElement("div");
+
+    backdrop.className =
+        "mobile-menu-backdrop";
+
+    mobileMenu.after(backdrop);
+
+    const openMenu = () => {
+        mobileMenu.classList.add("active");
+        backdrop.classList.add("active");
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove("active");
+        backdrop.classList.remove("active");
+    };
+
+    backdrop.addEventListener("click", closeMenu);
+
     menuBtn.addEventListener(
         "click",
-        () => {
-
-            mobileMenu
-                .classList
-                .add("active");
-
-        }
+        openMenu
     );
 
     closeBtn?.addEventListener(
         "click",
-        () => {
-
-            mobileMenu
-                .classList
-                .remove("active");
-
-        }
+        closeMenu
     );
 
     mobileLinks.forEach((link) => {
 
         link.addEventListener(
             "click",
-            () => {
-
-                mobileMenu
-                    .classList
-                    .remove("active");
-
-            }
+            closeMenu
         );
 
     });
@@ -67,9 +70,7 @@ export function initMobileMenu(){
         "click",
         () => {
 
-            mobileMenu
-                .classList
-                .remove("active");
+            closeMenu();
 
             document
                 .getElementById("openInquiryModal")

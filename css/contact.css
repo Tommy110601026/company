@@ -246,7 +246,7 @@
     color: #dc2626;
 }
 
-@media (max-width:920px){
+@media (max-width:900px){
 
     .inquiry-container{
         grid-template-columns:1fr;

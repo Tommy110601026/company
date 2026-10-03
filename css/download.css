@@ -293,7 +293,7 @@
    Tablet
 ========================= */
 
-@media (max-width: 860px) {
+@media (max-width: 900px) {
 
     .download-card {
         flex-direction: column;

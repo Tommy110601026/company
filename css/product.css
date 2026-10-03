@@ -1546,9 +1546,10 @@
 
 /* =========================================================
    14. 響應式
+   全站統一三個斷點：1200（窄桌機）／900（平板）／560（手機）
 ========================================================= */
 
-@media(max-width:1040px){
+@media(max-width:1200px){
 
     .spec-layout{
         grid-template-columns:330px 1fr;
@@ -1556,7 +1557,8 @@
     }
 }
 
-@media(max-width:960px){
+/* ---------- 平板 ---------- */
+@media(max-width:900px){
 
     .structure-split,
     .split-feature{
@@ -1564,32 +1566,31 @@
         gap:44px;
     }
 
-    .structure-copy{
+    .structure-copy,
+    .spec-shots,
+    .product-visual-panel{
         position:static;
     }
-}
 
-@media(max-width:760px){
-
-    .struct-grid{
-        grid-template-columns:1fr;
+    /* hero 動畫與產品照片：單欄時不再撐滿整個寬度 */
+    .disc-stage,
+    .tube-stage{
+        max-width:300px;
     }
 
-    .struct-item,
-    .struct-grid .struct-item:nth-child(even){
-        padding:22px 0;
-        border-left:none;
+    .spec-shots,
+    .product-visual-panel{
+        width:100%;
+        max-width:340px;
+        margin-inline:auto;
     }
-}
-
-@media(max-width:900px){
 
     .stats-grid{
         grid-template-columns:repeat(2, 1fr);
     }
 
     .stat{
-        min-height:184px;
+        min-height:0;
         padding:34px 24px;
 
         border-bottom:1px solid var(--line-d);
@@ -1599,14 +1600,19 @@
         border-right:none;
     }
 
+    .stat:nth-last-child(-n+2){
+        border-bottom:none;
+    }
+
     .spec-layout{
         grid-template-columns:1fr;
         gap:40px;
     }
 
-    .spec-shots,
-    .product-visual-panel{
-        position:static;
+    /* 讓內含橫向捲動列的欄位可以縮小，不被不換行的分頁按鈕撐寬 */
+    .spec-layout > *,
+    .product-tab-layout > *{
+        min-width:0;
     }
 
     .summary-grid,
@@ -1614,48 +1620,292 @@
         grid-template-columns:1fr;
         gap:56px;
     }
-}
 
-@media(max-width:860px){
+    /* 規格分頁：單排、可左右滑，不換行 */
+    .spec-tab-buttons{
+        flex-wrap:nowrap;
 
+        margin-inline:-16px;
+        padding-inline:16px;
+
+        overflow-x:auto;
+        scrollbar-width:none;
+        -webkit-overflow-scrolling:touch;
+    }
+
+    .spec-tab-buttons::-webkit-scrollbar{
+        display:none;
+    }
+
+    .spec-tab-btn{
+        flex-shrink:0;
+        white-space:nowrap;
+    }
+
+    /* 散氣管特色分頁：直列清單改成橫向可滑的分頁列 */
     .product-tab-layout{
         grid-template-columns:1fr;
+        border-top:none;
     }
 
     .product-tab-list{
+        display:flex;
+        gap:8px;
+
+        margin-inline:-16px;
+        padding:0 16px 4px;
+
         border-right:none;
+
+        overflow-x:auto;
+        scrollbar-width:none;
+    }
+
+    .product-tab-list::-webkit-scrollbar{
+        display:none;
+    }
+
+    .product-tab-item,
+    .product-tab-item.active{
+        flex-shrink:0;
+        align-items:center;
+        gap:8px;
+
+        width:auto;
+        padding:10px 16px;
+
+        border:1px solid var(--line);
+        border-radius:var(--r-pill);
+
+        white-space:nowrap;
+    }
+
+    .product-tab-item::before{
+        display:none;
+    }
+
+    .product-tab-item.active{
+        background:var(--ink);
+        border-color:var(--ink);
+    }
+
+    .product-tab-item.active strong,
+    .product-tab-item.active .product-tab-number{
+        color:#ffffff;
+    }
+
+    .product-tab-number{
+        padding-top:0;
+    }
+
+    .product-tab-item strong{
+        font-size:15px;
+    }
+
+    /* 分頁標籤底下的小字說明在橫向列裡放不下 */
+    .product-tab-item strong + span:last-child{
+        display:none;
     }
 
     .product-tab-card{
-        padding:32px 0 0;
+        padding:28px 0 0;
     }
 
-    .product-tab-panel ul{
-        grid-template-columns:1fr;
-    }
-}
-
-@media(max-width:760px){
-
-    .flat-feature-grid{
-        grid-template-columns:1fr;
+    .why-grid,
+    .why-grid.is-4{
+        grid-template-columns:1fr 1fr;
     }
 
-    .flat-feature-card,
-    .flat-feature-grid:not(.is-single) .flat-feature-card:nth-child(even){
-        padding:22px 4px;
+    .why-card,
+    .why-card:nth-child(3n+2),
+    .why-card:nth-child(3n),
+    .why-grid.is-4 .why-card:not(:nth-child(4n+1)){
+        padding:28px 24px 28px 0;
         border-left:none;
     }
 
-    .flat-feature-card:hover,
+    .why-card:nth-child(even),
+    .why-grid.is-4 .why-card:nth-child(even){
+        padding-left:24px;
+        border-left:1px solid var(--line);
+    }
+
+    .section-dark .why-card:nth-child(even){
+        border-left-color:var(--line-d);
+    }
+}
+
+/* ---------- 手機 ----------
+   原則：能兩欄就兩欄、留白收緊，避免一項一列拉成長條 */
+@media(max-width:560px){
+
+    .disc-stage{
+        max-width:220px;
+    }
+
+    /* 散氣管是橫的，正方形畫布上下會空很多，改成扁一點 */
+    .tube-stage{
+        max-width:260px;
+        aspect-ratio:3 / 2;
+    }
+
+    .spec-shots,
+    .product-visual-panel{
+        max-width:260px;
+    }
+
+    /* 數據帶：維持 2×2，縮小字級與留白 */
+    .stat{
+        padding:22px 16px;
+    }
+
+    .stat .mono{
+        margin-bottom:12px;
+        font-size:12px;
+    }
+
+    .stat-num{
+        font-size:30px;
+    }
+
+    .stat-sub{
+        margin-top:8px;
+        font-size:13px;
+        line-height:1.5;
+    }
+
+    /* 規格分頁按鈕 */
+    .spec-tab-buttons{
+        margin-bottom:24px;
+    }
+
+    .spec-tab-btn{
+        padding:9px 16px;
+        min-height:40px;
+        font-size:14px;
+    }
+
+    .spec-group-title{
+        margin-bottom:18px;
+    }
+
+    .spec-group-title h3{
+        font-size:22px;
+    }
+
+    /* 資料格兩欄 */
+    .spec-grid,
+    .spec-grid.compact{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .spec-card{
+        padding:14px;
+    }
+
+    .spec-label{
+        margin-bottom:5px;
+        font-size:12px;
+        letter-spacing:.06em;
+    }
+
+    .spec-card strong{
+        font-size:15px;
+    }
+
+    /* 特色線列：兩欄 */
+    .flat-feature-card,
+    .flat-feature-card:hover{
+        gap:4px;
+        align-content:start;
+        padding:16px 12px 16px 0;
+    }
+
+    .flat-feature-grid:not(.is-single) .flat-feature-card:nth-child(even),
     .flat-feature-grid:not(.is-single) .flat-feature-card:nth-child(even):hover{
-        padding-left:18px;
+        padding-left:14px;
     }
 
-    .why-grid{
-        grid-template-columns:1fr;
+    .flat-feature-card span{
+        font-size:15px;
     }
 
+    .flat-feature-card strong{
+        font-size:14px;
+        line-height:1.55;
+    }
+
+    /* 結構清單：保留桌機的 2–2–1 排法 */
+    .struct-item{
+        gap:4px;
+        padding:16px 12px 16px 0;
+    }
+
+    .struct-grid .struct-item:nth-child(even){
+        padding-left:14px;
+    }
+
+    .struct-item h3{
+        font-size:15px;
+    }
+
+    .struct-item p{
+        font-size:14px;
+        line-height:1.55;
+    }
+
+    /* 散氣管特色清單：短句，兩欄放得下 */
+    .product-tab-panel ul{
+        grid-template-columns:1fr 1fr;
+        column-gap:14px;
+
+        margin-top:20px;
+    }
+
+    .product-tab-panel li{
+        gap:8px;
+        padding:10px 0;
+
+        font-size:14px;
+        line-height:1.5;
+    }
+
+    /* 應用標籤 */
+    .tag-group{
+        gap:8px;
+        margin-top:20px;
+    }
+
+    .feature-tag{
+        gap:8px;
+        padding:8px 14px;
+        font-size:14px;
+    }
+
+    /* 供貨清單 */
+    .supply-item{
+        grid-template-columns:40px 1fr;
+        gap:14px;
+
+        padding:16px 0;
+    }
+
+    .icon{
+        width:40px;
+        height:40px;
+
+        border-radius:var(--r-sm);
+
+        font-size:14px;
+    }
+
+    .supply-item p{
+        font-size:14px;
+        line-height:1.6;
+    }
+
+    /* 為什麼選擇：段落較長，兩欄太擠，回到單欄但收緊留白 */
+    .why-grid,
     .why-grid.is-4{
         grid-template-columns:1fr;
     }
@@ -1663,26 +1913,29 @@
     .why-card,
     .why-card:nth-child(3n+2),
     .why-card:nth-child(3n),
-    .why-grid.is-4 .why-card:not(:nth-child(4n+1)){
-        padding:28px 0;
+    .why-card:nth-child(even),
+    .why-grid.is-4 .why-card:not(:nth-child(4n+1)),
+    .why-grid.is-4 .why-card:nth-child(even){
+        padding:20px 0;
         border-left:none;
     }
-}
 
-@media(max-width:560px){
-
-    .stats-grid{
-        grid-template-columns:1fr;
+    .why-number{
+        margin-bottom:10px;
     }
 
-    .stat{
-        min-height:0;
-        border-right:none;
+    .why-card h3{
+        margin-bottom:6px;
+        font-size:16px;
     }
 
-    .spec-grid,
-    .spec-grid.compact{
-        grid-template-columns:1fr;
+    .why-card p{
+        font-size:14px;
+        line-height:1.6;
+    }
+
+    .cutaway{
+        padding:20px;
     }
 
     .disc-callout,

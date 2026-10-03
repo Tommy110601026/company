@@ -239,7 +239,7 @@ p{
     color:var(--muted-d);
 }
 
-@media(max-width:800px){
+@media(max-width:900px){
 
     .section-head{
         grid-template-columns:1fr;
@@ -551,7 +551,7 @@ p{
     50%{opacity:.35;transform:scale(.7)}
 }
 
-@media(max-width:960px){
+@media(max-width:900px){
 
     .hero{
         padding:120px 0 72px;
@@ -651,7 +651,7 @@ p{
     background:var(--green-hi);
 }
 
-@media(max-width:768px){
+@media(max-width:900px){
 
     .scroll-top-btn{
         right:18px;
@@ -734,9 +734,14 @@ textarea:focus-visible{
     }
 }
 
+/* 手機：全站左右留白統一 16px，區塊上下留白收緊 */
 @media(max-width:560px){
 
     .container{
         width:min(100% - 32px, 1280px);
+    }
+
+    .section-pad{
+        padding:64px 0;
     }
 }

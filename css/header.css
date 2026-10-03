@@ -335,20 +335,37 @@ header.is-stuck .navbar{
     .mobile-menu-btn{
         display:block;
     }
+
+    /* 選單裡已有「聯絡我們」，header 不重複放。
+       按鈕仍保留在 DOM，選單的聯絡按鈕會轉呼叫它開啟詢價視窗 */
+    .quote-btn{
+        display:none;
+    }
+
+    .navbar,
+    header.is-stuck .navbar{
+        padding:10px 0;
+    }
+
+    .nav-actions{
+        gap:4px;
+    }
 }
 
 @media(max-width:560px){
 
-    .nav-actions{
-        gap:12px;
-    }
-
-    .quote-btn{
-        padding:11px 16px;
-        font-size:14px;
-    }
-
     .logo img{
-        height:34px;
+        height:30px;
+        border-radius:6px;
+    }
+
+    .lang-btn{
+        padding:8px;
+        font-size:13px;
+    }
+
+    .mobile-menu-btn{
+        margin-right:-10px;
+        font-size:20px;
     }
 }

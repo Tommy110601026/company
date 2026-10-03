@@ -110,7 +110,7 @@
    03. 響應式
 ========================================================= */
 
-@media(max-width:860px){
+@media(max-width:900px){
 
     .intro-grid{
         grid-template-columns:1fr;
@@ -122,7 +122,8 @@
         border-left:none;
     }
 
-    .hero-logo-box{
-        padding:32px;
+    /* 首頁 hero 右側只是一張 logo，手機上與 header 重複，直接隱藏 */
+    .hero-card{
+        display:none;
     }
 }

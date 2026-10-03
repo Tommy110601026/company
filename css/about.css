@@ -83,34 +83,25 @@
    03. 資訊卡
 ========================================================= */
 
+/* 桌機三欄並排；平板 2＋1；手機改成左右滑動（見 04. 響應式） */
 .grid-2{
     display:grid;
-    grid-template-columns:repeat(2, 1fr);
+    grid-template-columns:repeat(3, 1fr);
 
     border-top:1px solid var(--line);
 }
 
-/* 第三張卡橫跨整列，避免落單時左右不平衡 */
-.grid-2 .info-card:nth-child(3){
-    grid-column:1 / -1;
-}
-
 .info-card{
-    padding:36px 44px 36px 0;
+    padding:36px 36px 36px 0;
 
     border-bottom:1px solid var(--line);
 
     transition:background .3s ease;
 }
 
-.info-card:nth-child(even){
-    padding-left:44px;
+.info-card + .info-card{
+    padding-left:36px;
     border-left:1px solid var(--line);
-}
-
-.info-card:nth-child(3){
-    padding-left:0;
-    border-left:none;
 }
 
 .info-card:hover{
@@ -175,17 +166,76 @@
         gap:20px;
     }
 
+    .about-section{
+        margin-bottom:56px;
+    }
+
+    /* 平板：兩欄，第三張橫跨整列 */
     .grid-2{
-        grid-template-columns:1fr;
+        grid-template-columns:repeat(2, 1fr);
+    }
+
+    .info-card:nth-child(3){
+        grid-column:1 / -1;
+
+        padding-left:0;
+        border-left:none;
+    }
+}
+
+/* 手機：三張卡片並排、左右滑動，下一張露出邊緣提示可以滑 */
+@media(max-width:560px){
+
+    .about-container{
+        width:min(100% - 32px, 1280px);
+        padding:64px 0;
+    }
+
+    .grid-2{
+        display:flex;
+        gap:12px;
+
+        margin-inline:-16px;
+        padding:0 16px 8px;
+
+        border-top:none;
+
+        overflow-x:auto;
+        scroll-snap-type:x mandatory;
+        scroll-padding-inline:16px;
+        scrollbar-width:none;
+    }
+
+    .grid-2::-webkit-scrollbar{
+        display:none;
     }
 
     .info-card,
-    .info-card:nth-child(even){
-        padding:28px 0;
-        border-left:none;
+    .info-card + .info-card,
+    .info-card:nth-child(3){
+        flex:0 0 85%;
+
+        padding:22px 18px;
+
+        background:var(--white);
+        border:1px solid var(--line);
+        border-radius:var(--r-md);
+
+        scroll-snap-align:start;
     }
 
-    .about-section{
-        margin-bottom:56px;
+    .info-card h3{
+        margin-bottom:12px;
+        font-size:19px;
+    }
+
+    .info-card p,
+    .info-card li{
+        font-size:15px;
+        line-height:1.7;
+    }
+
+    .info-card li{
+        padding:8px 0;
     }
 }

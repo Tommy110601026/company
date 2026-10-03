@@ -36,6 +36,11 @@ export async function initDownloadList(){
         // 逐筆產生下載卡片
         files.forEach((file) => {
 
+            // 沒有設定顯示名稱時，退回使用檔名
+            const title =
+                (isEnglish ? file.titleEn : file.titleZh) ||
+                file.fileName;
+
             const description =
                 isEnglish
                     ? file.descriptionEn
@@ -99,7 +104,7 @@ export async function initDownloadList(){
                     <div class="file-content">
 
                         <h3>
-                            ${escapeHtml(file.fileName)}
+                            ${escapeHtml(title)}
                         </h3>
 
                         <p class="file-description">
