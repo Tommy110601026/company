@@ -158,6 +158,12 @@ footer a:hover{
     letter-spacing:.06em;
 }
 
+/* 版權文字是後台隱藏入口（js/secret-entry.js），連點時不要反白選取文字 */
+.copyright span{
+    user-select:none;
+    -webkit-user-select:none;
+}
+
 
 /* =========================================================
    05. 響應式

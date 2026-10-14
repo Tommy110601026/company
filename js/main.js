@@ -11,6 +11,7 @@ import { initScrollTop } from "./scroll-top.js";
 import { initStatCount } from "./stat-count.js";
 import { initHeroBubbles } from "./hero-bubbles.js";
 import { initSealToggle } from "./seal-toggle.js";
+import { initSecretEntry } from "./secret-entry.js";
 
 async function initApp(){
 
@@ -22,6 +23,7 @@ async function initApp(){
     initSlider();
     initProductTabs();
     initScrollTop();
+    initSecretEntry();
 
     // 以下需要等 footer / 手機選單 / 詢價視窗載入完成。
     // initActiveNav 也要標記手機選單裡的連結，所以必須排在後面。

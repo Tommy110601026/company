@@ -1,7 +1,15 @@
 // =========================
 // Download List
-// 從 JSON 讀取下載資料，並自動產生下載卡片
+// 從 Supabase 讀取下載資料，並自動產生下載卡片
+// 資料由 /admin/ 後台維護
 // =========================
+
+import {
+    SUPABASE_URL,
+    SUPABASE_KEY,
+    getFileUrl,
+    formatFileSize
+} from "./supabase-config.js";
 
 export async function initDownloadList(){
 
@@ -18,13 +26,20 @@ export async function initDownloadList(){
 
     try{
 
-        // 讀取 downloads.json
+        // 讀取已上架的型錄，依後台設定的順序排列
+        // （RLS 只允許訪客讀到 published = true 的資料）
         const response =
-            await fetch("../../data/downloads.json");
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/downloads` +
+                "?select=*&order=sort_order.asc,created_at.desc",
+                {
+                    headers: { apikey: SUPABASE_KEY }
+                }
+            );
 
         if(!response.ok){
 
-            throw new Error("downloads.json 載入失敗");
+            throw new Error("型錄資料載入失敗");
         }
 
         const files =
@@ -38,18 +53,18 @@ export async function initDownloadList(){
 
             // 沒有設定顯示名稱時，退回使用檔名
             const title =
-                (isEnglish ? file.titleEn : file.titleZh) ||
-                file.fileName;
+                (isEnglish ? file.title_en : file.title_zh) ||
+                file.file_name;
 
             const description =
                 isEnglish
-                    ? file.descriptionEn
-                    : file.descriptionZh;
+                    ? file.description_en
+                    : file.description_zh;
 
             const highlights =
                 isEnglish
-                    ? file.highlightsEn
-                    : file.highlightsZh;
+                    ? file.highlights_en
+                    : file.highlights_zh;
 
             const uploadLabel =
                 isEnglish
@@ -58,19 +73,21 @@ export async function initDownloadList(){
 
             // 取得檔案類型，例如 PDF、DOCX、XLSX、ZIP
             const fileType =
-                file.fileType
-                    ? file.fileType.toUpperCase()
+                file.file_type
+                    ? file.file_type.toUpperCase()
                     : "FILE";
 
-            // 優先使用 previewUrl
-            // 沒有設定時，直接使用原本的 fileUrl
             const previewUrl =
-                file.previewUrl || file.fileUrl;
+                getFileUrl(file.file_path);
+
+            // 檔案在 Supabase 網域，<a download> 跨網域會失效，
+            // 改用 Storage 的 ?download= 讓瀏覽器以原始檔名下載
+            const downloadUrl =
+                `${previewUrl}?download=${encodeURIComponent(file.file_name)}`;
 
             // 目前僅讓 PDF 顯示線上預覽功能
             const canPreview =
-                fileType === "PDF" &&
-                Boolean(previewUrl);
+                fileType === "PDF";
 
             // 依照檔案類型自動產生顯示文字
             const fileTypeLabel =
@@ -116,7 +133,7 @@ export async function initDownloadList(){
                         <div class="file-meta">
 
                             <span>
-                                ${uploadLabel}：${escapeHtml(file.uploadDate)}
+                                ${uploadLabel}：${escapeHtml(file.upload_date)}
                             </span>
 
                             <span>
@@ -124,7 +141,7 @@ export async function initDownloadList(){
                             </span>
 
                             <span>
-                                ${escapeHtml(file.fileSize)}
+                                ${escapeHtml(formatFileSize(file.file_size))}
                             </span>
 
                         </div>
@@ -152,8 +169,7 @@ export async function initDownloadList(){
 
                     <a
                         class="download-btn"
-                        href="${escapeHtml(file.fileUrl)}"
-                        download
+                        href="${escapeHtml(downloadUrl)}"
                     >
                         ${downloadButtonText}
                     </a>
@@ -218,12 +234,12 @@ function renderHighlights(highlights = []){
 
 // =========================
 // HTML 特殊字元轉義
-// 避免 JSON 內容破壞 HTML 結構
+// 避免後台輸入的內容破壞 HTML 結構
 // =========================
 
 function escapeHtml(value = ""){
 
-    return String(value)
+    return String(value ?? "")
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;")

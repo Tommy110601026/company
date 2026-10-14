@@ -10,7 +10,8 @@ EnviroValor Website是一個中英文雙語公司形象網站，主要用於展�
 * 公司首頁與品牌介紹
 * Disc Diffuser產品介紹頁
 * Tube Diffuser產品介紹頁
-* 型錄下載頁（由JSON資料驅動）
+* 型錄下載頁（資料存放於Supabase）
+* 型錄管理後台（`/admin/`）
 * 聯絡我們彈跳視窗
 * 聯絡表單寄信功能
 * SEO meta、Open Graph、hreflang、JSON-LD結構化資料、robots.txt與sitemap.xml設定
@@ -27,11 +28,16 @@ EnviroValor Website是一個中英文雙語公司形象網站，主要用於展�
 * Vercel
 * Vercel Serverless Function
 * Resend Email API
+* Supabase（Postgres、Storage、Auth）
 
 ## Folder Structure
 
 ```text
 company-main/
+├─ admin/
+│  ├─ admin.css
+│  ├─ admin.js
+│  └─ index.html
 ├─ api/
 │  └─ contact.js
 ├─ css/
@@ -43,12 +49,6 @@ company-main/
 │  ├─ header.css
 │  ├─ mobile-menu.css
 │  └─ product.css
-├─ data/
-│  └─ downloads.json
-├─ file/
-│  ├─ EV-270_Technical_Data_May_2026.pdf
-│  ├─ EnviroValor_Disc_Diffuser_Catalog.pdf
-│  └─ EnviroValor_Tube_Diffuser_600mm_Catalog.pdf
 ├─ html/
 │  ├─ components/
 │  │  ├─ en/
@@ -86,12 +86,16 @@ company-main/
 │  ├─ nav-dropdown.js
 │  ├─ product-slider.js
 │  ├─ product-tabs.js
-│  └─ scroll-top.js
+│  ├─ scroll-top.js
+│  ├─ secret-entry.js
+│  └─ supabase-config.js
 ├─ index.html
 ├─ package.json
 ├─ package-lock.json
 ├─ robots.txt
 ├─ sitemap.xml
+├─ supabase/
+│  └─ schema.sql
 ├─ .env.example
 ├─ .gitignore
 └─ README.md
@@ -269,8 +273,17 @@ JavaScript採用ES Modules，各頁面只載入進入點：
 
 * `js/download-list.js`
 
-  * 讀取`data/downloads.json`
+  * 從Supabase讀取已上架的型錄
   * 依語系產生下載卡片、線上預覽與下載按鈕
+
+* `js/supabase-config.js`
+
+  * Supabase網址與publishable key，前台與後台共用
+  * 檔案公開網址與檔案大小格式化工具
+
+* `js/secret-entry.js`
+
+  * 後台隱藏入口：3秒內連點頁尾版權文字5下，前往`/admin/`
 
 * `js/scroll-top.js`
 
@@ -280,27 +293,41 @@ JavaScript採用ES Modules，各頁面只載入進入點：
 
 ## Download Page Data
 
-型錄下載頁的內容不寫死在HTML，而是由`data/downloads.json`驅動，新增或修改型錄只需要改這個JSON檔。
+型錄下載頁的內容存放在Supabase，由`/admin/`後台維護，不需要改程式碼。
 
-欄位說明：
+流程：
 
-| 欄位 | 必填 | 說明 |
-| --- | --- | --- |
-| `fileName` | 是 | 檔案顯示名稱 |
-| `fileSize` | 是 | 檔案大小顯示文字，例如`1.2 MB` |
-| `uploadDate` | 是 | 上傳日期，格式`YYYY-MM-DD` |
-| `fileType` | 是 | 檔案類型，例如`PDF`，同時決定圖示文字 |
-| `fileUrl` | 是 | 檔案路徑，相對於下載頁的位置 |
-| `descriptionZh` / `descriptionEn` | 是 | 中英文說明文字 |
-| `highlightsZh` / `highlightsEn` | 否 | 中英文重點條列，未提供則不顯示 |
-| `previewUrl` | 否 | 線上預覽網址，未提供時使用`fileUrl` |
+```text
+業主登入 /admin/（Supabase Auth，Email + 密碼）
+→ 上傳檔案到Storage的downloads bucket
+→ 型錄資料寫入downloads資料表
+→ 前台js/download-list.js透過REST API讀取published = true的資料
+```
 
-注意事項：
+`downloads`資料表欄位：
 
-* 只有`fileType`為`PDF`時才會顯示「線上預覽」按鈕
-* `fileSize`為純顯示文字，不會自動計算，新增檔案時要自己確認單位（KB／MB）
-* `fileUrl`目前使用相對路徑`../../file/...`，是以`html/zh/`與`html/en/`的層級為基準
-* JSON內容會經過HTML escape後才輸出，避免破壞頁面結構
+| 欄位 | 說明 |
+| --- | --- |
+| `title_zh` / `title_en` | 中英文標題 |
+| `description_zh` / `description_en` | 中英文說明 |
+| `highlights_zh` / `highlights_en` | 中英文重點條列（陣列），空陣列則不顯示 |
+| `file_path` | Storage中的路徑 |
+| `file_name` | 下載時使用的原始檔名 |
+| `file_size` | 檔案大小（bytes），前台自動換算KB／MB |
+| `file_type` | 副檔名大寫，例如`PDF`，同時決定圖示文字 |
+| `upload_date` | 上傳日期 |
+| `sort_order` | 排列順序，數字小的在前 |
+| `published` | 是否顯示在網站上 |
+
+後台與權限：
+
+* 後台入口：`/admin/`，或在任一頁連點頁尾版權文字5下
+* 後台帳號在Supabase → Authentication → Users建立，並關閉公開註冊
+* 資料表、Storage bucket與RLS權限定義在`supabase/schema.sql`，可重複執行
+* 訪客只能讀取已上架的型錄；新增、修改、刪除需登入
+* `js/supabase-config.js`只能放publishable key，不可放secret／service_role key
+* 只有PDF會顯示「線上預覽」按鈕；下載按鈕使用Storage的`?download=`保留原始檔名
+* 後台限制：PDF／Word／Excel／ZIP，單檔50 MB，重點條列最多6點
 
 ## Contact Form Flow
 
@@ -507,8 +534,8 @@ chore     專案雜項
 * 修改Header時要同步更新10個頁面（尚未抽成共用元件）
 * 共用元件是否正常載入（`html/components/zh`與`html/components/en`要同步）
 * 圖片路徑是否正確
-* 新增型錄後`data/downloads.json`的檔案大小、日期與路徑是否正確
-* PDF下載路徑是否正確
+* 型錄下載頁是否能正常讀取Supabase資料，預覽與下載是否正常
+* Supabase免費方案專案閒置過久會暫停，需確認專案狀態
 * 手機版排版是否跑版
 * 聯絡表單是否能正常送出
 * Resend API key是否仍有效
@@ -524,7 +551,7 @@ chore     專案雜項
 後續可新增或優化：
 
 * Header抽成共用元件，比照footer放進`html/components/`
-* 資源路徑改為絕對路徑（`/data/`、`/file/`、`/html/components/`），避免相依頁面層級
+* 資源路徑改為絕對路徑（`/html/components/`），避免相依頁面層級
 * 新增`vercel.json`設定cleanUrls與根目錄語系redirect
 * 404頁面
 * 圖片壓縮與WebP格式、加上`loading="lazy"`
