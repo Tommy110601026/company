@@ -149,13 +149,9 @@
     to{transform:rotate(360deg)}
 }
 
-/* 標註線 */
+/* 標註線：引導線伸出標籤外，端點圓點落在盤子對應部位上 */
 .disc-callout{
     position:absolute;
-
-    display:flex;
-    align-items:center;
-    gap:8px;
 
     white-space:nowrap;
 
@@ -172,6 +168,8 @@
     border:1px solid var(--line-d);
     border-radius:var(--r-pill);
 
+    translate:0 -50%;
+
     /* 與 .disc 同一組浮動動畫、同時開始，引導線才會一直對準盤子 */
     animation:disc-float 7s ease-in-out infinite;
 }
@@ -179,22 +177,41 @@
 .disc-callout::before{
     content:"";
 
-    width:18px;
-    height:1px;
+    position:absolute;
+    top:50%;
 
-    background:var(--green-hi);
+    height:7px;
+    margin-top:-3.5px;
+
+    background:
+    radial-gradient(circle, var(--green-hi) 0 3px, transparent 3.5px) var(--dot-x) center / 7px 7px no-repeat,
+    linear-gradient(var(--green-hi), var(--green-hi)) center / 100% 1px no-repeat;
 }
 
+/* 右上：圓點落在 EPDM 膜片（深色區）上 */
 .disc-callout.pos-top{
-    top:4%;
-    right:-2%;
+    top:24%;
+    left:calc(72% + 72px);
 }
 
-.disc-callout.pos-bottom{
-    bottom:6%;
-    left:-4%;
+.disc-callout.pos-top::before{
+    --dot-x:left;
 
-    flex-direction:row-reverse;
+    right:100%;
+    width:72px;
+}
+
+/* 左下：圓點落在白色 P.P. 外圈上 */
+.disc-callout.pos-bottom{
+    top:85%;
+    right:calc(70% + 48px);
+}
+
+.disc-callout.pos-bottom::before{
+    --dot-x:right;
+
+    left:100%;
+    width:48px;
 }
 
 /* =========================================================
@@ -423,13 +440,11 @@
     bottom:56%;
 }
 
-/* 標註線與散氣盤共用同一套樣式 */
+/* 標註線：垂直引導線，端點圓點落在管身／束環上 */
 .tube-callout{
     position:absolute;
 
-    display:flex;
-    align-items:center;
-    gap:8px;
+    translate:-50% 0;
 
     white-space:nowrap;
 
@@ -438,27 +453,49 @@
     letter-spacing:.1em;
 
     color:rgba(255,255,255,.72);
+
+    /* 與 .tube 同一組浮動動畫，引導線才會一直對準管子 */
+    animation:tube-float 7s ease-in-out infinite;
 }
 
 .tube-callout::before{
     content:"";
 
-    width:26px;
-    height:1px;
+    position:absolute;
+    left:50%;
 
-    background:rgba(255,255,255,.28);
+    width:7px;
+    margin-left:-3.5px;
+
+    background:
+    radial-gradient(circle, var(--green-hi) 0 3px, transparent 3.5px) center var(--dot-y) / 7px 7px no-repeat,
+    linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)) center / 1px 100% no-repeat;
 }
 
+/* 上方：圓點落在兩道束環之間的膜片上 */
 .tube-callout.pos-top{
-    top:22%;
-    right:2%;
+    left:62%;
+    bottom:calc(56% + 52px);
 }
 
-.tube-callout.pos-bottom{
-    bottom:34%;
-    left:2%;
+.tube-callout.pos-top::before{
+    --dot-y:bottom;
 
-    flex-direction:row-reverse;
+    top:calc(100% + 6px);
+    height:46px;
+}
+
+/* 下方：圓點落在左側 304 不鏽鋼束環上 */
+.tube-callout.pos-bottom{
+    left:calc(21.6% + 5px);
+    top:calc(59.5% + 26px);
+}
+
+.tube-callout.pos-bottom::before{
+    --dot-y:top;
+
+    bottom:calc(100% + 6px);
+    height:22px;
 }
 
 
@@ -1586,6 +1623,11 @@
     .disc-stage,
     .tube-stage{
         max-width:300px;
+    }
+
+    /* 畫布變小後，下方束環標籤會壓到尺寸線，尺寸線往下移 */
+    .tube-dim{
+        bottom:12%;
     }
 
     .spec-shots,
