@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>產品頁架構比較</title>
+<style>
+:root{
+    --ink:#04141d;
+    --paper:#f6f8f7;
+    --paper-2:#eceff0;
+    --white:#fff;
+    --green:#35b34a;
+    --green-t:#14713a;
+    --green-bg:rgba(53,179,74,.12);
+    --amber:#8a5a00;
+    --amber-bg:#fff4d6;
+    --red:#b42318;
+    --red-bg:#fdecea;
+    --blue:#1d5f8a;
+    --blue-bg:#e3f1f8;
+    --text:#0e1c26;
+    --muted:#556873;
+    --line:rgba(14,28,38,.12);
+    --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Segoe UI",sans-serif;
+    font-size:15px;line-height:1.7;color:var(--text);background:var(--paper);
+}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 24px 80px}
+header.top{margin-bottom:32px}
+h1{font-size:28px;margin-bottom:6px}
+h2{font-size:21px;margin:48px 0 6px;padding-top:8px}
+h2 small{font-size:14px;font-weight:400;color:var(--muted);margin-left:8px}
+.lead{color:var(--muted);max-width:760px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.toc a{padding:4px 12px;border:1px solid var(--line);border-radius:100px;background:var(--white);color:var(--text);text-decoration:none;font-size:14px}
+.toc a:hover{border-color:var(--green)}
+code{font-family:var(--mono);font-size:12.5px;background:var(--paper-2);padding:1px 6px;border-radius:5px;overflow-wrap:anywhere}
+.card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:16px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:12px;font-size:13px;color:var(--muted)}
+
+/* 狀態標籤 */
+.tag{display:inline-block;padding:1px 9px;border-radius:100px;font-size:12px;font-weight:700;white-space:nowrap}
+.t-ok{color:var(--green-t);background:var(--green-bg)}
+.t-warn{color:var(--amber);background:var(--amber-bg)}
+.t-no{color:var(--muted);background:var(--paper-2)}
+.t-new{color:var(--blue);background:var(--blue-bg)}
+.t-bad{color:var(--red);background:var(--red-bg)}
+
+/* A. 目前頁面流程 */
+.flow{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
+.flow-col h3{font-size:16px;margin-bottom:10px}
+.blk{border-radius:10px;padding:10px 14px;margin-bottom:8px;border:1px solid var(--line)}
+.blk .k{font-size:12px;color:var(--muted)}
+.blk.dark .k{color:rgba(233,244,248,.65)}
+.blk b{display:block;font-size:15px}
+.blk .c{font-family:var(--mono);font-size:12px;opacity:.75;overflow-wrap:anywhere}
+.blk.light{background:#f6f8f7}
+.blk.white{background:#fff}
+.blk.dark{background:#082433;color:#e9f4f8;border-color:#082433}
+.blk.hero{background:linear-gradient(135deg,#04141d,#0d3245);color:#e9f4f8;border-color:#04141d}
+.blk.hero .k{color:rgba(233,244,248,.65)}
+
+/* B. 統一骨架表 */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:12px 10px;text-align:left;vertical-align:top}
+th{background:var(--paper-2);font-size:13px;white-space:nowrap}
+td.slot{white-space:nowrap;font-weight:700}
+td.slot .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;margin-right:6px}
+td ul{padding-left:18px}
+td li{margin:2px 0}
+td p + p,td p + ul,td ul + p{margin-top:6px}
+.note{margin-top:6px;font-size:13px;color:var(--muted)}
+.scroll{overflow-x:auto}
+
+details{margin-top:8px}
+summary{cursor:pointer;color:var(--green-t);font-size:13px;font-weight:600}
+details ul,details ol{margin-top:6px;font-size:13.5px}
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:2px 12px;font-size:13.5px;margin-top:6px}
+.kv dt{color:var(--muted)}
+
+/* D. 待確認清單 */
+.q{display:grid;grid-template-columns:40px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
+.q:last-child{border-bottom:0}
+.q .num{width:32px;height:32px;border-radius:50%;background:var(--amber-bg);color:var(--amber);font-weight:700;display:grid;place-items:center}
+.q h4{font-size:15.5px;margin-bottom:4px}
+.q .rec{margin-top:6px;padding:8px 12px;border-left:3px solid var(--green);background:var(--green-bg);border-radius:0 8px 8px 0;font-size:14px}
+
+/* 骨架示意圖 */
+.skeleton{display:grid;grid-template-columns:200px 1fr;gap:16px;margin-top:16px}
+.sk-toc{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:13.5px;align-self:start;position:sticky;top:16px}
+.sk-toc b{display:block;margin-bottom:8px;font-size:12px;color:var(--muted)}
+.sk-toc div{padding:4px 8px;border-radius:6px}
+.sk-toc .on{background:var(--green-bg);color:var(--green-t);font-weight:700}
+.sk-toc .opt{color:var(--muted);font-style:italic}
+.sk-main .blk{display:flex;justify-content:space-between;gap:12px;align-items:center}
+
+@media (max-width:760px){
+    .wrap{padding:24px 16px 60px}
+    .flow,.skeleton{grid-template-columns:1fr}
+    .sk-toc{position:static}
+    th,td{padding:10px 8px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+    <h1>產品頁架構比較：散氣盤 vs 散氣管</h1>
+    <p class="lead">
+        整理自 <code>html/zh/disc-diffuser.html</code> 與 <code>html/zh/tube-diffuser.html</code>。
+        英文版的架構與中文版完全相同，確認後 4 個檔案會一起改。
+        這份只是內部檢視用，沒有連到網站任何地方。
+    </p>
+    <nav class="toc">
+        <a href="#plan">規劃總覽</a>
+        <a href="#a">A. 目前頁面流程</a>
+        <a href="#b">B. 建議統一骨架</a>
+        <a href="#c">C. 寫法差異</a>
+        <a href="#d">D. 規格欄位名稱</a>
+        <a href="#e">E. 需要你確認</a>
+        <a href="#f">F. 新產品上架清單</a>
+    </nav>
+</header>
+
+
+<!-- ===================================================== -->
+<h2 id="plan">規劃總覽：5 個統稱大類 <small>大類固定，底下的細項依產品增減</small></h2>
+<p class="lead">
+    把寫得比較細的區塊收進 5 個統稱大類。<b>每個產品都有同樣的 5 大類</b>，目錄也就固定是這 5 項；
+    各產品的差異只出現在大類底下的細項。之後上架新產品，就是照這 5 類準備內容。
+</p>
+
+<div class="card scroll">
+<table>
+    <thead>
+        <tr>
+            <th style="width:150px">大類（目錄名稱）</th>
+            <th>包含的區塊</th>
+            <th>散氣盤的細項</th>
+            <th>散氣管的細項</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="slot"><span class="n">1</span>產品概覽</td>
+            <td>Hero、數據帶、重點卡片</td>
+            <td>8 張重點卡片</td>
+            <td>8 張重點卡片（草稿，見 E-2）</td>
+        </tr>
+        <tr>
+            <td class="slot"><span class="n">2</span>結構設計</td>
+            <td>結構分頁<br>＋ 特殊設計（選用）</td>
+            <td>EPDM 膜片／P.P. 支撐本體／<b>自密封防逆流</b>（附剖面互動圖）</td>
+            <td>旋熔式進氣結構／EPDM 膜片／ABS 本體與 304 束環</td>
+        </tr>
+        <tr>
+            <td class="slot"><span class="n">3</span>規格資料</td>
+            <td>產品照片、規格分頁<br>＋ 型錄下載（之後）</td>
+            <td>基本規格／性能數據／材質與結構</td>
+            <td>基本規格／性能數據／材質與結構</td>
+        </tr>
+        <tr>
+            <td class="slot"><span class="n">4</span>應用與效益</td>
+            <td>性能優勢標籤、應用範圍標籤</td>
+            <td>6 個性能（草稿）＋ 8 個應用</td>
+            <td>9 個性能 ＋ 8 個應用</td>
+        </tr>
+        <tr>
+            <td class="slot"><span class="n">5</span>供貨與支援</td>
+            <td>共用元件（兩頁同一份）＋ 詢價按鈕</td>
+            <td colspan="2">現貨供應／快速交貨／可提供樣品／B2B 合作（兩頁相同）</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<h3 style="margin-top:24px;font-size:16px">規格分頁也用統稱：每個產品都是這 3 組</h3>
+<div class="card scroll">
+<table>
+    <thead>
+        <tr><th style="width:130px">規格分組</th><th>散氣盤</th><th>散氣管</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="slot">基本規格</td>
+            <td>型號 EV-270・類型・氣泡尺寸</td>
+            <td>型號 EVT-600・類型・尺寸 600 × 65 × 3/4" PT・重量 約 0.9 kg</td>
+        </tr>
+        <tr>
+            <td class="slot">性能數據</td>
+            <td>氧氣利用率 25%・氧氣傳輸率 9.96 kg-O₂/hr・設計重點</td>
+            <td>通氣量 1.8–12 CMH・膜片開孔數 13,500 孔・孔徑 約 1–3 mm</td>
+        </tr>
+        <tr>
+            <td class="slot">材質與結構</td>
+            <td>膜片 EPDM（伸長率、拉伸強度、硬度、耐熱等 7 項）・本體 P.P.・防逆流 自密封膜片</td>
+            <td>膜片 EPDM・本體 ABS・束環 304 不鏽鋼・進氣結構 旋熔接合・漏氣控制 逐支測漏</td>
+        </tr>
+    </tbody>
+</table>
+<p class="note">目前散氣盤的第 3 組叫「EPDM 膜片」，散氣管沒有分組；統一後兩頁都是這 3 個分頁名稱。某組沒資料就不顯示。</p>
+</div>
+
+<h3 style="margin-top:24px;font-size:16px">目錄怎麼運作</h3>
+<div class="card">
+    <ul style="padding-left:20px">
+        <li><b>桌機</b>：內容左側固定一欄，列出 5 大類。捲到哪一類就亮哪一類，並展開它底下的細項（例如結構設計 → 各分頁名稱），點細項直接跳過去並切到那個分頁。</li>
+        <li><b>手機</b>：頁面上方一條固定的橫向標籤列，只放 5 大類，可左右滑動。</li>
+        <li><b>自動產生</b>：目錄從頁面上的區塊標題和分頁名稱抓，不用另外維護。新產品照骨架寫好，目錄就自動出現。</li>
+    </ul>
+</div>
+
+
+<!-- ===================================================== -->
+<h2 id="a">A. 目前頁面流程 <small>由上到下，色塊代表區塊背景色</small></h2>
+<p class="lead">兩頁只有 Hero、數據帶、規格這三塊對得上，其餘區塊的種類、順序、元件都不一樣。</p>
+
+<div class="flow">
+
+    <div class="flow-col">
+        <h3>散氣盤（disc）・1036 行</h3>
+        <div class="blk hero"><span class="k">Hero</span><b>穩定可靠的曝氣效能，支援快速供貨</b><span class="c">3 段文字 + hero-note・disc-stage 動畫</span></div>
+        <div class="blk white"><span class="k">數據帶</span><b>4 項：氧氣利用率／氧氣傳輸率／氣泡尺寸／伸長率</b><span class="c">.stats</span></div>
+        <div class="blk light"><span class="k">01 產品特色</span><b>專為實際污水曝氣應用而設計</b><span class="c">.flat-feature-grid・8 張卡片</span></div>
+        <div class="blk dark"><span class="k">02 結構設計</span><b>EV-270 結構設計</b><span class="c">.structure-split + .struct-grid・5 項</span></div>
+        <div class="blk white"><span class="k">03 產品規格與性能資料 #specs</span><b>EV-270 細氣泡散氣盤</b><span class="c">.spec-shots（4 張照片）+ .spec-tabs（3 個分頁）</span></div>
+        <div class="blk dark"><span class="k">04 防逆流設計</span><b>自密封膜片結構</b><span class="c">.split-feature・SVG 互動切換 + 4 張卡片</span></div>
+        <div class="blk light"><span class="k">05 應用範圍 + 供貨優勢</span><b>典型應用／穩定供貨與快速支援</b><span class="c">.dual-summary-grid・8 個標籤 + .supply-list 4 項</span></div>
+    </div>
+
+    <div class="flow-col">
+        <h3>散氣管（tube）・843 行</h3>
+        <div class="blk hero"><span class="k">Hero</span><b>600 mm 細氣泡散氣管解決方案</b><span class="c">2 段文字・無 hero-note・tube-stage 動畫</span></div>
+        <div class="blk white"><span class="k">數據帶</span><b>4 項：通氣量／膜片開孔數／孔徑大小／重量</b><span class="c">.stats</span></div>
+        <div class="blk light"><span class="k">01 產品特色</span><b>核心結構與密封設計</b><span class="c">.product-tab-layout・3 個分頁（長文 + 條列）</span></div>
+        <div class="blk white"><span class="k">02 產品規格 #specs</span><b>散氣管產品規格</b><span class="c">.product-visual-panel（3 張照片 + badge）+ .specs-panel（單一列表 12 項）</span></div>
+        <div class="blk light"><span class="k">03 性能優勢 + 應用領域</span><b>高效率曝氣性能／多元水處理應用</b><span class="c">.summary-grid・9 個標籤 + 8 個標籤</span></div>
+        <div class="blk dark"><span class="k">04 為什麼選擇 EnviroValor</span><b>為什麼選擇 EnviroValor 散氣管？</b><span class="c">.why-grid・6 張編號卡片</span></div>
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<h2 id="b">B. 建議統一骨架 <small>兩頁都照這個順序，選用區塊沒有就整塊省略</small></h2>
+
+<div class="legend">
+    <span><span class="tag t-ok">現成</span> 內容已有，只需換成統一寫法</span>
+    <span><span class="tag t-warn">待確認</span> 需要調整或補內容</span>
+    <span><span class="tag t-no">不放</span> 該產品沒有此區塊</span>
+    <span><span class="tag t-new">新增</span> 目前兩頁都沒有</span>
+</div>
+
+<div class="skeleton">
+
+    <aside class="sk-toc">
+        <b>側邊目錄示意（散氣盤）</b>
+        <div>1 產品概覽</div>
+        <div class="on">2 結構設計</div>
+        <div style="padding-left:22px;font-size:12.5px">EPDM 膜片</div>
+        <div style="padding-left:22px;font-size:12.5px">P.P. 支撐本體</div>
+        <div style="padding-left:22px;font-size:12.5px" class="opt">自密封防逆流</div>
+        <div>3 規格資料</div>
+        <div>4 應用與效益</div>
+        <div>5 供貨與支援</div>
+    </aside>
+
+    <div class="sk-main">
+        <div class="blk hero"><div><span class="k">1・必備</span><b>Hero</b></div><span class="c">右側產品動畫各自保留</span></div>
+        <div class="blk white"><div><span class="k">2・必備</span><b>數據帶（固定 4 項）</b></div><span class="c">.stats</span></div>
+        <div class="blk light"><div><span class="k">3・必備</span><b>產品特色：重點卡片</b></div><span class="c">.flat-feature-grid</span></div>
+        <div class="blk dark"><div><span class="k">4・必備</span><b>結構設計：分頁說明</b></div><span class="c">.product-tab-layout</span></div>
+        <div class="blk white"><div><span class="k">5・必備 #specs</span><b>產品規格：照片 + 規格分頁</b></div><span class="c">.spec-tabs（1 組時隱藏分頁鈕）</span></div>
+        <div class="blk dark"><div><span class="k">6・選用</span><b>特殊設計</b></div><span class="c">.split-feature</span></div>
+        <div class="blk light"><div><span class="k">7・必備</span><b>性能與應用：兩欄標籤</b></div><span class="c">.summary-grid</span></div>
+        <div class="blk dark"><div><span class="k">8・共用元件</span><b>供貨與支援</b></div><span class="c">兩頁同一份 HTML</span></div>
+        <div class="blk white"><div><span class="k">9・選用</span><b>型錄下載</b></div><span class="c">從後台讀取</span></div>
+    </div>
+
+</div>
+
+<div class="card scroll">
+<table>
+    <thead>
+        <tr>
+            <th style="width:150px">區塊</th>
+            <th style="width:32%">散氣盤</th>
+            <th style="width:32%">散氣管</th>
+            <th>說明</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td class="slot"><span class="n">1</span>Hero</td>
+            <td>
+                <span class="tag t-ok">現成</span>
+                <p>eyebrow：細氣泡散氣盤<br>h1：穩定可靠的曝氣效能，支援快速供貨<br>3 段內文 + hero-note「現貨供應。快速交貨。可依需求提供樣品。」</p>
+            </td>
+            <td>
+                <span class="tag t-warn">待確認</span>
+                <p>eyebrow：細氣泡散氣管<br>h1：600 mm 細氣泡散氣管解決方案<br>2 段內文，<b>沒有 hero-note</b></p>
+            </td>
+            <td>hero-note 改成選用，或兩頁都放（見 E-1）。內文段數不強制一致。</td>
+        </tr>
+
+        <tr>
+            <td class="slot"><span class="n">2</span>數據帶</td>
+            <td>
+                <span class="tag t-ok">現成</span>
+                <p>氧氣利用率 25%・氧氣傳輸率 9.96 kg-O₂/hr・氣泡尺寸 約 1–3 mm・伸長率 588%</p>
+            </td>
+            <td>
+                <span class="tag t-ok">現成</span>
+                <p>通氣量 1.8–12 CMH・膜片開孔數 13,500 孔・孔徑 約 1–3 mm・重量 約 0.9 kg</p>
+            </td>
+            <td>已經一致，維持 4 項即可。</td>
+        </tr>
+
+        <tr>
+            <td class="slot"><span class="n">3</span>產品特色</td>
+            <td>
+                <span class="tag t-ok">現成</span>
+                <p>「專為實際污水曝氣應用而設計」・8 張卡片</p>
+                <details>
+                    <summary>看全部 8 張</summary>
+                    <dl class="kv">
+                        <dt>細氣泡產生</dt><dd>產生細緻氣泡，增加氣液接觸面積</dd>
+                        <dt>氣泡大小</dt><dd>約 1–3 mm</dd>
+                        <dt>膜片材質</dt><dd>適用於污水曝氣環境的 EPDM 膜片</dd>
+                        <dt>支撐本體</dt><dd>耐用 P.P. 基座結構</dd>
+                        <dt>防逆流設計</dt><dd>自密封膜片結構有助於降低污水逆流</dd>
+                        <dt>節能效率</dt><dd>低壓損設計有助於降低鼓風機阻力</dd>
+                        <dt>安裝應用</dt><dd>適用於固定式曝氣管架與汰換工程</dd>
+                        <dt>供貨能力</dt><dd>標準型號備有庫存</dd>
+                    </dl>
+                </details>
+            </td>
+            <td>
+                <span class="tag t-warn">待確認</span>
+                <p><b>目前沒有這種卡片。</b>以下是我從現有內容整理的草稿，沒有新增任何事實：</p>
+                <details open>
+                    <summary>草稿 8 張</summary>
+                    <dl class="kv">
+                        <dt>細氣泡產生</dt><dd>孔徑約 1–3 mm，均勻細氣泡分布</dd>
+                        <dt>膜片開孔</dt><dd>最高約 13,500 孔，模壓成型</dd>
+                        <dt>膜片材質</dt><dd>EPDM，抗 UV、耐酸鹼與耐腐蝕</dd>
+                        <dt>支撐本體</dt><dd>ABS 中空設計，降低浮力負荷</dd>
+                        <dt>固定方式</dt><dd>304 不鏽鋼束環，避免膜片鬆脫</dd>
+                        <dt>密封設計</dt><dd>一體成型進氣口，旋熔接合</dd>
+                        <dt>品質檢測</dt><dd>每支出貨前皆經測漏檢測</dd>
+                        <dt>通氣範圍</dt><dd>1.8–12 CMH，廣泛曝氣範圍</dd>
+                    </dl>
+                </details>
+            </td>
+            <td>「重點一覽」，給快速瀏覽的人看。見 E-2。</td>
+        </tr>
+
+        <tr>
+            <td class="slot"><span class="n">4</span>結構設計</td>
+            <td>
+                <span class="tag t-warn">待確認</span>
+                <p>「EV-270 結構設計」・目前是 5 個短項目（每項一句話），不是分頁</p>
+                <details>
+                    <summary>看全部 5 項</summary>
+                    <dl class="kv">
+                        <dt>EPDM 膜片</dt><dd>提供彈性、拉伸強度與穩定的細氣泡釋放</dd>
+                        <dt>P.P. 支撐本體</dt><dd>適用於污水環境，提供耐用支撐</dd>
+                        <dt>自密封膜片結構</dt><dd>停止供氣時有助於降低污水逆流</dd>
+                        <dt>細氣泡出氣設計</dt><dd>支援約 1–3 mm 的氣泡產生</dd>
+                        <dt>低壓損設計</dt><dd>有助於降低鼓風機負載與運轉能耗</dd>
+                    </dl>
+                </details>
+            </td>
+            <td>
+                <span class="tag t-ok">現成</span>
+                <p>「核心結構與密封設計」・3 個分頁，每頁有 2–3 段長文，第 1 頁另有 6 點條列</p>
+                <details>
+                    <summary>看 3 個分頁標題</summary>
+                    <ol>
+                        <li>旋熔式進氣結構，並逐支測漏（密封可靠、降低側漏）</li>
+                        <li>模壓成型 EPDM 膜片（長期污水曝氣應用）</li>
+                        <li>ABS 支撐本體與 304 不鏽鋼束環（穩定支撐與固定）</li>
+                    </ol>
+                </details>
+            </td>
+            <td>統一用分頁元件，分頁數 3–5 個都可以。散氣盤每個分頁的內文需要補（見 E-3）。</td>
+        </tr>
+
+        <tr>
+            <td class="slot"><span class="n">5</span>產品規格</td>
+            <td>
+                <span class="tag t-warn">待確認</span>
+                <p>照片 4 張・3 個規格分頁：</p>
+                <ul>
+                    <li>基本規格（8 項）</li>
+                    <li>氧氣傳輸性能（6 項，<b>其中型號／類型／氣泡尺寸 3 項跟基本規格重複</b>）</li>
+                    <li>EPDM 膜片（7 項）</li>
+                </ul>
+            </td>
+            <td>
+                <span class="tag t-warn">待確認</span>
+                <p>照片 3 張 + 「600 mm 標準規格」badge・<b>單一列表 12 項，沒有分頁</b></p>
+                <p class="note">照片從 <code>tube/02.jpg</code> 開始，<code>tube/01.jpg</code> 沒有用到。</p>
+            </td>
+            <td>統一用規格分頁元件，只有 1 組時自動隱藏分頁按鈕。見 E-4、E-5。</td>
+        </tr>
+
+        <tr>
+            <td class="slot"><span class="n">6</span>特殊設計<br><span class="tag t-no" style="margin-top:6px">選用</span></td>
+            <td>
+                <span class="tag t-ok">現成</span>
+                <p>「自密封膜片結構」・SVG 剖面圖可切換供氣／停氣 + 4 張卡片</p>
+                <p class="note">右欄說明文字目前寫了 inline style，會改成 class。</p>
+            </td>
+            <td>
+                <span class="tag t-no">不放</span>
+                <p>散氣管沒有對應的設計，整塊省略，側邊目錄也不會出現。</p>
+            </td>
+            <td>只有散氣盤有，不硬湊。</td>
+        </tr>
+
+        <tr>
+            <td class="slot"><span class="n">7</span>性能與應用</td>
+            <td>
+                <span class="tag t-warn">待確認</span>
+                <p>只有「典型應用」8 個標籤，<b>沒有性能優勢標籤</b></p>
+                <details>
+                    <summary>看應用標籤</summary>
+                    <p class="note">市政污水處理廠・工業廢水處理系統・生物處理槽・曝氣池汰換工程・SBR 系統・MBBR 與 IFAS 曝氣輔助・OEM 污水處理設備・承包商與經銷商備貨供應</p>
+                </details>
+                <details>
+                    <summary>性能優勢草稿（從現有內容整理）</summary>
+                    <p class="note">高氧氣傳輸效率・細緻氣泡・低壓力損失・降低鼓風機負載・自密封防逆流・長期穩定運轉</p>
+                </details>
+            </td>
+            <td>
+                <span class="tag t-ok">現成</span>
+                <p>性能優勢 9 個標籤 + 應用領域 8 個標籤</p>
+                <details>
+                    <summary>看全部標籤</summary>
+                    <p class="note"><b>性能：</b>高氧氣傳輸效率・均勻細氣泡分布・壓力損失低・操作能耗低・安裝容易・廣泛曝氣範圍・SBR 系統適用・自清潔設計・降低側漏風險</p>
+                    <p class="note"><b>應用：</b>市政污水處理・工業廢水處理・水處理系統・臭氧曝氣・污泥穩定化・養殖池曝氣・河川湖泊曝氣・SBR 系統</p>
+                </details>
+            </td>
+            <td>統一成左「性能優勢」、右「應用範圍」兩欄。見 E-6。</td>
+        </tr>
+
+        <tr>
+            <td class="slot"><span class="n">8</span>供貨與支援</td>
+            <td>
+                <p>「穩定供貨與快速支援」4 項：現貨供應／快速交貨／可提供樣品／B2B 合作</p>
+            </td>
+            <td>
+                <p>「為什麼選擇 EnviroValor 散氣管？」6 項：可靠的旋熔結構／出貨前逐支測漏／明確的 600 mm 規格／清楚實用的技術資料／適合新建與汰換工程／可提供樣品</p>
+            </td>
+            <td>
+                <span class="tag t-warn">待確認</span>
+                <p>散氣盤這 4 項是公司層級的，跟產品無關，適合做成<b>兩頁共用的元件</b>（像 footer 一樣改一次兩頁生效）。散氣管的 6 項大多是產品特色，跟第 3、4 區重複。見 E-7。</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="slot"><span class="n">9</span>型錄下載<br><span class="tag t-new" style="margin-top:6px">新增</span></td>
+            <td><span class="tag t-new">新增</span><p>帶出「細氣泡散氣盤型錄」「EV-270 技術資料」</p></td>
+            <td><span class="tag t-new">新增</span><p>帶出「600mm 細氣泡散氣管型錄」</p></td>
+            <td>從後台讀取。需要在後台幫每份型錄標記屬於哪個產品。見 E-8。</td>
+        </tr>
+
+    </tbody>
+</table>
+</div>
+
+
+<!-- ===================================================== -->
+<h2 id="c">C. 寫法差異 <small>同樣的東西用了不同 class 或結構</small></h2>
+
+<div class="card scroll">
+<table>
+    <thead>
+        <tr><th>項目</th><th>散氣盤</th><th>散氣管</th><th>統一後</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>規格旁的照片欄</td>
+            <td><code>.spec-shots</code></td>
+            <td><code>.product-visual-panel</code></td>
+            <td>統一一個 class（CSS 裡這兩個本來就寫在一起）</td>
+        </tr>
+        <tr>
+            <td>規格列表外框</td>
+            <td><code>.spec-tabs</code> + <code>.spec-tab-panel</code></td>
+            <td><code>.specs-panel</code>（沒有分頁）</td>
+            <td>都用 <code>.spec-tabs</code></td>
+        </tr>
+        <tr>
+            <td>產品特色</td>
+            <td><code>.flat-feature-grid</code></td>
+            <td><code>.product-tab-layout</code></td>
+            <td>第 3 區用卡片、第 4 區用分頁，兩頁一致</td>
+        </tr>
+        <tr>
+            <td>結構設計</td>
+            <td><code>.structure-split</code> + <code>.struct-grid</code></td>
+            <td>（在產品特色的分頁裡）</td>
+            <td>改用分頁元件，<code>.struct-grid</code> 可移除</td>
+        </tr>
+        <tr>
+            <td>兩欄標籤區</td>
+            <td><code>.dual-summary-grid</code></td>
+            <td><code>.summary-grid</code></td>
+            <td>統一用 <code>.summary-grid</code></td>
+        </tr>
+        <tr>
+            <td>結尾卡片</td>
+            <td><code>.supply-list</code>（圖示：✓ 7 S B2B）</td>
+            <td><code>.why-grid</code>（編號 01–06）</td>
+            <td>共用元件，擇一樣式</td>
+        </tr>
+        <tr>
+            <td>區塊標題寫法</td>
+            <td><code>.section-head</code> 與 <code>.structure-copy</code>、<code>.summary-block</code> 混用</td>
+            <td><code>.section-head</code> 與 <code>.summary-block</code> 混用</td>
+            <td>每個區塊都用 <code>.section-head</code>（kicker + h2 + 說明），側邊目錄靠它抓標題</td>
+        </tr>
+        <tr>
+            <td>背景色順序</td>
+            <td>淺 → 深 → 白 → 深 → 淺</td>
+            <td>淺 → 白 → 淺 → 深</td>
+            <td>依骨架固定，選用區塊省略時自動接上</td>
+        </tr>
+        <tr>
+            <td>inline style</td>
+            <td>防逆流區的說明文字 <code>style="color:…"</code></td>
+            <td>照片 <code>style="object-position:center 3%"</code></td>
+            <td>改成 class</td>
+        </tr>
+        <tr>
+            <td>HTML 縮排</td>
+            <td><code>&lt;section</code> 換行屬性不縮排</td>
+            <td>分頁按鈕屬性縮排 4 格</td>
+            <td>統一一種</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+
+<!-- ===================================================== -->
+<h2 id="d">D. 規格欄位名稱 <small>同一個意思用了不同說法</small></h2>
+
+<div class="card scroll">
+<table>
+    <thead>
+        <tr><th>散氣盤</th><th>散氣管</th><th>建議統一</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>型號</td><td>產品型號</td><td>型號</td></tr>
+        <tr><td>類型</td><td>產品類型</td><td>類型</td></tr>
+        <tr><td>本體材質</td><td>支撐本體</td><td>本體材質</td></tr>
+        <tr><td>氣泡尺寸</td><td>孔徑大小</td><td>氣泡尺寸<br><span class="note">注意：一個講氣泡、一個講孔徑，意思不完全一樣，請確認</span></td></tr>
+        <tr><td>膜片材質</td><td>膜片材質</td><td>✓ 已一致</td></tr>
+        <tr><td>應用</td><td>—</td><td>規格表裡可拿掉，第 7 區已有</td></tr>
+        <tr><td>供貨</td><td>—</td><td>規格表裡可拿掉，第 8 區已有</td></tr>
+        <tr><td>—</td><td>尺寸／通氣量／重量／束環材質／膜片開孔數／進氣結構／漏氣控制</td><td>產品特有，保留</td></tr>
+    </tbody>
+</table>
+</div>
+
+
+<!-- ===================================================== -->
+<h2 id="e">E. 需要你確認 <small>回覆編號即可，例如「1 照建議、2 改成…」</small></h2>
+
+<div class="card">
+
+    <div class="q">
+        <div class="num">1</div>
+        <div>
+            <h4>Hero 的 hero-note（Hero 下方一行小字）</h4>
+            <p>散氣盤有「現貨供應。快速交貨。可依需求提供樣品。」，散氣管沒有。</p>
+            <div class="rec">建議：散氣管也加上同一句。這是公司層級的訊息，兩個產品都適用。</div>
+        </div>
+    </div>
+
+    <div class="q">
+        <div class="num">2</div>
+        <div>
+            <h4>散氣管的「產品特色」卡片</h4>
+            <p>表格 B-3 裡的 8 張草稿，內容都取自散氣管頁現有的文字，沒有新增任何規格。</p>
+            <div class="rec">建議：照草稿使用，你確認數字和用詞即可。</div>
+        </div>
+    </div>
+
+    <div class="q">
+        <div class="num">3</div>
+        <div>
+            <h4>散氣盤的「結構設計」改成分頁</h4>
+            <p>分頁需要每項有一段說明（散氣管每頁有 2–3 段）。散氣盤目前每項只有一句話。</p>
+            <div class="rec">建議：先整併成 3 個分頁：EPDM 膜片／P.P. 支撐本體／自密封與低壓損設計。內文從頁面上既有的段落（Hero、規格說明、膜片說明）搬過來，我先擬一版給你改。</div>
+        </div>
+    </div>
+
+    <div class="q">
+        <div class="num">4</div>
+        <div>
+            <h4>散氣盤規格分頁的重複欄位</h4>
+            <p>「氧氣傳輸性能」分頁裡的型號、類型、氣泡尺寸跟「基本規格」分頁重複。</p>
+            <div class="rec">建議：從「氧氣傳輸性能」拿掉這 3 項，只留性能數據。</div>
+        </div>
+    </div>
+
+    <div class="q">
+        <div class="num">5</div>
+        <div>
+            <h4>散氣管規格要不要分組</h4>
+            <p>目前 12 項在同一個列表。</p>
+            <div class="rec">建議：照「規劃總覽」的 3 組統稱分開：基本規格／性能數據／材質與結構，兩頁分頁名稱完全相同。</div>
+            <p class="note">另外：<code>images/tube/01.jpg</code> 沒有用在輪播裡，是刻意拿掉的嗎？</p>
+        </div>
+    </div>
+
+    <div class="q">
+        <div class="num">6</div>
+        <div>
+            <h4>散氣盤的「性能優勢」標籤</h4>
+            <p>散氣管有 9 個，散氣盤沒有。</p>
+            <div class="rec">建議：用 B-7 的草稿 6 個標籤（都取自散氣盤頁現有內容）。</div>
+        </div>
+    </div>
+
+    <div class="q">
+        <div class="num">7</div>
+        <div>
+            <h4>結尾的「供貨與支援」做成共用元件</h4>
+            <p>散氣盤的 4 項（現貨供應／快速交貨／可提供樣品／B2B 合作）是公司層級的。散氣管的 6 項「為什麼選擇」大多在講產品特色，跟第 3、4 區重複。</p>
+            <div class="rec">建議：兩頁共用散氣盤這 4 項，散氣管的 6 項拿掉（內容已併入第 3 區的卡片）。樣式用散氣管的編號卡片（.why-grid），比較整齊。</div>
+        </div>
+    </div>
+
+    <div class="q">
+        <div class="num">8</div>
+        <div>
+            <h4>產品頁底部的「型錄下載」</h4>
+            <p>需要在後台加一個「所屬產品」欄位，產品頁才知道要帶出哪幾份型錄。</p>
+            <div class="rec">建議：這次先做骨架和側邊目錄，型錄下載下一步再做。</div>
+        </div>
+    </div>
+
+    <div class="q">
+        <div class="num">9</div>
+        <div>
+            <h4>5 大類的名稱與分法</h4>
+            <p>產品概覽／結構設計／規格資料／應用與效益／供貨與支援。英文版對應：Overview／Design／Specifications／Applications／Supply &amp; Support。</p>
+            <div class="rec">建議：照這 5 類。名稱可以改，但定案後所有產品都用同一套，目錄才會一致。</div>
+        </div>
+    </div>
+
+    <div class="q">
+        <div class="num">10</div>
+        <div>
+            <h4>側邊目錄的樣式</h4>
+            <p>桌機左側固定、展開目前大類的細項；手機上方橫向標籤列，只放 5 大類。</p>
+            <div class="rec">建議：照「規劃總覽 → 目錄怎麼運作」做。</div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<h2 id="f">F. 新產品上架清單 <small>統一之後，上架新產品只要準備這些</small></h2>
+<p class="lead">
+    骨架統一後，我會做一份產品頁範本。新產品照這張清單把內容備齊，套進範本就能上線；
+    這份清單同時也是之後如果要做「產品後台」的欄位設計。中英文各一份。
+</p>
+
+<div class="card scroll">
+<table>
+    <thead>
+        <tr><th style="width:120px">大類</th><th style="width:170px">欄位</th><th style="width:150px">數量／限制</th><th>範例（散氣管）</th></tr>
+    </thead>
+    <tbody>
+        <tr><td class="slot" rowspan="5">1 產品概覽</td><td>產品類別（eyebrow）</td><td>1 行</td><td>細氣泡散氣管</td></tr>
+        <tr><td>主標題</td><td>1 句，約 20 字內</td><td>600 mm 細氣泡散氣管解決方案</td></tr>
+        <tr><td>介紹段落</td><td>1–3 段</td><td>EnviroValor 提供適用於…</td></tr>
+        <tr><td>數據帶</td><td>固定 4 項（名稱＋數字＋單位）</td><td>通氣量 1.8–12 CMH</td></tr>
+        <tr><td>重點卡片</td><td>6–8 張（名稱＋一句話）</td><td>品質檢測｜每支出貨前皆經測漏檢測</td></tr>
+        <tr><td class="slot" rowspan="2">2 結構設計</td><td>結構分頁</td><td>3–5 個（標題＋副標＋1–3 段＋可選條列）</td><td>旋熔式進氣結構，並逐支測漏</td></tr>
+        <tr><td>特殊設計</td><td>選用</td><td>（散氣管無）</td></tr>
+        <tr><td class="slot" rowspan="3">3 規格資料</td><td>產品照片</td><td>3–4 張，同比例</td><td>images/tube/02.jpg…</td></tr>
+        <tr><td>規格</td><td>3 組統稱，每組數項（名稱＋數值）</td><td>基本規格｜型號 EVT-600</td></tr>
+        <tr><td>型錄</td><td>在後台上傳並選擇所屬產品</td><td>600mm 細氣泡散氣管型錄</td></tr>
+        <tr><td class="slot">4 應用與效益</td><td>性能標籤／應用標籤</td><td>各 6–9 個</td><td>高氧氣傳輸效率／市政污水處理</td></tr>
+        <tr><td class="slot">5 供貨與支援</td><td>（共用，不用準備）</td><td>—</td><td>—</td></tr>
+        <tr><td class="slot">其他</td><td>SEO</td><td>標題、描述、Open Graph 圖</td><td>沿用現有頁面寫法</td></tr>
+    </tbody>
+</table>
+<p class="note">產品頁右上角的產品動畫（散氣盤、散氣管的向量圖）是各自手刻的，新產品需要另外設計，或先用產品照片代替。</p>
+</div>
+
+</div>
+</body>
+</html>

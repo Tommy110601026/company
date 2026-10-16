@@ -25,7 +25,9 @@ export function initStatCount(){
             parseFloat(el.dataset.count);
 
         const dec =
-            Number(el.dataset.dec || 0);
+            (el.dataset.dec != null
+            ? Number(el.dataset.dec)
+            : ((el.dataset.count.split(".")[1] || "").length));
 
         el.textContent = target.toFixed(dec);
     };
@@ -63,7 +65,9 @@ function run(el){
         parseFloat(el.dataset.count);
 
     const dec =
-        Number(el.dataset.dec || 0);
+        (el.dataset.dec != null
+            ? Number(el.dataset.dec)
+            : ((el.dataset.count.split(".")[1] || "").length));
 
     let start = null;
 
