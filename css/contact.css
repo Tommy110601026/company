@@ -258,3 +258,14 @@
     }
 
 }
+.inquiry-contact{
+    list-style:none;
+    padding-left:0;
+    line-height:1.7;
+}
+
+.inquiry-contact a{
+    color:inherit;
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
